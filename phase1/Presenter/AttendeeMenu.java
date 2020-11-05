@@ -22,6 +22,7 @@ public class AttendeeMenu extends JFrame implements ActionListener {
         messenger.setPreferredSize(new Dimension(300,180));
         messenger.setText("Send a message!");
         messenger.setFont(newButtonFont);
+        messenger.addActionListener(this);
         this.add(schedule);
         this.add(signup);
         this.add(cancel);
@@ -35,6 +36,9 @@ public class AttendeeMenu extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == messenger){
+            new MsgWindow();
+        }
+        //no schedule was created to sign up for the event or to see the schedule
     }
 }
