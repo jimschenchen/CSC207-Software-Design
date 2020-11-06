@@ -1,2 +1,2 @@
-public class Gateway {
+public interface Gateway {
 }
