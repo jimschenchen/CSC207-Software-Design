@@ -1,10 +1,12 @@
 public class Room {
     private int room_num;
+    private static int r_n;
     private int capacity;
 
-    public Room(int room_n, int cap){
-        this.room_num = room_n;
+    public Room(int cap){
         this.capacity = cap;
+        this.room_num = r_n;
+        r_n ++;
     }
 
     public int getRoom_num() {

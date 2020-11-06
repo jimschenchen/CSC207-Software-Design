@@ -6,9 +6,9 @@ public class Event {
     private String speaker;
     private String title;
     private int room_num;
-    private List<String> users_lst;
+    private List<User> users_lst;
 
-    public Event(Double start, String speaker_n, String topic, int room_n, List<String> users){
+    public Event(Double start, String speaker_n, String topic, int room_n, List<User> users){
         this.start_time = start;
         this.speaker = speaker_n;
         this.title = topic;
@@ -16,43 +16,12 @@ public class Event {
         this.users_lst = users;
     }
 
-    public boolean can_remove(List<String> user){
-        int a = 0;
-        for (int i = 0; i < user.size(); i++) {
-            if (users_lst.contains(user.get(i))) {
-                a++;
-            }
-        }
-        if (user.size() == a){
-            return true;
-        }
-        return false;
+    public void remove(User user){
+        users_lst.remove(user);
     }
 
-    public boolean remove_user(List<String> user) {
-        if (can_remove(user) == false){
-            return false;
-        }
-        for (int i = 0; i < user.size(); i++) {
-            if (users_lst.contains(user.get(i))) {
-                users_lst.remove(user.get(i));
-            }
-        }
-        return true;
-    }
-
-    public void add_multi_users(List<String> user){
-        for (int i = 0; i < user.size(); i ++){
-            boolean flag = false;
-            for (int j = 0; j < users_lst.size(); j ++){
-                if (users_lst.get(j) == user.get(i)){
-                    flag = true;
-                }
-            }
-            if (flag == false){
-                users_lst.add(user.get(i));
-            }
-        }
+    public void add(User user){
+        users_lst.add(user);
     }
 
     public Double getStart_time() {
@@ -71,7 +40,7 @@ public class Event {
         return room_num;
     }
 
-    public List<String> getUsers_lst() {
+    public List<User> getUsers_lst() {
         return users_lst;
     }
 }

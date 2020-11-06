@@ -3,14 +3,13 @@ import java.util.List;
 
 public abstract class User {
     private int user_id;
+    private static int u_id;
     private String password;
-    private List<String> friends;
-//    private List<String> user_id;
-//    private List<String> password;
-//    private boolean bilingual;
+    private List<User> friends;
 
-    public User(int id, String passw){
-        this.user_id = id;
+    public User(String passw){
+        this.user_id = u_id;
+        u_id ++;
         this.password = passw;
         this.friends = new ArrayList<>();
     }
@@ -19,40 +18,16 @@ public abstract class User {
         this.password = password;
     }
 
-    public void setFriends(List<String> add_friends){
-        for(int x = 0; x < add_friends.size(); x++){
-            boolean flag = false;
-            for(int y = 0; y < friends.size(); x ++){
-                if (add_friends.get(x) == friends.get(y)){
-                    flag = true;
-                }
-            }
-            if (flag == false){
-                friends.add(add_friends.get(x));
-            }
-        }
+    public void new_friends(User new_user){
+        this.friends.add(new_user);
     }
+
 
     public int getUser_id() {
         return user_id;
     }
 
-    public List<String> getFriends() {
+    public List<User> getFriends() {
         return friends;
     }
-
-//    public void Message_fri(List<String> add_friends)
-//    {
-//        for(int x = 0; x < add_friends.size(); x++){
-//            boolean flag = false;
-//            for(int y = 0; y < friends.size(); x ++){
-//                if (add_friends.get(x) == friends.get(y)){
-//                    flag = true;
-//                }
-//                if (flag == false){
-//                    friends.add(add_friends.get(x));
-//                }
-//            }
-//        }
-//    }
 }
