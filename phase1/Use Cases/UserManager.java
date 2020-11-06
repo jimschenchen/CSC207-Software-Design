@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+//!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
+// FEEL FREE TO ADD THEM!!! THANKSSSS :)
+
 public class UserManager {
     private User user;
 

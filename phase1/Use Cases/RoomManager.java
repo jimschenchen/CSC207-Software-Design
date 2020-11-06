@@ -1,5 +1,8 @@
 import java.util.List;
 
+//!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
+// FEEL FREE TO ADD THEM!!! THANKSSSS :)
+
 public class RoomManager {
     private Room room;
     private List<Room> all_rooms;
