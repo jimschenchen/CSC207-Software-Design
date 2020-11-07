@@ -3,7 +3,7 @@ import Store.*;
 /*
  * CSC207.Store All the Data
  */
-public class Store {
+public class DataBase {
     /**
      * Attributes
      * NOTE: Use @SerializeName("total_number") to change the serilization rule

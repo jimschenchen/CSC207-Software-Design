@@ -10,7 +10,7 @@ public class GatewayFacade {
 
     public static void write () throws IOException {
         // create a bean
-        Store rb = new Store();
+        DataBase rb = new DataBase();
 
         // primitive
         rb.setEventNumber(12);
@@ -27,14 +27,14 @@ public class GatewayFacade {
     }
 
     public static void read () {
-        Store rb = new Store();
+        DataBase rb = new DataBase();
         rb = Utils.pull();
         System.out.println(rb.getEventNumber());
         System.out.println(rb.getUserList());
     }
 
     public static void mutate () {
-        Store rb = new Store();
+        DataBase rb = new DataBase();
         rb = Utils.pull();
         rb.setUserNumber(1);
         rb.getUserList().remove(0);
