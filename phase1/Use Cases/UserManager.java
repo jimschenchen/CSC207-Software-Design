@@ -25,4 +25,8 @@ public class UserManager {
             }
         }
     }
+
+    public void resetPassword(User user, String newPassword){
+        user.setPassword(newPassword);
     }
+}

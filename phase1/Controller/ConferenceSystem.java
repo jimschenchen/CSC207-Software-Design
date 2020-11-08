@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceSystem {
@@ -8,6 +9,14 @@ public class ConferenceSystem {
     RoomManager rm = new RoomManager();
     UserManager um = new UserManager();
     Gateway gw;
+    User user;
+
+//  constructor
+    public ConferenceSystem(User user){
+        this.user = user;
+    }
+
+    public ConferenceSystem(){}
 
 //    send messages, read messages
     public boolean sendMessages(){
@@ -23,9 +32,20 @@ public class ConferenceSystem {
 
     }
 
+//  deregister from event
+    public boolean withdrawFromEvent(User user, Event event){
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user);
+        if (em.can_remove(users)){
+            em.remove_user(users);
+        }
+    }
+
 //    change password
     public boolean resetPassword(String newPassword){
-
+        if (newPassword.length() >= 6){
+            um.resetPassword(user, newPassword);
+        }
     }
 
 //    create a speaker account into system
