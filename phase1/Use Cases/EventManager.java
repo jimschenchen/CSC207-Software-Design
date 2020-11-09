@@ -6,6 +6,44 @@ import java.util.List;
 
 public class EventManager {
     private Event event;
+    //private Map<Room, Event> all_events;
+    //不知道怎么读取database， 所以我用all_events来代表map of events with key (room) and value (event) sorted by time.
+    //Map<Room, Event> all_events = new HashMap<Room, Event>();
+    //我觉得map的key直接写时间会不会好一些，因为这样会更加容易sort
+    //疑问：我们是不是应该创建一个constructor来写all_events?
+    //public EventManager(){
+    //  this.all_events = ...   #。。。表示database中的相关信息
+    //}
+    //我下面所有代码都是根据假设需要创造这个constructor来写的
+
+    public void add_new_event(Event event){
+
+        int cond = 0;
+        for(Room r : all_events){
+            if (r.getRoom_num() == event.getRoom_num()){
+                cond = 1;
+            }
+            if (all_events[r].getStart_time() == event.getStart_time()){
+                cond = 1;
+            }
+        }
+        if(cond == 0){
+            all_events.put(event.getRoom(), event);  //这样是不会按时间顺序添加event到all_events里面的
+            //这一行是留给“添加new event to database的，不写是因为不会database
+        }
+    }
+
+    public void setSpeaker(Speaker speaker, Event event){
+        int cond = 0;
+        for(Event eve: speaker.get_eventlist()){
+            if (eve.getStart_time() == event.getStart_time()){
+                cond = 1;
+            }
+        }
+        if (cond == 0){
+            event.setSpeaker(speaker);
+        }
+    }
 
     public List<Integer> add_user_ids(List<User> user){
         List<Integer> all_ids = new ArrayList<>();

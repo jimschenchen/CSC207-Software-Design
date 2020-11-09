@@ -3,24 +3,26 @@ import java.util.List;
 
 public class Event {
     private Double start_time;
-    private String speaker;
+    private Speaker speaker;
     private String title;
-    private int room_num;
-    private List<User> users_lst;
+    private Room room;
+    private ArrayList<User> users_lst;
 
-    public Event(Double start, String speaker_n, String topic, int room_n, List<User> users){
+    public Event(Double start, Speaker speaker_n, String topic, Room room_n){
         this.start_time = start;
-        this.speaker = speaker_n;
+        this.speaker = speaker_n;  //有没有办法不在constructor 定义speaker？
         this.title = topic;
-        this.room_num = room_n;
-        this.users_lst = users;
+        this.room = room_n;
+        this.users_lst = new ArrayList<>();
     }
 
-    public void remove(User user){
-        users_lst.remove(user);
+    public void remove_user(User user){
+        if(users_lst.contains(user)){
+            users_lst.remove(user);
+        }
     }
 
-    public void add(User user){
+    public void add_user(User user){
         users_lst.add(user);
     }
 
@@ -28,8 +30,12 @@ public class Event {
         return start_time;
     }
 
-    public String getSpeaker() {
+    public Speaker getSpeaker() {
         return speaker;
+    }
+
+    public void setSpeaker(Speaker s){
+        this.speaker = s;
     }
 
     public String getTitle() {
@@ -37,7 +43,11 @@ public class Event {
     }
 
     public int getRoom_num() {
-        return room_num;
+        return room.getRoom_num();
+    }
+
+    public Room getRoom() {
+        return room;
     }
 
     public List<User> getUsers_lst() {

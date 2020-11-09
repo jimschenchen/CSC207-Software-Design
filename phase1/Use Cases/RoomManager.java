@@ -9,7 +9,7 @@ public class RoomManager {
 
     public RoomManager(Room rm, List<Room> all_rm){
         this.room = rm;
-        this.all_rooms = all_rm;
+        this.all_rooms = all_rm;  //我觉得这个应该从database中读取吧？而不是我们自己输入
     }
 
     public boolean add_room(Room new_room){
@@ -25,4 +25,12 @@ public class RoomManager {
         }
         return false;
     }
+
+
+    /*public void create_add_room(int roomnum){
+     *  Room r = new Room();
+     *  all_rooms.add(r);
+     *  //这一行是用来添加这个room到database的，但是我不会写。
+     * }
+     */
 }
