@@ -1,39 +1,31 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class User {
-    private int user_id;
-    private String user_name;
-    private static int u_id;
+//    we do not need friend list in Phrase 1. The uid will be counted by gateway.
+    private final int uid;
+    private String username;
     private String password;
-    private List<User> friends;
 
-    public User(String passw, String name){
-        this.user_name = name;
-        this.user_id = u_id;
-        u_id ++;
-        this.password = passw;
-        this.friends = new ArrayList<>();
+    public User(int uid, String password, String name){
+        this.uid = uid;
+        this.username = name;
+        this.password = password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void add_new_friends(User new_user){
-        this.friends.add(new_user);
-    }
 
 
     public int getUser_id() {
-        return user_id;
+        return uid;
     }
 
     public String getUser_name() {
-        return user_name;
+        return username;
     }
 
-    public List<User> getFriends() {
-        return friends;
+    public String getPassword() {
+        return password;
     }
+
 }

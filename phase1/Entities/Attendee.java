@@ -1,25 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 public class Attendee extends User{
-    private List<Event> event_list;
-    public Attendee(String passw, String name) {
-        super(passw, name);
-        this.event_list = new ArrayList<>();
+
+    private ArrayList<Integer> signed_up_event;
+
+    public Attendee(int uid,String password, String name) {
+        super(uid, password, name);
+        this.signed_up_event = new ArrayList<>();
+
     }
 
-    public void add_event (Event event){
-        this.event_list.add(event);
-    }
-
-    public void cancel_event (Event event){
-        this.event_list.remove(event);
-    }
-
-    public List get_partiipared_event_schedule(){
-        List<String> event_title = new ArrayList<>();
-        for (Event e : this.event_list){
-            event_title.add(e.getTitle() + " start at: " + String.valueOf(e.getStart_time()));
+    public boolean SignUpEvent (int eid){
+        if (signed_up_event.contains(eid)) {
+            return false;
         }
-        return event_title;
+        else {
+            signed_up_event.add(eid);
+            return true;
+        }
+
     }
+
+    public boolean cancel_event (int eid){
+        if (signed_up_event.contains(eid)) {
+            signed_up_event.remove(eid);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

@@ -1,26 +1,31 @@
 import java.util.List;
+import Store.*;
 /*
  * CSC207.Store All the Data
  */
 public class DataBase {
-    /**
-     * Static storage
-     */
-//    public static DataBase data;
-
     /**
      * Attributes
      * NOTE: Use @SerializeName("total_number") to change the serilization rule
      */
     private int userNumber;
     private int eventNumber;
-    private List<User> userList;
-    private List<Event> eventList;
+    private List<UserStore> userList;
+    private List<UserStore> eventList;
 
     /**
-     *
+     * Sub Bean
      */
 
+    public class EventBean{
+        private int eid;
+        private String name ;
+
+        public EventBean(int eid, String name) {
+            this.eid = eid;
+            this.name = name;
+        }
+    }
 
     /**
      * Getter & Setter
@@ -41,19 +46,19 @@ public class DataBase {
         this.eventNumber = eventNumber;
     }
 
-    public List<User> getUserList() {
+    public List<UserStore> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(List<UserStore> userList) {
         this.userList = userList;
     }
 
-    public List<Event> getEventList() {
+    public List<UserStore> getEventList() {
         return eventList;
     }
 
-    public void setEventList(List<Event> eventList) {
+    public void setEventList(List<UserStore> eventList) {
         this.eventList = eventList;
     }
 }

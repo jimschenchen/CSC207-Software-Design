@@ -1,56 +1,61 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class Event {
-    private Double start_time;
-    private Speaker speaker;
+    private Double start_time; // think about time.localdatetime.
+    private int speaker_id;
     private String title;
-    private Room room;
-    private ArrayList<User> users_lst;
+    private int room_id;
+    private ArrayList<Integer> singned_userid;
 
-    public Event(Double start, Speaker speaker_n, String topic, Room room_n){
+    public Event(Double start, int speaker_id, String topic, int room_n){
         this.start_time = start;
-        this.speaker = speaker_n;  //有没有办法不在constructor 定义speaker？
+        this.speaker_id = speaker_id;  //有没有办法不在constructor 定义speaker？
         this.title = topic;
-        this.room = room_n;
-        this.users_lst = new ArrayList<>();
+        this.room_id = room_n;
+        this.singned_userid = new ArrayList<>();
     }
 
-    public void remove_user(User user){
-        if(users_lst.contains(user)){
-            users_lst.remove(user);
+    public boolean remove_user(int user_id){
+        if(singned_userid.contains(user_id)){
+            singned_userid.remove(user_id);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
-    public void add_user(User user){
-        users_lst.add(user);
+    public boolean add_user(int user_id){
+        if(singned_userid.contains(user_id)) {
+            return false;
+        }
+        else {
+            singned_userid.add(user_id);
+            return true;
+        }
     }
 
     public Double getStart_time() {
         return start_time;
     }
 
-    public Speaker getSpeaker() {
-        return speaker;
+    public int getSpeakerId() {
+        return speaker_id;
     }
 
-    public void setSpeaker(Speaker s){
-        this.speaker = s;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public int getRoom_num() {
-        return room.getRoom_num();
+    public int getRoomId() {
+        return room_id;
     }
 
-    public Room getRoom() {
-        return room;
-    }
 
-    public List<User> getUsers_lst() {
-        return users_lst;
+    public ArrayList<Integer> getSingned_userid() {
+        return singned_userid;
     }
 }
