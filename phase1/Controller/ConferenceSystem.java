@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ public class ConferenceSystem {
     RoomManager rm = new RoomManager();
     UserManager um = new UserManager();
     Gateway gw; // not sure what to do after storing gateway
+    DataBase db = new DataBase();
+    int user; // store user id
 
 
     // login
@@ -25,6 +28,7 @@ public class ConferenceSystem {
         }
         if (um.canLogin(iuid, password)){
             um.login(iuid, password);
+            user = iuid;
             return true;
         }
         return false; // return false when login fail
@@ -49,6 +53,7 @@ public class ConferenceSystem {
 
     //read messages
     public String readMessages(){
+        List<Message> messages = db.getMessageListByUserId(user);
 
     }
 
@@ -62,8 +67,9 @@ public class ConferenceSystem {
 
     }
 
+    // !!!! need change !!!!
     // deregister from event
-    public boolean withdrawFromEvent(User user, Event event){
+    public boolean withdrawFromEvent(User user, int event){
         ArrayList<User> users = new ArrayList<>();
         users.add(user);
         if (em.can_remove(users)){
@@ -77,14 +83,19 @@ public class ConferenceSystem {
     public boolean addNewSpeaker(String name, String password){
     }
 
-//    create a new room into system
-    public boolean addNewRoom(int capacity){
-
+    // create a new room into system
+    // subject to changes, should only need roomNumber as input
+    public boolean addNewRoom(int roomNumber){
+        int roomID = db.getNextRoomId();
+        Room room = new Room(roomNumber, roomID);
+        return rm.add_room(room);
     }
 
-//    create an event.
-    public boolean newEvent(Double startTime, String speaker, String topic, int room, List<User> attendees){
-
+    // create an event.
+    public boolean newEvent(Double startTime, int speakerID, String topic, int roomNumber){
+        int eventID = db.getNextEventId();
+        Event event = new Event(startTime, eventID, speakerID, topic, roomNumber);
+        return em.add_new_event(event);
     }
 
 //    view current events
