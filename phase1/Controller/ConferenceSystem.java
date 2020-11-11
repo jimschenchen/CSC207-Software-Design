@@ -14,9 +14,13 @@ public class ConferenceSystem {
     // login
     // it would be even better if presenter can pass in int instead of string, but this is also completely fine
     public boolean login(String uid, String password){
-        int iuid = Integer.parseInt(uid);
-        // length of id must be at least 1
-        if (uid.length() == 0){
+        int iuid;
+        try {
+            // String to int conversion
+            iuid = Integer.parseInt(uid);
+        }
+        catch(NumberFormatException nfe) {
+            // when the input is not a valid number
             return false;
         }
         if (um.canLogin(iuid, password)){

@@ -33,7 +33,7 @@ public class UserManager {
 
     // login methods
     // wrote controller methods assuming:
-    // 1) controller check if uid input has length >= 1
+    // 1) controller check if uid input valid
     // 2) if true, pass uid(int) and password(string) to canLogin
     // 3) canLogin match the uid and password, if match then return true, false otherwise
     // 4) if true, controller pass uid and password to usermanager login method
