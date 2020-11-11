@@ -9,7 +9,6 @@ public class ConferenceSystem {
     RoomManager rm = new RoomManager();
     UserManager um = new UserManager();
     Gateway gw; // not sure what to do after storing gateway
-    int user; // stores the uid of the user currently logged in
 
 
     // login

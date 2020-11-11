@@ -26,7 +26,7 @@ public class UserManager {
         }
     }
 
-    // assume user cannot change password before login
+    // assume users cannot change password before login
     public void setPassword(String newPassword){
         user.setPassword(newPassword);
     }
