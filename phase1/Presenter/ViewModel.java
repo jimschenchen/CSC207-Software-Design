@@ -28,13 +28,24 @@ public class ViewModel implements ViewActions {
         return user;
     }
 
+
     @Override
-    public String Pass(String args[]) {
+    public String Pass() {
         Console c=System.console();
         System.out.println("Enter your password here: ");
         char[] ch=c.readPassword();
-        String pass=String.valueOf(ch);//converting char array into string
+        String pass = String.valueOf(ch);//converting char array into string
        return pass;
+    }
+
+    @Override
+    public String[] SignIn(){
+        Console c = System.console();
+        System.out.println("To sign in enter your username here:");
+        String n = c.readLine();
+        System.out.println("To sign in enter your password here:");
+        String k = c.readLine();
+        return new String[]{n, k};
     }
 
     @Override
@@ -65,7 +76,6 @@ public class ViewModel implements ViewActions {
     public int MessengerOrganizer() {
         int i = 0;
         Console c=System.console();
-        System.out.println("Welcome to Organizer Messenger!");
         System.out.println("Type 5 If you want to send the message to all the users:");
         String n = c.readLine();
         i = Integer.parseInt(n);
@@ -76,7 +86,6 @@ public class ViewModel implements ViewActions {
     public int MessengerSpeaker() {
         int i = 0;
         Console c=System.console();
-        System.out.println("Welcome to Speaker Messenger!");
         System.out.println("Type 6 If you want to send the message to all talk's attendees:");
         String n = c.readLine();
         i = Integer.parseInt(n);
@@ -103,7 +112,7 @@ public class ViewModel implements ViewActions {
 
     @Override
     public int AttendeeMenu() {
-        System.out.println("Welcome to AttendeeMenu!");
+        System.out.println("Welcome to Menu!");
         Console c=System.console();
         int i = 0;
         System.out.println("Type 1 If you want to open messenger: ");

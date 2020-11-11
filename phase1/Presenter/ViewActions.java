@@ -3,7 +3,8 @@ public interface ViewActions {
     void Introduction();
     int AreURegistered();
     String Username();
-    String Pass(String args[]);
+    String[] SignIn();
+    String Pass();
     void Credentials(String username);
     void CredentialsFail();
     int Messenger();
