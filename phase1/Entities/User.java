@@ -1,3 +1,5 @@
+import java.nio.charset.Charset;
+
 public abstract class User {
 //    we do not need friend list in Phrase 1. The uid will be counted by gateway.
     private final int uid;
@@ -13,8 +15,6 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     public int getUser_id() {
         return uid;

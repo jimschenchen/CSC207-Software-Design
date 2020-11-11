@@ -1,3 +1,5 @@
+import sun.awt.HKSCS;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -8,13 +10,15 @@ public class Event {
     private String title;
     private int room_id;
     private ArrayList<Integer> singned_userid;
+    private int event_id;
 
-    public Event(Double start, int speaker_id, String topic, int room_n){
+    public Event(Double start, int event_id, int speaker_id, String topic, int room_n){
         this.start_time = start;
         this.speaker_id = speaker_id;  //有没有办法不在constructor 定义speaker？
         this.title = topic;
         this.room_id = room_n;
         this.singned_userid = new ArrayList<>();
+        this.event_id = event_id;
     }
 
     public boolean remove_user(int user_id){
@@ -54,6 +58,9 @@ public class Event {
         return room_id;
     }
 
+    public int getEvent_id() {
+        return event_id;
+    }
 
     public ArrayList<Integer> getSingned_userid() {
         return singned_userid;
