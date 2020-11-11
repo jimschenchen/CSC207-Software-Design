@@ -40,7 +40,7 @@ public class Gateway {
         lst.add(u1);
         lst.add(u2);
         lst.add(o1);
-        db.setUserList(lst);
+
 
          // save db
          gw.termination(db);
