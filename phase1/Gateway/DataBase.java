@@ -134,7 +134,7 @@ public class DataBase {
         return messageList;
     }
     /**
-    * @Description: Return the List of messages related to <userId>
+    * @Description: Return the List of messages related to <userId>; Cannot add message
     * @Param: [userId]
     * @return: java.util.List<Message>
     * @Date: 2020-11-11
@@ -148,6 +148,9 @@ public class DataBase {
             }
         }
         return ret;
+    }
+    public void addMessage(Message message) {
+        this.messageList.add(message);
     }
 
 }
