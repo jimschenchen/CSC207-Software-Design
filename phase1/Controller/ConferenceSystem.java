@@ -3,54 +3,75 @@ import java.util.List;
 
 public class ConferenceSystem {
 
-//    stores use cases and gateway
+    // stores use cases and gateway
     EventManager em = new EventManager();
     MessageManager mm = new MessageManager();
     RoomManager rm = new RoomManager();
     UserManager um = new UserManager();
-    Gateway gw;
-    User user;
+    Gateway gw; // not sure what to do after storing gateway
+    int user; // stores the uid of the user currently logged in
 
-//  constructor
-    public ConferenceSystem(User user){
-        this.user = user;
+
+    // login
+    // it would be even better if presenter can pass in int instead of string, but this is also completely fine
+    public boolean login(String uid, String password){
+        int iuid = Integer.parseInt(uid);
+        // length of id must be at least 1
+        if (uid.length() == 0){
+            return false;
+        }
+        if (um.canLogin(iuid, password)){
+            um.login(iuid, password);
+            return true;
+        }
+        return false; // return false when login fail
     }
 
-    public ConferenceSystem(){}
+    // change password
+    // assuming users cannot reset passwords before login
+    public boolean resetPassword(String newPassword){
+        // passwords should always be 6 characters or longer
+        if (newPassword.length() >= 6){
+            um.setPassword(newPassword);
+            return true;
+        }
+        return false;
+    }
 
-//    send messages, read messages
-    public boolean sendMessages(){
+    //send message
+    //speaker messages all attendees to his/her talk
+    public boolean speakerMessageAllAttendees(){
 
     }
 
+    //read messages
     public String readMessages(){
 
     }
 
-//    sign up for a event
+    // reply message
+    public boolean replyMessage(Message message, String content){
+        mm.reply_message(message, content);
+    }
+
+    // sign up for a event
     public boolean signUpForEvent(User user, Event event){
 
     }
 
-//  deregister from event
+    // deregister from event
     public boolean withdrawFromEvent(User user, Event event){
         ArrayList<User> users = new ArrayList<>();
         users.add(user);
         if (em.can_remove(users)){
             em.remove_user(users);
+            return true;
         }
+        return false;
     }
 
-//    change password
-    public boolean resetPassword(String newPassword){
-        if (newPassword.length() >= 6){
-            um.resetPassword(user, newPassword);
-        }
-    }
-
-//    create a speaker account into system
-    public boolean addNewSpeaker(String password){
-
+    //create a speaker account into system
+    public boolean addNewSpeaker(String name, String password){
     }
 
 //    create a new room into system
