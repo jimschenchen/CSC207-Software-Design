@@ -60,6 +60,49 @@ public class DataBase {
         return null;
     }
     /**
+    * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
+    * @Param: [id]
+    * @return: Attendee
+    * @Author: 
+    * @Date: 2020-11-12
+    */
+    public Attendee getAttendeeById(int id) {
+        User user = this.getUserById(id);
+        if (user instanceof Attendee) {
+            return (Attendee)user;
+        }
+        return null;
+    }
+    /**
+    * @Description: Return Speaker by given <id>, if the user does not exist or is not Speaker, return null
+    * @Param: [id]
+    * @return: Speaker
+    * @Author:
+    * @Date: 2020-11-12
+    */
+    public Speaker getSpeakerById(int id) {
+        User user = this.getUserById(id);
+        if (user instanceof Speaker) {
+            return (Speaker)user;
+        }
+        return null;
+    }
+    /**
+    * @Description: Return Organizer by given <id>, if the user does not exist or is not Organizer, return null
+    * @Param: [id]
+    * @return: Organizer
+    * @Author:
+    * @Date: 2020-11-12
+    */
+    public Organizer getOrganizerById(int id) {
+        User user = this.getUserById(id);
+        if (user instanceof Organizer) {
+            return (Organizer)user;
+        }
+        return null;
+    }
+
+    /**
     * @Description:
     * @Param: []
     * @return: java.util.List<User>
@@ -79,6 +122,7 @@ public class DataBase {
     public void addUser(User user) {   
         this.userList.add(user);
     }
+
     
     /**
     * @Description:
