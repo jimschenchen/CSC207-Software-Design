@@ -69,7 +69,17 @@ public class DataBase {
     public List<User> getUserList() {
         return userList;
     }
-
+    /**
+    * @Description: add user to user list
+    * @Param: [user]
+    * @return: void
+    * @Author: 
+    * @Date: 2020-11-12
+    */
+    public void addUser(User user) {   
+        this.userList.add(user);
+    }
+    
     /**
     * @Description:
     * @Param: []
@@ -95,6 +105,16 @@ public class DataBase {
             }
         }
         return null;
+    }
+    /**
+    * @Description: add event to event list
+    * @Param: [event]
+    * @return: void
+    * @Author: 
+    * @Date: 2020-11-12
+    */
+    public void addEvent(Event event) {
+        this.eventList.add(event);
     }
 
     /**
@@ -123,6 +143,16 @@ public class DataBase {
         }
         return null;
     }
+    /**
+    * @Description: add room to room list
+    * @Param: [room]
+    * @return: void
+    * @Author: 
+    * @Date: 2020-11-12
+    */
+    public void addRoom(Room room) {
+        this.roomList.add(room);
+    }
 
     /**
     * @Description:
@@ -149,6 +179,13 @@ public class DataBase {
         }
         return ret;
     }
+    /**
+    * @Description: add Message to the Message List
+    * @Param: [message]
+    * @return: void
+    * @Author: 
+    * @Date: 2020-11-12
+    */
     public void addMessage(Message message) {
         this.messageList.add(message);
     }
