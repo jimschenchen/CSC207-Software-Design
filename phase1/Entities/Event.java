@@ -14,7 +14,7 @@ public class Event {
 
     public Event(Double start, int event_id, int speaker_id, String topic, int room_n){
         this.start_time = start;
-        this.speaker_id = speaker_id;  //有没有办法不在constructor 定义speaker？
+        this.speaker_id = speaker_id;
         this.title = topic;
         this.room_id = room_n;
         this.singned_userid = new ArrayList<>();
@@ -48,7 +48,6 @@ public class Event {
     public int getSpeakerId() {
         return speaker_id;
     }
-
 
     public String getTitle() {
         return title;

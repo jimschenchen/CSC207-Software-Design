@@ -21,4 +21,7 @@ public class Message {
         return receiver_id;
     }
 
+    public int getSender() {
+        return sender_id;
+    }
 }

@@ -1,55 +1,81 @@
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.List;
 
 //!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class UserManager {
-    private User user;
 
-    // need to change constructor to empty constructor (no need to pass any parameter to construct new UserManager)
-    public UserManager(User a_user){
-        this.user = a_user;
+    public void createSpeaker(String password, String name, DataBase d){
+        Speaker s = new Speaker(d.getNextUserId(), password, name);
+        d.addUser(s); //汤zheng，jim， 这里是不是应该也在database里面加上一个类似于addMessage（）的方法？
     }
 
-    public void setFriends(List<User> user_list){
-        for(int x = 0; x < user_list.size(); x++){
-            boolean flag = false;
-            for(int y = 0; y < user.getFriends().size(); y ++){
-                List<User> a = user.getFriends();
-                if (user_list.get(x).getUser_id() == a.get(y).getUser_id()){
-                    flag = true;
-                }
-            }
-            if (flag == false){
-                user.new_friends(user_list.get(x));
-            }
+    // 檢查是否能addEventToSpeaker
+    // 如果沒有情況是不能新增event to speaker那把method刪掉就好
+    // jenna & Lihang 麻煩你們implement了
+    public boolean canAddEventToSpeaker(){}
+
+    public void addEventToSpeaker(int eventId, int speakerId, DataBase d){
+        d.getSpeakerById(speakerId).addGivingEvent(eventId);
+    }
+
+    // 有情況是attendee不能加這個event的嗎？如有，得有個canAddEventToAttendee的method -grace(controller)
+    public void addEventToAttendeeOrOrganizer(int eventId, int Id, DataBase d){
+        if (d.getAttendeeById(Id) == null){
+            d.getOrganizerById(Id).signUpEvent(eventId);
+        }else{
+            d.getAttendeeById(Id).signUpEvent(eventId);
         }
     }
 
-    // indicate if the user can sign up for this event
-    public boolean canSignUpForEvent(Event event){}
-
-    // sign user up for event
-    public void signUpForEvent(Event event){}
-
-    // add new speaker to system (gets a Speaker object, need to add to database)
-    // can pass on different input if needed. -grace
-    // is there a situation where u cannot add a new speaker to the system? if so, will need to return boolean
-    public void newSpeaker(Speaker speaker){}
-
-    // assume users cannot change password before login
-    public void setPassword(String newPassword){
-        user.setPassword(newPassword);
+    public void cancelEventToAttendeeOrOrganizer(int eventId, int Id, DataBase d){
+        if (d.getAttendeeById(Id) == null){
+            d.getOrganizerById(Id).cancelEvent(eventId);
+        }else{
+            d.getAttendeeById(Id).cancelEvent(eventId);
+        }
     }
 
-    // login methods
-    // wrote controller methods assuming:
-    // 1) controller check if uid input valid
-    // 2) if true, pass uid(int) and password(string) to canLogin
-    // 3) canLogin match the uid and password, if match then return true, false otherwise
-    // 4) if true, controller pass uid and password to usermanager login method
-    // 5) login method create user (User class) and store in usermanager -grace
-    public boolean canLogin(int uid, String password){}
+    public void setPassword(int userId,String password, DataBase d) {
+        d.getUserById(userId).setPassword(password);
+    }
 
-    public void login(int uid, String password){}
+    public String getUserName(int userId,DataBase d) {
+        return d.getUserById(userId).getUserName();
+    }
+
+    public List getOrganizerOrAttendeeEventList(int Id, DataBase d){
+        if (d.getAttendeeById(Id) == null){
+            return d.getOrganizerById(Id).getEventList();
+        }else {
+            return d.getAttendeeById(Id).getEventList();
+        }
+    }
+
+    // 加了這幾個method，jenna & Lihang 可以檢查看看有沒有錯嗎？ -grace
+    public List<Integer> getSpeakerEventList(int speakerID, DataBase d){
+        return d.getSpeakerById(speakerID).get_GivingEventList();
+    }
+
+    public String getUserPassword(int userID, DataBase d){
+        return d.getUserById(userID).getPassword();
+    }
+
+    // 不肯定這個應該放在controller還是use case，如果應該在controller請把它搬過去吧
+    public int getUserCategory(int id, DataBase d){
+        if (d.getSpeakerById(id) != null){
+            // return 0 when id is a speaker
+            return 0;
+        }
+        else if (d.getOrganizerById(id) != null){
+            // return 1 when id is an organizer
+            return 1;
+        }
+        else{
+            // return 2 when id is an attendee
+            return 2;
+        }
+    }
 }

@@ -2,42 +2,41 @@ import java.util.ArrayList;
 import java.util.List;
 public class MessageManager {
 //    private
-    private int sender_id;
+    private int senderId;
 
     public void setSender_id(int i) {
-        this.sender_id = i;
+        this.senderId = i;
     }
 
-    public void message_allusers(Event event, String content, DataBase d){
-        for (int receiver_id : event.getSingned_userid()){
-            Message m = new Message(content, this.sender_id, receiver_id);
-            d.messagelist.add(m);
+    public void message_allusers(int eventId, String content, DataBase d){
+        for (int receiver_id : d.getEventById(eventId).getSingned_userid()){
+            Message m = new Message(content, this.senderId, receiver_id);
+            d.addMessage(m);
         }
     }
 
-    public String message_oneuser(Event event_id, User receiver,String content, DataBase d){
-        if (event.getSingned_userid().contains(receiver.getUser_id())) {
-            Message m = new Message(content, this.sender_id, receiver.getUser_id());
-            d.messagelist.add(m);
-            return "success";
-        }else{
-            return "unsuccess";
+    public void message_oneuser(int eventId, int receiverId,String content, DataBase d){
+        if (d.getEventById(eventId).getSingned_userid().contains(receiverId)) {
+            Message m = new Message(content, this.senderId, receiverId);
+            d.addMessage(m);
         }
     }
 
-    public void message_specific_user(Event event, User receiver, String content){
-        Message m = new Message(content, this.sender, receiver);
-        //这一行是用来把message加入到对应receiver的database
+    public void message_specific_user(int receiverId, String content, DataBase d){
+        Message m = new Message(content, this.senderId, receiverId);
+        d.addMessage(m);
+        //我这个没有办法判断sender是否可以发送消息给receiver，因为sender没有一个friedn list
     }
 
-    public void message_speaker(Event event, String content){
-        Message m = new Message(content, this.sender, event.getSpeaker());
-        //这一行是用来把message加入到对应receiver的database
+    public void message_speaker(int eventId, String content, DataBase d){
+        Message m = new Message(content, this.senderId, d.getEventById(eventId).getSpeakerId());
+        d.addMessage(m);
+        //database 中没有直接能通过eventId来得到speaker的方法，所以我先通过eventId找到对应的event，再通过event找到speaker
     }
 
-    public void reply_message(Message message, String content){
-        Message m = new Message(content, message.getReceiver(), message.getSender());
-        //这一行是用来把message加入到对应receiver的database
+    public void reply_message(int receiverId, String content, DataBase d){
+        Message m = new Message(content, this.senderId, receiverId);
+        d.addMessage(m);
     }
 
 

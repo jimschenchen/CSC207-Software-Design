@@ -20,7 +20,7 @@ public abstract class User {
         return uid;
     }
 
-    public String getUser_name() {
+    public String getUserName() {
         return username;
     }
 

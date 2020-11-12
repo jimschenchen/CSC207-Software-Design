@@ -7,10 +7,9 @@ public class Attendee extends User{
     public Attendee(int uid,String password, String name) {
         super(uid, password, name);
         this.signed_up_event = new ArrayList<>();
-
     }
 
-    public boolean SignUpEvent (int eid){
+    public boolean signUpEvent (int eid){
         if (signed_up_event.contains(eid)) {
             return false;
         }
@@ -21,7 +20,7 @@ public class Attendee extends User{
 
     }
 
-    public boolean cancel_event (int eid){
+    public boolean cancelEvent (int eid){
         if (signed_up_event.contains(eid)) {
             signed_up_event.remove(eid);
             return true;
@@ -29,6 +28,10 @@ public class Attendee extends User{
         else {
             return false;
         }
+    }
+
+    public List getEventList (){
+        return signed_up_event;
     }
 
 }

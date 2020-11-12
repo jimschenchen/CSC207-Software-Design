@@ -16,6 +16,7 @@ public class EventManager {
     //}
     //我下面所有代码都是根据假设需要创造这个constructor来写的
 
+    // 希望可以分開canAddNewEvent和addNewEvent兩個method -grace
     public void add_new_event(Event event){
 
         int cond = 0;
@@ -28,11 +29,12 @@ public class EventManager {
             }
         }
         if(cond == 0){
-            all_events.put(event.getRoom(), event);  //这样是不会按时间顺序添加event到all_events里面的
+            all_events.put(event.getRoomId(), event);  //这样是不会按时间顺序添加event到all_events里面的
             //这一行是留给“添加new event to database的，不写是因为不会database
         }
     }
 
+    // 希望可以分開爲兩個method，canSetSpeaker & setSpeaker
     public void setSpeaker(Speaker speaker, Event event){
         int cond = 0;
         for(Event eve: speaker.get_eventlist()){
@@ -95,9 +97,6 @@ public class EventManager {
     // add user to event
     public void addUserToEvent(User user, Event event){}
 }
-
-//!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
-// FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 
 
