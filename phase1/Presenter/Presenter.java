@@ -35,9 +35,11 @@ public class Presenter {
     }
     private void MenuOpener(){
         //controller should send information which menu to open
+        // can controller pass in this info when user is logging in? -grace
     }
     private void MessengerOpener(){
         model.Messenger();
         //controller should send information which messenger to open
+        // Question: when reading messages would u like controller to pass on list of String, or list of Message -grace
     }
 }

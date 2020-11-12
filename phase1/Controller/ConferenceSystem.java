@@ -11,7 +11,7 @@ public class ConferenceSystem {
     UserManager um = new UserManager();
     Gateway gw; // not sure what to do after storing gateway
     DataBase db = new DataBase();
-    int user; // store user id
+    int user; // store current user id
 
 
     // login
@@ -28,7 +28,7 @@ public class ConferenceSystem {
         }
         if (um.canLogin(iuid, password)){
             um.login(iuid, password);
-            user = iuid;
+            this.user = iuid;
             return true;
         }
         return false; // return false when login fail
@@ -51,25 +51,43 @@ public class ConferenceSystem {
 
     }
 
-    //read messages
+    //read messages of user
     public String readMessages(){
         List<Message> messages = db.getMessageListByUserId(user);
 
     }
 
     // reply message
+    // subject to changes
     public boolean replyMessage(Message message, String content){
         mm.reply_message(message, content);
     }
 
-    // sign up for a event
-    public boolean signUpForEvent(User user, Event event){
-
+    // user sign up for an event
+    // need the id of registering event from presenter (either int or String
+    // wrote assuming passing in String
+    public boolean signUpForEvent(String eventID){
+        try{
+            int eid = Integer.parseInt(eventID);
+            Event event = db.getEventById(eid);
+            // check if the event exists, and user can sign up for event
+            if (db.getEventById(eid) != null && um.canSignUpForEvent(event)){
+                um.signUpForEvent(event);
+                em.addUserToEvent(db.getUserById(user), event);
+                return true;
+            }
+            // return false when event doesn't exist or user cannot sign up for event
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            // return false when input is invalid
+            return false;
+        }
     }
 
     // !!!! need change !!!!
     // deregister from event
-    public boolean withdrawFromEvent(User user, int event){
+    public boolean withdrawFromEvent(User user, int eventID){
         ArrayList<User> users = new ArrayList<>();
         users.add(user);
         if (em.can_remove(users)){
@@ -80,33 +98,39 @@ public class ConferenceSystem {
     }
 
     //create a speaker account into system
+    // subject to changes
     public boolean addNewSpeaker(String name, String password){
+        int uid = db.getNextUserId();
+        Speaker speaker = new Speaker(uid, password, name);
+        um.newSpeaker(speaker);
+        return true;
     }
 
     // create a new room into system
-    // subject to changes, should only need roomNumber as input
+    // subject to changes
     public boolean addNewRoom(int roomNumber){
         int roomID = db.getNextRoomId();
         Room room = new Room(roomNumber, roomID);
         return rm.add_room(room);
     }
 
-    // create an event.
+    // create a new event
     public boolean newEvent(Double startTime, int speakerID, String topic, int roomNumber){
         int eventID = db.getNextEventId();
         Event event = new Event(startTime, eventID, speakerID, topic, roomNumber);
         return em.add_new_event(event);
     }
 
-//    view current events
+    // view current events
     public List<Event> viewCurrentEvents(){
+        List<Event> events = db.getEventList();
     }
 
-//    view current signed events
+    // view current signed events
     public List<Event> viewSignedUpEvents(){
     }
 
-//    view events the speaker are giving.
+    // view events the speaker are giving.
     public List<Event> viewSpeakingEvents(){}
 
 //    save data method

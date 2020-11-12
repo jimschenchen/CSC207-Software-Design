@@ -91,6 +91,9 @@ public class EventManager {
             }
         }
     }
+
+    // add user to event
+    public void addUserToEvent(User user, Event event){}
 }
 
 //!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!

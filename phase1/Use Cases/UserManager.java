@@ -26,6 +26,17 @@ public class UserManager {
         }
     }
 
+    // indicate if the user can sign up for this event
+    public boolean canSignUpForEvent(Event event){}
+
+    // sign user up for event
+    public void signUpForEvent(Event event){}
+
+    // add new speaker to system (gets a Speaker object, need to add to database)
+    // can pass on different input if needed. -grace
+    // is there a situation where u cannot add a new speaker to the system? if so, will need to return boolean
+    public void newSpeaker(Speaker speaker){}
+
     // assume users cannot change password before login
     public void setPassword(String newPassword){
         user.setPassword(newPassword);
