@@ -39,7 +39,7 @@ public class UserManager {
         return d.getUserById(userId).getUserName();
     }
 
-    public List getUserEventList(int Id, DataBase d){
+    public List getOrganizerOrAttendeeEventList(int Id, DataBase d){
         if (d.getAttendeeById(Id) == null){
             return d.getOrganizerById(Id).getEventList();
         }else {
