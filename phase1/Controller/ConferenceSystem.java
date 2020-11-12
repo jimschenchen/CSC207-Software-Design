@@ -1,3 +1,5 @@
+import com.sun.istack.internal.NotNull;
+
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class ConferenceSystem {
     // assuming users cannot reset passwords before login
 
     /**
-     * Resets the password for the logged in user.
+     * Resets the password for the logged in user. Checks if the password is 6 characters or longer.
      *
      * @param newPassword New password input by user.
      * @return Returns True when the password is valid and is changed. False otherwise.
@@ -118,10 +120,10 @@ public class ConferenceSystem {
 
     // Speaker related methods
     // create a speaker account into system
-    public boolean addNewSpeaker(String name, String password){
+    public boolean addNewSpeaker(@NotNull String name, @NotNull String password){
         // strip password and name to avoid extra white space
-        // check if name is null and password long enough (>=6)
-        if (name.trim().length() != 0 && password.trim().length() >=6){
+        // check if password long enough (>=6)
+        if (password.trim().length() >=6){
             um.createSpeaker(password.trim(), name.trim(), db);
             return true;
         }
