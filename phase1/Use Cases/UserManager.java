@@ -5,28 +5,33 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class UserManager {
-    private User user;
 
-    public UserManager(User a_user){
-        this.user = a_user;
+    public void createSpeaker(String password, String name, DataBase d){
+        Speaker s = new Speaker(d.getNextUserId(), password, name);
+        d.addSpeaker(s); //汤zheng，jim， 这里是不是应该也在database里面加上一个类似于addMessage（）的方法？
     }
 
-    public void setFriends(List<User> user_list){
-        for(int x = 0; x < user_list.size(); x++){
-            boolean flag = false;
-            for(int y = 0; y < user.getFriends().size(); y ++){
-                List<User> a = user.getFriends();
-                if (user_list.get(x).getUser_id() == a.get(y).getUser_id()){
-                    flag = true;
-                }
-            }
-            if (flag == false){
-                user.new_friends(user_list.get(x));
-            }
-        }
+    public void addEventToSpeaker(int eventId, int speakerId, DataBase d){
+        d.getUserById(speakerId).addGivingEvent(eventId);
     }
 
-    public void resetPassword(User user, String newPassword){
-        user.setPassword(newPassword);
+    public void addEventToAttendee(int eventId, int attendeeId, DataBase d){
+        d.getUserById(attendeeId).signUpEvent(eventId);
+    }
+
+    public void cancelEventToAttendee(int eventId, int attendeeId, DataBase d){
+        d.getUserById(attendeeId).cancelEvent(eventId);
+    }
+
+    public void setPassword(int userId,String password, DataBase d) {
+        d.getUserById(userId).setPassword(password);
+    }
+
+    public String getUserName(int userId,DataBase d) {
+        return d.getUserById(userId).getUserName();
+    }
+
+    public List getAttendeeEventList(int attendeeId, DataBase d){
+        return d.getUserById(attendeeId).getEventList();
     }
 }

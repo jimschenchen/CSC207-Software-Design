@@ -1,6 +1,6 @@
 public class Room {
     private int room_num;
-    private int rid;
+    private final int rid;
     private int capacity;
 
     public Room(int room_num, int rid){
