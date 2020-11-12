@@ -28,7 +28,7 @@ public class EventManager {
             }
         }
         if(cond == 0){
-            all_events.put(event.getRoom(), event);  //这样是不会按时间顺序添加event到all_events里面的
+            all_events.put(event.getRoomId(), event);  //这样是不会按时间顺序添加event到all_events里面的
             //这一行是留给“添加new event to database的，不写是因为不会database
         }
     }
@@ -95,9 +95,6 @@ public class EventManager {
     // add user to event
     public void addUserToEvent(User user, Event event){}
 }
-
-//!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
-// FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 
 
