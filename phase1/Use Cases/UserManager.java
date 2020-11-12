@@ -7,9 +7,6 @@ public class UserManager {
     private User user;
 
     // need to change constructor to empty constructor (no need to pass any parameter to construct new UserManager)
-    public UserManager(User a_user){
-        this.user = a_user;
-    }
 
     public void setFriends(List<User> user_list){
         for(int x = 0; x < user_list.size(); x++){
