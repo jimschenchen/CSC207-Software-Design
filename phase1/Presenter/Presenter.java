@@ -1,7 +1,8 @@
+package Presenter;
 /**
  * Base presenter which act as a Presenter in Model-View-Presenter
-*/
-import Controller.*;
+ */
+
 public class Presenter {
     private ViewModel model;
     public Presenter(ViewModel model){
@@ -43,3 +44,4 @@ public class Presenter {
         // Question: when reading messages would u like controller to pass on list of String, or list of Message -grace
     }
 }
+
