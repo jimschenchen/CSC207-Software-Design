@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +54,28 @@ public class UserManager {
         }
     }
 
-    // 加了這個method，jenna & Lihang 可以檢查看看有沒有錯嗎？ -grace
+    // 加了這幾個method，jenna & Lihang 可以檢查看看有沒有錯嗎？ -grace
     public List<Integer> getSpeakerEventList(int speakerID, DataBase d){
         return d.getSpeakerById(speakerID).get_GivingEventList();
+    }
+
+    public String getUserPassword(int userID, DataBase d){
+        return d.getUserById(userID).getPassword();
+    }
+
+    // 不肯定這個應該放在controller還是use case，如果應該在controller請把它搬過去吧
+    public int getUserCategory(int id, DataBase d){
+        if (d.getSpeakerById(id) != null){
+            // return 0 when id is a speaker
+            return 0;
+        }
+        else if (d.getOrganizerById(id) != null){
+            // return 1 when id is an organizer
+            return 1;
+        }
+        else{
+            // return 2 when id is an attendee
+            return 2;
+        }
     }
 }

@@ -5,41 +5,59 @@ import java.util.List;
 public class ConferenceSystem {
 
     // stores use cases and gateway
-    EventManager em = new EventManager();
-    MessageManager mm = new MessageManager();
-    RoomManager rm = new RoomManager();
-    UserManager um = new UserManager();
-    Gateway gw; // not sure what to do after storing gateway
-    DataBase db = new DataBase();
-    int user; // store current user id
+    private EventManager em = new EventManager();
+    private MessageManager mm = new MessageManager();
+    private RoomManager rm = new RoomManager();
+    private UserManager um = new UserManager();
+    private Gateway gw; // not sure what to do after storing gateway
+    private DataBase db = new DataBase();
+    private int user; // store current logged in user's id
 
 
     // login
-    // it would be even better if presenter can pass in int instead of string, but this is also completely fine
-    public boolean login(String uid, String password){
-        int iuid;
+    /**
+     * Logs in a user.
+     *
+     * @param id ID of the user attempting to log in
+     * @param password Password of the user input to attempt to log in
+     * @return Returns -1 when login fails. When the login is successful,
+     *         returns 0 when the user is a Speaker;
+     *         returns 1 when the user is an Organizer;
+     *         returns 2 when the user is an Attendee.
+     */
+    public int login(String id, String password){
         try {
             // String to int conversion
-            iuid = Integer.parseInt(uid);
+            int uid = Integer.parseInt(id);
+            if (db.getUserById(uid) != null){
+                String dbPassword = um.getUserPassword(uid, db);
+                if (dbPassword.equals(password)){
+                    this.user = uid;
+                    return um.getUserCategory(uid, db);
+                }
+            }
+            // return false when ID doesn't exist or password does not match
+            return -1;
         }
         catch(NumberFormatException nfe) {
             // when the input is not a valid number
-            return false;
+            return -1;
         }
-        if (um.canLogin(iuid, password)){
-            um.login(iuid, password);
-            this.user = iuid;
-            return true;
-        }
-        return false; // return false when login fail
     }
 
     // change password
     // assuming users cannot reset passwords before login
+
+    /**
+     * Resets the password for the logged in user.
+     *
+     * @param newPassword New password input by user.
+     * @return Returns True when the password is valid and is changed. False otherwise.
+     */
     public boolean resetPassword(String newPassword){
         // passwords should always be 6 characters or longer
         if (newPassword.length() >= 6){
-            um.setPassword(newPassword);
+            um.setPassword(user, newPassword, db);
             return true;
         }
         return false;
@@ -64,7 +82,7 @@ public class ConferenceSystem {
     }
 
     // user sign up for an event
-    // need the id of registering event from presenter (either int or String
+    // need the id of registering event from presenter
     // wrote assuming passing in String
     public boolean signUpForEvent(String eventID){
         try{
