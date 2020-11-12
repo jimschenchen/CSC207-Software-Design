@@ -15,13 +15,10 @@ public class MessageManager {
         }
     }
 
-    public String message_oneuser(int eventId, int receiverId,String content, DataBase d){
+    public void message_oneuser(int eventId, int receiverId,String content, DataBase d){
         if (d.getEventById(eventId).getSingned_userid().contains(receiverId)) {
             Message m = new Message(content, this.senderId, receiverId);
             d.addMessage(m);
-            return "success";
-        }else{
-            return "unsuccess";
         }
     }
 
