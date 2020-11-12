@@ -217,7 +217,7 @@ public class DataBase {
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
         List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {
-            if (m.getReceiverId() == userId || m.getReceiverId() == userId) {
+            if (m.getReceiverId() == userId || m.getSenderId() == userId) {
                 ret.add(m);
             }
         }
