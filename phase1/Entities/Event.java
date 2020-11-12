@@ -49,7 +49,6 @@ public class Event {
         return speaker_id;
     }
 
-
     public String getTitle() {
         return title;
     }

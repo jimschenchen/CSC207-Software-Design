@@ -7,7 +7,6 @@ public class Attendee extends User{
     public Attendee(int uid,String password, String name) {
         super(uid, password, name);
         this.signed_up_event = new ArrayList<>();
-
     }
 
     public boolean signUpEvent (int eid){
