@@ -13,7 +13,7 @@ public class RoomManager {
     // is it possible to separate the method to 2 methods?
     // canAddRoom and addRoom
     // canAddRoom = check if we can add a room
-    // addRoom = just adding the room -grace
+    // addRoom = just adding the room -- grace
 
     public boolean canAddRoom(Room room, DataBase bd) {
         for (Room r : bd.getRoomList()) {
