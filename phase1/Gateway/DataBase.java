@@ -13,10 +13,10 @@ public class DataBase {
     private int nextEventId = 0;
     private int nextRoomId = 0;
     private int nextMessageId = 0;
-    private List<User> userList = new ArrayList<User>();
-    private List<Event> eventList = new ArrayList<Event>();
-    private List<Room> roomList = new ArrayList<Room>();
-    private List<Message> messageList = new ArrayList<Message>();
+    private List<User> userList = new ArrayList<>();
+    private List<Event> eventList = new ArrayList<>();
+    private List<Room> roomList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
 
 
     /**
@@ -154,7 +154,7 @@ public class DataBase {
     * @Description: add event to event list
     * @Param: [event]
     * @return: void
-    * @Author: 
+    * @Author:
     * @Date: 2020-11-12
     */
     public void addEvent(Event event) {
@@ -215,7 +215,7 @@ public class DataBase {
     */
     public List<Message> getMessageListByUserId(int userId) {
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
-        List<Message> ret = new ArrayList<Message>();
+        List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {
             if (m.getReceiverId() == userId || m.getReceiverId() == userId) {
                 ret.add(m);
