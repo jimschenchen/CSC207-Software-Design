@@ -24,4 +24,13 @@ public class Message {
     public int getSender() {
         return sender_id;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "content='" + content + '\'' +
+                ", sender_id=" + sender_id +
+                ", receiver_id=" + receiver_id +
+                '}';
+    }
 }

@@ -1,35 +1,32 @@
+import java.util.ArrayList;
 import java.util.List;
 
 //!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class RoomManager {
-    private Room room;
-    private List<Room> all_rooms;
+
+    public List<Room> all_Rooms(DataBase bd) {
+        return bd.getRoomList();
+    }
 
     // is it possible to separate the method to 2 methods?
     // canAddRoom and addRoom
     // canAddRoom = check if we can add a room
     // addRoom = just adding the room -grace
-    public boolean add_room(Room new_room){
-        boolean flag = true;
-        for (int i = 0; i < all_rooms.size(); i ++){
-            if (new_room.getRoom_num() == all_rooms.get(i).getRoom_num()){
-                flag = false;
+
+    public boolean canAddRoom(Room room, DataBase bd) {
+        for (Room r : bd.getRoomList()) {
+            if (r.getRoom_num() == room.getRoom_num()) {
+                return false;
             }
         }
-        if (flag == true) {
-            all_rooms.add(new_room);
-            return true;
-        }
-        return false;
+        return true;
     }
 
-
-    /*public void create_add_room(int roomnum){
-     *  Room r = new Room();
-     *  all_rooms.add(r);
-     *  //这一行是用来添加这个room到database的，但是我不会写。
-     * }
-     */
+    public void add_room(Room new_room, DataBase bd) {
+        if (canAddRoom(new_room, bd) == true){
+            bd.addRoom(new_room);
+        }
+    }
 }

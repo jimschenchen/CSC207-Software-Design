@@ -34,4 +34,10 @@ public class Attendee extends User{
         return signed_up_event;
     }
 
+    @Override
+    public String toString() {
+        return "Attendee{" +
+                "signed_up_event=" + signed_up_event +
+                '}';
+    }
 }

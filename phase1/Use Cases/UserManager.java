@@ -15,7 +15,12 @@ public class UserManager {
     // 檢查是否能addEventToSpeaker
     // 如果沒有情況是不能新增event to speaker那把method刪掉就好
     // jenna & Lihang 麻煩你們implement了
-    public boolean canAddEventToSpeaker(){}
+    public boolean canAddEventToSpeaker(Event event, Speaker speaker){
+        if (event.getSpeakerId() == speaker.getUser_id()){
+            return true;
+        }
+        return false;
+    }
 
     public void addEventToSpeaker(int eventId, int speakerId, DataBase d){
         d.getSpeakerById(speakerId).addGivingEvent(eventId);

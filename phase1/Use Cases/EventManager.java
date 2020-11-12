@@ -1,103 +1,97 @@
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 //!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class EventManager {
-    private Event event;
-    //private Map<Room, Event> all_events;
-    //不知道怎么读取database， 所以我用all_events来代表map of events with key (room) and value (event) sorted by time.
-    //Map<Room, Event> all_events = new HashMap<Room, Event>();
-    //我觉得map的key直接写时间会不会好一些，因为这样会更加容易sort
-    //疑问：我们是不是应该创建一个constructor来写all_events?
-    //public EventManager(){
-    //  this.all_events = ...   #。。。表示database中的相关信息
-    //}
-    //我下面所有代码都是根据假设需要创造这个constructor来写的
+//    private Event event;
 
-    // 希望可以分開canAddNewEvent和addNewEvent兩個method -grace
-    public void add_new_event(Event event){
-
-        int cond = 0;
-        for(Room r : all_events){
-            if (r.getRoom_num() == event.getRoom_num()){
-                cond = 1;
-            }
-            if (all_events[r].getStart_time() == event.getStart_time()){
-                cond = 1;
+    public boolean create_event(Event new_event, DataBase db){
+        List<Event> all_event = db.getEventList();
+        boolean flag = true;
+        for (int i = 0; i < all_event.size(); i++){
+            if(new_event.getEvent_id() == all_event.get(i).getEvent_id() && new_event.getRoomId() == all_event.get(i).getRoomId()){
+                flag = false;
             }
         }
-        if(cond == 0){
-            all_events.put(event.getRoomId(), event);  //这样是不会按时间顺序添加event到all_events里面的
-            //这一行是留给“添加new event to database的，不写是因为不会database
-        }
-    }
-
-    // 希望可以分開爲兩個method，canSetSpeaker & setSpeaker
-    public void setSpeaker(Speaker speaker, Event event){
-        int cond = 0;
-        for(Event eve: speaker.get_eventlist()){
-            if (eve.getStart_time() == event.getStart_time()){
-                cond = 1;
-            }
-        }
-        if (cond == 0){
-            event.setSpeaker(speaker);
-        }
-    }
-
-    public List<Integer> add_user_ids(List<User> user){
-        List<Integer> all_ids = new ArrayList<>();
-        for (int z = 0; z < event.getUsers_lst().size(); z ++){
-            all_ids.add(event.getUsers_lst().get(z).getUser_id());
-        }
-        return all_ids;
-    }
-
-    public boolean can_remove(List<User> user){
-        List<Integer> all_ids = add_user_ids(user);
-        int a = 0;
-        for (int i = 0; i < user.size(); i++) {
-            if (all_ids.contains(user.get(i).getUser_id())) {
-                a++;
-            }
-        }
-        if (user.size() == a){
+        if(flag == true){
             return true;
         }
         return false;
     }
 
-    public boolean remove_user(List<User> user) {
-        if (can_remove(user) == false){
+    public boolean addEventToDB(Event new_event, DataBase db){
+        boolean value = create_event(new_event, db);
+        if(value == true){
+            db.addEvent(new_event);
+            return true;
+        }
+        return false;
+    }
+
+    public void setSpeaker(Speaker speaker, Event event){
+        event.setSpeaker_id(speaker.getUser_id());
+    }
+
+    public boolean addNewUser(User user, Event event){
+        if (event.getSingned_userid().contains(user.getUser_id())){
             return false;
         }
-        for (int i = 0; i < user.size(); i++) {
-            event.remove(user.get(i));
-            }
+        event.addSigned_userId(user);
         return true;
     }
 
-    public void add_multi_users(List<User> user){
-        List<Integer> all_ids = add_user_ids(user);
-        for (int i = 0; i < user.size(); i ++){
-            boolean flag = false;
-            for (int j = 0; j  < event.getUsers_lst().size(); j ++){
-                if (all_ids.contains(user.get(i).getUser_id())){
-                    flag = true;
-                }
+    public boolean deleteUser(User user, Event event){
+        if (event.getSingned_userid().contains(user.getUser_id())){
+            if (event.remove_user(user.getUser_id()) == true){
+                return true;
             }
-            if (flag == false){
-                event.add(user.get(i));
-            }
+            return false;
         }
+        return false;
     }
 
-    // add user to event
-    public void addUserToEvent(User user, Event event){}
-}
+    public Double getStart_time(Event event) {
+        return event.getStart_time();
+    }
+    public int getSpeakerId(Event event) {
+        return event.getSpeakerId();
+    }
 
+    public String getTitle(Event event) {
+        return event.getTitle();
+    }
+
+    public int getRoomId(Event event) {
+        return event.getRoomId();
+    }
+
+    public int getEvent_id(Event event) {
+        return event.getEvent_id();
+    }
+
+    public List<User> getUserList(Event event, DataBase bd){
+        ArrayList<User> all_User= new ArrayList<>();
+        ArrayList<Integer> allUserID = event.getSingned_userid();
+        for(int i = 0; i < allUserID.size(); i++){
+            all_User.add(bd.getUserById(allUserID.get(i)));
+        }
+        return all_User;
+    }
+
+    public List<Event> getEventList(DataBase bd){
+        ArrayList<Event> all_Events= new ArrayList<>();
+        List<Event> events = bd.getEventList();
+        for(Event e: events){
+            all_Events.add(bd.getEventById(e.getEvent_id()));
+        }
+        return all_Events;
+    }
+
+}
 
 
 //    read events from database and create map of events with key (room) and value (event) sorted by time.

@@ -20,4 +20,11 @@ public class Organizer extends Attendee{
     public ArrayList<Integer> getCreatedEventList() {
         return created_event_list;
     }
+
+    @Override
+    public String toString() {
+        return "Organizer{" +
+                "created_event_list=" + created_event_list +
+                '}';
+    }
 }

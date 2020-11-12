@@ -20,4 +20,13 @@ public class Room {
     public int getRid() {
         return rid;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "room_num=" + room_num +
+                ", rid=" + rid +
+                ", capacity=" + capacity +
+                '}';
+    }
 }

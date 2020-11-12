@@ -64,4 +64,21 @@ public class Event {
     public ArrayList<Integer> getSingned_userid() {
         return singned_userid;
     }
+
+    public void addSigned_userId(User user){
+        this.singned_userid.add(user.getUser_id());
+    }
+
+    public void setSpeaker_id(int speaker_id) {
+        this.speaker_id = speaker_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "speaker_id=" + speaker_id +
+                ", event_id=" + event_id +
+                '}';
+    }
+
 }

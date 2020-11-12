@@ -24,4 +24,11 @@ public class Speaker extends User{
     public ArrayList<Integer> get_GivingEventList(){
         return giving_event_list;
     }
+
+    @Override
+    public String toString() {
+        return "Speaker{" +
+                "giving_event_list=" + giving_event_list +
+                '}';
+    }
 }
