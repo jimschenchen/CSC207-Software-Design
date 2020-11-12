@@ -60,7 +60,7 @@ public class ConferenceSystem {
     // reply message
     // subject to changes
     public boolean replyMessage(Message message, String content){
-        mm.reply_message(message, content);
+        mm.reply_message(message.getSenderId(), content, db);
     }
 
     // user sign up for an event
@@ -71,8 +71,8 @@ public class ConferenceSystem {
             int eid = Integer.parseInt(eventID);
             Event event = db.getEventById(eid);
             // check if the event exists, and user can sign up for event
-            if (db.getEventById(eid) != null && um.canSignUpForEvent(event)){
-                um.signUpForEvent(event);
+            if (db.getEventById(eid) != null && um.canSignUpForEvent(event)){ // need confirm
+                um.addEventToAttendeeOrOrganizer(eid, user, db);
                 em.addUserToEvent(db.getUserById(user), event);
                 return true;
             }
@@ -85,25 +85,49 @@ public class ConferenceSystem {
         }
     }
 
-    // !!!! need change !!!!
     // deregister from event
-    public boolean withdrawFromEvent(User user, int eventID){
+    public boolean withdrawFromEvent(int eventID){
         ArrayList<User> users = new ArrayList<>();
+        User user = db.getUserById(this.user);
         users.add(user);
         if (em.can_remove(users)){
             em.remove_user(users);
+            um.cancelEventToAttendeeOrOrganizer(eventID, this.user, db);
             return true;
         }
         return false;
     }
 
-    //create a speaker account into system
-    // subject to changes
+    // Speaker related methods
+    // create a speaker account into system
     public boolean addNewSpeaker(String name, String password){
-        int uid = db.getNextUserId();
-        Speaker speaker = new Speaker(uid, password, name);
-        um.newSpeaker(speaker);
-        return true;
+        // strip password and name to avoid extra white space
+        // check if name is null and password long enough (>=6)
+        if (name.trim().length() != 0 && password.trim().length() >=6){
+            um.createSpeaker(password.trim(), name.trim(), db);
+            return true;
+        }
+        return false;
+    }
+
+    // set speaker for an event
+    // subject to change
+    public boolean setSpeakerForEvent(String speakerID, String eventID){
+        try{
+            int sID = Integer.parseInt(speakerID);
+            int eID = Integer.parseInt(eventID);
+            if(um.canAddEventToSpeaker() && em.canSetSpeaker()){ // need confirm
+                um.addEventToSpeaker(eID, sID, db);
+                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
+                return true;
+            }
+            // return false when cannot add event to speaker
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            // return false on invalid input
+            return false;
+        }
     }
 
     // create a new room into system
@@ -115,6 +139,7 @@ public class ConferenceSystem {
     }
 
     // create a new event
+    // subject to change
     public boolean newEvent(Double startTime, int speakerID, String topic, int roomNumber){
         int eventID = db.getNextEventId();
         Event event = new Event(startTime, eventID, speakerID, topic, roomNumber);
@@ -127,11 +152,15 @@ public class ConferenceSystem {
     }
 
     // view current signed events
+    // Question to lyanna and amina: do u want list of String or list of Event as return value
     public List<Event> viewSignedUpEvents(){
+        um.getOrganizerOrAttendeeEventList(user, db);
     }
 
-    // view events the speaker are giving.
-    public List<Event> viewSpeakingEvents(){}
+    // view events the speaker (logged in) are giving
+    public List<Integer> viewSpeakingEvents(){
+        return um.getSpeakerEventList(user, db);
+    }
 
 //    save data method
 //    (all the methods need to pass gateway to use cases)

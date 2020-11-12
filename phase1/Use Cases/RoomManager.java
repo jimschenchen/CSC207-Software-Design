@@ -7,6 +7,10 @@ public class RoomManager {
     private Room room;
     private List<Room> all_rooms;
 
+    // is it possible to separate the method to 2 methods?
+    // canAddRoom and addRoom
+    // canAddRoom = check if we can add a room
+    // addRoom = just adding the room -grace
     public boolean add_room(Room new_room){
         boolean flag = true;
         for (int i = 0; i < all_rooms.size(); i ++){

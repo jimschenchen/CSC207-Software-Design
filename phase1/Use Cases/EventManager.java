@@ -16,6 +16,7 @@ public class EventManager {
     //}
     //我下面所有代码都是根据假设需要创造这个constructor来写的
 
+    // 希望可以分開canAddNewEvent和addNewEvent兩個method -grace
     public void add_new_event(Event event){
 
         int cond = 0;
@@ -33,6 +34,7 @@ public class EventManager {
         }
     }
 
+    // 希望可以分開爲兩個method，canSetSpeaker & setSpeaker
     public void setSpeaker(Speaker speaker, Event event){
         int cond = 0;
         for(Event eve: speaker.get_eventlist()){
