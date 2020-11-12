@@ -13,10 +13,10 @@ public class DataBase {
     private int nextEventId = 0;
     private int nextRoomId = 0;
     private int nextMessageId = 0;
-    private List<User> userList = new ArrayList<User>();
-    private List<Event> eventList = new ArrayList<Event>();
-    private List<Room> roomList = new ArrayList<Room>();
-    private List<Message> messageList = new ArrayList<Message>();
+    private List<User> userList = new ArrayList<>();
+    private List<Event> eventList = new ArrayList<>();
+    private List<Room> roomList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
 
 
     /**
@@ -60,6 +60,49 @@ public class DataBase {
         return null;
     }
     /**
+    * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
+    * @Param: [id]
+    * @return: Attendee
+    * @Author: 
+    * @Date: 2020-11-12
+    */
+    public Attendee getAttendeeById(int id) {
+        User user = this.getUserById(id);
+        if (user instanceof Attendee) {
+            return (Attendee)user;
+        }
+        return null;
+    }
+    /**
+    * @Description: Return Speaker by given <id>, if the user does not exist or is not Speaker, return null
+    * @Param: [id]
+    * @return: Speaker
+    * @Author:
+    * @Date: 2020-11-12
+    */
+    public Speaker getSpeakerById(int id) {
+        User user = this.getUserById(id);
+        if (user instanceof Speaker) {
+            return (Speaker)user;
+        }
+        return null;
+    }
+    /**
+    * @Description: Return Organizer by given <id>, if the user does not exist or is not Organizer, return null
+    * @Param: [id]
+    * @return: Organizer
+    * @Author:
+    * @Date: 2020-11-12
+    */
+    public Organizer getOrganizerById(int id) {
+        User user = this.getUserById(id);
+        if (user instanceof Organizer) {
+            return (Organizer)user;
+        }
+        return null;
+    }
+
+    /**
     * @Description:
     * @Param: []
     * @return: java.util.List<User>
@@ -79,6 +122,7 @@ public class DataBase {
     public void addUser(User user) {   
         this.userList.add(user);
     }
+
     
     /**
     * @Description:
@@ -110,7 +154,7 @@ public class DataBase {
     * @Description: add event to event list
     * @Param: [event]
     * @return: void
-    * @Author: 
+    * @Author:
     * @Date: 2020-11-12
     */
     public void addEvent(Event event) {
@@ -171,9 +215,9 @@ public class DataBase {
     */
     public List<Message> getMessageListByUserId(int userId) {
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
-        List<Message> ret = new ArrayList<Message>();
+        List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {
-            if (m.getReceiverId() == userId || m.getReceiverId() == userId) {
+            if (m.getReceiverId() == userId || m.getSenderId() == userId) {
                 ret.add(m);
             }
         }
