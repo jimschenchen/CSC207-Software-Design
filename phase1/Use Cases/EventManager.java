@@ -7,7 +7,7 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class EventManager {
-    private Double start_time;
+    private int event_id;
     private int speaker_id;
     private String title;
 
@@ -15,28 +15,31 @@ public class EventManager {
         this.title = title;
     }
 
-    public void setStart_time(Double start_time) {
-        this.start_time = start_time;
+    public void setEventId(int event_id) {
+        this.event_id = event_id;
     }
 
-    public void setSpeaker_id(int speaker_id) {
+    public void setSpeakerId(int speaker_id) {
         this.speaker_id = speaker_id;
     }
 
-    public boolean create_event(int room_id, int event_id, DataBase db){
+    public boolean canCreateEvent(int room_id, Double start, DataBase db){
         List<Event> all_event = db.getEventList();
         for (int i = 0; i < all_event.size(); i++){
             if(room_id == all_event.get(i).getEvent_id() && event_id == all_event.get(i).getRoomId()){
-                Event nEvent = new Event(this.start_time, event_id, this.speaker_id, this.title, room_id);
-                db.addEvent(nEvent);
                 return true;
             }
         }
         return false;
     }
 
+    public void createEvent(int room_id, Double start, DataBase db){
+        Event nEvent = new Event(start, this.event_id, this.speaker_id, this.title, room_id);
+        db.addEvent(nEvent);
+    }
+
     public boolean addEventToDB(Event new_event, DataBase db){
-        boolean value = create_event(new_event.getRoomId(), new_event.getEvent_id(), db);
+        boolean value = canCreateEvent(new_event.getRoomId(), new_event.getStart_time(), db);
         if(value == true){
             db.addEvent(new_event);
             return true;
@@ -48,12 +51,32 @@ public class EventManager {
         event.setSpeaker_id(speaker.getUser_id());
     }
 
-    public boolean addUserToEvent(int userId, int eventId, DataBase d){
-        return d.getEventById(eventId).add_user(userId);
+    public boolean canAddUserToEvent(int userId, int eventId, DataBase d){
+        List<Event> all_event = d.getEventList();
+        for (Event e: all_event){
+            if (e.getEvent_id() == eventId){
+                return false;
+            }
+        }
+        return true;
     }
 
-    public boolean remove_user(int userId, int eventId, DataBase d) {
-        return d.getEventById(eventId).remove_user(userId);
+    public void addUserToEvent(int userId, int eventId, DataBase d){
+        d.getEventById(eventId).add_user(userId);
+    }
+
+    public boolean canRemoveUser(int userId, int eventId, DataBase d){
+        List<User> all_user = d.getUserList();
+        for (User u: all_user){
+            if (u.getUser_id() == userId){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeUser(int userId, int eventId, DataBase d) {
+        d.getEventById(eventId).remove_user(userId);
     }
 
 
