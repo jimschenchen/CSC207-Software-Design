@@ -67,10 +67,81 @@ public class ConferenceSystem {
         return um.getUserName(user, db);
     }
 
-    //send message
-    //speaker messages all attendees to his/her talk
-    public boolean speakerMessageAllAttendees(){
+    /**
+     * Allow user to message all attendees in an event.
+     *
+     * @param eventID The event that all attendees and the speaker is in.
+     * @param content The content of the message.
+     * @return Return true if the message is sent successfully, false when input is invalid.
+     */
+    public boolean messageAllAttendeesInEvent(String eventID, String content){
+        try{
+            int eID = Integer.parseInt(eventID);
+            if (db.getEventById(eID) != null){
+                mm.message_allusers(eID, user, content, db);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
+    }
 
+    /**
+     * Allow speaker to message all users in all events speaker is speaking in.
+     *
+     * @param content Content of the message
+     * @return Return true if the message is sent successfully, else return false.
+     */
+    public boolean messageAllUsersInAllSpeakingEvents(String content){
+        if (db.getSpeakerById(user) != null){
+            mm.messageAllUsersInAllSpeakingEvents(user, content, db);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Allow user to message a specific attendee in an event
+     *
+     * @param eventID The event the attendees and speaker is in.
+     * @param receiverID The receiver's ID.
+     * @param content Content of the message.
+     * @return Return true if the message is sent successfully, false when input is invalid.
+     */
+    public boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String content){
+        try{
+            int eID = Integer.parseInt(eventID);
+            int reID = Integer.parseInt(receiverID);
+            if (db.getEventById(eID) != null && mm.canMessageAttendeeOfEvent(eID, reID, db)){
+                mm.message_oneuser(eID, user, reID, content, db);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
+    }
+
+    // send message to all speakers
+    public boolean messageAllSpeakers(String content){
+        if (mm.canMessageAllSpeakers(user, db)){
+            mm.messageAllSpeakers(content, db);
+            return true;
+        }
+        return false;
+    }
+
+    // send message to one speaker
+    public boolean messageSpeaker(String receiverID, String content){
+        try{
+            int rID = Integer.parseInt(receiverID);
+            if (mm.canMessageSpeaker(user, rID, db)){
+
+            }
+        }
     }
 
     //read messages of user
