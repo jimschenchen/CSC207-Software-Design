@@ -47,7 +47,9 @@ public class EventManager {
         return false;
     }
 
-    public void setSpeaker(Speaker speaker, Event event){
+    public void setSpeaker(int speakerID, int eventID, DataBase db){
+        Speaker speaker = db.getSpeakerById(speakerID);
+        Event event = db.getEventById(eventID);
         event.setSpeaker_id(speaker.getUser_id());
     }
 

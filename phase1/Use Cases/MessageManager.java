@@ -8,6 +8,7 @@ public class MessageManager {
         this.senderId = i;
     }
 
+    // message all signed up users in an event
     public void message_allusers(int eventId, String content, DataBase d){
         for (int receiver_id : d.getEventById(eventId).getSingned_userid()){
             Message m = new Message(content, this.senderId, receiver_id);
@@ -15,6 +16,7 @@ public class MessageManager {
         }
     }
 
+    // message specific user in an event
     public void message_oneuser(int eventId, int receiverId,String content, DataBase d){
         if (d.getEventById(eventId).getSingned_userid().contains(receiverId)) {
             Message m = new Message(content, this.senderId, receiverId);
@@ -22,6 +24,7 @@ public class MessageManager {
         }
     }
 
+    // message a specific user that is not an organizer
     public boolean message_specific_user(int receiverId, String content, DataBase d){
         if (d.getUserById(receiverId) instanceof Organizer ) {
             return false;

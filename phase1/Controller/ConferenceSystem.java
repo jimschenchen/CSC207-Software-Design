@@ -13,7 +13,6 @@ public class ConferenceSystem {
     private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
-    private Gateway gw; // not sure what to do after storing gateway
     private DataBase db = new DataBase();
     private int user; // store current logged in user's id
 
@@ -165,7 +164,7 @@ public class ConferenceSystem {
             int eID = Integer.parseInt(eventID);
             if(um.canAddEventToSpeaker(db.getEventById(eID), sID, db)){
                 um.addEventToSpeaker(eID, sID, db);
-                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
+                em.setSpeaker(sID, eID, db);
                 return true;
             }
             return false; // return false when cannot add event to speaker
