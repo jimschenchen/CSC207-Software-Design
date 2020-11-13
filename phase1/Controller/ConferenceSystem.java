@@ -115,7 +115,7 @@ public class ConferenceSystem {
             int eID = Integer.parseInt(eventID);
             int reID = Integer.parseInt(receiverID);
             if (db.getEventById(eID) != null && mm.canMessageAttendeeOfEvent(eID, reID, db)){
-                mm.message_oneuser(eID, user, reID, content, db);
+                mm.message_oneuser(user, reID, content, db);
                 return true;
             }
             return false;
@@ -128,7 +128,7 @@ public class ConferenceSystem {
     // send message to all speakers
     public boolean messageAllSpeakers(String content){
         if (mm.canMessageAllSpeakers(user, db)){
-            mm.messageAllSpeakers(content, db);
+            mm.messageAllSpeakers(content, user, db);
             return true;
         }
         return false;
@@ -139,23 +139,56 @@ public class ConferenceSystem {
         try{
             int rID = Integer.parseInt(receiverID);
             if (mm.canMessageSpeaker(user, rID, db)){
-
+                mm.message_oneuser(user, rID, content, db);
+                return true;
             }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
+    }
+
+    public boolean messageAllAttendee(String content){
+        if(db.getOrganizerById(user) != null){
+            mm.messageAllAttendees(user, content, db);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean messageAttendee(String receiverID, String content){
+        try{
+            int rID = Integer.parseInt(receiverID);
+            if (mm.canMessageAttendee(user, rID, db)){
+                mm.message_oneuser(user, rID, content, db);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
         }
     }
 
     //read messages of user
+    // now the list of messages include sent messages and received messages
     public List<String> readMessages(){
-
+        return mm.getMessageList(user, db);
     }
 
     // reply message
     // subject to changes
-    public boolean replyMessage(Message message, String content){
-        mm.reply_message(content, message.getSenderId(), db);
+    public boolean replyMessage(String receiverID, String content){
+        try{
+            int rID = Integer.parseInt(receiverID);
+            mm.reply_message(content, user, rID, db);
+            return true;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
     }
-
-    // user sign up for an event
 
     /**
      * Allow current logged in user to sign up to an event.

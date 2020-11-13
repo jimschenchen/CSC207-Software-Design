@@ -29,7 +29,7 @@ public class MessageManager {
         return db.getEventById(eventId).getSingned_userid().contains(receiverId);
     }
 
-    public void message_oneuser(int eventId, int senderId, int receiverId, String content, DataBase d){
+    public void message_oneuser(int senderId, int receiverId, String content, DataBase d){
         Message m = new Message(content, senderId, receiverId);
         d.addMessage(m);
     }
@@ -61,9 +61,14 @@ public class MessageManager {
         return senderCheck && db.getSpeakerById(receiverId) != null;
     }
 
-    public boolean message_speaker(String content, int reveiverId, DataBase d){
+    public boolean canMessageAttendee(int senderId, int receiverId, DataBase db){
+        boolean senderCheck = db.getOrganizerById(senderId) != null || db.getAttendeeById(senderId) != null;
+        return senderCheck && db.getAttendeeById(receiverId) != null;
+    }
+
+    public boolean message_speaker(String content, int senderId, int reveiverId, DataBase d){
         if (! (d.getSpeakerById(reveiverId) == null)) {
-            Message m = new Message(content, this.senderId, reveiverId);
+            Message m = new Message(content, senderId, reveiverId);
             d.addMessage(m);
             return true;
         }
@@ -79,16 +84,40 @@ public class MessageManager {
         return db.getOrganizerById(senderId) != null;
     }
 
-    public void messageAllSpeakers(String content, DataBase d) {
-        for (int i = 0; i < d.getUserList().size(); i++) {
-            message_speaker(content, d.getUserList().get(i).getUser_id(), d);
+    public void messageAllSpeakers(String content, int senderId, DataBase d) {
+//        for (int i = 0; i < d.getUserList().size(); i++) {
+//            message_speaker(content, senderId, d.getUserList().get(i).getUser_id(), d);
+//        }
+        List<User> users = d.getUserList();
+        for (User user : users){
+            if (user instanceof Speaker){
+                message_oneuser(senderId, user.getUser_id(), content, d);
+            }
+        }
+    }
+
+    public void messageAllAttendees(int senderId, String content, DataBase db){
+        List<User> users = db.getUserList();
+        for (User user : users){
+            if (user instanceof Attendee){
+                message_oneuser(senderId, user.getUser_id(), content, db);
+            }
         }
     }
 
 
-    public void reply_message(String content,int receiverId, DataBase d){
-        Message m = new Message(content, this.senderId, receiverId);
+    public void reply_message(String content, int senderId, int receiverId, DataBase d){
+        Message m = new Message(content, senderId, receiverId);
         d.addMessage(m);
+    }
+
+    public List<String> getMessageList(int userID, DataBase db){
+        List<Message> messages = db.getMessageListByUserId(userID);
+        List<String> sMessages = new ArrayList<>();
+        for (Message message : messages){
+            sMessages.add(message.toString());
+        }
+        return sMessages;
     }
 
 
