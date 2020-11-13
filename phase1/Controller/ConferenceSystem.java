@@ -18,7 +18,6 @@ public class ConferenceSystem {
     private int user; // store current logged in user's id
 
 
-    // login
     /**
      * Logs in a user.
      *
@@ -158,11 +157,25 @@ public class ConferenceSystem {
     }
 
     // create a new room into system
-    // subject to changes
-    public boolean addNewRoom(int roomNumber){
-        int roomID = db.getNextRoomId();
-        Room room = new Room(roomNumber, roomID);
-        return rm.add_room(room);
+
+    /**
+     * Creates a new room into the system.
+     *
+     * @param roomNumber The room number of the new room.
+     * @return Return true when successfully added a new room, false otherwise.
+     */
+    public boolean addNewRoom(String roomNumber){
+        try{
+            int rNumber = Integer.parseInt(roomNumber);
+            if (rm.canAddRoom(rNumber, db)){
+                rm.add_room(rNumber, db);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
     }
 
     // create a new event
@@ -171,7 +184,15 @@ public class ConferenceSystem {
         try{
             Double sTime = Double.parseDouble(startTime);
             int sID = Integer.parseInt(speakerID);
-            int rNumber =
+            int rNumber = Integer.parseInt(roomNumber);
+            if (em.canCreateEvent(rNumber, sTime, db)){ // need to change param rid
+                em.createEvent(rNumber, sTime, db); // need to change param rid
+                return true;
+            }
+            return false; // return false when unsuccessful
+        }
+        catch(NumberFormatException nfe){
+            return false; // return false on invalid input
         }
     }
 
