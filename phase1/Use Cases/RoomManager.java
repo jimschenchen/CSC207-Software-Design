@@ -10,11 +10,6 @@ public class RoomManager {
         return bd.getRoomList();
     }
 
-    // is it possible to separate the method to 2 methods?
-    // canAddRoom and addRoom
-    // canAddRoom = check if we can add a room
-    // addRoom = just adding the room -- grace
-
     public boolean canAddRoom(Room room, DataBase bd) {
         for (Room r : bd.getRoomList()) {
             if (r.getRoom_num() == room.getRoom_num()) {
@@ -25,8 +20,6 @@ public class RoomManager {
     }
 
     public void add_room(Room new_room, DataBase bd) {
-        if (canAddRoom(new_room, bd) == true){
-            bd.addRoom(new_room);
-        }
+        bd.addRoom(new_room);
     }
 }

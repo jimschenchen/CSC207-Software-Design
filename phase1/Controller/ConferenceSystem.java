@@ -116,7 +116,7 @@ public class ConferenceSystem {
     public boolean withdrawFromEvent(String eventID){
         int eid = Integer.parseInt(eventID);
         if (em.can_remove(eid ,user, db)){
-            em.removeUser(user, eid, db);
+            em.remove_user(user, eid, db);
             um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
             return true;
         }
