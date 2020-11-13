@@ -1,17 +1,15 @@
-package Presenter;
-
 public interface ViewActions {
     void Introduction();
     int AreURegistered();
-    String Username();
+    String username();
     String[] SignIn();
     String Pass();
     void Credentials(String username);
     void CredentialsFail();
-    int Messenger();
+    int MessengerAttendee();
     int MessengerOrganizer();
     int MessengerSpeaker();
-    String[] SenderView(String message);
+    String[] SenderView();
     String UserAdder(String username);
     int AttendeeMenu();
     int OrganizerMenu();
