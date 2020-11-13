@@ -71,7 +71,7 @@ public class ConferenceSystem {
      * @return Returns the user name.
      */
     public String getCurrentUserName(){
-        um.getUserName(user, db);
+        return um.getUserName(user, db);
     }
 
     //send message
@@ -218,10 +218,10 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewEvents(){
-        List<Event> events = em.getEventList(db);
+        List<Integer> events = em.getEventList(db);
         List<String> sEvents = new ArrayList<>();
-        for (Event event : events){
-            sEvents.add(event.toString());
+        for (Integer eventID : events){
+            sEvents.add(em.getStringOfEvent(eventID, db));
         }
         return sEvents;
     }
@@ -236,7 +236,7 @@ public class ConferenceSystem {
         List<Integer> events = um.getOrganizerOrAttendeeEventList(user, db);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
-            sEvents.add(db.getEventById(eventID).toString());
+            sEvents.add(em.getStringOfEvent(eventID, db));
         }
         return sEvents;
     }
@@ -250,9 +250,25 @@ public class ConferenceSystem {
         List<Integer> events = um.getSpeakerEventList(user, db);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
-            sEvents.add(db.getEventById(eventID).toString());
+            sEvents.add(em.getStringOfEvent(eventID, db));
         }
         return sEvents;
+    }
+
+    /**
+     * Return a list of events that the current logged in attendee can sign up for.
+     *
+     * @return List of Strings of the events
+     */
+    public List<String> viewCanSignUpEvents(){
+        List<Integer> allEvents = em.getEventList();
+        List<String> events = new ArrayList<>();
+        for (Integer eventID : allEvents){
+            if (um.canSignUpForEvent(eventID, this.user, db)){
+                events.add(em.getStringOfEvent(eventID, db));
+            }
+        }
+        return events;
     }
 
 //    save data method

@@ -111,19 +111,49 @@ public class EventManager {
     public List<User> getUserList(Event event, DataBase bd){
         ArrayList<User> all_User= new ArrayList<>();
         ArrayList<Integer> allUserID = event.getSingned_userid();
-        for(int i = 0; i < allUserID.size(); i++){
-            all_User.add(bd.getUserById(allUserID.get(i)));
+        for (Integer integer : allUserID) {
+            all_User.add(bd.getUserById(integer));
         }
         return all_User;
     }
 
-    public List<Event> getEventList(DataBase bd) {
-        ArrayList<Event> all_Events = new ArrayList<>();
-        List<Event> events = bd.getEventList();
-        for (Event e : events) {
-            all_Events.add(bd.getEventById(e.getEvent_id()));
+//    public List<Event> getEventList(DataBase bd) {
+//        ArrayList<Event> all_Events = new ArrayList<>();
+//        List<Event> events = bd.getEventList();
+//        for (Event e : events) {
+//            all_Events.add(bd.getEventById(e.getEvent_id()));
+//        }
+//        return all_Events;
+//    }
+//    public List<String> getEventList(DataBase db) {
+//        ArrayList<String> all_Events = new ArrayList<>();
+//        List<Event> events = db.getEventList();
+//        for (Event e : events) {
+//            String event = "The event  " + e.getTitle() +
+//                    " with ID " + e.getEvent_id() +
+//                    " by " + db.getSpeakerById(e.getSpeakerId()).getUserName() +
+//                    " starts at " + e.getStart_time() +
+//                    " takes place in " + db.getRoomById(e.getRoomId()).getRoom_num();
+//            all_Events.add(event);
+//        }
+//        return all_Events;
+//    }
+    public List<Integer> getEventList(DataBase db){
+        List<Integer> allEvents = new ArrayList<>();
+        List<Event> events = db.getEventList();
+        for (Event event : events){
+            allEvents.add(event.getEvent_id());
         }
-        return all_Events;
+        return allEvents;
+    }
+
+    public String getStringOfEvent(int eventID, DataBase db){
+        Event event = db.getEventById(eventID);
+        return "The event  " + event.getTitle() +
+                " with ID " + event.getEvent_id() +
+                " by " + db.getSpeakerById(event.getSpeakerId()).getUserName() +
+                " starts at " + event.getStart_time() +
+                " takes place in " + db.getRoomById(event.getRoomId()).getRoom_num();
     }
 }
 
