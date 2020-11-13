@@ -17,7 +17,7 @@ public class Attendee extends User{
             signed_up_event.remove(eid);
     }
 
-    public List getEventList (){
+    public ArrayList<Integer> getEventList (){
         return signed_up_event;
     }
 

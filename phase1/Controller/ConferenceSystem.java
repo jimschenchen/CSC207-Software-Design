@@ -1,6 +1,7 @@
 import com.sun.istack.internal.NotNull;
 
 import javax.xml.crypto.Data;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,20 +172,41 @@ public class ConferenceSystem {
         return em.add_new_event(event);
     }
 
-    // view current events
-    public List<Event> viewCurrentEvents(){
-        List<Event> events = db.getEventList();
+    // view all events
+    public List<String> viewEvents(){
+        List<Event> events = em.getEventList(db);
+        List<String> sEvents = new ArrayList<>();
+        for (Event event : events){
+            sEvents.add(event.toString());
+        }
+        return sEvents;
     }
 
-    // view current signed events
-    // Question to lyanna and amina: do u want list of String or list of Event as return value
-    public List<Event> viewSignedUpEvents(){
-        um.getOrganizerOrAttendeeEventList(user, db);
+    // view current signed/organized events
+
+    /**
+     * Return a list of events that the current logged in user has signed up for, or has organized, depending
+     * on the user type.
+     *
+     * @return List of Strings of the events
+     */
+    public List<String> viewSignedUpOrOrganizedEvents(){
+        List<Integer> events = um.getOrganizerOrAttendeeEventList(user, db);
+        List<String> sEvents = new ArrayList<>();
+        for (Integer eventID : events){
+            sEvents.add(db.getEventById(eventID).toString());
+        }
+        return sEvents;
     }
 
     // view events the speaker (logged in) are giving
-    public List<Integer> viewSpeakingEvents(){
-        return um.getSpeakerEventList(user, db);
+    public List<String> viewSpeakingEvents(){
+        List<Integer> events = um.getSpeakerEventList(user, db);
+        List<String> sEvents = new ArrayList<>();
+        for (Integer eventID : events){
+            sEvents.add(db.getEventById(eventID).toString());
+        }
+        return sEvents;
     }
 
 //    save data method
