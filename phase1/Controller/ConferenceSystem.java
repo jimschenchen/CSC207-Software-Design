@@ -49,7 +49,6 @@ public class ConferenceSystem {
 
     // change password
     // assuming users cannot reset passwords before login
-
     /**
      * Resets the password for the logged in user. Checks if the password is 6 characters or longer.
      *
@@ -65,6 +64,16 @@ public class ConferenceSystem {
         return false;
     }
 
+    // get user name
+    /**
+     * Get current logged in user's name.
+     *
+     * @return Returns the user name.
+     */
+    public String getCurrentUserName(){
+        um.getUserName(user, db);
+    }
+
     //send message
     //speaker messages all attendees to his/her talk
     public boolean speakerMessageAllAttendees(){
@@ -72,8 +81,7 @@ public class ConferenceSystem {
     }
 
     //read messages of user
-    public String readMessages(){
-        List<Message> messages = db.getMessageListByUserId(user);
+    public List<String> readMessages(){
 
     }
 
