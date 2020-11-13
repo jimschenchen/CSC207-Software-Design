@@ -37,7 +37,7 @@ public class EventManager {
     }
 
     public boolean addUserToEvent(int userId, int eventId, DataBase d){
-        if (d.getEventById(eventId).getSingned_userid().contains())
+        return d.getEventById(eventId).add_user(userId);
     }
 
     public boolean remove_user(int userId, int eventId, DataBase d) {
