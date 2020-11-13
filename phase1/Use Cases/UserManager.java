@@ -15,11 +15,20 @@ public class UserManager {
     // 檢查是否能addEventToSpeaker
     // 如果沒有情況是不能新增event to speaker那把method刪掉就好
     // jenna & Lihang 麻煩你們implement了
-    public boolean canAddEventToSpeaker(Event event, Speaker speaker){
-        if (event.getSpeakerId() == speaker.getUser_id()){
+    public boolean canAddEventToSpeaker(Event event, int speakerId, DataBase d){
+        Speaker s = d.getSpeakerById(speakerId);
+        if (s == null) {
+            return false;
+        }
+        else {
+            ArrayList<Integer> events = s.get_GivingEventList();
+            for (int i = 0; i < events.size(); i++) {
+                if (d.getEventById(events.get(i)).getStart_time().equals(event.getStart_time())) {
+                    return false;
+                }
+            }
             return true;
         }
-        return false;
     }
 
     public void addEventToSpeaker(int eventId, int speakerId, DataBase d){
@@ -27,19 +36,20 @@ public class UserManager {
     }
 
     // 有情況是attendee不能加這個event的嗎？如有，得有個canAddEventToAttendee的method -grace(controller)
-    public void addEventToAttendeeOrOrganizer(int eventId, int Id, DataBase d){
+    public boolean addEventToAttendeeOrOrganizer(int eventId, int Id, DataBase d){
         if (d.getAttendeeById(Id) == null){
-            d.getOrganizerById(Id).signUpEvent(eventId);
+            return d.getOrganizerById(Id).signUpEvent(eventId);
         }else{
-            d.getAttendeeById(Id).signUpEvent(eventId);
+            return d.getAttendeeById(Id).signUpEvent(eventId);
         }
     }
 
-    public void cancelEventToAttendeeOrOrganizer(int eventId, int Id, DataBase d){
-        if (d.getAttendeeById(Id) == null){
-            d.getOrganizerById(Id).cancelEvent(eventId);
-        }else{
-            d.getAttendeeById(Id).cancelEvent(eventId);
+    public boolean cancelEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
+        if (d.getOrganizerById(userId) == null) {
+            return d.getAttendeeById(userId).cancelEvent(eventId);
+        }
+        else {
+            return d.getOrganizerById(userId).cancelEvent(eventId);
         }
     }
 

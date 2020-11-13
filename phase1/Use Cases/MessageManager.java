@@ -22,19 +22,50 @@ public class MessageManager {
         }
     }
 
-    public void message_specific_user(int receiverId, String content, DataBase d){
-        Message m = new Message(content, this.senderId, receiverId);
-        d.addMessage(m);
+    public boolean message_specific_user(int receiverId, String content, DataBase d){
+        if (d.getUserById(receiverId) instanceof Organizer ) {
+            return false;
+        }
+        else {
+                Message m = new Message(content, this.senderId, receiverId);
+                d.addMessage(m);
+                return true;
+
+        }
+//        for (int i = 0; i < d.getEventList().size(); i++) {
+//            if (d.getEventList().contains(receiverId) & d.getEventList().contains(senderId)) {
+//                Message m = new Message(content, this.senderId, receiverId);
+//                d.addMessage(m);
+//                return true;
+//            }
+//        }
+//        return false;
         //我这个没有办法判断sender是否可以发送消息给receiver，因为sender没有一个friedn list
     }
 
-    public void message_speaker(int eventId, String content, DataBase d){
-        Message m = new Message(content, this.senderId, d.getEventById(eventId).getSpeakerId());
-        d.addMessage(m);
+
+    public boolean message_speaker(String content, int reveiverId, DataBase d){
+        if (! (d.getSpeakerById(reveiverId) == null)) {
+            Message m = new Message(content, this.senderId, reveiverId);
+            d.addMessage(m);
+            return true;
+        }
+        else {
+            return false;
+        }
+        }
+//        Message m = new Message(content, this.senderId, d.getEventById(eventId).getSpeakerId());
+//        d.addMessage(m);
         //database 中没有直接能通过eventId来得到speaker的方法，所以我先通过eventId找到对应的event，再通过event找到speaker
+
+    public void messageAllSpeakers(String content, DataBase d) {
+        for (int i = 0; i < d.getUserList().size(); i++) {
+            message_speaker(content, d.getUserList().get(i).getUser_id(), d);
+        }
     }
 
-    public void reply_message(int receiverId, String content, DataBase d){
+
+    public void reply_message(String content,int receiverId, DataBase d){
         Message m = new Message(content, this.senderId, receiverId);
         d.addMessage(m);
     }

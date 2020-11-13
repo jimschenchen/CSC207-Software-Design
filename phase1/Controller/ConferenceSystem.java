@@ -80,42 +80,54 @@ public class ConferenceSystem {
     // reply message
     // subject to changes
     public boolean replyMessage(Message message, String content){
-        mm.reply_message(message.getSenderId(), content, db);
+        mm.reply_message(content, message.getSenderId(), db);
     }
 
     // user sign up for an event
     // need the id of registering event from presenter
     // wrote assuming passing in String
-    public boolean signUpForEvent(String eventID){
-        try{
-            int eid = Integer.parseInt(eventID);
-            Event event = db.getEventById(eid);
-            // check if the event exists, and user can sign up for event
-            if (db.getEventById(eid) != null && um.canSignUpForEvent(event)){ // need confirm
-                um.addEventToAttendeeOrOrganizer(eid, user, db);
-                em.addUserToEvent(db.getUserById(user), event);
-                return true;
-            }
-            // return false when event doesn't exist or user cannot sign up for event
+    public boolean signUpForEvent(String eventID) {
+        int eid = Integer.parseInt(eventID);
+        if (db.getEventById(eid) == null) {
             return false;
         }
-        catch(NumberFormatException nfe){
-            // return false when input is invalid
-            return false;
-        }
+        return em.addUserToEvent(user, eid, db) & um.addEventToAttendeeOrOrganizer(eid, user, db);
+//        try{
+//            int eid = Integer.parseInt(eventID);
+//            Event event = db.getEventById(eid);
+//            // check if the event exists, and user can sign up for event
+//            if (db.getEventById(eid) != null && um.canSignUpForEvent(event)){ // need confirm
+//                um.addEventToAttendeeOrOrganizer(eid, user, db);
+//                em.addUserToEvent(db.getUserById(user), event);
+//                return true;
+//            }
+//            // return false when event doesn't exist or user cannot sign up for event
+//            return false;
+//        }
+//        catch(NumberFormatException nfe){
+//            // return false when input is invalid
+//            return false;
+//        }
     }
 
     // deregister from event
-    public boolean withdrawFromEvent(int eventID){
-        ArrayList<User> users = new ArrayList<>();
-        User user = db.getUserById(this.user);
-        users.add(user);
-        if (em.can_remove(users)){
-            em.remove_user(users);
-            um.cancelEventToAttendeeOrOrganizer(eventID, this.user, db);
-            return true;
+    public boolean withdrawFromEvent(String eventID){
+        int eid = Integer.parseInt(eventID);
+        if (db.getEventById(eid) == null) {
+            return false;
         }
-        return false;
+        return em.remove_user(user, eid, db) & um.cancelEventToAttendeeOrOrganizer(eid ,user, db);
+
+//        ArrayList<User> users = new ArrayList<>();
+//        User user = db.getUserById(this.user);
+//        users.add(user);
+//
+////        if (em.can_remove(users)){  //why use arraylist instead of use only this user's id?
+////            em.remove_user(users);
+////            um.cancelEventToAttendeeOrOrganizer(eventID, this.user, db);
+////            return true;
+////        }
+////        return false;
     }
 
     // Speaker related methods
@@ -132,22 +144,22 @@ public class ConferenceSystem {
 
     // set speaker for an event
     // subject to change
-    public boolean setSpeakerForEvent(String speakerID, String eventID){
-        try{
-            int sID = Integer.parseInt(speakerID);
-            int eID = Integer.parseInt(eventID);
-            if(um.canAddEventToSpeaker() && em.canSetSpeaker()){ // need confirm
-                um.addEventToSpeaker(eID, sID, db);
-                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
-                return true;
-            }
-            // return false when cannot add event to speaker
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            // return false on invalid input
-            return false;
-        }
+    public boolean setSpeakerForEvent(int speakerID, int eventID){
+//        try{
+//            int sID = Integer.parseInt(speakerID);
+//            int eID = Integer.parseInt(eventID);
+//            if(um.canAddEventToSpeaker() && em.canSetSpeaker()){ // 需要parameter event, speakerid, database
+//                um.addEventToSpeaker(eID, sID, db);
+//                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
+//                return true;
+//            }
+//            // return false when cannot add event to speaker
+//            return false;
+//        }
+//        catch(NumberFormatException nfe){
+//            // return false on invalid input
+//            return false;
+//        }
     }
 
     // create a new room into system
