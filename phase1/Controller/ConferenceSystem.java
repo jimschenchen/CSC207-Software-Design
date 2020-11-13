@@ -49,7 +49,6 @@ public class ConferenceSystem {
 
     // change password
     // assuming users cannot reset passwords before login
-
     /**
      * Resets the password for the logged in user. Checks if the password is 6 characters or longer.
      *
@@ -65,6 +64,16 @@ public class ConferenceSystem {
         return false;
     }
 
+    // get user name
+    /**
+     * Get current logged in user's name.
+     *
+     * @return Returns the user name.
+     */
+    public String getCurrentUserName(){
+        um.getUserName(user, db);
+    }
+
     //send message
     //speaker messages all attendees to his/her talk
     public boolean speakerMessageAllAttendees(){
@@ -72,8 +81,7 @@ public class ConferenceSystem {
     }
 
     //read messages of user
-    public String readMessages(){
-        List<Message> messages = db.getMessageListByUserId(user);
+    public List<String> readMessages(){
 
     }
 
@@ -87,47 +95,32 @@ public class ConferenceSystem {
     // need the id of registering event from presenter
     // wrote assuming passing in String
     public boolean signUpForEvent(String eventID) {
-        int eid = Integer.parseInt(eventID);
-        if (db.getEventById(eid) == null) {
+        try{
+            int eid = Integer.parseInt(eventID);
+            // check if the event exists, and user can sign up for event
+            if (db.getEventById(eid) != null && um.canSignUpForEvent(eid, user, db)){ // need confirm
+                um.addEventToAttendeeOrOrganizer(eid, user, db);
+                em.addUserToEvent(user, eid, db);
+                return true;
+            }
+            // return false when event doesn't exist or user cannot sign up for event
             return false;
         }
-        return em.addUserToEvent(user, eid, db) & um.addEventToAttendeeOrOrganizer(eid, user, db);
-//        try{
-//            int eid = Integer.parseInt(eventID);
-//            Event event = db.getEventById(eid);
-//            // check if the event exists, and user can sign up for event
-//            if (db.getEventById(eid) != null && um.canSignUpForEvent(event)){ // need confirm
-//                um.addEventToAttendeeOrOrganizer(eid, user, db);
-//                em.addUserToEvent(db.getUserById(user), event);
-//                return true;
-//            }
-//            // return false when event doesn't exist or user cannot sign up for event
-//            return false;
-//        }
-//        catch(NumberFormatException nfe){
-//            // return false when input is invalid
-//            return false;
-//        }
+        catch(NumberFormatException nfe){
+            // return false when input is invalid
+            return false;
+        }
     }
 
     // deregister from event
     public boolean withdrawFromEvent(String eventID){
         int eid = Integer.parseInt(eventID);
-        if (db.getEventById(eid) == null) {
-            return false;
+        if (em.can_remove(eid ,user, db)){
+            em.remove_user(user, eid, db);
+            um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
+            return true;
         }
-        return em.remove_user(user, eid, db) & um.cancelEventToAttendeeOrOrganizer(eid ,user, db);
-
-//        ArrayList<User> users = new ArrayList<>();
-//        User user = db.getUserById(this.user);
-//        users.add(user);
-//
-////        if (em.can_remove(users)){  //why use arraylist instead of use only this user's id?
-////            em.remove_user(users);
-////            um.cancelEventToAttendeeOrOrganizer(eventID, this.user, db);
-////            return true;
-////        }
-////        return false;
+        return false;
     }
 
     // Speaker related methods

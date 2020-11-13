@@ -7,37 +7,24 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class EventManager {
-    private Double start_time;
-    private int speaker_id;
-    private String title;
+//    private Event event;
 
-    public void setSpeaker_id(int speaker_id) {
-        this.speaker_id = speaker_id;
-    }
-
-    public void setStart_time(Double start_time) {
-        this.start_time = start_time;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public boolean create_event(int room_id, int event_id, DataBase db){
+    public boolean create_event(Event new_event, DataBase db){
         List<Event> all_event = db.getEventList();
+        boolean flag = true;
         for (int i = 0; i < all_event.size(); i++){
-            if(event_id == all_event.get(i).getEvent_id() && room_id == all_event.get(i).getRoomId()){
-                Event event = new Event(this.start_time, event_id, this.speaker_id, this.title, room_id);
-                    db.addEvent(event);
-                    return true;
+            if(new_event.getEvent_id() == all_event.get(i).getEvent_id() && new_event.getRoomId() == all_event.get(i).getRoomId()){
+                flag = false;
             }
-            return false;
+        }
+        if(flag == true){
+            return true;
         }
         return false;
     }
 
     public boolean addEventToDB(Event new_event, DataBase db){
-        boolean value = create_event(new_event.getRoomId(), new_event.getEvent_id(), db);
+        boolean value = create_event(new_event, db);
         if(value == true){
             db.addEvent(new_event);
             return true;
@@ -49,27 +36,19 @@ public class EventManager {
         event.setSpeaker_id(speaker.getUser_id());
     }
 
-    public boolean addNewUser(User user, Event event){
-        if (event.getSingned_userid().contains(user.getUser_id())){
-            return false;
-        }
-        event.addSigned_userId(user);
-        return true;
+    public boolean addUserToEvent(int userId, int eventId, DataBase d){
+        return d.getEventById(eventId).add_user(userId);
     }
 
-    public boolean deleteUser(User user, Event event){
-        if (event.getSingned_userid().contains(user.getUser_id())){
-            if (event.remove_user(user.getUser_id()) == true){
-                return true;
-            }
-            return false;
-        }
-        return false;
+    public boolean remove_user(int userId, int eventId, DataBase d) {
+        return d.getEventById(eventId).remove_user(userId);
     }
+
 
     public Double getStart_time(Event event) {
         return event.getStart_time();
     }
+
     public int getSpeakerId(Event event) {
         return event.getSpeakerId();
     }
@@ -95,16 +74,17 @@ public class EventManager {
         return all_User;
     }
 
-    public List<Event> getEventList(DataBase bd){
-        ArrayList<Event> all_Events= new ArrayList<>();
+    public List<Event> getEventList(DataBase bd) {
+        ArrayList<Event> all_Events = new ArrayList<>();
         List<Event> events = bd.getEventList();
-        for(Event e: events){
+        for (Event e : events) {
             all_Events.add(bd.getEventById(e.getEvent_id()));
         }
         return all_Events;
     }
-
 }
+
+
 
 
 //    read events from database and create map of events with key (room) and value (event) sorted by time.

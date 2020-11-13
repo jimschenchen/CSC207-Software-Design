@@ -4,7 +4,7 @@ public class Room {
     private int capacity;
 
     public Room(int room_num, int rid){
-        this.capacity = 2; //看phase1 sign-up system 介绍,里面说不算上speaker的话，roomsize为2
+        this.capacity = 2;
         this.room_num = room_num;
         this.rid = rid;
     }

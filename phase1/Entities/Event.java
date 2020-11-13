@@ -21,24 +21,12 @@ public class Event {
         this.event_id = event_id;
     }
 
-    public boolean remove_user(int user_id){
-        if(singned_userid.contains(user_id)){
+    public void remove_user(int user_id){
             singned_userid.remove(user_id);
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
-    public boolean add_user(int user_id){
-        if(singned_userid.contains(user_id)) {
-            return false;
-        }
-        else {
+    public void add_user(int user_id){
             singned_userid.add(user_id);
-            return true;
-        }
     }
 
     public Double getStart_time() {

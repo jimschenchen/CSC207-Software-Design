@@ -35,21 +35,25 @@ public class UserManager {
         d.getSpeakerById(speakerId).addGivingEvent(eventId);
     }
 
-    // 有情況是attendee不能加這個event的嗎？如有，得有個canAddEventToAttendee的method -grace(controller)
-    public boolean addEventToAttendeeOrOrganizer(int eventId, int Id, DataBase d){
-        if (d.getAttendeeById(Id) == null){
-            return d.getOrganizerById(Id).signUpEvent(eventId);
-        }else{
-            return d.getAttendeeById(Id).signUpEvent(eventId);
+    public boolean canSignUpForEvent(int eventId, int userId, DataBase d) {
+        return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
+    }
+
+    public boolean addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
+        if (d.getAttendeeById(userId) == null){
+            d.getOrganizerById(userId).signUpEvent(eventId);
+        }
+        else{
+            d.getAttendeeById(userId).signUpEvent(eventId);
         }
     }
 
     public boolean cancelEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
         if (d.getOrganizerById(userId) == null) {
-            return d.getAttendeeById(userId).cancelEvent(eventId);
+            d.getAttendeeById(userId).cancelEvent(eventId);
         }
         else {
-            return d.getOrganizerById(userId).cancelEvent(eventId);
+            d.getOrganizerById(userId).cancelEvent(eventId);
         }
     }
 
@@ -93,4 +97,6 @@ public class UserManager {
             return 2;
         }
     }
+
+
 }

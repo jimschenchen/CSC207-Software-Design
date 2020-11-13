@@ -11,14 +11,8 @@ public class Speaker extends User{
         this.giving_event_list = new ArrayList<>();
     }
 
-    public boolean addGivingEvent (int eid){
-        if (giving_event_list.contains(eid)) {
-            return false;
-        }
-        else {
+    public void addGivingEvent (int eid){
         giving_event_list.add(eid);
-        return true;
-        }
     }
 
     public ArrayList<Integer> get_GivingEventList(){
