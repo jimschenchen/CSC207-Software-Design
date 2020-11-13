@@ -138,4 +138,6 @@ public class ViewModel implements ViewActions {
     //I didn't implement Organizer and Speaker menu, cause I am not sure how it should work.
     //I.e., should it implement the AttendeeMenu method?
     //Maybe we can separate the console so that we wouldn't have to type the same part of the code all the time
+
+    //reply for each type of user, menu should be different and restrict them to use method. e.g. speaker menu won't let the speaker use sign up an event method...
 }
