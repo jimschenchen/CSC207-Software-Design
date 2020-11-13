@@ -25,8 +25,8 @@ public class EventManager {
 
     public boolean canCreateEvent(int room_id, Double start, DataBase db){
         List<Event> all_event = db.getEventList();
-        for (int i = 0; i < all_event.size(); i++){
-            if(room_id == all_event.get(i).getRoomId() && start == all_event.get(i).getStart_time()){
+        for (Event event : all_event) {
+            if (room_id == event.getRoomId() && start.equals(event.getStart_time())) {
                 return false;
             }
         }

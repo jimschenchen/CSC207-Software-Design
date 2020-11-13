@@ -1,4 +1,5 @@
 import com.sun.istack.internal.NotNull;
+import com.sun.org.apache.xpath.internal.res.XPATHErrorResources_sv;
 
 import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
@@ -166,13 +167,19 @@ public class ConferenceSystem {
 
     // create a new event
     // subject to change
-    public boolean newEvent(Double startTime, int speakerID, String topic, int roomNumber){
-        int eventID = db.getNextEventId();
-        Event event = new Event(startTime, eventID, speakerID, topic, roomNumber);
-        return em.add_new_event(event);
+    public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
+        try{
+            Double sTime = Double.parseDouble(startTime);
+            int sID = Integer.parseInt(speakerID);
+            int rNumber =
+        }
     }
 
-    // view all events
+    /**
+     * Return all events that are currently scheduled.
+     *
+     * @return List of Strings of the events
+     */
     public List<String> viewEvents(){
         List<Event> events = em.getEventList(db);
         List<String> sEvents = new ArrayList<>();
@@ -181,8 +188,6 @@ public class ConferenceSystem {
         }
         return sEvents;
     }
-
-    // view current signed/organized events
 
     /**
      * Return a list of events that the current logged in user has signed up for, or has organized, depending
@@ -199,7 +204,11 @@ public class ConferenceSystem {
         return sEvents;
     }
 
-    // view events the speaker (logged in) are giving
+    /**
+     * Return a list of events that the current Speaker is going to speak for.
+     *
+     * @return List of Strings of the events
+     */
     public List<String> viewSpeakingEvents(){
         List<Integer> events = um.getSpeakerEventList(user, db);
         List<String> sEvents = new ArrayList<>();
