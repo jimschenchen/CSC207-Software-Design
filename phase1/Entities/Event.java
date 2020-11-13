@@ -22,11 +22,11 @@ public class Event {
     }
 
     public void remove_user(int user_id){
-            singned_userid.remove(user_id);
+        singned_userid.remove(user_id);
     }
 
     public void add_user(int user_id){
-            singned_userid.add(user_id);
+        singned_userid.add(user_id);
     }
 
     public Double getStart_time() {

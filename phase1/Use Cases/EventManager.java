@@ -7,24 +7,36 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class EventManager {
-//    private Event event;
+    private Double start_time;
+    private int speaker_id;
+    private String title;
 
-    public boolean create_event(Event new_event, DataBase db){
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setStart_time(Double start_time) {
+        this.start_time = start_time;
+    }
+
+    public void setSpeaker_id(int speaker_id) {
+        this.speaker_id = speaker_id;
+    }
+
+    public boolean create_event(int room_id, int event_id, DataBase db){
         List<Event> all_event = db.getEventList();
-        boolean flag = true;
         for (int i = 0; i < all_event.size(); i++){
-            if(new_event.getEvent_id() == all_event.get(i).getEvent_id() && new_event.getRoomId() == all_event.get(i).getRoomId()){
-                flag = false;
+            if(room_id == all_event.get(i).getEvent_id() && event_id == all_event.get(i).getRoomId()){
+                Event nEvent = new Event(this.start_time, event_id, this.speaker_id, this.title, room_id);
+                db.addEvent(nEvent);
+                return true;
             }
-        }
-        if(flag == true){
-            return true;
         }
         return false;
     }
 
     public boolean addEventToDB(Event new_event, DataBase db){
-        boolean value = create_event(new_event, db);
+        boolean value = create_event(new_event.getRoomId(), new_event.getEvent_id(), db);
         if(value == true){
             db.addEvent(new_event);
             return true;
