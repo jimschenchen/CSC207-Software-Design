@@ -107,20 +107,25 @@ public class ConferenceSystem {
             return false;
         }
         catch(NumberFormatException nfe){
-            // return false when input is invalid
-            return false;
+            return false; // return false when input is invalid
         }
     }
 
     // deregister from event
     public boolean withdrawFromEvent(String eventID){
-        int eid = Integer.parseInt(eventID);
-        if (em.can_remove(eid ,user, db)){
-            em.remove_user(user, eid, db);
-            um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
-            return true;
+        try{
+            int eid = Integer.parseInt(eventID);
+            if (em.can_remove(eid ,user, db)){
+                em.remove_user(user, eid, db);
+                um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch(NumberFormatException nfe){
+            return false; //return false when input is invalid
+        }
+
     }
 
     // Speaker related methods
@@ -136,39 +141,50 @@ public class ConferenceSystem {
     }
 
     // set speaker for an event
-    // subject to change
-    public boolean setSpeakerForEvent(int speakerID, int eventID){
-//        try{
-//            int sID = Integer.parseInt(speakerID);
-//            int eID = Integer.parseInt(eventID);
-//            if(um.canAddEventToSpeaker() && em.canSetSpeaker()){ // 需要parameter event, speakerid, database
-//                um.addEventToSpeaker(eID, sID, db);
-//                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
-//                return true;
-//            }
-//            // return false when cannot add event to speaker
-//            return false;
-//        }
-//        catch(NumberFormatException nfe){
-//            // return false on invalid input
-//            return false;
-//        }
+    public boolean setSpeakerForEvent(String speakerID, String eventID){
+        try{
+            int sID = Integer.parseInt(speakerID);
+            int eID = Integer.parseInt(eventID);
+            if(um.canAddEventToSpeaker(db.getEventById(eID), sID, db)){
+                um.addEventToSpeaker(eID, sID, db);
+                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
+                return true;
+            }
+            return false; // return false when cannot add event to speaker
+        }
+        catch(NumberFormatException nfe){
+            return false; // return false on invalid input
+        }
     }
 
     // create a new room into system
-    // subject to changes
-    public boolean addNewRoom(int roomNumber){
-        int roomID = db.getNextRoomId();
-        Room room = new Room(roomNumber, roomID);
-        return rm.add_room(room);
+    public boolean addNewRoom(String roomNumber){
+        try{
+            int rNumber = Integer.parseInt(roomNumber);
+            int roomID = db.getNextRoomId();
+            Room room = new Room(rNumber, roomID);
+            if (rm.canAddRoom(room, db)){
+                rm.add_room(room, db);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false; // return false on invalid input
+        }
     }
 
     // create a new event
     // subject to change
-    public boolean newEvent(Double startTime, int speakerID, String topic, int roomNumber){
-        int eventID = db.getNextEventId();
-        Event event = new Event(startTime, eventID, speakerID, topic, roomNumber);
-        return em.add_new_event(event);
+    public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
+        try{
+            Double sTime = Double.parseDouble(startTime);
+            int sID = Integer.parseInt(speakerID);
+            int rNumber = Integer.parseInt(roomNumber);
+        }
+        catch(NumberFormatException nfe){
+            return false; // return false on invalid input
+        }
     }
 
     // view current events
