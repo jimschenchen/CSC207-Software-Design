@@ -1,32 +1,35 @@
-package Presenter;
-/**
- * Base presenter which act as a Presenter in Model-View-Presenter
- */
-
 public class Presenter {
     private ViewModel model;
+    String username;
+    String id;
+    String pass;
+    int type;
+    ConferenceSystem cs = new ConferenceSystem();
+
     public Presenter(ViewModel model){
         this.model = model;
     }
+
     private void Introduction(){
         model.Introduction();
     }
+
     private void CredentialsHelper(){
-        String username = model.Username();
-        int pass = Integer.parseInt(model.Pass());
+        String username = model.username();
+        String pass = model.Pass();
     }
+
     private void IsUserRegistered(){
         if (model.AreURegistered() == 1){
             CredentialsHelper();
-            //here we should pass the info to the controller
         }
         else{
             model.SignIn();
         }
     }
-    private void EverythingCorrect(boolean j, String username){
-        //again should be taken from the controller
-        if (j){
+    private void EverythingCorrect(){
+        type = cs.login(id, (String)pass);
+        if (type != -1){
             model.Credentials(username);
         }
         else{
@@ -35,13 +38,45 @@ public class Presenter {
         }
     }
     private void MenuOpener(){
-        //controller should send information which menu to open
-        // can controller pass in this info when user is logging in? -grace
+        if (type == 0){
+            model.SpeakerMenu();
+        }else if (type == 1){
+            model.OrganizerMenu();
+        }else{
+            model.AttendeeMenu();
+        }
+
+
     }
     private void MessengerOpener(){
-        model.Messenger();
-        //controller should send information which messenger to open
-        // Question: when reading messages would u like controller to pass on list of String, or list of Message -grace
+        if (type == 0){
+            model.MessengerSpeaker();
+        }else if (type == 1){
+            model.MessengerOrganizer();
+        }else{
+            model.MessengerAttendee();
+        }
     }
+
+    private String Sender(){
+        String[] send = model.SenderView();
+        String id_receive = send[0];
+        String content = send[1];
+        // Controller needed
+    }
+
+    private void SignUpEvent(){
+
+        String eventID = model.SignUpEvent();
+        cs.signUpForEvent(eventID);
+
+    }
+
+    private void addRoom(){
+        String room = model.addRoom();
+        cs.addNewRoom(room); // waiting for grace to change
+    }
+
+
 }
 

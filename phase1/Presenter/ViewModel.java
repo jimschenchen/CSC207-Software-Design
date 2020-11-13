@@ -1,7 +1,9 @@
-package Presenter;
-
 import java.io.Console;
+import java.sql.SQLOutput;
+import java.util.List;
+
 public class ViewModel implements ViewActions {
+    ConferenceSystem cs = new ConferenceSystem();
     @Override
     public void Introduction() {
         System.out.println("Welcome to the 0173 Conference!");
@@ -9,7 +11,7 @@ public class ViewModel implements ViewActions {
 
     @Override
     public int AreURegistered() {
-        int i = 0;
+        int i = - 1;
         Console c = System.console();
         System.out.println("Do you have an account? Type: Yes/No");
         String n = c.readLine();
@@ -17,17 +19,18 @@ public class ViewModel implements ViewActions {
             i = 1;
         } else if (n.equals("No")) {
             i = 0;
+        }else{
+            System.out.println("Invalid input! Please Type; Yes/No");
         }
-        //Should we check if User writes down anything else?
         return i;
     }
 
     @Override
-    public String Username() {
+    public String username() {
         Console c = System.console();
         System.out.println("Enter your username here:");
-        String user = c.readLine();
-        return user;
+        String id = c.readLine();
+        return id;
     }
 
 
@@ -43,7 +46,7 @@ public class ViewModel implements ViewActions {
     @Override
     public String[] SignIn(){
         Console c = System.console();
-        System.out.println("To sign in enter your username here:");
+        System.out.println("To sign in enter your id here:");
         String n = c.readLine();
         System.out.println("To sign in enter your password here:");
         String k = c.readLine();
@@ -59,15 +62,20 @@ public class ViewModel implements ViewActions {
         System.out.println("Oops, something went wrong. Please try again");
     }
 
-    @Override
-    public int Messenger() {
-        int i = 0;
-        Console c=System.console();
+    private void MessengerHelper(){
         System.out.println("Welcome to Messenger!");
         System.out.println("Type 1 If you want to send the message:");
         System.out.println("Type 2 If you want to view your messages");
         System.out.println("Type 3 If you want to view your FriendList");
         System.out.println("Type 4 If you want to add new user to your Friendlist");
+    }
+
+
+    @Override
+    public int MessengerAttendee() {
+        int i = 0;
+        Console c=System.console();
+        MessengerHelper();
         String n = c.readLine();
         i = Integer.parseInt(n);
         return i;
@@ -78,6 +86,7 @@ public class ViewModel implements ViewActions {
     public int MessengerOrganizer() {
         int i = 0;
         Console c=System.console();
+        MessengerHelper();
         System.out.println("Type 5 If you want to send the message to all the users:");
         String n = c.readLine();
         i = Integer.parseInt(n);
@@ -88,6 +97,7 @@ public class ViewModel implements ViewActions {
     public int MessengerSpeaker() {
         int i = 0;
         Console c=System.console();
+        MessengerHelper();
         System.out.println("Type 6 If you want to send the message to all talk's attendees:");
         String n = c.readLine();
         i = Integer.parseInt(n);
@@ -95,9 +105,9 @@ public class ViewModel implements ViewActions {
     }
 
     @Override
-    public String[] SenderView(String message) {
+    public String[] SenderView() {
         Console c=System.console();
-        System.out.println("Type the username you want send message to");
+        System.out.println("Type the id you want send message to");
         String n = c.readLine();
         System.out.println("Type your message here:");
         String k = c.readLine();
@@ -112,15 +122,19 @@ public class ViewModel implements ViewActions {
         return n;
     }
 
-    @Override
-    public int AttendeeMenu() {
+    private void MenuHelper(){
         System.out.println("Welcome to Menu!");
-        Console c=System.console();
-        int i = 0;
         System.out.println("Type 1 If you want to open messenger: ");
         System.out.println("Type 2 If you want to view the schedule: ");
         System.out.println("Type 3 If you want to sign up to a new event: ");
         System.out.println("Type 4 If you want to cancel the event: ");
+    }
+
+    @Override
+    public int AttendeeMenu() {
+        Console c=System.console();
+        int i = 0;
+        MenuHelper();
         String n = c.readLine();
         i = Integer.parseInt(n);
         return i;
@@ -128,16 +142,60 @@ public class ViewModel implements ViewActions {
 
     @Override
     public int OrganizerMenu() {
-        return 0;
+        Console c=System.console();
+        int i = 0;
+        MenuHelper();
+        System.out.println("Type 5 if you want to create a new room: ");
+        System.out.println("Type 6 if you want to create a new speaker accounts: ");
+        System.out.println("Type 7 if you want to add a new event: ");
+        String n = c.readLine();
+        i = Integer.parseInt(n);
+        return i;
     }
 
     @Override
     public int SpeakerMenu() {
-        return 0;
+        Console c=System.console();
+        int i = 0;
+        MenuHelper();
+        System.out.println("Type 5 if you want to see your list of talks");
+        String n = c.readLine();
+        i = Integer.parseInt(n);
+        return i;
     }
-    //I didn't implement Organizer and Speaker menu, cause I am not sure how it should work.
-    //I.e., should it implement the AttendeeMenu method?
-    //Maybe we can separate the console so that we wouldn't have to type the same part of the code all the time
+    private void EventViewer(List<Event> EventList) {
+        for (Event e : EventList) {
+            System.out.println("The Event " + e.getTitle() +
+                    " with id " + e.getEvent_id() +
+                    " by " + e.getSpeakerId() +
+                    " starts at " + e.getStart_time() +
+                    " takes place in" + e.getRoomId());
+        }
+    }
 
-    //reply for each type of user, menu should be different and restrict them to use method. e.g. speaker menu won't let the speaker use sign up an event method...
+    public void ViewSchedule(){
+        ConferenceSystem cs = new ConferenceSystem();
+        List<Event> EventList = cs.viewCurrentEvents();
+        EventViewer(EventList);
+    }
+
+    public String SignUpEvent(){
+        Console c=System.console();
+        System.out.println("Enter the event id you would like to attend");
+        String eventID = c.readLine();
+        return eventID;
+    }
+
+    public void ViewSignUpEvent(String id){
+
+    }
+
+    public String addRoom(){
+        Console c = System.console();
+        System.out.println("Enter the room name you want to add");
+        String room = c.readLine();
+        return room;
+    }
+
+
 }
