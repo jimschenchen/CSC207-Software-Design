@@ -20,31 +20,24 @@ public class ConferenceSystem {
     /**
      * Logs in a user.
      *
-     * @param id ID of the user attempting to log in
+     * @param username User name of the user attempting to log in
      * @param password Password of the user input to attempt to log in
      * @return Returns -1 when login fails. When the login is successful,
      *         returns 0 when the user is a Speaker;
      *         returns 1 when the user is an Organizer;
      *         returns 2 when the user is an Attendee.
      */
-    public int login(String id, String password){
-        try {
-            // String to int conversion
-            int uid = Integer.parseInt(id);
-            if (db.getUserById(uid) != null){
-                String dbPassword = um.getUserPassword(uid, db);
-                if (dbPassword.equals(password)){
-                    this.user = uid;
-                    return um.getUserCategory(uid, db);
-                }
+    public int login(String username, String password){
+        // String to int conversion
+        if (db.getUserByUserName(username) != null){
+            String dbPassword = um.getUserPassword(username, db);
+            if (dbPassword.equals(password)){
+                this.user = um.getUserID(username, db);
+                return um.getUserCategory(this.user, db);
             }
-            // return false when ID doesn't exist or password does not match
-            return -1;
         }
-        catch(NumberFormatException nfe) {
-            // when the input is not a valid number
-            return -1;
-        }
+        // return false when ID doesn't exist or password does not match
+        return -1;
     }
 
     // change password
@@ -140,11 +133,17 @@ public class ConferenceSystem {
 
     }
 
-    // create a speaker account into system
+    /**
+     * Creates a new speaker account into the system.
+     *
+     * @param userName User name of the new speaker.
+     * @param password Password of the new speaker account.
+     * @return Return true when the account is created successfully.
+     *          Return false when the password is invalid,
+     *          or when the user name is not unique.
+     */
     public boolean addNewSpeaker(@NotNull String userName, @NotNull String password){
-        // strip password and name to avoid extra white space
-        // check if password long enough (>=6)
-        if (password.trim().length() >=6){
+        if (password.trim().length() >=6 && um.canCreateSpeaker(userName, db)){
             um.createSpeaker(password.trim(), userName.trim(), db);
             return true;
         }
@@ -201,6 +200,7 @@ public class ConferenceSystem {
             Double sTime = Double.parseDouble(startTime);
             int sID = Integer.parseInt(speakerID);
             int rNumber = Integer.parseInt(roomNumber);
+            int rID = db.getRoomByRoomNumber(rNumber);
             if (em.canCreateEvent(rNumber, sTime, db)){ // need to change param rid
                 em.createEvent(rNumber, sTime, db); // need to change param rid
                 return true;

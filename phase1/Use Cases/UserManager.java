@@ -1,4 +1,5 @@
 import javax.xml.crypto.Data;
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +7,17 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class UserManager {
+
+    // checks if username is unique
+    public boolean canCreateSpeaker(String username, DataBase db){
+        List<User> users = db.getUserList();
+        for (User user : users){
+            if (user.getUserName().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void createSpeaker(String password, String name, DataBase d){
         Speaker s = new Speaker(d.getNextUserId(), password, name);
@@ -84,8 +96,12 @@ public class UserManager {
         return d.getSpeakerById(speakerID).get_GivingEventList();
     }
 
-    public String getUserPassword(int userID, DataBase d){
-        return d.getUserById(userID).getPassword();
+    public String getUserPassword(String username, DataBase d){
+        return d.getUserByUserName(username).getPassword();
+    }
+
+    public int getUserID(String username, DataBase db){
+        return db.getUserByUserName(username).getUser_id();
     }
 
     public int getUserCategory(int id, DataBase d){
