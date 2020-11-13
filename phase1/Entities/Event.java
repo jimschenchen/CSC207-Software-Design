@@ -77,4 +77,7 @@ public class Event {
                 '}';
     }
 
+    public void addSigned_userId(User user) {
+        this.singned_userid.add(user.getUser_id());
+    }
 }
