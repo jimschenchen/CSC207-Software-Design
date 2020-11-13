@@ -22,8 +22,8 @@ public class UserManager {
         }
         else {
             ArrayList<Integer> events = s.get_GivingEventList();
-            for (int i = 0; i < events.size(); i++) {
-                if (d.getEventById(events.get(i)).getStart_time().equals(event.getStart_time())) {
+            for (Integer integer : events) {
+                if (d.getEventById(integer).getStart_time().equals(event.getStart_time())) {
                     return false;
                 }
             }
@@ -36,7 +36,15 @@ public class UserManager {
     }
 
     public boolean canSignUpForEvent(int eventId, int userId, DataBase d) {
-        return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
+//      return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
+        List<Integer> userEventList = d.getAttendeeById(userId).getEventList();
+        Event event = d.getEventById(eventId);
+        for (Integer e : userEventList){
+            if (e.equals(eventId) || d.getEventById(e).getStart_time().equals(event.getStart_time())){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){

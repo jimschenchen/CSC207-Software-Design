@@ -93,13 +93,18 @@ public class ConferenceSystem {
     }
 
     // user sign up for an event
-    // need the id of registering event from presenter
-    // wrote assuming passing in String
+
+    /**
+     * Allow current logged in user to sign up to an event.
+     *
+     * @param eventID ID of the event signing up for.
+     * @return Return True if user is successfully signed up for the event, false otherwise.
+     */
     public boolean signUpForEvent(String eventID) {
         try{
             int eid = Integer.parseInt(eventID);
             // check if the event exists, and user can sign up for event
-            if (db.getEventById(eid) != null && um.canSignUpForEvent(eid, user, db)){ // need confirm
+            if (em.canAddUserToEvent(eid, db) && um.canSignUpForEvent(eid, user, db)){ // need confirm
                 um.addEventToAttendeeOrOrganizer(eid, user, db);
                 em.addUserToEvent(user, eid, db);
                 return true;
@@ -113,50 +118,62 @@ public class ConferenceSystem {
         }
     }
 
-    // deregister from event
-    public boolean withdrawFromEvent(String eventID){
-        int eid = Integer.parseInt(eventID);
-        if (em.can_remove(eid ,user, db)){
-            em.remove_user(user, eid, db);
-            um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
-            return true;
+
+    /**
+     * Allow current logged in attendee to cancel their enrollment in an event.
+     *
+     * @param eventID ID of the event they want to deregister from.
+     * @return Return True when the user has successful cancelled their enrollment in the event.
+     */
+    public boolean cancelEnrollmentInEvent(String eventID){
+        try{
+            int eid = Integer.parseInt(eventID);
+            if (em.canRemoveUser(this.user ,eid, db)){
+                em.removeUser(this.user, eid, db);
+                um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch(NumberFormatException nfe){
+            return false;
+        }
+
     }
 
-    // Speaker related methods
     // create a speaker account into system
-    public boolean addNewSpeaker(@NotNull String name, @NotNull String password){
+    public boolean addNewSpeaker(@NotNull String userName, @NotNull String password){
         // strip password and name to avoid extra white space
         // check if password long enough (>=6)
         if (password.trim().length() >=6){
-            um.createSpeaker(password.trim(), name.trim(), db);
+            um.createSpeaker(password.trim(), userName.trim(), db);
             return true;
         }
         return false;
     }
 
-    // set speaker for an event
-    // subject to change
-    public boolean setSpeakerForEvent(int speakerID, int eventID){
-//        try{
-//            int sID = Integer.parseInt(speakerID);
-//            int eID = Integer.parseInt(eventID);
-//            if(um.canAddEventToSpeaker() && em.canSetSpeaker()){ // 需要parameter event, speakerid, database
-//                um.addEventToSpeaker(eID, sID, db);
-//                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
-//                return true;
-//            }
-//            // return false when cannot add event to speaker
-//            return false;
-//        }
-//        catch(NumberFormatException nfe){
-//            // return false on invalid input
-//            return false;
-//        }
+    /**
+     * Set the speaker of an event.
+     *
+     * @param speakerID New Speaker's ID
+     * @param eventID The event's ID
+     * @return Return True when the speaker is assigned to the event successfully, false otherwise.
+     */
+    public boolean setSpeakerForEvent(String speakerID, String eventID){
+        try{
+            int sID = Integer.parseInt(speakerID);
+            int eID = Integer.parseInt(eventID);
+            if(um.canAddEventToSpeaker(db.getEventById(eID), sID, db)){
+                um.addEventToSpeaker(eID, sID, db);
+                em.setSpeaker(db.getSpeakerById(sID), db.getEventById(eID));
+                return true;
+            }
+            return false; // return false when cannot add event to speaker
+        }
+        catch(NumberFormatException nfe){
+            return false; // return false on invalid input
+        }
     }
-
-    // create a new room into system
 
     /**
      * Creates a new room into the system.

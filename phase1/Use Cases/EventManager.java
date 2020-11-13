@@ -51,14 +51,20 @@ public class EventManager {
         event.setSpeaker_id(speaker.getUser_id());
     }
 
-    public boolean canAddUserToEvent(int userId, int eventId, DataBase d){
-        List<Event> all_event = d.getEventList();
-        for (Event e: all_event){
-            if (e.getEvent_id() == eventId){
-                return false;
-            }
+    public boolean canAddUserToEvent(int eventId, DataBase d){
+//        List<Event> all_event = d.getEventList();
+//        for (Event e: all_event){
+//            if (e.getEvent_id() == eventId){
+//                return false;
+//            }
+//        }
+//        return true;
+        if (d.getEventById(eventId) == null){
+            return false;
         }
-        return true;
+        Event event = d.getEventById(eventId);
+        int roomCapacity = d.getRoomById(event.getRoomId()).getCapacity();
+        return event.getSingned_userid().size() < roomCapacity;
     }
 
     public void addUserToEvent(int userId, int eventId, DataBase d){
