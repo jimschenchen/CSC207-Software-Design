@@ -39,7 +39,7 @@ public class UserManager {
         return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
     }
 
-    public boolean addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
+    public void addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
         if (d.getAttendeeById(userId) == null){
             d.getOrganizerById(userId).signUpEvent(eventId);
         }
@@ -48,11 +48,10 @@ public class UserManager {
         }
     }
 
-    public boolean cancelEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
+    public void cancelEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d) {
         if (d.getOrganizerById(userId) == null) {
             d.getAttendeeById(userId).cancelEvent(eventId);
-        }
-        else {
+        } else {
             d.getOrganizerById(userId).cancelEvent(eventId);
         }
     }
