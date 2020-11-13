@@ -365,7 +365,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewCanSignUpEvents(){
-        List<Integer> allEvents = em.getEventList();
+        List<Integer> allEvents = em.getEventList(db);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
             if (um.canSignUpForEvent(eventID, this.user, db)){
