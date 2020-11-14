@@ -48,12 +48,12 @@ public class EventManager {
         event.setSpeaker_id(speaker.getUser_id());
     }
 
-    public boolean addUserToEvent(int userId, int eventId, DataBase d){
-        return d.getEventById(eventId).add_user(userId);
+    public void addUserToEvent(int userId, int eventId, DataBase d){
+        d.getEventById(eventId).add_user(userId);
     }
 
-    public boolean remove_user(int userId, int eventId, DataBase d) {
-        return d.getEventById(eventId).remove_user(userId);
+    public void removeUser(int userId, int eventId, DataBase d) {
+        d.getEventById(eventId).remove_user(userId);
     }
 
 
@@ -93,6 +93,28 @@ public class EventManager {
             all_Events.add(bd.getEventById(e.getEvent_id()));
         }
         return all_Events;
+    }
+
+    public boolean canAddUserToEvent(int userid, int eventid, DataBase d) {
+        if (d.getEventById(eventid) == null) {
+            return false;
+        }
+        else {
+            if (d.getEventById(eventid).getSingned_userid().contains(userid)) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+
+    public boolean canRemoveUser(int userid, int eventid, DataBase d) {
+        if (d.getEventById(eventid) != null) {
+            if (d.getEventById(eventid).getSingned_userid().contains(userid)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
