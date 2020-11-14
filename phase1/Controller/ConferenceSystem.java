@@ -7,7 +7,9 @@ import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ConferenceSystem {
 
@@ -51,6 +53,21 @@ public class ConferenceSystem {
                 }
             }
         });
+    }
+
+    /**
+     * Sign up a new attendee to the system.
+     *
+     * @param username User name of the new attendee. username should be unique.
+     * @param password Password of the new attendee account. Password should be at least 6 characters long.
+     * @return Return true if the account is created successfully, false otherwise.
+     */
+    public boolean signup(String username, String password){
+        if (um.canCreateAttendee(username, db) && password.length() >= 6){
+            um.createAttendee(password, username, db);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -482,6 +499,53 @@ public class ConferenceSystem {
         return events;
     }
 
-//    save data method
-//    (all the methods need to pass gateway to use cases)
+    /**
+     * View all attendees who are registered in one of the current speaker's speaking events. Without duplicates.
+     *
+     * @return Return a list of Strings that represent all attendees of all the events the speaker is speaking for.
+     * Every attendee is represented by a string formated as follows: "UserName (userID)"
+     */
+    public List<String> viewAttendeesInSpeakingEvents(){
+        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, db);
+        Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
+        List<String> sAllAttendeesInEvents = new ArrayList<>();
+        for (Integer eventID : allSpeakingEvents){
+            List<Integer> usersInEvent = em.getUserList(eventID, db);
+            allAttendeesInEvents.addAll(usersInEvent);
+        }
+        for (Integer userID : allAttendeesInEvents){
+            sAllAttendeesInEvents.add(um.getUserString(userID, db));
+        }
+        return sAllAttendeesInEvents;
+    }
+
+    /**
+     * View all attendees in the system.
+     *
+     * @return Return a list of Strings that represent all attendees in the system.
+     * Every attendee is represented by a string formatted as follows: "UserName (userID)"
+     */
+    public List<String> viewAllAttendees(){
+        List<Integer> allAttendees = um.getListOfUsers(3, db);
+        List<String> sAllAttendees = new ArrayList<>();
+        for (Integer userID : allAttendees){
+            sAllAttendees.add(um.getUserString(userID, db));
+        }
+        return sAllAttendees;
+    }
+
+    /**
+     * View all speakers in the system.
+     *
+     * @return Return a list of Strings that represent all speakers in the system.
+     * Every speaker is represented by a string formatted as follows: "UserName (userID)"
+     */
+    public List<String> viewAllSpeakers(){
+        List<Integer> allSpeakers = um.getListOfUsers(1, db);
+        List<String> sAllSpeakers = new ArrayList<>();
+        for (Integer userID : allSpeakers){
+            sAllSpeakers.add(um.getUserString(userID, db));
+        }
+        return sAllSpeakers;
+    }
 }

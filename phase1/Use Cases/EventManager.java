@@ -114,13 +114,18 @@ public class EventManager {
         return event.getEvent_id();
     }
 
-    public List<User> getUserList(Event event, DataBase bd){
-        ArrayList<User> all_User= new ArrayList<>();
-        ArrayList<Integer> allUserID = event.getSingned_userid();
-        for (Integer integer : allUserID) {
-            all_User.add(bd.getUserById(integer));
-        }
-        return all_User;
+//    public List<User> getUserList(Event event, DataBase bd){
+//        ArrayList<User> all_User= new ArrayList<>();
+//        ArrayList<Integer> allUserID = event.getSingned_userid();
+//        for (Integer integer : allUserID) {
+//            all_User.add(bd.getUserById(integer));
+//        }
+//        return all_User;
+//    }
+
+    public List<Integer> getUserList(int eventID, DataBase db){
+        Event event = db.getEventById(eventID);
+        return event.getSingned_userid();
     }
 
 //    public List<Event> getEventList(DataBase bd) {
