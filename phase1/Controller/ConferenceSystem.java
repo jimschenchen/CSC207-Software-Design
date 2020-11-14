@@ -2,6 +2,7 @@ import com.sun.istack.internal.NotNull;
 import com.sun.org.apache.xpath.internal.res.XPATHErrorResources_sv;
 
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,39 @@ public class ConferenceSystem {
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
     private DataBase db = new DataBase();
+    private Gateway gw = new Gateway();
     private int user; // store current logged in user's id
+
+
+    /**
+    * @Description: Initialization of Gateway and Databse
+    * @Param: []
+    * @return: void
+    * @Date: 2020-11-14
+    */
+    public void init () throws IOException {
+        shutDownHook();
+        DataBase db = gw.init();
+    }
+    /**
+    * @Description: Hook for listening the Shutdown of program and save all the data before exist0
+    * @Param: []
+    * @return: void
+    * @Date: 2020-11-14
+    */
+    private void shutDownHook() {
+        Runtime run = Runtime.getRuntime();
+        run.addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                try {
+                    gw.termination(db);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
 
     /**
