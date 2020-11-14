@@ -21,7 +21,8 @@ public class ViewModel implements ViewActions {
         } else if (n.equals("No")) {
             i = 0;
         }else{
-            System.out.println("Invalid input! Please Type; Yes/No");
+            System.out.println("Invalid input! Please Type: Yes/No");
+            AreURegistered();
         }
         return i;
     }
@@ -51,7 +52,7 @@ public class ViewModel implements ViewActions {
         String n = c.readLine();
         System.out.println("To sign in enter your password here:");
         String k = c.readLine();
-        cs.login(n,k); // lust to save the information in cs
+        cs.login(n,k); // Just to save the information in cs
         return new String[]{n, k};
     }
 
@@ -67,7 +68,9 @@ public class ViewModel implements ViewActions {
     public int Messenger(){
         System.out.println("Welcome to Messenger!");
         System.out.println("Type 1 If you want to send a message: ");
-        System.out.println("Type 2 If you want to view your messages: ");;
+        System.out.println("Type 2 If you want to view your messages: ");
+        System.out.println("Type 3 If you want to reply to a message");
+        exit();
         return answer();
     }
 
@@ -85,6 +88,7 @@ public class ViewModel implements ViewActions {
     public int MessengerAttendee() {
         System.out.println("Type 1 If you want to send a message to an attendee: ");
         System.out.println("TYpe 2 If you want to send a message to a speaker: ");
+        exit();
         return answer();
 
     }
@@ -94,16 +98,24 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 1 If you want to send a message to an attendee: ");
         System.out.println("TYpe 2 If you want to send a message to a speaker: ");
         System.out.println("Type 3 If you want to send a message to all attendees: ");
-        System.out.println("TYpe 4 If you want to send a message to all speakers: ");
+        System.out.println("Type 4 If you want to send a message to all speakers: ");
+        exit();
         return answer();
     }
 
     @Override
     public int MessengerSpeaker() {
-        System.out.println("Type 1 If you want to send a message to all attendees in one event'");
-        System.out.println("TYpe 2 If you want to send a message to all attendees in all your events");
+        System.out.println("Type 1 If you want to send a message to all attendees in one event: '");
+        System.out.println("TYpe 2 If you want to send a message to all attendees in all your events: ");
+        exit();
         return answer();
     }
+
+    private void exit(){
+        System.out.println("Type other numbers if you want to return to the previous page: ");
+    }
+
+
 
 
 
@@ -125,7 +137,8 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 1 if you want to open the Messenger: ");
         System.out.println("Type 2 if you want to create a new room: ");
         System.out.println("Type 3 if you want to create a new speaker: ");
-        System.out.println("Type 4 if ou want to assign a speaker to an event");
+        System.out.println("Type 4 if you want to assign a speaker to an event: ");
+        System.out.println("Type 5 if you want to create a new event: ");
         return answer();
     }
 
@@ -137,7 +150,7 @@ public class ViewModel implements ViewActions {
         return answer();
     }
 
-    private void eventsPrinter(List<String> events){
+    private void StringPrinter(List<String> events){
         for (String e: events){
             System.out.println(e);
         }
@@ -145,19 +158,27 @@ public class ViewModel implements ViewActions {
 
     public void ViewEvents(){
         List<String> EventList = cs.viewEvents();
-        eventsPrinter(EventList);
+        StringPrinter(EventList);
+    }
+
+    public void viewSpeakingEvents(){
+        cs.viewSpeakingEvents();
     }
 
 
     public void viewSignedUpOrOrganizedEvents(){
         List<String> events = cs.viewSignedUpOrOrganizedEvents();
-        eventsPrinter(events);
+        StringPrinter(events);
 
     }
 
     public void viewCanSignUpEvents(){
         List<String> events = cs.viewCanSignUpEvents();
-        eventsPrinter(events);
+        StringPrinter(events);
+    }
+
+    public void invalidInput(){
+        System.out.println("Hey! That's an invalid input! please try again!");
     }
 
 
@@ -203,10 +224,13 @@ public class ViewModel implements ViewActions {
     }
 
     public void readMessage(){
-        List<String> l = cs.readMessages();
-        for (String m : l){
-            System.out.println(m);
-        }
+        List<String> receive_messages = cs.readReceivedMessages();
+        List<String> sent_messages= cs.readSentMessages();
+        System.out.println("Here are the messages you received!");
+        StringPrinter(receive_messages);
+        System.out.println("Here are the messages you sent");
+        StringPrinter(sent_messages);
+
     }
 
     private String AskForUser(){
@@ -231,13 +255,18 @@ public class ViewModel implements ViewActions {
     }
 
     public String[] replyMessage(){
+        List<String> receive_message = cs.readReceivedMessages();
+        int i = 0;
+        for (String m: receive_message){
+            System.out.println("Message" + i + ": " + m);
+        }
 
         Console c = System.console();
-        System.out.println("Enter the ID of whom you want to reply here: ");
-        String receiver_id = c.readLine();
+        System.out.println("Enter the number of the message you want to reply here: ");
+        String num = c.readLine();
         System.out.println("Enter what you want to reply here: ");
         String reply = c.readLine();
-        String[] l = {receiver_id, reply};
+        String[] l = {num, reply};
         return l;
     }
 
@@ -288,7 +317,7 @@ public class ViewModel implements ViewActions {
 
     private String AskStartTime(){
         Console c = System.console();
-        System.out.println("When does the event start at?");
+        System.out.println("When does the event start at? Format: YYYY--MM--DD HH-MM");
         String start = c.readLine();
         return start;
     }

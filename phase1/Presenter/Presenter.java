@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.List;
 
 public class Presenter {
@@ -12,51 +13,172 @@ public class Presenter {
         this.model = model;
     }
 
-    private void Introduction(){
+    public void Introduction(){
         model.Introduction();
     }
 
     private void CredentialsHelper(){
         String username = model.username();
         String pass = model.Pass();
+        // controller needed
     }
 
-    private void IsUserRegistered(){
+    public void IsUserRegistered(){
         if (model.AreURegistered() == 1){
             CredentialsHelper();
+            IsUserRegistered();
         }
         else{
-            model.SignIn();
+            String[] l = model.SignIn();
+            String username = l[0];
+            String pass = l[1];
+            this.username = username;
+            this.pass = pass;
+            this.id = cs.getUserIDbyUserName(username);
+            EverythingCorrect();
         }
     }
-    private void EverythingCorrect(){
-        type = cs.login(id, (String)pass);
+
+    public void EverythingCorrect(){
+        type = cs.login(id, pass);
         if (type != -1){
             model.Credentials(username);
         }
         else{
             model.CredentialsFail();
-            CredentialsHelper();
+            IsUserRegistered();
         }
     }
-    private void MenuOpener(){
-        if (type == 0){
-            model.SpeakerMenu();
-        }else if (type == 1){
-            model.OrganizerMenu();
+
+
+
+    private void openBranchSpeaker(int answer){
+        if (answer == 1){
+            MessengerOpener();
+        }else if (answer == 2){
+            model.viewSpeakingEvents();
+        }else {
+           model.invalidInput();
+        }
+        MenuOpener();
+    }
+
+    private void openBranchOrganizer(int answer){
+        if (answer == 1){
+            MessengerOpener();
+        }else if(answer == 2){
+            addRoom();
+        }else if(answer == 3){
+            addSpeaker();
+        }else if (answer == 4){
+            setSpeakerEvent();
+        }else if(answer == 5){
+            new_event();
         }else{
-            model.AttendeeMenu();
+            model.invalidInput();
+            }
+        MenuOpener();
         }
 
 
+    private void openBranchAttendee(int answer){
+        if (answer == 1){
+            MessengerOpener();
+        }else if(answer == 2){
+            model.ViewEvents();
+        }else if(answer == 3){
+            model.viewSignedUpOrOrganizedEvents();
+        }else if(answer ==4){
+            model.viewCanSignUpEvents();
+        }else if(answer == 5){
+            SignUpEvent();
+        }else if(answer == 6){
+            cancelEnrollment();
+        }else{
+            model.invalidInput();
+        }
+        MenuOpener();
     }
+
+
+    public void MenuOpener() {
+        if (type == 0) {
+            int answer = model.SpeakerMenu();
+            openBranchSpeaker(answer);
+
+        } else if (type == 1) {
+            int answer = model.OrganizerMenu();
+            openBranchOrganizer(answer);
+
+        } else {
+            int answer = model.AttendeeMenu();
+            openBranchAttendee(answer);
+        }
+    }
+
+
     private void MessengerOpener(){
-        if (type == 0){
-            model.MessengerSpeaker();
-        }else if (type == 1){
-            model.MessengerOrganizer();
+        int answer = model.Messenger();
+        if (answer == 1){
+            MessengerOpenerSpecific();
+        }else if(answer == 2){
+            model.readMessage();
+        }else if (answer == 3){
+            if(type == 1){
+                System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
+            }
+            replyMessage();
         }else{
-            model.MessengerAttendee();
+            MenuOpener();
+        }
+    }
+
+    private void SenderSpeaker(int answer){
+        if (answer == 1){
+            messageAllAttendeeEvent();
+        }else if (answer == 2){
+            messageAllUsersInAllSpeakingEvents();
+        }else {
+            MessengerOpener();
+        }
+    }
+
+    private void SenderOrganizer(int answer){
+        if(answer ==1){
+            messageAttendee();
+        }else if (answer == 2){
+            messageSpeaker();
+        }else if (answer == 3){
+            messageAllAttendee();
+        }else if (answer == 4){
+            messageAllSpeakers();
+        }else{
+            MessengerOpener();
+        }
+    }
+
+    private void SenderAttendee(int answer){
+        if(answer ==1){
+            messageAttendee();
+        }else if (answer == 2){
+            messageSpeaker();
+        }else{
+            MessengerOpener();
+        }
+    }
+
+
+
+    private void MessengerOpenerSpecific(){
+        if (type == 0){
+           int answer = model.MessengerSpeaker();
+           SenderSpeaker(answer);
+        }else if (type == 1){
+            int answer = model.MessengerOrganizer();
+            SenderOrganizer(answer);
+        }else{
+            int answer = model.MessengerAttendee();
+            SenderAttendee(answer);
         }
     }
 
@@ -71,6 +193,7 @@ public class Presenter {
             System.out.println("Hey! You just sign up a new event! Arrive on time! ");
         }else{
             System.out.println("Sorry! You can't sign up for the event. Please check again!");
+            MenuOpener();
         }
     }
 
@@ -84,6 +207,7 @@ public class Presenter {
             System.out.println("Hey! You just make a new room");
         }else{
             System.out.println("Sorry! We can not add the room. Please check again!");
+            MenuOpener();
         }
     }
 
@@ -97,6 +221,7 @@ public class Presenter {
             System.out.println("Hey! You just make a new speaker account!");
         }else{
             System.out.println("Sorry! We can not add the speaker. Please check again!");
+            MenuOpener();
         }
     }
     private void setSpeakerEvent(){
@@ -108,6 +233,7 @@ public class Presenter {
             System.out.println("Hey! You just make set a speaker for event!");
         }else{
             System.out.println("Sorry! We can not set the speaker for the event. Please check again!");
+            MenuOpener();
         }
     }
 
@@ -118,6 +244,7 @@ public class Presenter {
             System.out.println("You just cancel an amazing event!");
         }else{
             System.out.println("Oops! You cannot cancel that event! Please check again!");
+            MenuOpener();
         }
     }
 
@@ -126,14 +253,15 @@ public class Presenter {
             System.out.println("Message is sent successfully");
         }else{
             System.out.println("Oops! You cannot send that message! Please check again!");
+            MessengerOpener();
         }
     }
 
     private void replyMessage(){
         String[] l = model.replyMessage();
-        String receiver_id = l[0];
+        String num = l[0];
         String reply = l[1];
-        boolean success = cs.replyMessage(receiver_id, reply);
+        boolean success = cs.replyMessage(num, reply);
         MessageSuccessHelper(success);
 
     }
@@ -143,13 +271,14 @@ public class Presenter {
         String event_id = l[0];
         String message = l[1];
         boolean success = cs.messageAllAttendeesInEvent(event_id, message);
-        MessageSuccessHelper(success) ;
+        MessageSuccessHelper(success);
     }
 
     private void messageAllUsersInAllSpeakingEvents(){
         String message = model.messageAllUsersInAllSpeakingEvents();
         boolean success = cs.messageAllUsersInAllSpeakingEvents(message);
         MessageSuccessHelper(success);
+
     }
 
     private void messageOneSpecificUserInEvent(){
@@ -181,7 +310,7 @@ public class Presenter {
         MessageSuccessHelper(success);
     }
 
-    private void messageAttendee(){//for specific one
+    private void messageAttendee(){
         String[] send = model.messageAttendee();
         String id_receive = send[0];
         String content = send[1];
@@ -196,7 +325,10 @@ public class Presenter {
         String topic = l[2];
         String room = l[3];
         boolean success = cs.newEvent(start, user_id, topic, room);
+        MessageSuccessHelper(success);
+
     }
+
 
 
 
