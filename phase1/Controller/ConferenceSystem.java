@@ -200,7 +200,7 @@ public class ConferenceSystem {
         try{
             int eid = Integer.parseInt(eventID);
             // check if the event exists, and user can sign up for event
-            if (em.canAddUserToEvent(eid, db) && um.canSignUpForEvent(eid, user, db)){ // need confirm
+            if (em.canAddUserToEvent(user, eid, db) && um.canSignUpForEvent(eid, user, db)){ // need confirm
                 um.addEventToAttendeeOrOrganizer(eid, user, db);
                 em.addUserToEvent(user, eid, db);
                 return true;

@@ -249,6 +249,22 @@ public class DataBase {
         return null;
     }
     /**
+    * @Description: 
+    * @Param: [roomNum]
+    * @return: Room
+    * @Author: 
+    * @Date: 2020-11-14
+    */
+    public Room getRoomByRoomNum(int roomNum) {
+        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+        for (Room r : roomList) {
+            if (r.getRoom_num() == roomNum) {
+                return r;
+            }
+        }
+        return null;
+    }
+    /**
     * @Description: add room to room list
     * @Param: [room]
     * @return: void
@@ -274,11 +290,45 @@ public class DataBase {
     * @return: java.util.List<Message>
     * @Date: 2020-11-11
     */
-    public List<Message> getMessageListByUserId(int userId) {
+    public List<Message> getAllMessageListByUserId(int userId) {
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
         List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {
             if (m.getReceiverId() == userId || m.getSenderId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
+    }
+    /**
+    * @Description: Return the List of Sent messages related to <userId>; Cannot add message
+    * @Param: [userId]
+    * @return: java.util.List<Message>
+    * @Author:
+    * @Date: 2020-11-14
+    */
+    public List<Message> getSentMessageListByUserId(int userId) {
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getSenderId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
+    }
+    /**
+    * @Description: Return the List of Received messages related to <userId>; Cannot add message
+    * @Param: [userId]
+    * @return: java.util.List<Message>
+    * @Author:
+    * @Date: 2020-11-14
+    */
+    public List<Message> getReceivedMessageListByUserId(int userId) {
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getReceiverId() == userId) {
                 ret.add(m);
             }
         }
