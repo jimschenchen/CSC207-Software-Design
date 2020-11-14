@@ -49,7 +49,6 @@ public class ConferenceSystem {
         });
     }
 
-
     /**
      * Logs in a user.
      *
