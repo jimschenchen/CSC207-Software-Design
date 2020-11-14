@@ -8,14 +8,14 @@ public class SerUtils {
 
     /** Relative Path of the DB the file */
     static String relativePath = "./phase1/Gateway/data.ser";
-    
+
     /**
-    * @Description: Overrite the file
-    * @Param: [data]
-    * @return: void
-    * @Author: 
-    * @Date: 2020-11-09
-    */
+     * @Description: Serializing database to file
+     * @Param: [data]
+     * @return: void
+     * @Author:
+     * @Date: 2020-11-09
+     */
     public static void push (DataBase data) throws IOException {
         try {
             FileOutputStream fileOut = new FileOutputStream(relativePath);
@@ -29,34 +29,31 @@ public class SerUtils {
     }
 
     /**
-    * @Description: Get all the data from file
-    * @Param: []
-    * @return: java.lang.Object
-    * @Author: 
-    * @Date: 2020-11-09
-    */
-    public static DataBase pull () throws IOException {
-        DataBase db = getData();
-        return db;
-    }
-    
-    private static DataBase getData() {
+     * @Description: deserializing database from file and return the database. If file does not exists, create one
+     * @Param: []
+     * @return: java.lang.Object
+     * @Author:
+     * @Date: 2020-11-09
+     */
+    public static DataBase pull () {
         DataBase db = null;
-        try {
+        try
+        {
             FileInputStream fileIn = new FileInputStream(relativePath);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             db = (DataBase) in.readObject();
             in.close();
             fileIn.close();
             return db;
-        } catch (IOException i) {
-            i.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
+        } catch(IOException i) {
+            // i.printStackTrace();
+            System.out.println("=== Data File does not found ===");
+            System.out.println("=== Initial new Data File ===");
+            return new DataBase();
+        } catch(ClassNotFoundException c) {
+            System.out.println("Class not found");
             c.printStackTrace();
             return null;
         }
     }
-
 }
