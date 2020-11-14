@@ -249,6 +249,22 @@ public class DataBase {
         return null;
     }
     /**
+    * @Description: 
+    * @Param: [roomNum]
+    * @return: Room
+    * @Author: 
+    * @Date: 2020-11-14
+    */
+    public Room getRoomByRoomNum(int roomNum) {
+        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+        for (Room r : roomList) {
+            if (r.getRoom_num() == roomNum) {
+                return r;
+            }
+        }
+        return null;
+    }
+    /**
     * @Description: add room to room list
     * @Param: [room]
     * @return: void
