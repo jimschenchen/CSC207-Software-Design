@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 
-public class Event {
+public class Event implements java.io.Serializable{
     private Double start_time; // think about time.localdatetime.
     private int speaker_id;
     private String title;

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Speaker extends User{
+public class Speaker extends User implements java.io.Serializable{
 
     private ArrayList<Integer> giving_event_list;
 

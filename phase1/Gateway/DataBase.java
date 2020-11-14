@@ -12,7 +12,7 @@ public class DataBase {
     private int nextUserId = 0;
     private int nextEventId = 0;
     private int nextRoomId = 0;
-    private int nextMessageId = 0;
+    // private int nextMessageId = 0;
     private List<User> userList = new ArrayList<>();
     private List<Event> eventList = new ArrayList<>();
     private List<Room> roomList = new ArrayList<>();
@@ -39,9 +39,9 @@ public class DataBase {
     }
 
     /** Return the next message id and self increase by 1 */
-    public int getNextMessageId() {
-        return nextMessageId++;
-    }
+//    public int getNextMessageId() {
+//        return nextMessageId++;
+//    }
 
     /**
     * @Description:

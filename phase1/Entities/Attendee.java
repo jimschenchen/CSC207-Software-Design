@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-public class Attendee extends User{
+public class Attendee extends User implements java.io.Serializable{
 
     private ArrayList<Integer> signed_up_event;
 
