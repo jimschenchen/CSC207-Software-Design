@@ -232,7 +232,7 @@ public class ConferenceSystem {
         try{
             int eid = Integer.parseInt(eventID);
             // check if the event exists, and user can sign up for event
-            if (em.canAddUserToEvent(user, eid, db) && um.canSignUpForEvent(eid, user, db)){ // need confirm
+            if (em.canAddUserToEvent(user, eid, db) && um.canSignUpForEvent(eid, user, db)){ //need confirm
                 um.addEventToAttendeeOrOrganizer(eid, user, db);
                 em.addUserToEvent(user, eid, db);
                 return true;
@@ -336,8 +336,8 @@ public class ConferenceSystem {
             Double sTime = Double.parseDouble(startTime);
             int sID = Integer.parseInt(speakerID);
             int rNumber = Integer.parseInt(roomNumber);
-            int rID = db.getRoomByRoomNumber(rNumber);
-            if (em.canCreateEvent(rNumber, sTime, db)){ // need to change param rid
+            int rID = db.getRoomByRoomNumber(rNumber); //getroombyroomnumber returns room object, you need call getRid.
+            if (em.canCreateEvent(rNumber, sTime, db)){ // need to change param rid, time need to be localdatetime type
                 em.createEvent(rNumber, sTime, db); // need to change param rid
                 return true;
             }
@@ -400,7 +400,7 @@ public class ConferenceSystem {
         List<Integer> allEvents = em.getEventList(db);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, db)){
+            if (um.canSignUpForEvent(eventID, this.user, db)){//use canAddUserToEvent in eventmanager
                 events.add(em.getStringOfEvent(eventID, db));
             }
         }

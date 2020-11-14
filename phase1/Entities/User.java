@@ -1,5 +1,3 @@
-import java.nio.charset.Charset;
-
 public abstract class User implements java.io.Serializable{
 //    we do not need friend list in Phrase 1. The uid will be counted by gateway.
     private final int uid;

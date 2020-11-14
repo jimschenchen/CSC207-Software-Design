@@ -53,15 +53,20 @@ public class UserManager {
     }
 
     public boolean canSignUpForEvent(int eventId, int userId, DataBase d) {
-//      return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
-        List<Integer> userEventList = d.getAttendeeById(userId).getEventList();
-        Event event = d.getEventById(eventId);
-        for (Integer e : userEventList){
-            if (e.equals(eventId) || d.getEventById(e).getStart_time().equals(event.getStart_time())){
-                return false;
-            }
+        Event e = d.getEventById(eventId);
+        if (e == null | d.getSpeakerById(userId) != null |
+                d.getRoomById(e.getRoomId()).getCapacity() <= e.getSingned_userid().size()) {
+            return false;
         }
-        return true;
+        else {
+            Attendee a = (Attendee) d.getUserById(userId);
+            for (int i = 0; i <  a.getEventList().size(); i++) {
+                if (d.getEventById(a.getEventList().get(i)).getStart_time().equals(e.getStart_time())){
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     public void addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){

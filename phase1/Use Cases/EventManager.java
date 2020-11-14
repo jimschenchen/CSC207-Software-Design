@@ -1,4 +1,5 @@
 import javax.xml.crypto.Data;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -7,23 +8,26 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class EventManager {
-    private int event_id;
-    private int speaker_id;
-    private String title;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    //don't need these instance
+//    private int event_id;
+//    private int speaker_id;
+//    private String title;
+//
+//don't need these setter
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public void setEventId(int event_id) {
+//        this.event_id = event_id;
+//    }
+//
+//    public void setSpeakerId(int speaker_id) {
+//        this.speaker_id = speaker_id;
+//    }
 
-    public void setEventId(int event_id) {
-        this.event_id = event_id;
-    }
-
-    public void setSpeakerId(int speaker_id) {
-        this.speaker_id = speaker_id;
-    }
-
-    public boolean canCreateEvent(int room_id, Double start, DataBase db){
+    public boolean canCreateEvent(int room_id, LocalDateTime start, DataBase db){
         List<Event> all_event = db.getEventList();
         for (Event event : all_event) {
             if (room_id == event.getRoomId() && start.equals(event.getStart_time())) {
@@ -33,43 +37,49 @@ public class EventManager {
         return true;
     }
 
-    public void createEvent(int room_id, Double start, DataBase db){
-        Event nEvent = new Event(start, this.event_id, this.speaker_id, this.title, room_id);
-        db.addEvent(nEvent);
+    public void createEvent(LocalDateTime start, int speakerId, String title, int roomId, DataBase d){
+        Event nEvent = new Event(start, d.getNextEventId(), speakerId, title, roomId);
+        d.addEvent(nEvent);
     }
 
-    public boolean addEventToDB(Event new_event, DataBase db){
-        boolean value = canCreateEvent(new_event.getRoomId(), new_event.getStart_time(), db);
-        if(value == true){
-            db.addEvent(new_event);
-            return true;
-        }
-        return false;
-    }
+// this method is never used
+//    public boolean addEventToDB(Event new_event, DataBase db){
+//        boolean value = canCreateEvent(new_event.getRoomId(), new_event.getStart_time(), db);
+//        if(value == true){
+//            db.addEvent(new_event);
+//            return true;
+//        }
+//        return false;
+//    }
 
     public void setSpeaker(int speakerId, int eventId, DataBase d){
         d.getEventById(eventId).setSpeaker_id(speakerId);
 
     }
 
-    public boolean canAddUserToEvent(int userId, int eventId, DataBase d){
-        List<Event> all_event = d.getEventList();
-        for (Event e: all_event){
-            if (e.getEvent_id() == eventId){
+    public boolean canAddUserToEvent(int userid, int eventid, DataBase d) {
+        if (d.getEventById(eventid) == null) {
+            return false;
+        }
+        else {
+            Event e = d.getEventById(eventid);
+            if (e.getSingned_userid().contains(userid)
+                    | d.getRoomById(e.getRoomId()).getCapacity() > e.getSingned_userid().size()) {
                 return false;
             }
+            return true;
         }
-        return true;
     }
+
 
     public void addUserToEvent(int userId, int eventId, DataBase d){
         d.getEventById(eventId).add_user(userId);
     }
 
-    public boolean canRemoveUser(int userId, int eventId, DataBase d){
-        List<User> all_user = d.getUserList();
-        for (User u: all_user){
-            if (u.getUser_id() == userId){
+
+    public boolean canRemoveUser(int userid, int eventid, DataBase d) {
+        if (d.getEventById(eventid) != null) {
+            if (d.getEventById(eventid).getSingned_userid().contains(userid)) {
                 return true;
             }
         }
@@ -81,7 +91,8 @@ public class EventManager {
     }
 
 
-    public Double getStart_time(Event event) {
+
+    public LocalDateTime getStart_time(Event event) {
         return event.getStart_time();
     }
 
