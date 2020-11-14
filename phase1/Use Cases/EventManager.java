@@ -47,8 +47,9 @@ public class EventManager {
         return false;
     }
 
-    public void setSpeaker(Speaker speaker, Event event){
-        event.setSpeaker_id(speaker.getUser_id());
+    public void setSpeaker(int speakerId, int eventId, DataBase d){
+        d.getEventById(eventId).setSpeaker_id(speakerId);
+
     }
 
     public boolean canAddUserToEvent(int userId, int eventId, DataBase d){

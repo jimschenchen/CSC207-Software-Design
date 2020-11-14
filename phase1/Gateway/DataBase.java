@@ -281,9 +281,10 @@ public class DataBase {
     * @return: java.util.List<Message>
     * @Date: 2020-11-11
     */
-    public List<Message> getMessageList() {
+    private List<Message> getMessageList() {
         return messageList;
     }
+
     /**
     * @Description: Return the List of messages related to <userId>; Cannot add message
     * @Param: [userId]

@@ -21,7 +21,12 @@ public class UserManager {
 
     public void createSpeaker(String password, String name, DataBase d){
         Speaker s = new Speaker(d.getNextUserId(), password, name);
-        d.addUser(s); //汤zheng，jim， 这里是不是应该也在database里面加上一个类似于addMessage（）的方法？
+        d.addUser(s);
+    }
+
+    public void createAttendee(String password, String name ,DataBase d) {
+        Attendee a = new Attendee(d.getNextUserId(), password, name);
+        d.addUser(a);
     }
 
     // 檢查是否能addEventToSpeaker

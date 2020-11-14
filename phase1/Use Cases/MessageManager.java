@@ -111,13 +111,29 @@ public class MessageManager {
         d.addMessage(m);
     }
 
-    public List<String> getMessageList(int userID, DataBase db){
-        List<Message> messages = db.getMessageListByUserId(userID);
+    public List<String> getReceivedMessageListByUserId(int userID, DataBase d){
+        List<Message> messages = d.getReceivedMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
             sMessages.add(message.toString());
         }
         return sMessages;
+    }
+
+    public List<String> getSentMessageListByUserId(int userID, DataBase d) {
+        List<Message> messages = d.getSentMessageListByUserId(userID);
+        List<String> sMessages = new ArrayList<>();
+        for (Message message : messages){
+            sMessages.add(message.toString());
+        }
+        return sMessages;
+    }
+
+
+    public void replyMessage(String content, int currentuserId, int positionOfMessage, DataBase d) {
+        Message m = d.getReceivedMessageListByUserId(currentuserId).get(positionOfMessage);
+        Message reply = new Message(content, m.getReceiverId(), m.getSenderId());
+        d.addMessage(reply);
     }
 
 
