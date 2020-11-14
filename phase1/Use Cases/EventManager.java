@@ -48,12 +48,12 @@ public class EventManager {
         event.setSpeaker_id(speaker.getUser_id());
     }
 
-    public void addUserToEvent(int userId, int eventId, DataBase d){
-        d.getEventById(eventId).add_user(userId);
+    public boolean addUserToEvent(int userId, int eventId, DataBase d){
+        return d.getEventById(eventId).add_user(userId);
     }
 
-    public void remove_user(int userId, int eventId, DataBase d) {
-        d.getEventById(eventId).remove_user(userId);
+    public boolean remove_user(int userId, int eventId, DataBase d) {
+        return d.getEventById(eventId).remove_user(userId);
     }
 
 

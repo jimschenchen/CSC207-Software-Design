@@ -1,4 +1,5 @@
 import javax.xml.crypto.Data;
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +7,17 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class UserManager {
+
+    // checks if username is unique
+    public boolean canCreateSpeaker(String username, DataBase db){
+        List<User> users = db.getUserList();
+        for (User user : users){
+            if (user.getUserName().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void createSpeaker(String password, String name, DataBase d){
         Speaker s = new Speaker(d.getNextUserId(), password, name);
@@ -22,8 +34,8 @@ public class UserManager {
         }
         else {
             ArrayList<Integer> events = s.get_GivingEventList();
-            for (int i = 0; i < events.size(); i++) {
-                if (d.getEventById(events.get(i)).getStart_time().equals(event.getStart_time())) {
+            for (Integer integer : events) {
+                if (d.getEventById(integer).getStart_time().equals(event.getStart_time())) {
                     return false;
                 }
             }
@@ -36,7 +48,15 @@ public class UserManager {
     }
 
     public boolean canSignUpForEvent(int eventId, int userId, DataBase d) {
-        return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
+//      return d.getOrganizerById(userId).getEventList().contains(eventId) | d.getAttendeeById(userId).getEventList().contains(eventId);
+        List<Integer> userEventList = d.getAttendeeById(userId).getEventList();
+        Event event = d.getEventById(eventId);
+        for (Integer e : userEventList){
+            if (e.equals(eventId) || d.getEventById(e).getStart_time().equals(event.getStart_time())){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
@@ -64,7 +84,7 @@ public class UserManager {
         return d.getUserById(userId).getUserName();
     }
 
-    public List getOrganizerOrAttendeeEventList(int Id, DataBase d){
+    public ArrayList<Integer> getOrganizerOrAttendeeEventList(int Id, DataBase d){
         if (d.getAttendeeById(Id) == null){
             return d.getOrganizerById(Id).getEventList();
         }else {
@@ -72,16 +92,18 @@ public class UserManager {
         }
     }
 
-    // 加了這幾個method，jenna & Lihang 可以檢查看看有沒有錯嗎？ -grace
     public List<Integer> getSpeakerEventList(int speakerID, DataBase d){
         return d.getSpeakerById(speakerID).get_GivingEventList();
     }
 
-    public String getUserPassword(int userID, DataBase d){
-        return d.getUserById(userID).getPassword();
+    public String getUserPassword(String username, DataBase d){
+        return d.getUserByUserName(username).getPassword();
     }
 
-    // 不肯定這個應該放在controller還是use case，如果應該在controller請把它搬過去吧
+    public int getUserID(String username, DataBase db){
+        return db.getUserByUserName(username).getUser_id();
+    }
+
     public int getUserCategory(int id, DataBase d){
         if (d.getSpeakerById(id) != null){
             // return 0 when id is a speaker
