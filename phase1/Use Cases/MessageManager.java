@@ -80,7 +80,7 @@ public class MessageManager {
 //        d.addMessage(m);
         //database 中没有直接能通过eventId来得到speaker的方法，所以我先通过eventId找到对应的event，再通过event找到speaker
 
-    public boolean canMessageAllSpeakers(int senderId, DataBase db){
+    public boolean canMessageAllSpeakersOrAllAttendee(int senderId, DataBase db){
         return db.getOrganizerById(senderId) != null;
     }
 
@@ -129,6 +129,13 @@ public class MessageManager {
         return sMessages;
     }
 
+    // no one can message organizer
+    // check if the sender is organizer, if no then can reply message
+    public boolean canReplyMessage(int currentuserID, int positionOfMessage, DataBase db){
+        Message message = db.getReceivedMessageListByUserId(currentuserID).get(positionOfMessage);
+        int senderID = message.getSenderId();
+        return db.getOrganizerById(senderID) == null;
+    }
 
     public void replyMessage(String content, int currentuserId, int positionOfMessage, DataBase d) {
         Message m = d.getReceivedMessageListByUserId(currentuserId).get(positionOfMessage);

@@ -1,5 +1,6 @@
 import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -26,6 +27,7 @@ public class EventManager {
 //    public void setSpeakerId(int speaker_id) {
 //        this.speaker_id = speaker_id;
 //    }
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public boolean canCreateEvent(int room_id, LocalDateTime start, DataBase db){
         List<Event> all_event = db.getEventList();
@@ -64,7 +66,7 @@ public class EventManager {
         else {
             Event e = d.getEventById(eventid);
             if (e.getSingned_userid().contains(userid)
-                    | d.getRoomById(e.getRoomId()).getCapacity() > e.getSingned_userid().size()) {
+                    | d.getRoomById(e.getRoomId()).getCapacity() <= e.getSingned_userid().size()) {
                 return false;
             }
             return true;
@@ -144,8 +146,12 @@ public class EventManager {
         return "The event " + event.getTitle() +
                 " with ID " + event.getEvent_id() +
                 " by " + db.getSpeakerById(event.getSpeakerId()).getUserName() +
-                " starts at " + event.getStart_time() +
+                " starts at " + event.getStart_time().format(getStartTimeFormatter()) +
                 " takes place in " + db.getRoomById(event.getRoomId()).getRoom_num();
+    }
+
+    public DateTimeFormatter getStartTimeFormatter(){
+        return this.formatter;
     }
 }
 

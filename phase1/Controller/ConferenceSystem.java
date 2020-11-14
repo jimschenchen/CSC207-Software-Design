@@ -4,12 +4,16 @@ import com.sun.org.apache.xpath.internal.res.XPATHErrorResources_sv;
 import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceSystem {
 
-    // stores use cases and gateway
+    /**
+     * The ConferenceSystem Class.
+     */
     private EventManager em = new EventManager();
     private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
@@ -60,7 +64,6 @@ public class ConferenceSystem {
      *         returns 2 when the user is an Attendee.
      */
     public int login(String username, String password){
-        // String to int conversion
         if (db.getUserByUserName(username) != null){
             String dbPassword = um.getUserPassword(username, db);
             if (dbPassword.equals(password)){
@@ -68,12 +71,9 @@ public class ConferenceSystem {
                 return um.getUserCategory(this.user, db);
             }
         }
-        // return false when ID doesn't exist or password does not match
         return -1;
     }
 
-    // change password
-    // assuming users cannot reset passwords before login
     /**
      * Resets the password for the logged in user. Checks if the password is 6 characters or longer.
      *
@@ -177,16 +177,28 @@ public class ConferenceSystem {
         }
     }
 
-    // send message to all speakers
+    /**
+     * Sends a message to all speakers at once. Only Organizers can perform such action.
+     *
+     * @param content Content of the message.
+     * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
+     */
     public boolean messageAllSpeakers(String content){
-        if (mm.canMessageAllSpeakers(user, db)){
+        if (mm.canMessageAllSpeakersOrAllAttendee(user, db)){
             mm.messageAllSpeakers(content, user, db);
             return true;
         }
         return false;
     }
 
-    // send message to one speaker
+    /**
+     * Sends a message to a specific speaker.
+     *
+     * @param receiverID The receiver's (speaker) ID.
+     * @param content Content of the message
+     * @return Return true if the message is sent successfully. False if the input(ID) is invalid, or the user
+     * is not allowed to message the speaker.
+     */
     public boolean messageSpeaker(String receiverID, String content){
         try{
             int rID = Integer.parseInt(receiverID);
@@ -201,14 +213,29 @@ public class ConferenceSystem {
         }
     }
 
+    /**
+     * Sends a message to all attendees in the system. This action can only be performed by an organizer.
+     *
+     * @param content Content of the message.
+     * @return Return true if the messages are successfully sent. False if the logged in sender is not allowed to
+     * perform this action.
+     */
     public boolean messageAllAttendee(String content){
-        if(db.getOrganizerById(user) != null){
+        if(mm.canMessageAllSpeakersOrAllAttendee(user, db)){
             mm.messageAllAttendees(user, content, db);
             return true;
         }
         return false;
     }
 
+    /**
+     * Sends a message to an attendee.
+     *
+     * @param receiverID Message receiver's ID.
+     * @param content Content of the message.
+     * @return Return true if the message is sent successfully. False if the user is not allowed to message this
+     * attendee, or input is invalid.
+     */
     public boolean messageAttendee(String receiverID, String content){
         try{
             int rID = Integer.parseInt(receiverID);
@@ -246,13 +273,17 @@ public class ConferenceSystem {
      *
      * @param messageIndex Position of the message (to identify which message it is replying)
      * @param content Content of the replying message.
-     * @return Return true when the message is successfully sent, false otherwise.
+     * @return Return true when the message is successfully sent, false if the user is not allowed to reply to the
+     * message.
      */
     public boolean replyMessage(String messageIndex, String content){
         try{
             int mIndex = Integer.parseInt(messageIndex);
-            mm.replyMessage(content, user, mIndex, db);
-            return true;
+            if (mm.canReplyMessage(user, mIndex, db)){
+                mm.replyMessage(content, user, mIndex, db);
+                return true;
+            }
+            return false;
         }
         catch(NumberFormatException nfe){
             return false;
@@ -366,21 +397,28 @@ public class ConferenceSystem {
         }
     }
 
-    // create a new event
-    // subject to change
+    /**
+     * Creates a new event into the system.
+     *
+     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH:mm". Example: "2020-11-14 18:39"
+     * @param speakerID ID of speaker giving the event.
+     * @param topic Topic/title of the event.
+     * @param roomNumber Room number of the location of this event.
+     * @return Return true if successfully created a new event into the system, false otherwise.
+     */
     public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
         try{
-            Double sTime = Double.parseDouble(startTime);
+            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rNumber = Integer.parseInt(roomNumber);
-            int rID = db.getRoomByRoomNumber(rNumber); //getroombyroomnumber returns room object, you need call getRid.
-            if (em.canCreateEvent(rNumber, sTime, db)){ // need to change param rid, time need to be localdatetime type
-                em.createEvent(rNumber, sTime, db); // need to change param rid
+            int rID = rm.getRoomIDbyRoomNumber(rNumber, db);
+            if (em.canCreateEvent(rID, sTime, db)){
+                em.createEvent(sTime, sID, topic, rID, db);
                 return true;
             }
             return false; // return false when unsuccessful
         }
-        catch(NumberFormatException nfe){
+        catch(DateTimeParseException dtpe){
             return false; // return false on invalid input
         }
     }

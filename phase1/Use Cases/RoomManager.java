@@ -23,4 +23,8 @@ public class RoomManager {
         Room room = new Room(roomNumber, d.getNextRoomId());
         d.addRoom(room);
     }
+
+    public int getRoomIDbyRoomNumber(int roomNumber, DataBase db){
+        return db.getRoomByRoomNum(roomNumber).getRid();
+    }
 }
