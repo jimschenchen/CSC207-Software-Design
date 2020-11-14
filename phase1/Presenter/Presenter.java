@@ -138,6 +138,8 @@ public class Presenter {
             messageAllAttendeeEvent();
         }else if (answer == 2){
             messageAllUsersInAllSpeakingEvents();
+        }else if(answer == 3){
+            messageOneSpecificUserInEvent();
         }else {
             MessengerOpener();
         }

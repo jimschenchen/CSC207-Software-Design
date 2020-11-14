@@ -106,7 +106,8 @@ public class ViewModel implements ViewActions {
     @Override
     public int MessengerSpeaker() {
         System.out.println("Type 1 If you want to send a message to all attendees in one event: '");
-        System.out.println("TYpe 2 If you want to send a message to all attendees in all your events: ");
+        System.out.println("Type 2 If you want to send a message to all attendees in all your events: ");
+        System.out.println("Type 3 If you want to send a specific user in your events: ");
         exit();
         return answer();
     }
