@@ -106,10 +106,10 @@ public class MessageManager {
     }
 
 
-    public void reply_message(String content, int senderId, int receiverId, DataBase d){
-        Message m = new Message(content, senderId, receiverId);
-        d.addMessage(m);
-    }
+//    public void reply_message(String content, int senderId, int receiverId, DataBase d){
+//        Message m = new Message(content, senderId, receiverId);
+//        d.addMessage(m);
+//    }
 
     public List<String> getReceivedMessageListByUserId(int userID, DataBase d){
         List<Message> messages = d.getReceivedMessageListByUserId(userID);

@@ -89,14 +89,34 @@ public class ConferenceSystem {
         return false;
     }
 
-    // get user name
+//    /**
+//     * Get current logged in user's name.
+//     *
+//     * @return Returns the user name.
+//     */
+//    public String getCurrentUserName(){
+//        return um.getUserName(user, db);
+//    }
+
     /**
-     * Get current logged in user's name.
+     * Get user ID by user name.
      *
-     * @return Returns the user name.
+     * @param username User's name
+     * @return Return user's ID
      */
-    public String getCurrentUserName(){
-        return um.getUserName(user, db);
+    public String getUserIDbyUserName(String username){
+        return Integer.toString(um.getUserID(username, db));
+    }
+
+    /**
+     * Get user name by user ID.
+     *
+     * @param userID User's ID
+     * @return Return user name
+     */
+    public String getUserNameByID(String userID){
+        int uID = Integer.parseInt(userID);
+        return um.getUserName(uID, db);
     }
 
     /**
@@ -203,18 +223,35 @@ public class ConferenceSystem {
         }
     }
 
-    //read messages of user
-    // now the list of messages include sent messages and received messages
-    public List<String> readMessages(){
-        return mm.getMessageList(user, db);
+    /**
+     * Reads the sent messages of the user currently logged in.
+     *
+     * @return List of Strings representing the messages the user sent.
+     */
+    public List<String> readSentMessages(){
+        return mm.getSentMessageListByUserId(user, db);
     }
 
-    // reply message
-    // subject to changes
-    public boolean replyMessage(String receiverID, String content){
+    /**
+     * Reads the incoming messages of the user currently logged in.
+     *
+     * @return List of Strings representing the messages the user reveived.
+     */
+    public List<String> readReceivedMessages(){
+        return mm.getReceivedMessageListByUserId(user, db);
+    }
+
+    /**
+     * Reply to a specific message.
+     *
+     * @param messageIndex Position of the message (to identify which message it is replying)
+     * @param content Content of the replying message.
+     * @return Return true when the message is successfully sent, false otherwise.
+     */
+    public boolean replyMessage(String messageIndex, String content){
         try{
-            int rID = Integer.parseInt(receiverID);
-            mm.reply_message(content, user, rID, db);
+            int mIndex = Integer.parseInt(messageIndex);
+            mm.replyMessage(content, user, mIndex, db);
             return true;
         }
         catch(NumberFormatException nfe){
