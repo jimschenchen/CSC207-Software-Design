@@ -20,6 +20,7 @@ public class Gateway {
         SerUtils.push(database);
     }
 
+/**
     public static void main(String[] args) throws IOException {
         read();
         write();
@@ -56,4 +57,5 @@ public class Gateway {
         // save db
         gw.termination(db);
     }
+ */
 }

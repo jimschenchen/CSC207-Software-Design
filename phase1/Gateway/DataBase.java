@@ -44,7 +44,7 @@ public class DataBase {
 //    }
 
     /**
-    * @Description:
+    * @Description: Get user by given id
     * @Param: [id]
     * @return: User
     * @Author:
@@ -60,7 +60,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description:
+    * @Description: get User by given username
     * @Param: [username]
     * @return: User
     * @Author:
@@ -91,7 +91,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get attendee by given username
     * @Param: [username]
     * @return: Attendee
     * @Author: 
@@ -120,7 +120,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get speaker by given username
     * @Param: [username]
     * @return: Speaker
     * @Author: 
@@ -149,7 +149,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get organizer by given username
     * @Param: [username]
     * @return: Organizer
     * @Author: 
@@ -164,7 +164,7 @@ public class DataBase {
     }
 
     /**
-    * @Description:
+    * @Description: get List of all users
     * @Param: []
     * @return: java.util.List<User>
     * @Author:
@@ -186,7 +186,7 @@ public class DataBase {
 
     
     /**
-    * @Description:
+    * @Description: get list of all events
     * @Param: []
     * @return: java.util.List<Event>
     * @Author:
@@ -196,7 +196,7 @@ public class DataBase {
         return eventList;
     }
     /**
-    * @Description:
+    * @Description: get event by given id
     * @Param: [id]
     * @return: Event
     * @Author:
@@ -223,7 +223,7 @@ public class DataBase {
     }
 
     /**
-    * @Description:
+    * @Description: get list of rooms
     * @Param: []
     * @return: java.util.List<Room>
     * @Author:
@@ -233,7 +233,7 @@ public class DataBase {
         return roomList;
     }
     /**
-    * @Description:
+    * @Description: get room by given id
     * @Param: [id]
     * @return: Room
     * @Author:
@@ -249,7 +249,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get room by given roomNum
     * @Param: [roomNum]
     * @return: Room
     * @Author: 
@@ -276,7 +276,7 @@ public class DataBase {
     }
 
     /**
-    * @Description:
+    * @Description: get List of all messages
     * @Param: []
     * @return: java.util.List<Message>
     * @Date: 2020-11-11
