@@ -50,13 +50,20 @@ public class Presenter {
         }
     }
 
+    private void StringPrinter(List<String> events){
+        for (String e: events){
+            System.out.println(e);
+        }
+    }
+
 
 
     private void openBranchSpeaker(int answer){
         if (answer == 1){
-            MessengerOpener();
+           MessengerOpener();
         }else if (answer == 2){
-            model.viewSpeakingEvents();
+            List<String> l = cs.viewSpeakingEvents();
+            StringPrinter(l);
         }else {
            model.invalidInput();
         }
@@ -85,11 +92,14 @@ public class Presenter {
         if (answer == 1){
             MessengerOpener();
         }else if(answer == 2){
-            model.ViewEvents();
+            List<String> EventList = cs.viewEvents();
+            StringPrinter(EventList);
         }else if(answer == 3){
-            model.viewSignedUpOrOrganizedEvents();
+            List<String> events = cs.viewSignedUpOrOrganizedEvents();
+            StringPrinter(events);
         }else if(answer ==4){
-            model.viewCanSignUpEvents();
+            List<String> events = cs.viewCanSignUpEvents();
+            StringPrinter(events);
         }else if(answer == 5){
             SignUpEvent();
         }else if(answer == 6){
@@ -122,7 +132,13 @@ public class Presenter {
         if (answer == 1){
             MessengerOpenerSpecific();
         }else if(answer == 2){
-            model.readMessage();
+            List<String> receive_messages = cs.readReceivedMessages();
+            List<String> sent_messages= cs.readSentMessages();
+            System.out.println("Here are the messages you received!");
+            StringPrinter(receive_messages);
+            System.out.println("Here are the messages you sent");
+            StringPrinter(sent_messages);
+
         }else if (answer == 3){
             if(type == 1){
                 System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
@@ -260,7 +276,8 @@ public class Presenter {
     }
 
     private void replyMessage(){
-        String[] l = model.replyMessage();
+        List<String> receive_message = cs.readReceivedMessages();
+        String[] l = model.replyMessage(receive_message);
         String num = l[0];
         String reply = l[1];
         boolean success = cs.replyMessage(num, reply);
