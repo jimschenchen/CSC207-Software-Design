@@ -93,14 +93,11 @@ public class Presenter {
         if (answer == 1){
             MessengerOpener();
         }else if(answer == 2){
-            List<String> EventList = cs.viewEvents();
-            StringPrinter(EventList);
+            viewEvents();
         }else if(answer == 3){
-            List<String> events = cs.viewSignedUpOrOrganizedEvents();
-            StringPrinter(events);
+            viewSignedUpOrOrganizedEvents();
         }else if(answer ==4){
-            List<String> events = cs.viewCanSignUpEvents();
-            StringPrinter(events);
+            viewCanSignUpEvents();
         }else if(answer == 5){
             SignUpEvent();
         }else if(answer == 6){
@@ -110,6 +107,35 @@ public class Presenter {
         }
         MenuOpener();
     }
+
+
+    private void viewCanSignUpEvents(){
+        List<String> events = cs.viewCanSignUpEvents();
+        StringPrinter(events);
+        String answer = model.back();
+        if (answer != null){
+            MenuOpener();
+        }
+    }
+
+    private void viewSignedUpOrOrganizedEvents(){
+        List<String> events = cs.viewSignedUpOrOrganizedEvents();
+        StringPrinter(events);
+        String answer = model.back();
+        if (answer != null){
+            MenuOpener();
+        }
+    }
+
+    private void viewEvents(){
+        List<String> EventList = cs.viewEvents();
+        StringPrinter(EventList);
+        String answer = model.back();
+        if (answer != null){
+            MenuOpener();
+        }
+    }
+
 
 
     public void MenuOpener() {

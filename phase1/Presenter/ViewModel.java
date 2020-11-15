@@ -84,6 +84,7 @@ public class ViewModel implements ViewActions {
 
 
 
+
     @Override
     public int MessengerAttendee() {
         System.out.println("Type 1 If you want to send a message to an attendee: ");
@@ -114,6 +115,13 @@ public class ViewModel implements ViewActions {
 
     private void exit(){
         System.out.println("Type other numbers if you want to return to the previous page: ");
+    }
+
+    public String back(){
+        System.out.println("Type any thing to go back to previous page");
+        Console c = System.console();
+        String answer = c.readLine();
+        return answer;
     }
 
 
