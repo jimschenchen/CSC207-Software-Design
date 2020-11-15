@@ -1,13 +1,28 @@
 import java.io.Console;
 import java.sql.SQLOutput;
 import java.util.List;
-
+/**
+ * The View class that interacts with the user.
+ */
 public class ViewModel implements ViewActions {
+    /**
+     * @description: Prints greeting statement
+     * @param: []
+     * @return: void
+     * @date: 2020-11-14
+     */
     @Override
     public void Introduction() {
 
         System.out.println("Welcome to the 0173 Conference!");
     }
+    /**
+     * @description: Asks user if he/she/they have registered or not
+     * @param: []
+     * @return: returns 1 if user has already registered
+     * returns 0 if not
+     * @date: 2020-11-14
+     */
 
     @Override
     public int AreURegistered() {
@@ -25,6 +40,12 @@ public class ViewModel implements ViewActions {
         }
         return i;
     }
+    /**
+     * @description: Interacts with the user and takes its username from the console
+     * @param: []
+     * @return: returns user's username
+     * @date: 2020-11-14
+     */
 
     @Override
     public String username() {
@@ -33,6 +54,12 @@ public class ViewModel implements ViewActions {
         String username = c.readLine();
         return username;
     }
+    /**
+     * @Description: Interacts with the user and takes its password from the console
+     * @param: []
+     * @return: returns user's password
+     * @Date: 2020-11-14
+     */
 
 
     @Override
@@ -43,6 +70,12 @@ public class ViewModel implements ViewActions {
         String pass = String.valueOf(ch);//converting char array into string
         return pass;
     }
+    /**
+     * @Description: Interacts with the user to sign in
+     * @param: []
+     * @return: returns the String[username, password]
+     * @Date: 2020-11-14
+     */
 
     @Override
     public String[] SignIn(){
@@ -53,15 +86,36 @@ public class ViewModel implements ViewActions {
         String k = c.readLine();
         return new String[]{n, k};
     }
+    /**
+     * @Description: Greets the user if user successfully log in
+     * @param username  User name of the user attempting to log in
+     * @return: void
+     * @Date: 2020-11-14
+     */
 
     @Override
     public void Credentials(String username) {
         System.out.println("Welcome" + username + "!");
     }
+    /**
+     * @Description: Generates the message if user failed to log in
+     * @param: []
+     * @return: void
+     * @Date: 2020-11-14
+     */
+
     @Override
     public void CredentialsFail(){
         System.out.println("Oops, something went wrong. Please try again");
     }
+    /**
+     * @Description: Interacts with the user to open a messenger
+     * @param: []
+     * @return returns 1 if user wants to send a message
+     * returns 2 if user want to view messages
+     * returns 3 if user want to reply to a message
+     * @Date: 2020-11-14
+     */
 
     public int Messenger(){
         System.out.println("Welcome to Messenger!");
@@ -81,9 +135,13 @@ public class ViewModel implements ViewActions {
     }
 
 
-
-
-
+    /**
+     * @Description: Interacts with the Attendee to open a messenger
+     * @param: []
+     * @return returns 1 if user wants to send a message to attendee
+     * returns 2 if user wants to send a message to a speaker
+     * @Date: 2020-11-14
+     */
 
 
     @Override
