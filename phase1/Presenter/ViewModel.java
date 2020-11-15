@@ -3,13 +3,28 @@ import java.sql.SQLOutput;
 import java.util.List;
 
 public class ViewModel implements ViewActions {
+    /**
+     * The ViewModel class for taking user inputs
+     */
     @Override
     public void Introduction() {
+        /**
+         * @Description: A short introduction to welcome users
+         * @Param: []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         System.out.println("Welcome to the 0173 Conference!");
     }
 
     @Override
     public int AreURegistered() {
+        /**
+         * @Description: Ask if the user is registered
+         * @Param: []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         int i = - 1;
         Console c = System.console();
         System.out.println("Do you have an account? Type: Yes/No");
@@ -27,6 +42,12 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String username() {
+        /**
+         * @Description: Ask Users for the the usernames when they sign up.
+         * @Param: []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         Console c = System.console();
         System.out.println("Enter your username here:");
         String username = c.readLine();
@@ -36,6 +57,12 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String Pass() {
+        /**
+         * @Description: Ask Users for the the passwords when they sign up.
+         * @Param: []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         Console c=System.console();
         System.out.println("Enter your password here: ");
         char[] ch=c.readPassword();
@@ -45,6 +72,12 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String[] SignIn(){
+        /**
+         * @Description: Ask Users for the the usernames and passwords when they sign in.
+         * @Param: []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         Console c = System.console();
         System.out.println("To sign in enter your username here:");
         String n = c.readLine();

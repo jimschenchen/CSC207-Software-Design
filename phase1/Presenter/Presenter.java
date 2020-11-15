@@ -43,6 +43,7 @@ public class Presenter {
         type = cs.login(id, pass);
         if (type != -1){
             model.Credentials(username);
+            MenuOpener();
         }
         else{
             model.CredentialsFail();
