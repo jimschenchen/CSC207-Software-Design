@@ -3,6 +3,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
+
 /**
  * The View class that interacts with the user.
  */
@@ -704,16 +705,37 @@ public class ViewModel implements ViewActions {
         return l;
     }
 
+
+    /**
+     * @description: Prints a statement to show all attendees.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
     public void viewAllAttendees(){
         System.out.println("Here is all the attendees in the conference! Format: in UserName (userID)");
     }
 
+
+
+    /**
+     * @description: Prints a statement to show all speakers.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
     public void  viewAllSpeakers(){
         System.out.println("Here is all the speakers in the conference! Format: in UserName (userID)");
     }
 
+    /**
+     * @description: Prints a statement to the attendees who signed up for at one talks of a speaker .
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
     public void viewAttendeesInSpeakingEvents(){
-        System.out.println("Here is all the attendees who signed up for your talks!");
+        System.out.println("Here is all the attendees who signed up for your talks! Format: in UserName (userID)\"");
     }
 
 }
