@@ -466,12 +466,16 @@ public class Presenter {
     }
 
     private void new_event(){
+        System.out.println("Here are all speakers:");
+        System.out.println(cs.viewAllSpeakers());
+        System.out.println("Here are all rooms (with format room number (room id)):");
+        System.out.println(cs.viewAllRooms());
         String[] l = model.newEvent();
         String start = l[0];
-        String user_id = l[1];
+        String speaker_id = l[1];
         String topic = l[2];
         String room = l[3];
-        boolean success = cs.newEvent(start, user_id, topic, room);
+        boolean success = cs.newEvent(start, speaker_id, topic, room);
         MessageSuccessHelper(success);
 
     }

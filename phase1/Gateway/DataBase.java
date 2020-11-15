@@ -259,7 +259,7 @@ public class DataBase implements Serializable {
     public Room getRoomByRoomNum(String roomNum) {
         ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
         for (Room r : roomList) {
-            if (r.getRoom_num() == roomNum) {
+            if (r.getRoom_num().equals(roomNum)) {
                 return r;
             }
         }

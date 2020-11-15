@@ -681,8 +681,8 @@ public class ViewModel implements ViewActions {
      */
     private String AskStartTime(){
         Scanner scanner = new Scanner (System.in);
-        System.out.println("When does the event start at? Format: YYYY--MM--DD HH:MM");
-        String start = scanner.next();
+        System.out.println("When does the event start at? Format: yyyy-MM-dd HH:00");
+        String start = scanner.nextLine();
         return start;
     }
     /**
@@ -708,13 +708,20 @@ public class ViewModel implements ViewActions {
     @Override
     public String[] newEvent(){
         String start = AskStartTime();
-        String user_id = AskForUser();
+        String user_id = AskForSpeaker();
         String topic = AskTopic();
         Scanner scanner = new Scanner (System.in);
         System.out.println("What is the room number where the event takes place?");
         String room = scanner.next();
         String[] l = {start, user_id, topic, room};
         return l;
+    }
+
+    public String AskForSpeaker() {
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("What's the Speaker id you want to set to this event?");
+        String user_id = scanner.next();
+        return user_id;
     }
 
 

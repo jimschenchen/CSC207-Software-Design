@@ -6,7 +6,7 @@ import java.util.List;
 
 public class RoomManager {
 
-    public List<Room> all_Rooms(DataBase bd) {
+    public List<Room> getListOfRooms(DataBase bd) {
         return bd.getRoomList();
     }
 
@@ -26,5 +26,10 @@ public class RoomManager {
 
     public int getRoomIDbyRoomNumber(String roomNumber, DataBase db){
         return db.getRoomByRoomNum(roomNumber).getRid();
+    }
+
+    public String getRoomString(int roomId, DataBase db){
+        Room room = db.getRoomById(roomId);
+        return room.getRoom_num() + " (" + room.getRid() + ")";
     }
 }

@@ -1,5 +1,6 @@
 import javax.xml.crypto.Data;
 import java.sql.DatabaseMetaData;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,5 +150,13 @@ public class UserManager {
         return user.getUserName() + " (" + user.getUser_id() + ")";
     }
 
+    public boolean isSpeakerBusy(int speakerId, LocalDateTime time, DataBase d) {
+        for (int eid :d.getSpeakerById(speakerId).get_GivingEventList()) {
+            if (d.getEventById(eid).getStart_time().equals(time)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

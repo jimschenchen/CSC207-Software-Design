@@ -418,7 +418,7 @@ public class ConferenceSystem {
     /**
      * Creates a new event into the system.
      *
-     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH:mm". Example: "2020-11-14 18:39"
+     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH". Example: "2020-11-14 18"
      * @param speakerID ID of speaker giving the event.
      * @param topic Topic/title of the event.
      * @param roomNumber Room number of the location of this event.
@@ -429,7 +429,7 @@ public class ConferenceSystem {
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, db);
-            if (em.canCreateEvent(rID, sTime, db)){
+            if (db.getSpeakerById(sID) != null && em.canCreateEvent(rID, sTime, db) && um.isSpeakerBusy(sID,sTime,db)){
                 em.createEvent(sTime, sID, topic, rID, db);
                 return true;
             }
@@ -541,11 +541,20 @@ public class ConferenceSystem {
      * Every speaker is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllSpeakers(){
-        List<Integer> allSpeakers = um.getListOfUsers(1, db);
+        List<Integer> allSpeakers = um.getListOfUsers(0, db);
         List<String> sAllSpeakers = new ArrayList<>();
         for (Integer userID : allSpeakers){
             sAllSpeakers.add(um.getUserString(userID, db));
         }
         return sAllSpeakers;
+    }
+
+    public List<String> viewAllRooms(){
+        List<Room> allRooms = rm.getListOfRooms(db);
+        List<String> sAllRooms = new ArrayList<>();
+        for (Room r: allRooms) {
+            sAllRooms.add(rm.getRoomString(r.getRid(),db));
+        }
+        return sAllRooms;
     }
 }
