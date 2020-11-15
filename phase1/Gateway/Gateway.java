@@ -33,11 +33,22 @@ public class Gateway {
         SerUtils.push(database);
     }
 
-/**
-    public static void main(String[] args) throws IOException {
-        read();
-        write();
+    public static void showData () {
+        DataBase db = SerUtils.pull();
+        System.out.println("=== User List ===");
+        db.getUserList().forEach((u) -> System.out.println("UserId: " + u.getUser_id() + " |UserName: " + u.getUserName() + " |Class: " + u.getClass()));
+        System.out.println("=== Event List ===");
+        db.getEventList().forEach((e) -> System.out.println("EventId: "+ e.getEvent_id() + " |RoomId: " + e.getRoomId() + " |SpeakerId: " + e.getSpeakerId()));
     }
+
+
+    public static void main(String[] args) throws IOException {
+        showData();
+//        read();
+//        write();
+    }
+
+    /**
 
     public static void read () throws IOException {
         // init

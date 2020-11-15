@@ -347,4 +347,13 @@ public class DataBase implements Serializable {
         this.messageList.add(message);
     }
 
+    public void printDataBase () {
+        System.out.println("UserNextId: " + this.nextUserId);
+        System.out.println("EventNextId: " + this.nextEventId);
+        System.out.println("RoomNextId: " + this.nextRoomId);
+        System.out.println("=== User List ===");
+        getUserList().forEach((u) -> System.out.println("UserId: " + u.getUser_id() + " |UserName: " + u.getUserName() + " |Class: " + u.getClass()));
+        System.out.println("=== Event List ===");
+        getEventList().forEach((e) -> System.out.println("EventId: "+ e.getEvent_id() + " |RoomId: " + e.getRoomId() + " |SpeakerId: " + e.getSpeakerId()));
+    }
 }
