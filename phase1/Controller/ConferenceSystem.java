@@ -33,7 +33,7 @@ public class ConferenceSystem {
     */
     public void init () throws IOException {
         shutDownHook();
-//        DataBase db = gw.init();
+        /** initial of database */
         this.db = gw.init();
     }
     /**
