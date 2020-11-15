@@ -397,7 +397,7 @@ public class ConferenceSystem {
     /**
      * Creates a new room into the system.
      *
-     * @param roomNumber The room number of the new room.
+     * @param roomNumber Room number of the new room.
      * @return Return true when successfully added a new room, false otherwise.
      */
     public boolean addNewRoom(String roomNumber){
