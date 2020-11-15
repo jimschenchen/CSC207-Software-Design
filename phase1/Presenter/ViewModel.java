@@ -744,6 +744,12 @@ public class ViewModel implements ViewActions {
         System.out.println("Here is all the attendees who signed up for your talks! Format: in UserName (userID)\"");
     }
 
+    /**
+     * @description: reset password for a user.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
     public String resetPassword(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("What's the new password");
@@ -751,6 +757,12 @@ public class ViewModel implements ViewActions {
         return pass;
     }
 
+    /**
+     * @description: tell user you make a new password.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
     public void passSuccess(){
         System.out.println("Look! You have a new password.");
     }

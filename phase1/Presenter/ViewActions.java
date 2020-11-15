@@ -45,6 +45,8 @@ public interface ViewActions {
     void viewAllAttendees();
     void  viewAllSpeakers();
     void viewAttendeesInSpeakingEvents();
+    String resetPassword();
+    void passSuccess();
 
 
 
