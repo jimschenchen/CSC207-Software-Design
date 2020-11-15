@@ -19,6 +19,7 @@ public class Gateway {
     */
     public DataBase init () throws IOException {
         DataBase db = SerUtils.pull();
+        db.printDataBase();
         return db;
     }
 
