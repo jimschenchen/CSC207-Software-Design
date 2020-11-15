@@ -92,8 +92,6 @@ public class EventManager {
         d.getEventById(eventId).remove_user(userId);
     }
 
-
-
     public LocalDateTime getStart_time(Event event) {
         return event.getStart_time();
     }
