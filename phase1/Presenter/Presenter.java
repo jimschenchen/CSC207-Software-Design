@@ -105,6 +105,8 @@ public class Presenter {
         }else if (answer == 3){
             resetPassword();
             MenuOpener();
+        }else if(answer == 4){
+            signOut();
         }else {
             model.invalidInput();
             MenuOpener();
@@ -132,6 +134,8 @@ public class Presenter {
         }else if(answer == 6){
             resetPassword();
             MenuOpener();
+        }else if(answer == 7){
+            signOut();
         }else{
             model.invalidInput();
             MenuOpener();
@@ -157,6 +161,8 @@ public class Presenter {
         }else if(answer == 7){
             resetPassword();
             MenuOpener();
+        }else if(answer ==8){
+            signOut();
         }else{
             model.invalidInput();
             MenuOpener();
@@ -501,6 +507,10 @@ public class Presenter {
         }else{
             model.MessageErr();
         }
+    }
+
+    private void signOut(){
+        System.exit(0);
     }
 
 
