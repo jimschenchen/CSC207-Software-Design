@@ -161,7 +161,7 @@ public class ViewModel implements ViewActions {
 
     @Override
     public void SorryMessenger() {
-
+        System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
     }
 
     @Override
@@ -186,37 +186,41 @@ public class ViewModel implements ViewActions {
 
     @Override
     public void SpeakerAccCreated() {
-
+        System.out.println("Hey! You just make a new speaker account!");
 
     }
 
     @Override
     public void SpeakerAccCreatedErr() {
-
+        System.out.println("Sorry! We can not add the speaker. Please check again!");
     }
 
     @Override
     public void SpeakerSet() {
+        System.out.println("Hey! You just make set a speaker for event!");
 
     }
 
     @Override
     public void SpeakerSetErr() {
-
+        System.out.println("Sorry! We can not set the speaker for the event. Please check again!");
     }
 
     @Override
     public void CancelEventMessage() {
+        System.out.println("You have just canceled an amazing event!");
 
     }
 
     @Override
     public void MessageErr() {
+        System.out.println("Oops, something went wrong! Please check again!");
 
     }
 
     @Override
     public void MessageSuccess() {
+        System.out.println("Message sent successfully!");
 
     }
 
