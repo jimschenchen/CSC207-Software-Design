@@ -67,7 +67,7 @@ public class DataBase {
     public User getUserByUserName(String username) {
         ArrayList<User> userList = (ArrayList<User>) getUserList();
         for (User u : userList) {
-            if (u.getUserName() == username) {
+            if (u.getUserName().equals(username)) {
                 return u;
             }
         }
