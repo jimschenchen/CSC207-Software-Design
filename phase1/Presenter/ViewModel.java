@@ -151,6 +151,67 @@ public class ViewModel implements ViewActions {
         return answer();
     }
 
+    @Override
+    public void SorryMessenger() {
+
+    }
+
+    @Override
+    public void SignUpEventMessage() {
+        System.out.println("Hey! You just sign up a new event! Arrive on time! ");
+    }
+
+    @Override
+    public void SignUpEventErr() {
+        System.out.println("Sorry! You can't sign up for the event. Please check again!");
+    }
+
+    @Override
+    public void AddNewRoom() {
+        System.out.println("Hey! You just make a new room");
+    }
+
+    @Override
+    public void AddNewRoomErr() {
+        System.out.println("Sorry! We can not add the room. Please check again!");
+    }
+
+    @Override
+    public void SpeakerAccCreated() {
+
+
+    }
+
+    @Override
+    public void SpeakerAccCreatedErr() {
+
+    }
+
+    @Override
+    public void SpeakerSet() {
+
+    }
+
+    @Override
+    public void SpeakerSetErr() {
+
+    }
+
+    @Override
+    public void CancelEventMessage() {
+
+    }
+
+    @Override
+    public void MessageErr() {
+
+    }
+
+    @Override
+    public void MessageSuccess() {
+
+    }
+
     public void invalidInput(){
         System.out.println("Hey! That's an invalid input! please try again!");
     }
