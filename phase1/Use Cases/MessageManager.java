@@ -80,7 +80,7 @@ public class MessageManager {
 //        d.addMessage(m);
         //database 中没有直接能通过eventId来得到speaker的方法，所以我先通过eventId找到对应的event，再通过event找到speaker
 
-    public boolean canMessageAllSpeakers(int senderId, DataBase db){
+    public boolean canMessageAllSpeakersOrAllAttendee(int senderId, DataBase db){
         return db.getOrganizerById(senderId) != null;
     }
 
@@ -106,18 +106,41 @@ public class MessageManager {
     }
 
 
-    public void reply_message(String content, int senderId, int receiverId, DataBase d){
-        Message m = new Message(content, senderId, receiverId);
-        d.addMessage(m);
-    }
+//    public void reply_message(String content, int senderId, int receiverId, DataBase d){
+//        Message m = new Message(content, senderId, receiverId);
+//        d.addMessage(m);
+//    }
 
-    public List<String> getMessageList(int userID, DataBase db){
-        List<Message> messages = db.getMessageListByUserId(userID);
+    public List<String> getReceivedMessageListByUserId(int userID, DataBase d){
+        List<Message> messages = d.getReceivedMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
             sMessages.add(message.toString());
         }
         return sMessages;
+    }
+
+    public List<String> getSentMessageListByUserId(int userID, DataBase d) {
+        List<Message> messages = d.getSentMessageListByUserId(userID);
+        List<String> sMessages = new ArrayList<>();
+        for (Message message : messages){
+            sMessages.add(message.toString());
+        }
+        return sMessages;
+    }
+
+    // no one can message organizer
+    // check if the sender is organizer, if no then can reply message
+    public boolean canReplyMessage(int currentuserID, int positionOfMessage, DataBase db){
+        Message message = db.getReceivedMessageListByUserId(currentuserID).get(positionOfMessage);
+        int senderID = message.getSenderId();
+        return db.getOrganizerById(senderID) == null;
+    }
+
+    public void replyMessage(String content, int currentuserId, int positionOfMessage, DataBase d) {
+        Message m = d.getReceivedMessageListByUserId(currentuserId).get(positionOfMessage);
+        Message reply = new Message(content, m.getReceiverId(), m.getSenderId());
+        d.addMessage(reply);
     }
 
 

@@ -19,8 +19,12 @@ public class RoomManager {
         return true;
     }
 
-    public void add_room(int roomNumber, DataBase bd) {
-        Room room = new Room(roomNumber, bd.getNextRoomId());
-        bd.addRoom(room);
+    public void add_room(int roomNumber, DataBase d) {
+        Room room = new Room(roomNumber, d.getNextRoomId());
+        d.addRoom(room);
+    }
+
+    public int getRoomIDbyRoomNumber(int roomNumber, DataBase db){
+        return db.getRoomByRoomNum(roomNumber).getRid();
     }
 }

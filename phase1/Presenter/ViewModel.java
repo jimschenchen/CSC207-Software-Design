@@ -1,13 +1,28 @@
 import java.io.Console;
 import java.sql.SQLOutput;
 import java.util.List;
-
+/**
+ * The View class that interacts with the user.
+ */
 public class ViewModel implements ViewActions {
-    ConferenceSystem cs = new ConferenceSystem();
+    /**
+     * @description: Prints greeting statement
+     * @param: []
+     * @return: void
+     * @date: 2020-11-14
+     */
     @Override
     public void Introduction() {
+
         System.out.println("Welcome to the 0173 Conference!");
     }
+    /**
+     * @description: Asks user if he/she/they have registered or not
+     * @param: []
+     * @return: returns 1 if user has already registered
+     * returns 0 if not
+     * @date: 2020-11-14
+     */
 
     @Override
     public int AreURegistered() {
@@ -20,18 +35,31 @@ public class ViewModel implements ViewActions {
         } else if (n.equals("No")) {
             i = 0;
         }else{
-            System.out.println("Invalid input! Please Type; Yes/No");
+            System.out.println("Invalid input! Please Type: Yes/No");
+            AreURegistered();
         }
         return i;
     }
+    /**
+     * @description: Interacts with the user and takes its username from the console
+     * @param: []
+     * @return: returns user's username
+     * @date: 2020-11-14
+     */
 
     @Override
     public String username() {
         Console c = System.console();
         System.out.println("Enter your username here:");
-        String id = c.readLine();
-        return id;
+        String username = c.readLine();
+        return username;
     }
+    /**
+     * @description: Interacts with the user and takes its password from the console
+     * @param: []
+     * @return: returns user's password
+     * @date: 2020-11-14
+     */
 
 
     @Override
@@ -42,143 +70,372 @@ public class ViewModel implements ViewActions {
         String pass = String.valueOf(ch);//converting char array into string
         return pass;
     }
+    /**
+     * @description: Interacts with the user to sign in
+     * @param: []
+     * @return: returns the String[username, password]
+     * @date: 2020-11-14
+     */
 
     @Override
     public String[] SignIn(){
         Console c = System.console();
-        System.out.println("To sign in enter your id here:");
+        System.out.println("To sign in enter your username here:");
         String n = c.readLine();
         System.out.println("To sign in enter your password here:");
         String k = c.readLine();
         return new String[]{n, k};
     }
+    /**
+     * @description: Greets the user if user successfully log in
+     * @param username  User name of the user attempting to log in
+     * @return: void
+     * @date: 2020-11-14
+     */
 
     @Override
     public void Credentials(String username) {
         System.out.println("Welcome" + username + "!");
     }
+    /**
+     * @description: Generates the message if user failed to log in
+     * @param: []
+     * @return: void
+     * @date: 2020-11-14
+     */
+
     @Override
     public void CredentialsFail(){
         System.out.println("Oops, something went wrong. Please try again");
     }
+    /**
+     * @description: Interacts with the user to open a messenger
+     * @param: []
+     * @return returns 1 if user wants to send a message
+     * returns 2 if user want to view messages
+     * returns 3 if user want to reply to a message
+     * @date: 2020-11-14
+     */
 
-    private void MessengerHelper(){
+    public int Messenger(){
         System.out.println("Welcome to Messenger!");
-        System.out.println("Type 1 If you want to send the message:");
-        System.out.println("Type 2 If you want to view your messages");
-        System.out.println("Type 3 If you want to view your FriendList");
-        System.out.println("Type 4 If you want to add new user to your Friendlist");
+        System.out.println("Type 1 If you want to send a message: ");
+        System.out.println("Type 2 If you want to view your messages: ");
+        System.out.println("Type 3 If you want to reply to a message");
+        exit();
+        return answer();
     }
+
+    private int answer(){
+        int i = 0;
+        Console c = System.console();
+        String answer = c.readLine();
+        i = Integer.parseInt(answer);
+        return i;
+    }
+
+
+    /**
+     * @description: Interacts with the Attendee to open a messenger
+     * @param: []
+     * @return returns 1 if user wants to send a message to attendee
+     * returns 2 if user wants to send a message to a speaker
+     * @date: 2020-11-14
+     */
 
 
     @Override
     public int MessengerAttendee() {
-        int i = 0;
-        Console c=System.console();
-        MessengerHelper();
-        String n = c.readLine();
-        i = Integer.parseInt(n);
-        return i;
+        System.out.println("Type 1 If you want to send a message to an attendee: ");
+        System.out.println("TYpe 2 If you want to send a message to a speaker: ");
+        exit();
+        return answer();
+
     }
-    //We should also have a method that shows all the messages in the console, but I am not sure how it would work
-    //The controller is not fully implemented
+    /**
+     * @description: Interacts with the Organizer to open a messenger
+     * @param: []
+     * @return returns 1 if user wants to send a message to attendee
+     * returns 2 if user wants to send a message to a speaker
+     * returns 3 if user wants to send a message to all attendees
+     * returns 4 if user want to send a message to all speakers
+     * @date: 2020-11-14
+     */
+
     @Override
     public int MessengerOrganizer() {
-        int i = 0;
-        Console c=System.console();
-        MessengerHelper();
-        System.out.println("Type 5 If you want to send the message to all the users:");
-        String n = c.readLine();
-        i = Integer.parseInt(n);
-        return i;
+        System.out.println("Type 1 If you want to send a message to an attendee: ");
+        System.out.println("TYpe 2 If you want to send a message to a speaker: ");
+        System.out.println("Type 3 If you want to send a message to all attendees: ");
+        System.out.println("Type 4 If you want to send a message to all speakers: ");
+        exit();
+        return answer();
     }
+    /**
+     * @description: Interacts with the Speaker to open a messenger
+     * @param: []
+     * @return returns 1 if user wants to send a message to all attendees of one event
+     * returns 2 if user wants to send a message to all attendees of all speaker's events
+     * @date: 2020-11-14
+     */
 
     @Override
     public int MessengerSpeaker() {
-        int i = 0;
-        Console c=System.console();
-        MessengerHelper();
-        System.out.println("Type 6 If you want to send the message to all talk's attendees:");
-        String n = c.readLine();
-        i = Integer.parseInt(n);
-        return i;
+        System.out.println("Type 1 If you want to send a message to all attendees in one event: '");
+        System.out.println("Type 2 If you want to send a message to all attendees in all your events: ");
+        System.out.println("Type 3 If you want to send a specific user in your events: ");
+        exit();
+        return answer();
     }
 
-    @Override
-    public String[] SenderView() {
-        Console c=System.console();
-        System.out.println("Type the id you want send message to");
-        String n = c.readLine();
-        System.out.println("Type your message here:");
-        String k = c.readLine();
-        String[] l = new String[]{n, k};
-        return l;
+    private void exit(){
+        System.out.println("Type other numbers if you want to return to the previous page: ");
     }
-    @Override
-    public String UserAdder(String username) {
-        Console c=System.console();
-        System.out.println("Type the username you want add");
-        String n = c.readLine();
-        return n;
+    /**
+     * @description: Interacts with the user to go back to a previous page
+     * @param: []
+     * @return returns answer from the console
+     * @date: 2020-11-14
+     */
+
+    public String back(){
+        System.out.println("Type any thing to go back to previous page");
+        Console c = System.console();
+        String answer = c.readLine();
+        return answer;
     }
 
-    private void MenuHelper(){
-        System.out.println("Welcome to Menu!");
-        System.out.println("Type 1 If you want to open messenger: ");
-        System.out.println("Type 2 If you want to view the schedule: ");
-        System.out.println("Type 3 If you want to sign up to a new event: ");
-        System.out.println("Type 4 If you want to cancel the event: ");
-    }
+    /**
+     * @description: Interacts with the user to open a menu
+     * @param: []
+     * @return returns 1 if user wants to open the Messenger
+     * returns 2 if user wants to to browse all the events in the conference
+     * return 3 if user want to see the schedule
+     * returns 4 if user want to see what events are available to sign up
+     * returns 5 if user want to sign up for a new event
+     * returns 6 if user want to cancel an event
+     * @date: 2020-11-14
+     */
+
+
 
     @Override
     public int AttendeeMenu() {
-        Console c=System.console();
-        int i = 0;
-        MenuHelper();
-        String n = c.readLine();
-        i = Integer.parseInt(n);
-        return i;
+        System.out.println("Welcome to the menu!");
+        System.out.println("Type 1 if you want to open the Messenger: ");
+        System.out.println("Type 2 if you want to browse all the events in the conference: ");
+        System.out.println("Type 3 if you want to see your schedule: ");
+        System.out.println("Type 4 if you want to see what events you can sign up now: ");
+        System.out.println("Type 5 if you want to sign up for a new event: ");
+        System.out.println("Type 6 if you want to cancel an event: ");
+        return answer();
     }
+
+    /**
+     * @description: Interacts with the Organizer to open an Organizer menu
+     * @param: []
+     * @return returns 1 if user wants to open the Messenger
+     * returns 2 if user wants to create a new room
+     * return 3 if user want to create a new speaker
+     * returns 4 if user want to assign a speaker to an event
+     * returns 5 if user want to create a new event
+     * @date: 2020-11-14
+     */
 
     @Override
     public int OrganizerMenu() {
-        Console c=System.console();
-        int i = 0;
-        MenuHelper();
-        System.out.println("Type 5 if you want to create a new room: ");
-        System.out.println("Type 6 if you want to create a new speaker accounts: ");
-        System.out.println("Type 7 if you want to add a new event: ");
-        String n = c.readLine();
-        i = Integer.parseInt(n);
-        return i;
+        System.out.println("Welcome to the menu!");
+        System.out.println("Type 1 if you want to open the Messenger: ");
+        System.out.println("Type 2 if you want to create a new room: ");
+        System.out.println("Type 3 if you want to create a new speaker: ");
+        System.out.println("Type 4 if you want to assign a speaker to an event: ");
+        System.out.println("Type 5 if you want to create a new event: ");
+        return answer();
     }
+
+    /**
+     * @description: Interacts with the Speaker to open a Speaker menu
+     * @param: []
+     * @return returns 1 if user wants to open the Messenger
+     * returns 2 if user wants to see a list of talks Speaker gives
+     * @date: 2020-11-14
+     */
 
     @Override
     public int SpeakerMenu() {
-        Console c=System.console();
-        int i = 0;
-        MenuHelper();
-        System.out.println("Type 5 if you want to see your list of talks");
-        String n = c.readLine();
-        i = Integer.parseInt(n);
-        return i;
-    }
-    private void EventViewer(List<Event> EventList) {
-        for (Event e : EventList) {
-            System.out.println("The Event " + e.getTitle() +
-                    " with id " + e.getEvent_id() +
-                    " by " + e.getSpeakerId() +
-                    " starts at " + e.getStart_time() +
-                    " takes place in" + e.getRoomId());
-        }
+        System.out.println("Welcome to the menu!");
+        System.out.println("Type 1 if you want to open the Messenger: ");
+        System.out.println("Type 2 if you want to see a list of talks you are given: ");
+        return answer();
     }
 
-    public void ViewSchedule(){
-        ConferenceSystem cs = new ConferenceSystem();
-        List<Event> EventList = cs.viewCurrentEvents();
-        EventViewer(EventList);
+    /**
+     * @description: Generates a message if user can't reply to a message
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void SorryMessenger() {
+        System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
     }
 
+    /**
+     * @description: Generates a message if user signed up for a new event
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void SignUpEventMessage() {
+        System.out.println("Hey! You just sign up a new event! Arrive on time! ");
+    }
+
+    /**
+     * @description: Generates a message if user failed to sign up for an event
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void SignUpEventErr() {
+        System.out.println("Sorry! You can't sign up for the event. Please check again!");
+    }
+
+    /**
+     * @description: Generates a message if user made a new room
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void AddNewRoom() {
+        System.out.println("Hey! You just make a new room");
+    }
+
+    /**
+     * @description: Generates a message if user failed to add a new room
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void AddNewRoomErr() {
+        System.out.println("Sorry! We can not add the room. Please check again!");
+    }
+
+    /**
+     * @description: Generates a message if user created a new speaker
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void SpeakerAccCreated() {
+        System.out.println("Hey! You just make a new speaker account!");
+
+    }
+    /**
+     * @description: Generates a message if user fails to create a new speaker
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+
+    @Override
+    public void SpeakerAccCreatedErr() {
+        System.out.println("Sorry! We can not add the speaker. Please check again!");
+    }
+
+    /**
+     * @description: Generates a message if user set a new speaker
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void SpeakerSet() {
+        System.out.println("Hey! You just make set a speaker for event!");
+
+    }
+    /**
+     * @description: Generates a message if user fails to set a new speaker
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void SpeakerSetErr() {
+        System.out.println("Sorry! We can not set the speaker for the event. Please check again!");
+    }
+
+    /**
+     * @description: Generates a message if user canceled an event
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void CancelEventMessage() {
+        System.out.println("You have just canceled an amazing event!");
+
+    }
+
+    /**
+     * @description: Generates an error message
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void MessageErr() {
+        System.out.println("Oops, something went wrong! Please check again!");
+
+    }
+    /**
+     * @description: Generates a message if user's message was sent successfully
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void MessageSuccess() {
+        System.out.println("Message sent successfully!");
+
+    }
+    /**
+     * @description: Generates a message if user put an invalid input
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+
+    @Override
+    public void invalidInput(){
+        System.out.println("Hey! That's an invalid input! please try again!");
+    }
+
+    /**
+     * @description: Interacts with the user who wants to sign up for a new event
+     * @param: []
+     * @return returns the event's id
+     * @date: 2020-11-14
+     */
+
+    @Override
     public String SignUpEvent(){
         Console c=System.console();
         System.out.println("Enter the event id you would like to attend");
@@ -186,10 +443,14 @@ public class ViewModel implements ViewActions {
         return eventID;
     }
 
-    public void ViewSignUpEvent(String id){
+    /**
+     * @description: Interacts with the user who wants to add a new room
+     * @param: []
+     * @return returns the room's name
+     * @date: 2020-11-14
+     */
 
-    }
-
+    @Override
     public String addRoom(){
         Console c = System.console();
         System.out.println("Enter the room name you want to add");
@@ -197,5 +458,245 @@ public class ViewModel implements ViewActions {
         return room;
     }
 
+    /**
+     * @description: Interacts with the user who wants to add a new speaker
+     * @param: []
+     * @return returns the String[speaker's name, speaker's password] from the console
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public String[]  speakerAdder(){
+        Console c=System.console();
+        System.out.println("Enter the username of the speaker you want to add: ");
+        String speaker_name = c.readLine();
+        System.out.println("Enter the password of the speaker you want to add: ");
+        String speaker_pass = c.readLine();
+        String[] l = new String[]{speaker_name, speaker_pass};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who wants to set a new speaker
+     * @param: []
+     * @return returns the String[speaker's id, event's id] from the console
+     * @date: 2020-11-14
+     */
+
+
+    @Override
+    public String[] setSpeakerEvent(){
+        Console c = System.console();
+        System.out.println("Enter the ID of the speaker you want to set for an event: ");
+        String speaker_id = c.readLine();
+        System.out.println("Enter the event ID you want to set the speaker for: ");
+        String event_id = c.readLine();
+        String[] l = {speaker_id, event_id};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who wants to cancel an event
+     * @param: []
+     * @return returns the event's id from the console
+     * @date: 2020-11-14
+     */
+    @Override
+    public String cancelEnrollment(){
+        Console c = System.console();
+        System.out.println("Enter the ID of the event you want to cancel: ");
+        String event_id = c.readLine();
+        return event_id;
+    }
+
+    /**
+     * @description: Interacts with the user who wants to cancel an event
+     * @param: []
+     * @return returns the event's id from the console
+     * @date: 2020-11-14
+     */
+
+    private String AskForUser(){
+        Console c = System.console();
+        System.out.println("What is the ID of the User you want to send message to?");
+        String user_id = c.readLine();
+        return user_id;
+    }
+    /**
+     * @description: Interacts with the user who wants to send a message to the attendee of the event
+     * @param: []
+     * @return returns the event's id from the console
+     * @date: 2020-11-14
+     */
+    private String AskForEvent(){
+        Console c = System.console();
+        System.out.println("What is the ID of the event the user you want to message to is in?");
+        String event_id = c.readLine();
+        return event_id;
+    }
+
+    /**
+     * @description: Interacts with the user who wants to send a message
+     * @param: []
+     * @return returns the message that user typed
+     * @date: 2020-11-14
+     */
+
+    private String AskForMessage(){
+        Console c = System.console();
+        System.out.println("Type what you want to send there");
+        String message = c.readLine();
+        return message;
+    }
+    /**
+     * @description: Interacts with the user who wants to reply to a message
+     * @param: []
+     * @return returns the String[the number of the message, reply]
+     * @date: 2020-11-14
+     */
+    @Override
+    public String[] replyMessage(List<String> receive_message){
+        int i = 0;
+        for (String m: receive_message){
+            System.out.println("Message" + i + ": " + m);
+            i = i + 1;
+        }
+        Console c = System.console();
+        System.out.println("Enter the number of the message you want to reply here: ");
+        String num = c.readLine();
+        System.out.println("Enter what you want to reply here: ");
+        String reply = c.readLine();
+        String[] l = {num, reply};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who who wants to send a message to all attendee of the event
+     * @param: []
+     * @return returns the the String[event's id, message]
+     * @date: 2020-11-14
+     */
+    @Override
+    public String[] MessageAllAttendeeEvent(){
+        String event_id = AskForEvent();
+        String message = AskForMessage();
+        String[] l = {event_id, message};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who who wants to send a message to all attendees
+     * @param: []
+     * @return returns the message
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public String messageAllUsersInAllSpeakingEvents(){
+        String message = AskForMessage();
+        return message;
+    }
+    /**
+     * @description: Interacts with the user who who wants to send a message to one attendee of the event
+     * @param: []
+     * @return returns String[event's id, user's id, message]
+     * @date: 2020-11-14
+     */
+    @Override
+    public String[] messageOneSpecificUserInEvent(){
+        String event_id = AskForEvent();
+        String user_id = AskForUser();
+        String message = AskForMessage();
+        String[] l = {event_id, user_id, message};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who wants to send a message to all speakers of the event
+     * @param: []
+     * @return returns String[event's id, user's id, message]
+     * @date: 2020-11-14
+     */
+    @Override
+    public String messageAllSpeakers(){
+        String message = AskForMessage();
+        return message;
+    }
+    /**
+     * @description: Interacts with the user who wants to send a message to one speaker
+     * @param: []
+     * @return returns String[user's id, message]
+     * @date: 2020-11-14
+     */
+    @Override
+    public String[] messageSpeaker(){
+        String user_id = AskForUser();
+        String message = AskForMessage();
+        String[] l = {user_id,message};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who wants to send a message to all attendees
+     * @param: []
+     * @return returns message
+     * @date: 2020-11-14
+     */
+    @Override
+    public String messageAllAttendee(){
+        String message = AskForMessage();
+        return message;
+    }
+    /**
+     * @description: Interacts with the user who wants to send a message to one attendee
+     * @param: []
+     * @return returns String[user's id, message]
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public String[] messageAttendee() {
+        String n = AskForUser();
+        String k = AskForMessage();
+        String[] l = new String[]{n, k};
+        return l;
+    }
+    /**
+     * @description: Interacts with the user who wants to set a time for the event
+     * @param: []
+     * @return returns time in format YYYY--MM--DD HH-MM
+     * @date: 2020-11-14
+     */
+    private String AskStartTime(){
+        Console c = System.console();
+        System.out.println("When does the event start at? Format: YYYY--MM--DD HH-MM");
+        String start = c.readLine();
+        return start;
+    }
+    /**
+     * @description: Interacts with the user who wants to set a title of the event
+     * @param: []
+     * @return returns title
+     * @date: 2020-11-14
+     */
+
+    private String AskTopic(){
+        Console c = System.console();
+        System.out.println("What is the topic of the event");
+        String topic = c.readLine();
+        return topic;
+    }
+    /**
+     * @description: Interacts with the user who wants to create a new event
+     * @param: []
+     * @return returns String[start time, user's id, title, room number]
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public String[] newEvent(){
+        String start = AskStartTime();
+        String user_id = AskForUser();
+        String topic = AskTopic();
+        Console c = System.console();
+        System.out.println("What is the room number where the event takes place?");
+        String room = c.readLine();
+        String[] l = {start, user_id, topic, room};
+        return l;
+    }
 
 }

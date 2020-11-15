@@ -1,4 +1,4 @@
-public class Message {
+public class Message implements java.io.Serializable {
     private String content;
     private int sender_id;
     private int receiver_id;

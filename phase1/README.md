@@ -1,4 +1,5 @@
-## Dependency Setup
+# SetUp
+## Dependency
 1. Download all the jars from https://drive.google.com/drive/folders/1ALV-urNWRw3_SBN5bXW4HeRPeGiqDvxt?usp=sharing
 2. Right click the `"group_0173" folder` in the `Project Panel` on the left part of view.
 3. Click `Open Module Setting`

@@ -2,20 +2,73 @@ import com.sun.istack.internal.NotNull;
 import com.sun.org.apache.xpath.internal.res.XPATHErrorResources_sv;
 
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ConferenceSystem {
 
-    // stores use cases and gateway
+    /**
+     * The ConferenceSystem Class.
+     */
     private EventManager em = new EventManager();
     private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
     private DataBase db = new DataBase();
+    private Gateway gw = new Gateway();
     private int user; // store current logged in user's id
 
+
+    /**
+    * @Description: Initialization of Gateway and Databse
+    * @Param: []
+    * @return: void
+    * @Date: 2020-11-14
+    */
+    public void init () throws IOException {
+        shutDownHook();
+        DataBase db = gw.init();
+    }
+    /**
+    * @Description: Hook for listening the Shutdown of program and save all the data before exist0
+    * @Param: []
+    * @return: void
+    * @Date: 2020-11-14
+    */
+    private void shutDownHook() {
+        Runtime run = Runtime.getRuntime();
+        run.addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                try {
+                    gw.termination(db);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Sign up a new attendee to the system.
+     *
+     * @param username User name of the new attendee. username should be unique.
+     * @param password Password of the new attendee account. Password should be at least 6 characters long.
+     * @return Return true if the account is created successfully, false otherwise.
+     */
+    public boolean signup(String username, String password){
+        if (um.canCreateAttendee(username, db) && password.length() >= 6){
+            um.createAttendee(password, username, db);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Logs in a user.
@@ -28,7 +81,6 @@ public class ConferenceSystem {
      *         returns 2 when the user is an Attendee.
      */
     public int login(String username, String password){
-        // String to int conversion
         if (db.getUserByUserName(username) != null){
             String dbPassword = um.getUserPassword(username, db);
             if (dbPassword.equals(password)){
@@ -36,12 +88,9 @@ public class ConferenceSystem {
                 return um.getUserCategory(this.user, db);
             }
         }
-        // return false when ID doesn't exist or password does not match
         return -1;
     }
 
-    // change password
-    // assuming users cannot reset passwords before login
     /**
      * Resets the password for the logged in user. Checks if the password is 6 characters or longer.
      *
@@ -57,14 +106,34 @@ public class ConferenceSystem {
         return false;
     }
 
-    // get user name
+//    /**
+//     * Get current logged in user's name.
+//     *
+//     * @return Returns the user name.
+//     */
+//    public String getCurrentUserName(){
+//        return um.getUserName(user, db);
+//    }
+
     /**
-     * Get current logged in user's name.
+     * Get user ID by user name.
      *
-     * @return Returns the user name.
+     * @param username User's name
+     * @return Return user's ID
      */
-    public String getCurrentUserName(){
-        return um.getUserName(user, db);
+    public String getUserIDbyUserName(String username){
+        return Integer.toString(um.getUserID(username, db));
+    }
+
+    /**
+     * Get user name by user ID.
+     *
+     * @param userID User's ID
+     * @return Return user name
+     */
+    public String getUserNameByID(String userID){
+        int uID = Integer.parseInt(userID);
+        return um.getUserName(uID, db);
     }
 
     /**
@@ -125,16 +194,28 @@ public class ConferenceSystem {
         }
     }
 
-    // send message to all speakers
+    /**
+     * Sends a message to all speakers at once. Only Organizers can perform such action.
+     *
+     * @param content Content of the message.
+     * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
+     */
     public boolean messageAllSpeakers(String content){
-        if (mm.canMessageAllSpeakers(user, db)){
+        if (mm.canMessageAllSpeakersOrAllAttendee(user, db)){
             mm.messageAllSpeakers(content, user, db);
             return true;
         }
         return false;
     }
 
-    // send message to one speaker
+    /**
+     * Sends a message to a specific speaker.
+     *
+     * @param receiverID The receiver's (speaker) ID.
+     * @param content Content of the message
+     * @return Return true if the message is sent successfully. False if the input(ID) is invalid, or the user
+     * is not allowed to message the speaker.
+     */
     public boolean messageSpeaker(String receiverID, String content){
         try{
             int rID = Integer.parseInt(receiverID);
@@ -149,14 +230,29 @@ public class ConferenceSystem {
         }
     }
 
+    /**
+     * Sends a message to all attendees in the system. This action can only be performed by an organizer.
+     *
+     * @param content Content of the message.
+     * @return Return true if the messages are successfully sent. False if the logged in sender is not allowed to
+     * perform this action.
+     */
     public boolean messageAllAttendee(String content){
-        if(db.getOrganizerById(user) != null){
+        if(mm.canMessageAllSpeakersOrAllAttendee(user, db)){
             mm.messageAllAttendees(user, content, db);
             return true;
         }
         return false;
     }
 
+    /**
+     * Sends a message to an attendee.
+     *
+     * @param receiverID Message receiver's ID.
+     * @param content Content of the message.
+     * @return Return true if the message is sent successfully. False if the user is not allowed to message this
+     * attendee, or input is invalid.
+     */
     public boolean messageAttendee(String receiverID, String content){
         try{
             int rID = Integer.parseInt(receiverID);
@@ -171,19 +267,40 @@ public class ConferenceSystem {
         }
     }
 
-    //read messages of user
-    // now the list of messages include sent messages and received messages
-    public List<String> readMessages(){
-        return mm.getMessageList(user, db);
+    /**
+     * Reads the sent messages of the user currently logged in.
+     *
+     * @return List of Strings representing the messages the user sent.
+     */
+    public List<String> readSentMessages(){
+        return mm.getSentMessageListByUserId(user, db);
     }
 
-    // reply message
-    // subject to changes
-    public boolean replyMessage(String receiverID, String content){
+    /**
+     * Reads the incoming messages of the user currently logged in.
+     *
+     * @return List of Strings representing the messages the user reveived.
+     */
+    public List<String> readReceivedMessages(){
+        return mm.getReceivedMessageListByUserId(user, db);
+    }
+
+    /**
+     * Reply to a specific message.
+     *
+     * @param messageIndex Position of the message (to identify which message it is replying)
+     * @param content Content of the replying message.
+     * @return Return true when the message is successfully sent, false if the user is not allowed to reply to the
+     * message.
+     */
+    public boolean replyMessage(String messageIndex, String content){
         try{
-            int rID = Integer.parseInt(receiverID);
-            mm.reply_message(content, user, rID, db);
-            return true;
+            int mIndex = Integer.parseInt(messageIndex);
+            if (mm.canReplyMessage(user, mIndex, db)){
+                mm.replyMessage(content, user, mIndex, db);
+                return true;
+            }
+            return false;
         }
         catch(NumberFormatException nfe){
             return false;
@@ -200,7 +317,7 @@ public class ConferenceSystem {
         try{
             int eid = Integer.parseInt(eventID);
             // check if the event exists, and user can sign up for event
-            if (em.canAddUserToEvent(eid, db) && um.canSignUpForEvent(eid, user, db)){ // need confirm
+            if (em.canAddUserToEvent(user, eid, db) && um.canSignUpForEvent(eid, user, db)){ //need confirm
                 um.addEventToAttendeeOrOrganizer(eid, user, db);
                 em.addUserToEvent(user, eid, db);
                 return true;
@@ -297,21 +414,28 @@ public class ConferenceSystem {
         }
     }
 
-    // create a new event
-    // subject to change
+    /**
+     * Creates a new event into the system.
+     *
+     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH:mm". Example: "2020-11-14 18:39"
+     * @param speakerID ID of speaker giving the event.
+     * @param topic Topic/title of the event.
+     * @param roomNumber Room number of the location of this event.
+     * @return Return true if successfully created a new event into the system, false otherwise.
+     */
     public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
         try{
-            Double sTime = Double.parseDouble(startTime);
+            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rNumber = Integer.parseInt(roomNumber);
-            int rID = db.getRoomByRoomNumber(rNumber);
-            if (em.canCreateEvent(rNumber, sTime, db)){ // need to change param rid
-                em.createEvent(rNumber, sTime, db); // need to change param rid
+            int rID = rm.getRoomIDbyRoomNumber(rNumber, db);
+            if (em.canCreateEvent(rID, sTime, db)){
+                em.createEvent(sTime, sID, topic, rID, db);
                 return true;
             }
             return false; // return false when unsuccessful
         }
-        catch(NumberFormatException nfe){
+        catch(DateTimeParseException dtpe){
             return false; // return false on invalid input
         }
     }
@@ -368,13 +492,60 @@ public class ConferenceSystem {
         List<Integer> allEvents = em.getEventList(db);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, db)){
+            if (um.canSignUpForEvent(eventID, this.user, db)){//use canAddUserToEvent in eventmanager
                 events.add(em.getStringOfEvent(eventID, db));
             }
         }
         return events;
     }
 
-//    save data method
-//    (all the methods need to pass gateway to use cases)
+    /**
+     * View all attendees who are registered in one of the current speaker's speaking events. Without duplicates.
+     *
+     * @return Return a list of Strings that represent all attendees of all the events the speaker is speaking for.
+     * Every attendee is represented by a string formated as follows: "UserName (userID)"
+     */
+    public List<String> viewAttendeesInSpeakingEvents(){
+        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, db);
+        Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
+        List<String> sAllAttendeesInEvents = new ArrayList<>();
+        for (Integer eventID : allSpeakingEvents){
+            List<Integer> usersInEvent = em.getUserList(eventID, db);
+            allAttendeesInEvents.addAll(usersInEvent);
+        }
+        for (Integer userID : allAttendeesInEvents){
+            sAllAttendeesInEvents.add(um.getUserString(userID, db));
+        }
+        return sAllAttendeesInEvents;
+    }
+
+    /**
+     * View all attendees in the system.
+     *
+     * @return Return a list of Strings that represent all attendees in the system.
+     * Every attendee is represented by a string formatted as follows: "UserName (userID)"
+     */
+    public List<String> viewAllAttendees(){
+        List<Integer> allAttendees = um.getListOfUsers(3, db);
+        List<String> sAllAttendees = new ArrayList<>();
+        for (Integer userID : allAttendees){
+            sAllAttendees.add(um.getUserString(userID, db));
+        }
+        return sAllAttendees;
+    }
+
+    /**
+     * View all speakers in the system.
+     *
+     * @return Return a list of Strings that represent all speakers in the system.
+     * Every speaker is represented by a string formatted as follows: "UserName (userID)"
+     */
+    public List<String> viewAllSpeakers(){
+        List<Integer> allSpeakers = um.getListOfUsers(1, db);
+        List<String> sAllSpeakers = new ArrayList<>();
+        for (Integer userID : allSpeakers){
+            sAllSpeakers.add(um.getUserString(userID, db));
+        }
+        return sAllSpeakers;
+    }
 }

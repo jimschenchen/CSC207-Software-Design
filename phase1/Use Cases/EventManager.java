@@ -1,4 +1,6 @@
 import javax.xml.crypto.Data;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -7,23 +9,27 @@ import java.util.List;
 // FEEL FREE TO ADD THEM!!! THANKSSSS :)
 
 public class EventManager {
-    private int event_id;
-    private int speaker_id;
-    private String title;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    //don't need these instance
+//    private int event_id;
+//    private int speaker_id;
+//    private String title;
+//
+//don't need these setter
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public void setEventId(int event_id) {
+//        this.event_id = event_id;
+//    }
+//
+//    public void setSpeakerId(int speaker_id) {
+//        this.speaker_id = speaker_id;
+//    }
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public void setEventId(int event_id) {
-        this.event_id = event_id;
-    }
-
-    public void setSpeakerId(int speaker_id) {
-        this.speaker_id = speaker_id;
-    }
-
-    public boolean canCreateEvent(int room_id, Double start, DataBase db){
+    public boolean canCreateEvent(int room_id, LocalDateTime start, DataBase db){
         List<Event> all_event = db.getEventList();
         for (Event event : all_event) {
             if (room_id == event.getRoomId() && start.equals(event.getStart_time())) {
@@ -33,50 +39,49 @@ public class EventManager {
         return true;
     }
 
-    public void createEvent(int room_id, Double start, DataBase db){
-        Event nEvent = new Event(start, this.event_id, this.speaker_id, this.title, room_id);
-        db.addEvent(nEvent);
+    public void createEvent(LocalDateTime start, int speakerId, String title, int roomId, DataBase d){
+        Event nEvent = new Event(start, d.getNextEventId(), speakerId, title, roomId);
+        d.addEvent(nEvent);
     }
 
-    public boolean addEventToDB(Event new_event, DataBase db){
-        boolean value = canCreateEvent(new_event.getRoomId(), new_event.getStart_time(), db);
-        if(value == true){
-            db.addEvent(new_event);
-            return true;
-        }
-        return false;
-    }
-
-    public void setSpeaker(int speakerID, int eventID, DataBase db){
-        Speaker speaker = db.getSpeakerById(speakerID);
-        Event event = db.getEventById(eventID);
-        event.setSpeaker_id(speaker.getUser_id());
-    }
-
-    public boolean canAddUserToEvent(int eventId, DataBase d){
-//        List<Event> all_event = d.getEventList();
-//        for (Event e: all_event){
-//            if (e.getEvent_id() == eventId){
-//                return false;
-//            }
+// this method is never used
+//    public boolean addEventToDB(Event new_event, DataBase db){
+//        boolean value = canCreateEvent(new_event.getRoomId(), new_event.getStart_time(), db);
+//        if(value == true){
+//            db.addEvent(new_event);
+//            return true;
 //        }
-//        return true;
-        if (d.getEventById(eventId) == null){
+//        return false;
+//    }
+
+    public void setSpeaker(int speakerId, int eventId, DataBase d){
+        d.getEventById(eventId).setSpeaker_id(speakerId);
+
+    }
+
+    public boolean canAddUserToEvent(int userid, int eventid, DataBase d) {
+        if (d.getEventById(eventid) == null) {
             return false;
         }
-        Event event = d.getEventById(eventId);
-        int roomCapacity = d.getRoomById(event.getRoomId()).getCapacity();
-        return event.getSingned_userid().size() < roomCapacity;
+        else {
+            Event e = d.getEventById(eventid);
+            if (e.getSingned_userid().contains(userid)
+                    | d.getRoomById(e.getRoomId()).getCapacity() <= e.getSingned_userid().size()) {
+                return false;
+            }
+            return true;
+        }
     }
+
 
     public void addUserToEvent(int userId, int eventId, DataBase d){
         d.getEventById(eventId).add_user(userId);
     }
 
-    public boolean canRemoveUser(int userId, int eventId, DataBase d){
-        List<User> all_user = d.getUserList();
-        for (User u: all_user){
-            if (u.getUser_id() == userId){
+
+    public boolean canRemoveUser(int userid, int eventid, DataBase d) {
+        if (d.getEventById(eventid) != null) {
+            if (d.getEventById(eventid).getSingned_userid().contains(userid)) {
                 return true;
             }
         }
@@ -88,7 +93,8 @@ public class EventManager {
     }
 
 
-    public Double getStart_time(Event event) {
+
+    public LocalDateTime getStart_time(Event event) {
         return event.getStart_time();
     }
 
@@ -108,13 +114,18 @@ public class EventManager {
         return event.getEvent_id();
     }
 
-    public List<User> getUserList(Event event, DataBase bd){
-        ArrayList<User> all_User= new ArrayList<>();
-        ArrayList<Integer> allUserID = event.getSingned_userid();
-        for (Integer integer : allUserID) {
-            all_User.add(bd.getUserById(integer));
-        }
-        return all_User;
+//    public List<User> getUserList(Event event, DataBase bd){
+//        ArrayList<User> all_User= new ArrayList<>();
+//        ArrayList<Integer> allUserID = event.getSingned_userid();
+//        for (Integer integer : allUserID) {
+//            all_User.add(bd.getUserById(integer));
+//        }
+//        return all_User;
+//    }
+
+    public List<Integer> getUserList(int eventID, DataBase db){
+        Event event = db.getEventById(eventID);
+        return event.getSingned_userid();
     }
 
 //    public List<Event> getEventList(DataBase bd) {
@@ -125,19 +136,7 @@ public class EventManager {
 //        }
 //        return all_Events;
 //    }
-//    public List<String> getEventList(DataBase db) {
-//        ArrayList<String> all_Events = new ArrayList<>();
-//        List<Event> events = db.getEventList();
-//        for (Event e : events) {
-//            String event = "The event  " + e.getTitle() +
-//                    " with ID " + e.getEvent_id() +
-//                    " by " + db.getSpeakerById(e.getSpeakerId()).getUserName() +
-//                    " starts at " + e.getStart_time() +
-//                    " takes place in " + db.getRoomById(e.getRoomId()).getRoom_num();
-//            all_Events.add(event);
-//        }
-//        return all_Events;
-//    }
+
     public List<Integer> getEventList(DataBase db){
         List<Integer> allEvents = new ArrayList<>();
         List<Event> events = db.getEventList();
@@ -149,14 +148,17 @@ public class EventManager {
 
     public String getStringOfEvent(int eventID, DataBase db){
         Event event = db.getEventById(eventID);
-        return "The event  " + event.getTitle() +
+        return "The event " + event.getTitle() +
                 " with ID " + event.getEvent_id() +
                 " by " + db.getSpeakerById(event.getSpeakerId()).getUserName() +
-                " starts at " + event.getStart_time() +
+                " starts at " + event.getStart_time().format(getStartTimeFormatter()) +
                 " takes place in " + db.getRoomById(event.getRoomId()).getRoom_num();
     }
-}
 
+    public DateTimeFormatter getStartTimeFormatter(){
+        return this.formatter;
+    }
+}
 
 
 

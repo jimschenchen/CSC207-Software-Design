@@ -12,7 +12,7 @@ public class DataBase {
     private int nextUserId = 0;
     private int nextEventId = 0;
     private int nextRoomId = 0;
-    private int nextMessageId = 0;
+    // private int nextMessageId = 0;
     private List<User> userList = new ArrayList<>();
     private List<Event> eventList = new ArrayList<>();
     private List<Room> roomList = new ArrayList<>();
@@ -39,12 +39,12 @@ public class DataBase {
     }
 
     /** Return the next message id and self increase by 1 */
-    public int getNextMessageId() {
-        return nextMessageId++;
-    }
+//    public int getNextMessageId() {
+//        return nextMessageId++;
+//    }
 
     /**
-    * @Description:
+    * @Description: Get user by given id
     * @Param: [id]
     * @return: User
     * @Author:
@@ -60,7 +60,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description:
+    * @Description: get User by given username
     * @Param: [username]
     * @return: User
     * @Author:
@@ -91,7 +91,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get attendee by given username
     * @Param: [username]
     * @return: Attendee
     * @Author: 
@@ -120,7 +120,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get speaker by given username
     * @Param: [username]
     * @return: Speaker
     * @Author: 
@@ -149,7 +149,7 @@ public class DataBase {
         return null;
     }
     /**
-    * @Description: 
+    * @Description: get organizer by given username
     * @Param: [username]
     * @return: Organizer
     * @Author: 
@@ -164,7 +164,7 @@ public class DataBase {
     }
 
     /**
-    * @Description:
+    * @Description: get List of all users
     * @Param: []
     * @return: java.util.List<User>
     * @Author:
@@ -186,7 +186,7 @@ public class DataBase {
 
     
     /**
-    * @Description:
+    * @Description: get list of all events
     * @Param: []
     * @return: java.util.List<Event>
     * @Author:
@@ -196,7 +196,7 @@ public class DataBase {
         return eventList;
     }
     /**
-    * @Description:
+    * @Description: get event by given id
     * @Param: [id]
     * @return: Event
     * @Author:
@@ -223,7 +223,7 @@ public class DataBase {
     }
 
     /**
-    * @Description:
+    * @Description: get list of rooms
     * @Param: []
     * @return: java.util.List<Room>
     * @Author:
@@ -233,7 +233,7 @@ public class DataBase {
         return roomList;
     }
     /**
-    * @Description:
+    * @Description: get room by given id
     * @Param: [id]
     * @return: Room
     * @Author:
@@ -243,6 +243,22 @@ public class DataBase {
         ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
         for (Room r : roomList) {
             if (r.getRid() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+    /**
+    * @Description: get room by given roomNum
+    * @Param: [roomNum]
+    * @return: Room
+    * @Author: 
+    * @Date: 2020-11-14
+    */
+    public Room getRoomByRoomNum(int roomNum) {
+        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+        for (Room r : roomList) {
+            if (r.getRoom_num() == roomNum) {
                 return r;
             }
         }
@@ -260,25 +276,60 @@ public class DataBase {
     }
 
     /**
-    * @Description:
+    * @Description: get List of all messages
     * @Param: []
     * @return: java.util.List<Message>
     * @Date: 2020-11-11
     */
-    public List<Message> getMessageList() {
+    private List<Message> getMessageList() {
         return messageList;
     }
+
     /**
     * @Description: Return the List of messages related to <userId>; Cannot add message
     * @Param: [userId]
     * @return: java.util.List<Message>
     * @Date: 2020-11-11
     */
-    public List<Message> getMessageListByUserId(int userId) {
+    public List<Message> getAllMessageListByUserId(int userId) {
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
         List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {
             if (m.getReceiverId() == userId || m.getSenderId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
+    }
+    /**
+    * @Description: Return the List of Sent messages related to <userId>; Cannot add message
+    * @Param: [userId]
+    * @return: java.util.List<Message>
+    * @Author:
+    * @Date: 2020-11-14
+    */
+    public List<Message> getSentMessageListByUserId(int userId) {
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getSenderId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
+    }
+    /**
+    * @Description: Return the List of Received messages related to <userId>; Cannot add message
+    * @Param: [userId]
+    * @return: java.util.List<Message>
+    * @Author:
+    * @Date: 2020-11-14
+    */
+    public List<Message> getReceivedMessageListByUserId(int userId) {
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getReceiverId() == userId) {
                 ret.add(m);
             }
         }

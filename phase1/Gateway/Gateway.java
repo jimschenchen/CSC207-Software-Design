@@ -10,39 +10,65 @@ import java.util.List;
  * @create: 2020-11-09 21:58
  **/
 public class Gateway {
-
+    /**
+    * @Description: deserializing database from file and return the database
+    * @Param: []
+    * @return: DataBase
+    * @Author:
+    * @Date: 2020-11-14
+    */
     public DataBase init () throws IOException {
-        DataBase db = Utils.pull();
+        DataBase db = SerUtils.pull();
         return db;
     }
 
+    /**
+    * @Description: Serializing database to file
+    * @Param: [database]
+    * @return: void
+    * @Author:
+    * @Date: 2020-11-14
+    */
     public void termination (DataBase database) throws IOException {
-        Utils.push(database);
+        SerUtils.push(database);
     }
 
-//    public static void main(String[] args) throws IOException {
-//        // init
-//        Gateway gw = new Gateway();
-//
-//        // read from file
-//        DataBase db = gw.init();
-//
-//        // print after reading from file
-//        System.out.println(db.getUserList());
-//        db.getUserList().forEach((u) -> System.out.println(u.getUser_name()));
-//        System.out.println(db.getNextRoomId());
-//
-//        // manipulate db
-//        List<User> lst = new ArrayList<>();
-//        User u1 = new Attendee(1, "Ji321312m", "Jim");
-//        User u2 = new Attendee(2, "J1231", "jim2");
-//        Organizer o1 = new Organizer(3, "31231231", "jim3");
-//        lst.add(u1);
-//        lst.add(u2);
-//        lst.add(o1);
-//
-//
-//         // save db
-//         gw.termination(db);
-//    }
+/**
+    public static void main(String[] args) throws IOException {
+        read();
+        write();
+    }
+
+    public static void read () throws IOException {
+        // init
+        Gateway gw = new Gateway();
+
+        // read from file
+        DataBase db = gw.init();
+        // DataBase db = null;
+
+        // print after reading from file
+        System.out.println(db);
+        db.getUserList().forEach((u) -> System.out.println(u.getUserName() + u.getClass()));
+        System.out.println("RoomId:" + db.getNextRoomId());
+        System.out.println("UserId:" + db.getNextUserId());
+    }
+
+    public static void write() throws IOException {
+        // init
+        Gateway gw = new Gateway();
+        DataBase db = gw.init();
+
+        // manipulate db
+        User u1 = new Attendee(db.getNextUserId(), "Ji321312m", "Jim");
+        User u2 = new Attendee(db.getNextUserId(), "J1231", "jim2");
+        Organizer o1 = new Organizer(db.getNextUserId(), "31231231", "jim3");
+        db.addUser(u1);
+        db.addUser(u2);
+        db.addUser(o1);
+
+        // save db
+        gw.termination(db);
+    }
+ */
 }

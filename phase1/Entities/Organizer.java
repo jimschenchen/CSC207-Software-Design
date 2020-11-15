@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Organizer extends Attendee{
+public class Organizer extends Attendee implements java.io.Serializable{
 
     private ArrayList<Integer> created_event_list;
 
