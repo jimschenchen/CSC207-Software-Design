@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 
+
+
+/**
+ * This is the class to make user's input interact with the controller.
+ * @Date: 2020-11-15
+ */
 public class Presenter {
     private ViewModel model;
     String username;
@@ -10,27 +16,32 @@ public class Presenter {
     int type;
     ConferenceSystem cs = new ConferenceSystem();
 
+
+    /**
+     * The construction for presenter.
+     *
+     * @Param model a model of the class ViewModel.
+     * @return: void
+     * @Date: 2020-11-15
+     */
     public Presenter(ViewModel model){
-        /**
-         * The construction for presenter.
-         *
-         * @Param model a model of the class ViewModel.
-         * @return: void
-         * @Date: 2020-11-15
-         */
         this.model = model;
     }
 
-    public void Introduction () throws IOException {
-        /**
-         * Welcome users to the conference.
-         *
-         * @Param []
-         * @return: void
-         * @Date: 2020-11-15
-         */
+    /**
+     * Welcome users to the conference.
+     *
+     * @Param []
+     * @return: void
+     * @Date: 2020-11-15
+     */
+    public void Introduction() {
+        try{
+            cs.init();
+        } catch (IOException e){
+            model.MessageErr();
+        }
         model.Introduction();
-        cs.init();
     }
 
     private void SignUp(){
@@ -44,14 +55,14 @@ public class Presenter {
         IsUserRegistered();
     }
 
+    /**
+     * Asks if the user is registered
+     *
+     * @Param []
+     * @return: void
+     * @Date: 2020-11-15
+     */
     public void IsUserRegistered(){
-        /**
-         * Asks if the user is registered
-         *
-         * @Param []
-         * @return: void
-         * @Date: 2020-11-15
-         */
         if (model.AreURegistered() == 0){
             SignUp();
         }
@@ -61,6 +72,7 @@ public class Presenter {
             String pass = l[1];
             this.username = username;
             this.pass = pass;
+            //this.id = cs.getUserIDbyUserName(username);
             EverythingCorrect();
         }
     }
@@ -69,7 +81,6 @@ public class Presenter {
         type = cs.login(username, pass);
         if (type != -1){
             model.Credentials(username);
-            this.id = cs.getUserIDbyUserName(username);
             MenuOpener();
         }
         else{
@@ -191,7 +202,7 @@ public class Presenter {
 
 
 
-    public void MenuOpener() {
+    private void MenuOpener() {
         if (type == 0) {
             int answer = model.SpeakerMenu();
             openBranchSpeaker(answer);

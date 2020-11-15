@@ -33,7 +33,8 @@ public class ConferenceSystem {
     */
     public void init () throws IOException {
         shutDownHook();
-        db = gw.init();
+//        DataBase db = gw.init();
+        this.db = gw.init();
     }
     /**
     * @Description: Hook for listening the Shutdown of program and save all the data before exist0
@@ -492,7 +493,7 @@ public class ConferenceSystem {
         List<Integer> allEvents = em.getEventList(db);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, db)){
+            if (um.canSignUpForEvent(eventID, this.user, db)){//use canAddUserToEvent in eventmanager
                 events.add(em.getStringOfEvent(eventID, db));
             }
         }

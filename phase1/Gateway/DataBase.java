@@ -38,10 +38,7 @@ public class DataBase {
         return nextRoomId++;
     }
 
-//    /** Return the next message id and self increase by 1 */
-//    public int getNextMessageId() {
-//        return nextMessageId++;
-//    }
+    /** Return the next message id and self increase by 1 */
 
     /**
     * @Description: Get user by given id
@@ -59,22 +56,6 @@ public class DataBase {
         }
         return null;
     }
-//    /**
-//    * @Description:
-//    * @Param: [username]
-//    * @return: User
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public User getUserByUserName(String username) {
-//        ArrayList<User> userList = (ArrayList<User>) getUserList();
-//        for (User u : userList) {
-//            if (u.getUserName() == username) {
-//                return u;
-//            }
-//        }
-//        return null;
-//    }
 
     /**
     * @Description: get User by given username
@@ -107,22 +88,22 @@ public class DataBase {
         }
         return null;
     }
-//    /**
-//    * @Description:
-//    * @Param: [username]
-//    * @return: Attendee
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public Attendee getAttendeeByUserName(String username) {
-//        User user = this.getUserByUserName(username);
-//        if (user instanceof Attendee) {
-//            return (Attendee)user;
-//        }
-//        return null;
-//    }
     
-
+    /**
+    * @Description: get attendee by given username
+    * @Param: [username]
+    * @return: Attendee
+    * @Author: 
+    * @Date: 2020-11-13
+    */
+    public Attendee getAttendeeByUserName(String username) {
+        User user = this.getUserByUserName(username);
+        if (user instanceof Attendee) {
+            return (Attendee)user;
+        }
+        return null;
+    }
+    
     /**
     * @Description: Return Speaker by given <id>, if the user does not exist or is not Speaker, return null
     * @Param: [id]
@@ -137,20 +118,6 @@ public class DataBase {
         }
         return null;
     }
-//    /**
-//    * @Description:
-//    * @Param: [username]
-//    * @return: Speaker
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public Speaker getSpeakerByUserName(String username) {
-//        User user = this.getUserByUserName(username);
-//        if (user instanceof Speaker) {
-//            return (Speaker)user;
-//        }
-//        return null;
-//    }
 
     /**
     * @Description: get speaker by given username
@@ -163,6 +130,20 @@ public class DataBase {
         User user = this.getUserByUserName(username);
         if (user instanceof Speaker) {
             return (Speaker)user;
+        }
+        return null;
+    }
+    /**
+    * @Description: 
+    * @Param: [username]
+    * @return: Organizer
+    * @Author: 
+    * @Date: 2020-11-13
+    */
+    public Organizer getOrganizerByUserName(String username) {
+        User user = this.getUserByUserName(username);
+        if (user instanceof Organizer) {
+            return (Organizer)user;
         }
         return null;
     }
@@ -181,20 +162,6 @@ public class DataBase {
         }
         return null;
     }
-//    /**
-//    * @Description: get organizer by given username
-//    * @Param: [username]
-//    * @return: Organizer
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public Organizer getOrganizerByUserName(String username) {
-//        User user = this.getUserByUserName(username);
-//        if (user instanceof Organizer) {
-//            return (Organizer)user;
-//        }
-//        return null;
-//    }
 
     /**
     * @Description: get List of all users
