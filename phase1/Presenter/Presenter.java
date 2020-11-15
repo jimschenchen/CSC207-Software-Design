@@ -10,23 +10,47 @@ public class Presenter {
     ConferenceSystem cs = new ConferenceSystem();
 
     public Presenter(ViewModel model){
+        /**
+         * The construction for presenter.
+         *
+         * @Param model a model of the class ViewModel.
+         * @return: void
+         * @Date: 2020-11-15
+         */
         this.model = model;
     }
 
     public void Introduction(){
+        /**
+         * Welcome users to the conference.
+         *
+         * @Param []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         model.Introduction();
     }
 
-    private void CredentialsHelper(){
+    private void SignUp(){
         String username = model.username();
         String pass = model.Pass();
-        // controller needed
+        boolean success = cs.signup(username, pass);
+        if (!success) {
+            model.MessageErr();
+        }
+        IsUserRegistered();
     }
 
     public void IsUserRegistered(){
-        if (model.AreURegistered() == 1){
-            CredentialsHelper();
-            IsUserRegistered();
+        /**
+         * Asks if the user is registered
+         *
+         * @Param []
+         * @return: void
+         * @Date: 2020-11-15
+         */
+        if (model.AreURegistered() == 0){
+            SignUp();
         }
         else{
             String[] l = model.SignIn();
@@ -39,7 +63,7 @@ public class Presenter {
         }
     }
 
-    public void EverythingCorrect(){
+    private void EverythingCorrect(){
         type = cs.login(id, pass);
         if (type != -1){
             model.Credentials(username);
@@ -67,9 +91,11 @@ public class Presenter {
             StringPrinter(l);
         }else {
            model.invalidInput();
+           MenuOpener();
         }
-        MenuOpener();
     }
+
+
 
     private void openBranchOrganizer(int answer){
         if (answer == 1){
@@ -133,6 +159,8 @@ public class Presenter {
         String answer = model.back();
         if (answer != null){
             MenuOpener();
+        }else{
+            viewEvents();
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 public class ViewModel implements ViewActions {
     @Override
     public void Introduction() {
+
         System.out.println("Welcome to the 0173 Conference!");
     }
 
