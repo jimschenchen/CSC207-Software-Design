@@ -206,8 +206,8 @@ public class ViewModel implements ViewActions {
 
     public String back(){
         System.out.println("Type any thing to go back to previous page");
-        Console c = System.console();
-        String answer = c.readLine();
+        Scanner scanner = new Scanner (System.in);
+        String answer =scanner.next();
         return answer;
     }
 
@@ -216,10 +216,11 @@ public class ViewModel implements ViewActions {
      * @param: []
      * @return returns 1 if user wants to open the Messenger
      * returns 2 if user wants to to browse all the events in the conference
-     * return 3 if user want to see the schedule
-     * returns 4 if user want to see what events are available to sign up
-     * returns 5 if user want to sign up for a new event
-     * returns 6 if user want to cancel an event
+     * return 3 if user wants to see the schedule
+     * returns 4 if user wants to see what events are available to sign up
+     * returns 5 if user wants to sign up for a new event
+     * returns 6 if user wants to cancel an event
+     * returns 7 if user wants to change password
      * @date: 2020-11-14
      */
 
@@ -234,6 +235,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 4 if you want to see what events you can sign up now: ");
         System.out.println("Type 5 if you want to sign up for a new event: ");
         System.out.println("Type 6 if you want to cancel an event: ");
+        System.out.println("Type 7 if you want to change password");
         return answer();
     }
 
@@ -245,6 +247,7 @@ public class ViewModel implements ViewActions {
      * return 3 if user want to create a new speaker
      * returns 4 if user want to assign a speaker to an event
      * returns 5 if user want to create a new event
+     * returns 6 if user want to change password
      * @date: 2020-11-14
      */
 
@@ -256,6 +259,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 3 if you want to create a new speaker: ");
         System.out.println("Type 4 if you want to assign a speaker to an event: ");
         System.out.println("Type 5 if you want to create a new event: ");
+        System.out.println("Type 6 if you want to change password");
         return answer();
     }
 
@@ -264,6 +268,7 @@ public class ViewModel implements ViewActions {
      * @param: []
      * @return returns 1 if user wants to open the Messenger
      * returns 2 if user wants to see a list of talks Speaker gives
+     * returns 3 if user wants to change password
      * @date: 2020-11-14
      */
 
@@ -272,6 +277,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Welcome to the menu!");
         System.out.println("Type 1 if you want to open the Messenger: ");
         System.out.println("Type 2 if you want to see a list of talks you are given: ");
+        System.out.println("Type 3 if you want to change password");
         return answer();
     }
 
@@ -736,6 +742,17 @@ public class ViewModel implements ViewActions {
      */
     public void viewAttendeesInSpeakingEvents(){
         System.out.println("Here is all the attendees who signed up for your talks! Format: in UserName (userID)\"");
+    }
+
+    public String resetPassword(){
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("What's the new password");
+        String pass = scanner.next();
+        return pass;
+    }
+
+    public void passSuccess(){
+        System.out.println("Look! You have a new password.");
     }
 
 }
