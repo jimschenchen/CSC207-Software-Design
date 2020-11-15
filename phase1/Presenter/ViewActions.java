@@ -12,4 +12,16 @@ public interface ViewActions {
     int AttendeeMenu();
     int OrganizerMenu();
     int SpeakerMenu();
+    void SorryMessenger();
+    void SignUpEventMessage();
+    void SignUpEventErr();
+    void AddNewRoom();
+    void AddNewRoomErr();
+    void SpeakerAccCreated();
+    void SpeakerAccCreatedErr();
+    void SpeakerSet();
+    void SpeakerSetErr();
+    void CancelEventMessage();
+    void MessageErr();
+    void MessageSuccess();
 }

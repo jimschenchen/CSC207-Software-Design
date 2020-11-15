@@ -125,7 +125,7 @@ public class Presenter {
             model.readMessage();
         }else if (answer == 3){
             if(type == 1){
-                System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
+                model.SorryMessenger();
             }
             replyMessage();
         }else{
@@ -192,13 +192,12 @@ public class Presenter {
         String eventID = model.SignUpEvent();
         boolean success = cs.signUpForEvent(eventID);
         if (success){
-            System.out.println("Hey! You just sign up a new event! Arrive on time! ");
+           model.SignUpEventMessage();
         }else{
-            System.out.println("Sorry! You can't sign up for the event. Please check again!");
+            model.SignUpEventErr();
             MenuOpener();
         }
     }
-
 
 
 
@@ -206,9 +205,9 @@ public class Presenter {
         String room = model.addRoom();
         boolean success = cs.addNewRoom(room);
         if (success){
-            System.out.println("Hey! You just make a new room");
+           model.AddNewRoom();
         }else{
-            System.out.println("Sorry! We can not add the room. Please check again!");
+          model.AddNewRoomErr();
             MenuOpener();
         }
     }
@@ -220,9 +219,9 @@ public class Presenter {
         String speaker_pass = l[1];
         boolean success = cs.addNewSpeaker(speaker_name, speaker_pass);
         if (success){
-            System.out.println("Hey! You just make a new speaker account!");
+          model.SpeakerAccCreated();
         }else{
-            System.out.println("Sorry! We can not add the speaker. Please check again!");
+            model.SpeakerAccCreatedErr();
             MenuOpener();
         }
     }
@@ -232,9 +231,9 @@ public class Presenter {
         String event_id = l[1];
         boolean success = cs.setSpeakerForEvent(speaker_id, event_id);
         if (success){
-            System.out.println("Hey! You just make set a speaker for event!");
+            model.SpeakerSet();
         }else{
-            System.out.println("Sorry! We can not set the speaker for the event. Please check again!");
+           model.SpeakerSetErr();
             MenuOpener();
         }
     }
@@ -243,18 +242,18 @@ public class Presenter {
         String event_id = model.cancelEnrollment();
         boolean success = cs.cancelEnrollmentInEvent(event_id);
         if (success){
-            System.out.println("You just cancel an amazing event!");
+           model.CancelEventMessage();
         }else{
-            System.out.println("Oops! You cannot cancel that event! Please check again!");
+
             MenuOpener();
         }
     }
 
     private void MessageSuccessHelper(boolean success){
         if (success){
-            System.out.println("Message is sent successfully");
+           model.MessageSuccess();
         }else{
-            System.out.println("Oops! You cannot send that message! Please check again!");
+            model.MessageErr();
             MessengerOpener();
         }
     }
