@@ -433,14 +433,25 @@ public class ViewModel implements ViewActions {
         System.out.println("The operation has done successfully! You got it!");
 
     }
+
+
+    /**
+     * @description: Generates a message if the organizer creates an event successfully.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+    @Override
+    public void eventSuccess(){
+        System.out.println("Hey! You just create a new event!");
+    }
+
     /**
      * @description: Generates a message if user put an invalid input
      * @param: []
      * @return void
      * @date: 2020-11-14
      */
-
-
     @Override
     public void invalidInput(){
         System.out.println("Hey! That's an invalid input! please try again!");
@@ -712,6 +723,9 @@ public class ViewModel implements ViewActions {
         return user_id;
     }
 
+
+
+
     @Override
     public String[] newEvent(){
         String start = this.AskStartTime();
@@ -783,6 +797,7 @@ public class ViewModel implements ViewActions {
     public void passSuccess(){
         System.out.println("Look! You have a new password.");
     }
+
 
     /**
      * @description: Tell user that she/he signs out.

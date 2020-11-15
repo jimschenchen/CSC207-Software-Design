@@ -48,6 +48,7 @@ public interface ViewActions {
     String resetPassword();
     void passSuccess();
     void signOutMessage();
+    void eventSuccess();
 
 
 

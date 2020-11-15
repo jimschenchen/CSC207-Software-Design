@@ -476,8 +476,11 @@ public class Presenter {
         String topic = l[2];
         String room = l[3];
         boolean success = cs.newEvent(start, speaker_id, topic, room);
-        MessageSuccessHelper(success);
-
+        if(success){
+            model.eventSuccess();
+        }else{
+            model.MessageErr();
+        }
     }
 
 
