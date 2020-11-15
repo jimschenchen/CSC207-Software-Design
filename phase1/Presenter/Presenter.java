@@ -87,8 +87,7 @@ public class Presenter {
         if (answer == 1){
            MessengerOpener();
         }else if (answer == 2){
-            List<String> l = cs.viewSpeakingEvents();
-            StringPrinter(l);
+            viewSpeakingEvents();
         }else {
            model.invalidInput();
            MenuOpener();
@@ -97,21 +96,26 @@ public class Presenter {
 
 
 
+
     private void openBranchOrganizer(int answer){
         if (answer == 1){
             MessengerOpener();
         }else if(answer == 2){
             addRoom();
+            MenuOpener();
         }else if(answer == 3){
             addSpeaker();
+            MenuOpener();
         }else if (answer == 4){
             setSpeakerEvent();
+            MenuOpener();
         }else if(answer == 5){
             new_event();
+            MenuOpener();
         }else{
             model.invalidInput();
+            MenuOpener();
             }
-        MenuOpener();
         }
 
 
@@ -126,12 +130,14 @@ public class Presenter {
             viewCanSignUpEvents();
         }else if(answer == 5){
             SignUpEvent();
+            MenuOpener();
         }else if(answer == 6){
             cancelEnrollment();
+            MenuOpener();
         }else{
             model.invalidInput();
+            MenuOpener();
         }
-        MenuOpener();
     }
 
 
@@ -141,7 +147,21 @@ public class Presenter {
         String answer = model.back();
         if (answer != null){
             MenuOpener();
+        }else{
+            viewCanSignUpEvents();
         }
+    }
+
+    private void viewSpeakingEvents(){
+        List<String> l = cs.viewSpeakingEvents();
+        StringPrinter(l);
+        String answer = model.back();
+        if (answer != null){
+            MenuOpener();
+        }else{
+            viewSpeakingEvents();
+        }
+
     }
 
     private void viewSignedUpOrOrganizedEvents(){
@@ -150,6 +170,8 @@ public class Presenter {
         String answer = model.back();
         if (answer != null){
             MenuOpener();
+        }else{
+            viewCanSignUpEvents();
         }
     }
 
@@ -182,18 +204,39 @@ public class Presenter {
     }
 
 
+
+    private void replyMessage(){
+        List<String> receive_message = cs.readReceivedMessages();
+        String[] l = model.replyMessage(receive_message);
+        String num = l[0];
+        String reply = l[1];
+        boolean success = cs.replyMessage(num, reply);
+        MessageSuccessHelper(success);
+
+    }
+
+    private void viewMessage(){
+        List<String> receive_messages = cs.readReceivedMessages();
+        List<String> sent_messages= cs.readSentMessages();
+        System.out.println("Here are the messages you received!");
+        StringPrinter(receive_messages);
+        System.out.println("Here are the messages you sent");
+        StringPrinter(sent_messages);
+        String answer1 = model.back();
+        if (answer1 != null){
+            MessengerOpener();
+        }else{
+            viewMessage();
+        }
+    }
+
+
     private void MessengerOpener(){
         int answer = model.Messenger();
         if (answer == 1){
             MessengerOpenerSpecific();
         }else if(answer == 2){
-            List<String> receive_messages = cs.readReceivedMessages();
-            List<String> sent_messages= cs.readSentMessages();
-            System.out.println("Here are the messages you received!");
-            StringPrinter(receive_messages);
-            System.out.println("Here are the messages you sent");
-            StringPrinter(sent_messages);
-
+            viewMessage();
         }else if (answer == 3){
             if(type == 1){
                 model.SorryMessenger();
@@ -207,10 +250,13 @@ public class Presenter {
     private void SenderSpeaker(int answer){
         if (answer == 1){
             messageAllAttendeeEvent();
+            MessengerOpenerSpecific();
         }else if (answer == 2){
             messageAllUsersInAllSpeakingEvents();
+            MessengerOpenerSpecific();
         }else if(answer == 3){
             messageOneSpecificUserInEvent();
+            MessengerOpenerSpecific();
         }else {
             MessengerOpener();
         }
@@ -219,22 +265,28 @@ public class Presenter {
     private void SenderOrganizer(int answer){
         if(answer ==1){
             messageAttendee();
+            MessengerOpenerSpecific();
         }else if (answer == 2){
             messageSpeaker();
+            MessengerOpenerSpecific();
         }else if (answer == 3){
             messageAllAttendee();
+            MessengerOpenerSpecific();
         }else if (answer == 4){
             messageAllSpeakers();
+            MessengerOpenerSpecific();
         }else{
-            MessengerOpener();
+           MessengerOpener();
         }
     }
 
     private void SenderAttendee(int answer){
         if(answer ==1){
             messageAttendee();
+            MessengerOpenerSpecific();
         }else if (answer == 2){
             messageSpeaker();
+            MessengerOpenerSpecific();
         }else{
             MessengerOpener();
         }
@@ -266,7 +318,6 @@ public class Presenter {
            model.SignUpEventMessage();
         }else{
             model.SignUpEventErr();
-            MenuOpener();
         }
     }
 
@@ -279,7 +330,6 @@ public class Presenter {
            model.AddNewRoom();
         }else{
           model.AddNewRoomErr();
-            MenuOpener();
         }
     }
 
@@ -293,7 +343,6 @@ public class Presenter {
           model.SpeakerAccCreated();
         }else{
             model.SpeakerAccCreatedErr();
-            MenuOpener();
         }
     }
     private void setSpeakerEvent(){
@@ -305,7 +354,6 @@ public class Presenter {
             model.SpeakerSet();
         }else{
            model.SpeakerSetErr();
-            MenuOpener();
         }
     }
 
@@ -315,8 +363,7 @@ public class Presenter {
         if (success){
            model.CancelEventMessage();
         }else{
-
-            MenuOpener();
+            model.AddNewRoomErr();
         }
     }
 
@@ -329,15 +376,7 @@ public class Presenter {
         }
     }
 
-    private void replyMessage(){
-        List<String> receive_message = cs.readReceivedMessages();
-        String[] l = model.replyMessage(receive_message);
-        String num = l[0];
-        String reply = l[1];
-        boolean success = cs.replyMessage(num, reply);
-        MessageSuccessHelper(success);
 
-    }
 
     private void messageAllAttendeeEvent() {
         String[] l = model.MessageAllAttendeeEvent();
