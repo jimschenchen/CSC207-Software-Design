@@ -10,47 +10,23 @@ public class Presenter {
     ConferenceSystem cs = new ConferenceSystem();
 
     public Presenter(ViewModel model){
-        /**
-         * The construction for presenter.
-         *
-         * @Param model a model of the class ViewModel.
-         * @return: void
-         * @Date: 2020-11-15
-         */
         this.model = model;
     }
 
     public void Introduction(){
-        /**
-         * Welcome users to the conference.
-         *
-         * @Param []
-         * @return: void
-         * @Date: 2020-11-15
-         */
         model.Introduction();
     }
 
-    private void SignUp(){
+    private String CredentialsHelper(){
         String username = model.username();
         String pass = model.Pass();
-        boolean success = cs.signup(username, pass);
-        if (!success) {
-            model.MessageErr();
-        }
-        IsUserRegistered();
+        String i = String.valueOf(cs.login(username, pass));
+        return i;
     }
 
     public void IsUserRegistered(){
-        /**
-         * Asks if the user is registered
-         *
-         * @Param []
-         * @return: void
-         * @Date: 2020-11-15
-         */
-        if (model.AreURegistered() == 0){
-            SignUp();
+        if (model.AreURegistered() == 1){
+            this.id = CredentialsHelper();
         }
         else{
             String[] l = model.SignIn();
@@ -63,7 +39,7 @@ public class Presenter {
         }
     }
 
-    private void EverythingCorrect(){
+    public void EverythingCorrect(){
         type = cs.login(id, pass);
         if (type != -1){
             model.Credentials(username);
@@ -90,8 +66,8 @@ public class Presenter {
             viewSpeakingEvents();
         }else {
            model.invalidInput();
-           MenuOpener();
         }
+        MenuOpener();
     }
 
 
@@ -181,12 +157,8 @@ public class Presenter {
         String answer = model.back();
         if (answer != null){
             MenuOpener();
-        }else{
-            viewEvents();
         }
     }
-
-
 
     public void MenuOpener() {
         if (type == 0) {
