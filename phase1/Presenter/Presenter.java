@@ -58,6 +58,7 @@ public class Presenter {
             String pass = l[1];
             this.username = username;
             this.pass = pass;
+            this.id = cs.getUserIDbyUserName(username);
             EverythingCorrect();
         }
     }
