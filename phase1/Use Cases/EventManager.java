@@ -25,12 +25,12 @@ public class EventManager {
 
     public boolean canCreateEvent(int room_id, Double start, DataBase db){
         List<Event> all_event = db.getEventList();
-        for (int i = 0; i < all_event.size(); i++){
-            if(room_id == all_event.get(i).getEvent_id() && event_id == all_event.get(i).getRoomId()){
-                return true;
+        for (Event event : all_event) {
+            if (room_id == event.getRoomId() && start.equals(event.getStart_time())) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void createEvent(int room_id, Double start, DataBase db){
@@ -47,18 +47,26 @@ public class EventManager {
         return false;
     }
 
-    public void setSpeaker(Speaker speaker, Event event){
+    public void setSpeaker(int speakerID, int eventID, DataBase db){
+        Speaker speaker = db.getSpeakerById(speakerID);
+        Event event = db.getEventById(eventID);
         event.setSpeaker_id(speaker.getUser_id());
     }
 
-    public boolean canAddUserToEvent(int userId, int eventId, DataBase d){
-        List<Event> all_event = d.getEventList();
-        for (Event e: all_event){
-            if (e.getEvent_id() == eventId){
-                return false;
-            }
+    public boolean canAddUserToEvent(int eventId, DataBase d){
+//        List<Event> all_event = d.getEventList();
+//        for (Event e: all_event){
+//            if (e.getEvent_id() == eventId){
+//                return false;
+//            }
+//        }
+//        return true;
+        if (d.getEventById(eventId) == null){
+            return false;
         }
-        return true;
+        Event event = d.getEventById(eventId);
+        int roomCapacity = d.getRoomById(event.getRoomId()).getCapacity();
+        return event.getSingned_userid().size() < roomCapacity;
     }
 
     public void addUserToEvent(int userId, int eventId, DataBase d){
@@ -103,19 +111,49 @@ public class EventManager {
     public List<User> getUserList(Event event, DataBase bd){
         ArrayList<User> all_User= new ArrayList<>();
         ArrayList<Integer> allUserID = event.getSingned_userid();
-        for(int i = 0; i < allUserID.size(); i++){
-            all_User.add(bd.getUserById(allUserID.get(i)));
+        for (Integer integer : allUserID) {
+            all_User.add(bd.getUserById(integer));
         }
         return all_User;
     }
 
-    public List<Event> getEventList(DataBase bd) {
-        ArrayList<Event> all_Events = new ArrayList<>();
-        List<Event> events = bd.getEventList();
-        for (Event e : events) {
-            all_Events.add(bd.getEventById(e.getEvent_id()));
+//    public List<Event> getEventList(DataBase bd) {
+//        ArrayList<Event> all_Events = new ArrayList<>();
+//        List<Event> events = bd.getEventList();
+//        for (Event e : events) {
+//            all_Events.add(bd.getEventById(e.getEvent_id()));
+//        }
+//        return all_Events;
+//    }
+//    public List<String> getEventList(DataBase db) {
+//        ArrayList<String> all_Events = new ArrayList<>();
+//        List<Event> events = db.getEventList();
+//        for (Event e : events) {
+//            String event = "The event  " + e.getTitle() +
+//                    " with ID " + e.getEvent_id() +
+//                    " by " + db.getSpeakerById(e.getSpeakerId()).getUserName() +
+//                    " starts at " + e.getStart_time() +
+//                    " takes place in " + db.getRoomById(e.getRoomId()).getRoom_num();
+//            all_Events.add(event);
+//        }
+//        return all_Events;
+//    }
+    public List<Integer> getEventList(DataBase db){
+        List<Integer> allEvents = new ArrayList<>();
+        List<Event> events = db.getEventList();
+        for (Event event : events){
+            allEvents.add(event.getEvent_id());
         }
-        return all_Events;
+        return allEvents;
+    }
+
+    public String getStringOfEvent(int eventID, DataBase db){
+        Event event = db.getEventById(eventID);
+        return "The event  " + event.getTitle() +
+                " with ID " + event.getEvent_id() +
+                " by " + db.getSpeakerById(event.getSpeakerId()).getUserName() +
+                " starts at " + event.getStart_time() +
+                " takes place in " + db.getRoomById(event.getRoomId()).getRoom_num();
     }
 }
 

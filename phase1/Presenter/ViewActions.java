@@ -1,5 +1,3 @@
-
-
 public interface ViewActions {
     void Introduction();
     int AreURegistered();

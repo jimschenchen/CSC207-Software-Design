@@ -40,7 +40,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Enter your password here: ");
         char[] ch=c.readPassword();
         String pass = String.valueOf(ch);//converting char array into string
-       return pass;
+        return pass;
     }
 
     @Override

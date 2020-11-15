@@ -49,7 +49,7 @@ public class Utils {
             return db;
         }
     }
-
+    
     private static DataBase getData() throws FileNotFoundException {
         // init builder
         GsonBuilder builder = new GsonBuilder();

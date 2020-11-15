@@ -60,6 +60,23 @@ public class DataBase {
         return null;
     }
     /**
+    * @Description:
+    * @Param: [username]
+    * @return: User
+    * @Author:
+    * @Date: 2020-11-13
+    */
+    public User getUserByUserName(String username) {
+        ArrayList<User> userList = (ArrayList<User>) getUserList();
+        for (User u : userList) {
+            if (u.getUserName() == username) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    /**
     * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
     * @Param: [id]
     * @return: Attendee
@@ -73,6 +90,21 @@ public class DataBase {
         }
         return null;
     }
+    /**
+    * @Description: 
+    * @Param: [username]
+    * @return: Attendee
+    * @Author: 
+    * @Date: 2020-11-13
+    */
+    public Attendee getAttendeeByUserName(String username) {
+        User user = this.getUserByUserName(username);
+        if (user instanceof Attendee) {
+            return (Attendee)user;
+        }
+        return null;
+    }
+    
     /**
     * @Description: Return Speaker by given <id>, if the user does not exist or is not Speaker, return null
     * @Param: [id]
@@ -88,6 +120,21 @@ public class DataBase {
         return null;
     }
     /**
+    * @Description: 
+    * @Param: [username]
+    * @return: Speaker
+    * @Author: 
+    * @Date: 2020-11-13
+    */
+    public Speaker getSpeakerByUserName(String username) {
+        User user = this.getUserByUserName(username);
+        if (user instanceof Speaker) {
+            return (Speaker)user;
+        }
+        return null;
+    }
+
+    /**
     * @Description: Return Organizer by given <id>, if the user does not exist or is not Organizer, return null
     * @Param: [id]
     * @return: Organizer
@@ -96,6 +143,20 @@ public class DataBase {
     */
     public Organizer getOrganizerById(int id) {
         User user = this.getUserById(id);
+        if (user instanceof Organizer) {
+            return (Organizer)user;
+        }
+        return null;
+    }
+    /**
+    * @Description: 
+    * @Param: [username]
+    * @return: Organizer
+    * @Author: 
+    * @Date: 2020-11-13
+    */
+    public Organizer getOrganizerByUserName(String username) {
+        User user = this.getUserByUserName(username);
         if (user instanceof Organizer) {
             return (Organizer)user;
         }
