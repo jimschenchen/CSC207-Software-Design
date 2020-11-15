@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /*
  * CSC207.Store All the Data
  */
-public class DataBase {
+public class DataBase implements Serializable {
     /**
      * Attributes
      * NOTE: Use @SerializeName("total_number") to change the serilization rule
