@@ -151,12 +151,6 @@ public class ViewModel implements ViewActions {
         return answer();
     }
 
-    @Override
-    public void SorryMessenger() {
-        System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
-    }
-
-
     private void StringPrinter(List<String> events){
         for (String e: events){
             System.out.println(e);
@@ -194,65 +188,6 @@ public class ViewModel implements ViewActions {
         System.out.println("Enter the event id you would like to attend");
         String eventID = c.readLine();
         return eventID;
-    }
-
-    @Override
-    public void SignUpEventMessage() {
-        System.out.println("Hey! You just sign up a new event! Arrive on time! ");
-    }
-
-    @Override
-    public void SignUpEventErr() {
-        System.out.println("Sorry! You can't sign up for the event. Please check again!");
-    }
-
-    @Override
-    public void AddNewRoom() {
-        System.out.println("Hey! You just make a new room");
-    }
-
-    @Override
-    public void AddNewRoomErr() {
-        System.out.println("Sorry! We can not add the room. Please check again!");
-    }
-
-    @Override
-    public void SpeakerAccCreated() {
-        System.out.println("Hey! You just make a new speaker account!");
-    }
-
-    @Override
-    public void SpeakerAccCreatedErr() {
-        System.out.println("Sorry! We can not add the speaker. Please check again!");
-
-    }
-
-    @Override
-    public void SpeakerSet() {
-        System.out.println("Hey! You set a speaker for event!");
-
-    }
-
-    @Override
-    public void SpeakerSetErr() {
-        System.out.println("Sorry! We can not set the speaker for the event. Please check again!");
-
-    }
-
-    @Override
-    public void CancelEventMessage() {
-        System.out.println("You just cancel an amazing event!"); //lmao this statement!
-    }
-
-    @Override
-    public void MessageErr() {
-        System.out.println("Oops! There was some error! Please check again!");
-
-    }
-
-    @Override
-    public void MessageSuccess() {
-        System.out.println("Message is sent successfully");
     }
 
 
