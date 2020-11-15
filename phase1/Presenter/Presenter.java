@@ -10,23 +10,47 @@ public class Presenter {
     ConferenceSystem cs = new ConferenceSystem();
 
     public Presenter(ViewModel model){
+        /**
+         * The construction for presenter.
+         *
+         * @Param model a model of the class ViewModel.
+         * @return: void
+         * @Date: 2020-11-15
+         */
         this.model = model;
     }
 
     public void Introduction(){
+        /**
+         * Welcome users to the conference.
+         *
+         * @Param []
+         * @return: void
+         * @Date: 2020-11-15
+         */
         model.Introduction();
     }
 
-    private String CredentialsHelper(){
+    private void SignUp(){
         String username = model.username();
         String pass = model.Pass();
-        String i = String.valueOf(cs.login(username, pass));
-        return i;
+        boolean success = cs.signup(username, pass);
+        if (!success) {
+            model.MessageErr();
+        }
+        IsUserRegistered();
     }
 
     public void IsUserRegistered(){
-        if (model.AreURegistered() == 1){
-            this.id = CredentialsHelper();
+        /**
+         * Asks if the user is registered
+         *
+         * @Param []
+         * @return: void
+         * @Date: 2020-11-15
+         */
+        if (model.AreURegistered() == 0){
+            SignUp();
         }
         else{
             String[] l = model.SignIn();
@@ -39,7 +63,7 @@ public class Presenter {
         }
     }
 
-    public void EverythingCorrect(){
+    private void EverythingCorrect(){
         type = cs.login(id, pass);
         if (type != -1){
             model.Credentials(username);
@@ -61,13 +85,13 @@ public class Presenter {
 
     private void openBranchSpeaker(int answer){
         if (answer == 1){
-           MessengerOpener();
+            MessengerOpener();
         }else if (answer == 2){
             viewSpeakingEvents();
         }else {
-           model.invalidInput();
+            model.invalidInput();
+            MenuOpener();
         }
-        MenuOpener();
     }
 
 
@@ -91,8 +115,8 @@ public class Presenter {
         }else{
             model.invalidInput();
             MenuOpener();
-            }
         }
+    }
 
 
     private void openBranchAttendee(int answer){
@@ -157,8 +181,12 @@ public class Presenter {
         String answer = model.back();
         if (answer != null){
             MenuOpener();
+        }else{
+            viewEvents();
         }
     }
+
+
 
     public void MenuOpener() {
         if (type == 0) {
@@ -248,7 +276,7 @@ public class Presenter {
             messageAllSpeakers();
             MessengerOpenerSpecific();
         }else{
-           MessengerOpener();
+            MessengerOpener();
         }
     }
 
@@ -268,8 +296,8 @@ public class Presenter {
 
     private void MessengerOpenerSpecific(){
         if (type == 0){
-           int answer = model.MessengerSpeaker();
-           SenderSpeaker(answer);
+            int answer = model.MessengerSpeaker();
+            SenderSpeaker(answer);
         }else if (type == 1){
             int answer = model.MessengerOrganizer();
             SenderOrganizer(answer);
@@ -287,7 +315,7 @@ public class Presenter {
         String eventID = model.SignUpEvent();
         boolean success = cs.signUpForEvent(eventID);
         if (success){
-           model.SignUpEventMessage();
+            model.SignUpEventMessage();
         }else{
             model.SignUpEventErr();
         }
@@ -299,9 +327,9 @@ public class Presenter {
         String room = model.addRoom();
         boolean success = cs.addNewRoom(room);
         if (success){
-           model.AddNewRoom();
+            model.AddNewRoom();
         }else{
-          model.AddNewRoomErr();
+            model.AddNewRoomErr();
         }
     }
 
@@ -312,7 +340,7 @@ public class Presenter {
         String speaker_pass = l[1];
         boolean success = cs.addNewSpeaker(speaker_name, speaker_pass);
         if (success){
-          model.SpeakerAccCreated();
+            model.SpeakerAccCreated();
         }else{
             model.SpeakerAccCreatedErr();
         }
@@ -325,7 +353,7 @@ public class Presenter {
         if (success){
             model.SpeakerSet();
         }else{
-           model.SpeakerSetErr();
+            model.SpeakerSetErr();
         }
     }
 
@@ -333,7 +361,7 @@ public class Presenter {
         String event_id = model.cancelEnrollment();
         boolean success = cs.cancelEnrollmentInEvent(event_id);
         if (success){
-           model.CancelEventMessage();
+            model.CancelEventMessage();
         }else{
             model.AddNewRoomErr();
         }
@@ -341,7 +369,7 @@ public class Presenter {
 
     private void MessageSuccessHelper(boolean success){
         if (success){
-           model.MessageSuccess();
+            model.MessageSuccess();
         }else{
             model.MessageErr();
             MessengerOpener();
@@ -416,9 +444,4 @@ public class Presenter {
 
 
 
-    }
-
-
-
-
-
+}
