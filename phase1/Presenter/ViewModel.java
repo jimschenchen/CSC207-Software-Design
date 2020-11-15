@@ -708,4 +708,8 @@ public class ViewModel implements ViewActions {
         System.out.println("Here is all the speakers in the conference! Format: in UserName (userID)");
     }
 
+    public void viewAttendeesInSpeakingEvents(){
+        System.out.println("Here is all the attendees who signed up for your talks!");
+    }
+
 }

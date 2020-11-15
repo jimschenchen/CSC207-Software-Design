@@ -64,7 +64,7 @@ public class Presenter {
     }
 
     private void EverythingCorrect(){
-        type = cs.login(id, pass);
+        type = cs.login(username, pass);
         if (type != -1){
             model.Credentials(username);
             MenuOpener();
@@ -454,6 +454,12 @@ public class Presenter {
     public void viewAllSpeakers(){
         model.viewAllSpeakers();
         List<String> l = cs.viewAllSpeakers();
+        StringPrinter(l);
+    }
+
+    public void viewAttendeesInSpeakingEvents(){
+        model.viewAttendeesInSpeakingEvents();
+        List<String> l = cs.viewAttendeesInSpeakingEvents();
         StringPrinter(l);
     }
 
