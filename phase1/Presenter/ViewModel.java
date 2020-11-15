@@ -3,8 +3,6 @@ import java.sql.SQLOutput;
 import java.util.List;
 
 public class ViewModel implements ViewActions {
-    ConferenceSystem cs = new ConferenceSystem();
-
     @Override
     public void Introduction() {
         System.out.println("Welcome to the 0173 Conference!");
@@ -52,7 +50,6 @@ public class ViewModel implements ViewActions {
         String n = c.readLine();
         System.out.println("To sign in enter your password here:");
         String k = c.readLine();
-        cs.login(n,k); // Just to save the information in cs
         return new String[]{n, k};
     }
 
@@ -81,6 +78,9 @@ public class ViewModel implements ViewActions {
         i = Integer.parseInt(answer);
         return i;
     }
+
+
+
 
 
 
@@ -151,95 +151,6 @@ public class ViewModel implements ViewActions {
         return answer();
     }
 
-    @Override
-    public void SorryMessenger() {
-        System.out.println("Sorry! You can't reply to a message, since no one can send a message to you!");
-    }
-
-    @Override
-    public void SignUpEventMessage() {
-        System.out.println("Hey! You just sign up a new event! Arrive on time! ");
-
-    }
-
-    @Override
-    public void SignUpEventErr() {
-        System.out.println("Sorry! You can't sign up for the event. Please check again!");
-
-    }
-
-    @Override
-    public void AddNewRoom() {
-        System.out.println("Hey! You just make a new room");
-    }
-
-    @Override
-    public void AddNewRoomErr() {
-        System.out.println("Sorry! We can not add the room. Please check again!");
-    }
-
-    @Override
-    public void SpeakerAccCreated() {
-
-    }
-
-    @Override
-    public void SpeakerAccCreatedErr() {
-
-    }
-
-    @Override
-    public void SpeakerSet() {
-
-    }
-
-    @Override
-    public void SpeakerSetErr() {
-
-    }
-
-    @Override
-    public void CancelEventMessage() {
-
-    }
-
-    @Override
-    public void MessageErr() {
-
-    }
-
-    @Override
-    public void MessageSuccess() {
-
-    }
-
-    private void StringPrinter(List<String> events){
-        for (String e: events){
-            System.out.println(e);
-        }
-    }
-
-    public void ViewEvents(){
-        List<String> EventList = cs.viewEvents();
-        StringPrinter(EventList);
-    }
-
-    public void viewSpeakingEvents(){
-        cs.viewSpeakingEvents();
-    }
-
-
-    public void viewSignedUpOrOrganizedEvents(){
-        List<String> events = cs.viewSignedUpOrOrganizedEvents();
-        StringPrinter(events);
-
-    }
-
-    public void viewCanSignUpEvents(){
-        List<String> events = cs.viewCanSignUpEvents();
-        StringPrinter(events);
-    }
-
     public void invalidInput(){
         System.out.println("Hey! That's an invalid input! please try again!");
     }
@@ -286,16 +197,6 @@ public class ViewModel implements ViewActions {
         return event_id;
     }
 
-    public void readMessage(){
-        List<String> receive_messages = cs.readReceivedMessages();
-        List<String> sent_messages= cs.readSentMessages();
-        System.out.println("Here are the messages you received!");
-        StringPrinter(receive_messages);
-        System.out.println("Here are the messages you sent");
-        StringPrinter(sent_messages);
-
-    }
-
     private String AskForUser(){
         Console c = System.console();
         System.out.println("What is the ID of the User you want to send message to?");
@@ -317,13 +218,12 @@ public class ViewModel implements ViewActions {
         return message;
     }
 
-    public String[] replyMessage(){
-        List<String> receive_message = cs.readReceivedMessages();
+    public String[] replyMessage(List<String> receive_message){
         int i = 0;
         for (String m: receive_message){
             System.out.println("Message" + i + ": " + m);
+            i = i + 1;
         }
-
         Console c = System.console();
         System.out.println("Enter the number of the message you want to reply here: ");
         String num = c.readLine();
