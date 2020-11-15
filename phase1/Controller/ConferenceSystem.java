@@ -404,9 +404,8 @@ public class ConferenceSystem {
      */
     public boolean addNewRoom(String roomNumber){
         try{
-            int rNumber = Integer.parseInt(roomNumber);
-            if (rm.canAddRoom(rNumber, db)){
-                rm.add_room(rNumber, db);
+            if (rm.canAddRoom(roomNumber, db)){
+                rm.add_room(roomNumber, db);
                 return true;
             }
             return false;
@@ -429,8 +428,7 @@ public class ConferenceSystem {
         try{
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
-            int rNumber = Integer.parseInt(roomNumber);
-            int rID = rm.getRoomIDbyRoomNumber(rNumber, db);
+            int rID = rm.getRoomIDbyRoomNumber(roomNumber, db);
             if (em.canCreateEvent(rID, sTime, db)){
                 em.createEvent(sTime, sID, topic, rID, db);
                 return true;

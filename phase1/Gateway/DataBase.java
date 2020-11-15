@@ -256,7 +256,7 @@ public class DataBase implements Serializable {
     * @Author: 
     * @Date: 2020-11-14
     */
-    public Room getRoomByRoomNum(int roomNum) {
+    public Room getRoomByRoomNum(String roomNum) {
         ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
         for (Room r : roomList) {
             if (r.getRoom_num() == roomNum) {
@@ -345,6 +345,11 @@ public class DataBase implements Serializable {
     */
     public void addMessage(Message message) {
         this.messageList.add(message);
+    }
+
+    public void firstOrganizer() {
+        Organizer o= new Organizer(getNextUserId(), "password", "user");
+        addUser(o);
     }
 
     public void printDataBase () {

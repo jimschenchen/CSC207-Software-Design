@@ -1,6 +1,6 @@
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-//import org.apache.commons.io.FileUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 
@@ -49,7 +49,9 @@ public class SerUtils {
         } catch(IOException i) {
             // i.printStackTrace();
             System.out.println("Database: Data File does not found, initializing new Data");
-            return new DataBase();
+            DataBase d = new DataBase();
+            d.firstOrganizer();
+            return d;
         } catch(ClassNotFoundException c) {
             System.out.println("Database: Class not found");
             c.printStackTrace();

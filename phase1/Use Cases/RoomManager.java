@@ -10,21 +10,21 @@ public class RoomManager {
         return bd.getRoomList();
     }
 
-    public boolean canAddRoom(int room_num, DataBase bd) {
+    public boolean canAddRoom(String room_num, DataBase bd) {
         for (Room r : bd.getRoomList()) {
-            if (r.getRoom_num() == room_num) {
+            if (r.getRoom_num().equals(room_num)) {
                 return false;
             }
         }
         return true;
     }
 
-    public void add_room(int roomNumber, DataBase d) {
+    public void add_room(String roomNumber, DataBase d) {
         Room room = new Room(roomNumber, d.getNextRoomId());
         d.addRoom(room);
     }
 
-    public int getRoomIDbyRoomNumber(int roomNumber, DataBase db){
+    public int getRoomIDbyRoomNumber(String roomNumber, DataBase db){
         return db.getRoomByRoomNum(roomNumber).getRid();
     }
 }
