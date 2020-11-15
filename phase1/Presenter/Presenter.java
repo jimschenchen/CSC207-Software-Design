@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.IOException;
 import java.util.List;
 
 public class Presenter {
@@ -20,7 +21,7 @@ public class Presenter {
         this.model = model;
     }
 
-    public void Introduction(){
+    public void Introduction () throws IOException {
         /**
          * Welcome users to the conference.
          *
@@ -29,6 +30,7 @@ public class Presenter {
          * @Date: 2020-11-15
          */
         model.Introduction();
+        cs.init();
     }
 
     private void SignUp(){
@@ -59,7 +61,6 @@ public class Presenter {
             String pass = l[1];
             this.username = username;
             this.pass = pass;
-            this.id = cs.getUserIDbyUserName(username);
             EverythingCorrect();
         }
     }
@@ -68,6 +69,7 @@ public class Presenter {
         type = cs.login(username, pass);
         if (type != -1){
             model.Credentials(username);
+            this.id = cs.getUserIDbyUserName(username);
             MenuOpener();
         }
         else{
