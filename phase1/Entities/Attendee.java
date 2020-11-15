@@ -49,7 +49,10 @@ public class Attendee extends User implements java.io.Serializable{
     @Override
     public String toString() {
         return "Attendee{" +
-                "signed_up_event=" + signed_up_event +
+                "uid=" + super.getUser_id() +
+                ", username='" + super.getUserName() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
+                ", signed_up_event=" + signed_up_event +
                 '}';
     }
 }

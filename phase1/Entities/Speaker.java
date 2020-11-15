@@ -22,7 +22,10 @@ public class Speaker extends User implements java.io.Serializable{
     @Override
     public String toString() {
         return "Speaker{" +
-                "giving_event_list=" + giving_event_list +
+                "uid=" + super.getUser_id() +
+                ", username='" + super.getUserName() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
+                ", giving_event_list=" + giving_event_list +
                 '}';
     }
 }

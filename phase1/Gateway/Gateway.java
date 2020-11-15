@@ -34,6 +34,9 @@ public class Gateway {
         SerUtils.push(database);
     }
 
+
+    /**
+
     public static void showData () {
         DataBase db = SerUtils.pull();
         System.out.println("=== User List ===");
@@ -45,11 +48,9 @@ public class Gateway {
 
     public static void main(String[] args) throws IOException {
         showData();
-//        read();
-//        write();
+        read();
+        write();
     }
-
-    /**
 
     public static void read () throws IOException {
         // init

@@ -21,7 +21,7 @@ public class SerUtils {
             FileOutputStream fileOut = new FileOutputStream(relativePath);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(data);
-            System.out.println("Database: === Data Saved ===");
+            System.out.println("Database: Data Saved");
             out.close();
             fileOut.close();
         } catch (IOException i) {
@@ -42,14 +42,13 @@ public class SerUtils {
             FileInputStream fileIn = new FileInputStream(relativePath);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             DataBase db = (DataBase) in.readObject();
-            System.out.println("Database: === Data Load ===");
+            System.out.println("Database: Data Load");
             in.close();
             fileIn.close();
             return db;
         } catch(IOException i) {
             // i.printStackTrace();
-            System.out.println("Database: === Data File does not found ===");
-            System.out.println("Database: === Initial new Data File ===");
+            System.out.println("Database: Data File does not found, initializing new Data");
             return new DataBase();
         } catch(ClassNotFoundException c) {
             System.out.println("Database: Class not found");

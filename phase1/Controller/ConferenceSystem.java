@@ -48,6 +48,7 @@ public class ConferenceSystem {
             @Override
             public void run() {
                 try {
+                    System.out.println("System: ShutDownHook");
                     gw.termination(db);
                 } catch (IOException e) {
                     e.printStackTrace();
