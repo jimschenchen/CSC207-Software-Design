@@ -24,7 +24,10 @@ public class Organizer extends Attendee implements java.io.Serializable{
     @Override
     public String toString() {
         return "Organizer{" +
-                "created_event_list=" + created_event_list +
+                "uid=" + super.getUser_id() +
+                ", username='" + super.getUserName() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
+                ", created_event_list=" + created_event_list +
                 '}';
     }
 }

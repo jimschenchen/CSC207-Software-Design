@@ -33,7 +33,7 @@ public class ConferenceSystem {
     */
     public void init () throws IOException {
         shutDownHook();
-//        DataBase db = gw.init();
+        /** initial of database */
         this.db = gw.init();
     }
     /**
@@ -48,6 +48,7 @@ public class ConferenceSystem {
             @Override
             public void run() {
                 try {
+                    System.out.println("System: ShutDownHook");
                     gw.termination(db);
                 } catch (IOException e) {
                     e.printStackTrace();

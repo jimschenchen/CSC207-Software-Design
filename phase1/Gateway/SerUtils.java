@@ -16,11 +16,12 @@ public class SerUtils {
      * @Author:
      * @Date: 2020-11-09
      */
-    public static void push (DataBase data) throws IOException {
+    public static void push (DataBase data) {
         try {
             FileOutputStream fileOut = new FileOutputStream(relativePath);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(data);
+            System.out.println("Database: Data Saved");
             out.close();
             fileOut.close();
         } catch (IOException i) {
@@ -36,22 +37,21 @@ public class SerUtils {
      * @Date: 2020-11-09
      */
     public static DataBase pull () {
-        DataBase db = null;
         try
         {
             FileInputStream fileIn = new FileInputStream(relativePath);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            db = (DataBase) in.readObject();
+            DataBase db = (DataBase) in.readObject();
+            System.out.println("Database: Data Load");
             in.close();
             fileIn.close();
             return db;
         } catch(IOException i) {
             // i.printStackTrace();
-            System.out.println("=== Data File does not found ===");
-            System.out.println("=== Initial new Data File ===");
+            System.out.println("Database: Data File does not found, initializing new Data");
             return new DataBase();
         } catch(ClassNotFoundException c) {
-            System.out.println("Class not found");
+            System.out.println("Database: Class not found");
             c.printStackTrace();
             return null;
         }

@@ -50,8 +50,9 @@ public class Presenter {
         boolean success = cs.signup(username, pass);
         if (!success) {
             model.MessageErr();
+        }else{
+            model.SignUpSuccess();
         }
-        model.SignUpSuccess();
         IsUserRegistered();
     }
 
