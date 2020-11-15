@@ -92,25 +92,26 @@ public class EventManager {
         d.getEventById(eventId).remove_user(userId);
     }
 
-    public LocalDateTime getStart_time(Event event) {
-        return event.getStart_time();
-    }
-
-    public int getSpeakerId(Event event) {
-        return event.getSpeakerId();
-    }
-
-    public String getTitle(Event event) {
-        return event.getTitle();
-    }
-
-    public int getRoomId(Event event) {
-        return event.getRoomId();
-    }
-
-    public int getEvent_id(Event event) {
-        return event.getEvent_id();
-    }
+    // methods never used
+//    public LocalDateTime getStart_time(Event event) {
+//        return event.getStart_time();
+//    }
+//
+//    public int getSpeakerId(Event event) {
+//        return event.getSpeakerId();
+//    }
+//
+//    public String getTitle(Event event) {
+//        return event.getTitle();
+//    }
+//
+//    public int getRoomId(Event event) {
+//        return event.getRoomId();
+//    }
+//
+//    public int getEvent_id(Event event) {
+//        return event.getEvent_id();
+//    }
 
 //    public List<User> getUserList(Event event, DataBase bd){
 //        ArrayList<User> all_User= new ArrayList<>();

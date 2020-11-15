@@ -363,8 +363,8 @@ public class ConferenceSystem {
      *          Return false when the password is invalid,
      *          or when the user name is not unique.
      */
-    public boolean addNewSpeaker(@NotNull String userName, @NotNull String password){
-        if (password.trim().length() >=6 && um.canCreateSpeaker(userName, db)){
+    public boolean addNewSpeaker(String userName, String password){
+        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateSpeaker(userName, db)){
             um.createSpeaker(password.trim(), userName.trim(), db);
             return true;
         }
