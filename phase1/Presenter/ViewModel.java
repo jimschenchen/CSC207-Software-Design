@@ -430,7 +430,7 @@ public class ViewModel implements ViewActions {
 
     @Override
     public void MessageSuccess() {
-        System.out.println("Message sent successfully!");
+        System.out.println("The operation has done successfully! You got it!");
 
     }
     /**
@@ -705,25 +705,24 @@ public class ViewModel implements ViewActions {
      * @date: 2020-11-14
      */
 
-    @Override
-    public String[] newEvent(){
-        String start = AskStartTime();
-        String user_id = AskForSpeaker();
-        String topic = AskTopic();
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("What is the room number where the event takes place?");
-        String room = scanner.next();
-        String[] l = {start, user_id, topic, room};
-        return l;
-    }
-
-    public String AskForSpeaker() {
+    private String AskForSpeaker() {
         Scanner scanner = new Scanner (System.in);
         System.out.println("What's the Speaker id you want to set to this event?");
         String user_id = scanner.next();
         return user_id;
     }
 
+    @Override
+    public String[] newEvent(){
+        String start = this.AskStartTime();
+        String user_id = this.AskForSpeaker();
+        String topic = this.AskTopic();
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("What is the room number where the event takes place?");
+        String room = scanner.next();
+        String[] l = {start, user_id, topic, room};
+        return l;
+    }
 
     /**
      * @description: Prints a statement to show all attendees.
