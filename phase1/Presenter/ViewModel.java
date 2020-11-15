@@ -1,6 +1,8 @@
 import java.io.Console;
 import java.sql.SQLOutput;
 import java.util.List;
+import java.util.Scanner;
+
 /**
  * The View class that interacts with the user.
  */
@@ -26,10 +28,10 @@ public class ViewModel implements ViewActions {
 
     @Override
     public int AreURegistered() {
-        int i = - 1;
-        Console c = System.console();
+        int i = 0;
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Do you have an account? Type: Yes/No");
-        String n = c.readLine();
+        String n = scanner.next();
         if (n.equals("Yes")) {
             i = 1;
         } else if (n.equals("No")) {
@@ -49,9 +51,9 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String username() {
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter your username here:");
-        String username = c.readLine();
+        String username = scanner.next();
         return username;
     }
     /**
@@ -64,10 +66,9 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String Pass() {
-        Console c=System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter your password here: ");
-        char[] ch=c.readPassword();
-        String pass = String.valueOf(ch);//converting char array into string
+        String pass = scanner.next();//converting char array into string
         return pass;
     }
     /**
@@ -79,11 +80,11 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String[] SignIn(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("To sign in enter your username here:");
-        String n = c.readLine();
+        String n = scanner.next();
         System.out.println("To sign in enter your password here:");
-        String k = c.readLine();
+        String k =  scanner.next();
         return new String[]{n, k};
     }
     /**
@@ -128,8 +129,8 @@ public class ViewModel implements ViewActions {
 
     private int answer(){
         int i = 0;
-        Console c = System.console();
-        String answer = c.readLine();
+        Scanner scanner = new Scanner (System.in);
+        String answer = scanner.next();
         i = Integer.parseInt(answer);
         return i;
     }
@@ -437,9 +438,9 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String SignUpEvent(){
-        Console c=System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the event id you would like to attend");
-        String eventID = c.readLine();
+        String eventID = scanner.next();
         return eventID;
     }
 
@@ -452,9 +453,9 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String addRoom(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the room name you want to add");
-        String room = c.readLine();
+        String room = scanner.next();
         return room;
     }
 
@@ -467,11 +468,11 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String[]  speakerAdder(){
-        Console c=System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the username of the speaker you want to add: ");
-        String speaker_name = c.readLine();
+        String speaker_name = scanner.next();
         System.out.println("Enter the password of the speaker you want to add: ");
-        String speaker_pass = c.readLine();
+        String speaker_pass = scanner.next();
         String[] l = new String[]{speaker_name, speaker_pass};
         return l;
     }
@@ -485,11 +486,11 @@ public class ViewModel implements ViewActions {
 
     @Override
     public String[] setSpeakerEvent(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the ID of the speaker you want to set for an event: ");
-        String speaker_id = c.readLine();
+        String speaker_id = scanner.next();
         System.out.println("Enter the event ID you want to set the speaker for: ");
-        String event_id = c.readLine();
+        String event_id = scanner.next();
         String[] l = {speaker_id, event_id};
         return l;
     }
@@ -501,9 +502,9 @@ public class ViewModel implements ViewActions {
      */
     @Override
     public String cancelEnrollment(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the ID of the event you want to cancel: ");
-        String event_id = c.readLine();
+        String event_id = scanner.next();
         return event_id;
     }
 
@@ -515,9 +516,9 @@ public class ViewModel implements ViewActions {
      */
 
     private String AskForUser(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("What is the ID of the User you want to send message to?");
-        String user_id = c.readLine();
+        String user_id = scanner.next();
         return user_id;
     }
     /**
@@ -527,9 +528,9 @@ public class ViewModel implements ViewActions {
      * @date: 2020-11-14
      */
     private String AskForEvent(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("What is the ID of the event the user you want to message to is in?");
-        String event_id = c.readLine();
+        String event_id = scanner.next();
         return event_id;
     }
 
@@ -541,9 +542,9 @@ public class ViewModel implements ViewActions {
      */
 
     private String AskForMessage(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Type what you want to send there");
-        String message = c.readLine();
+        String message = scanner.next();
         return message;
     }
     /**
@@ -559,11 +560,11 @@ public class ViewModel implements ViewActions {
             System.out.println("Message" + i + ": " + m);
             i = i + 1;
         }
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the number of the message you want to reply here: ");
-        String num = c.readLine();
+        String num = scanner.next();
         System.out.println("Enter what you want to reply here: ");
-        String reply = c.readLine();
+        String reply = scanner.next();
         String[] l = {num, reply};
         return l;
     }
@@ -658,13 +659,13 @@ public class ViewModel implements ViewActions {
     /**
      * @description: Interacts with the user who wants to set a time for the event
      * @param: []
-     * @return returns time in format YYYY--MM--DD HH-MM
+     * @return returns time in format YYYY--MM--DD HH:MM
      * @date: 2020-11-14
      */
     private String AskStartTime(){
-        Console c = System.console();
-        System.out.println("When does the event start at? Format: YYYY--MM--DD HH-MM");
-        String start = c.readLine();
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("When does the event start at? Format: YYYY--MM--DD HH:MM");
+        String start = scanner.next();
         return start;
     }
     /**
@@ -675,9 +676,9 @@ public class ViewModel implements ViewActions {
      */
 
     private String AskTopic(){
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("What is the topic of the event");
-        String topic = c.readLine();
+        String topic = scanner.next();
         return topic;
     }
     /**
@@ -692,11 +693,19 @@ public class ViewModel implements ViewActions {
         String start = AskStartTime();
         String user_id = AskForUser();
         String topic = AskTopic();
-        Console c = System.console();
+        Scanner scanner = new Scanner (System.in);
         System.out.println("What is the room number where the event takes place?");
-        String room = c.readLine();
+        String room = scanner.next();
         String[] l = {start, user_id, topic, room};
         return l;
+    }
+
+    public void viewAllAttendees(){
+        System.out.println("Here is all the attendees in the conference! Format: in UserName (userID)");
+    }
+
+    public void  viewAllSpeakers(){
+        System.out.println("Here is all the speakers in the conference! Format: in UserName (userID)");
     }
 
 }

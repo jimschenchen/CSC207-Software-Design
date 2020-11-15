@@ -264,9 +264,11 @@ public class Presenter {
 
     private void SenderOrganizer(int answer){
         if(answer ==1){
+            viewAllAttendees();
             messageAttendee();
             MessengerOpenerSpecific();
         }else if (answer == 2){
+            viewAllSpeakers();
             messageSpeaker();
             MessengerOpenerSpecific();
         }else if (answer == 3){
@@ -282,9 +284,11 @@ public class Presenter {
 
     private void SenderAttendee(int answer){
         if(answer ==1){
+            viewAllAttendees();
             messageAttendee();
             MessengerOpenerSpecific();
         }else if (answer == 2){
+            viewAllSpeakers();
             messageSpeaker();
             MessengerOpenerSpecific();
         }else{
@@ -439,6 +443,18 @@ public class Presenter {
         boolean success = cs.newEvent(start, user_id, topic, room);
         MessageSuccessHelper(success);
 
+    }
+
+    public void viewAllAttendees(){
+        model.viewAllAttendees();
+        List<String> l = cs.viewAllAttendees();
+        StringPrinter(l);
+    }
+
+    public void viewAllSpeakers(){
+        model.viewAllSpeakers();
+        List<String> l = cs.viewAllSpeakers();
+        StringPrinter(l);
     }
 
 

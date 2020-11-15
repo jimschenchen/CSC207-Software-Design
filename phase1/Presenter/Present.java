@@ -4,7 +4,5 @@ public class Present {
         Presenter p = new Presenter(model);
         p.Introduction();
         p.IsUserRegistered();
-
-
     }
 }
