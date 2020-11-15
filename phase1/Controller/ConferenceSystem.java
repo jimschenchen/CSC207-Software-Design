@@ -20,7 +20,7 @@ public class ConferenceSystem {
     private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
-    private DataBase db = new DataBase();
+    private DataBase db;
     private Gateway gw = new Gateway();
     private int user; // store current logged in user's id
 
@@ -33,7 +33,8 @@ public class ConferenceSystem {
     */
     public void init () throws IOException {
         shutDownHook();
-        DataBase db = gw.init();
+//        DataBase db = gw.init();
+        this.db = gw.init();
     }
     /**
     * @Description: Hook for listening the Shutdown of program and save all the data before exist0
