@@ -63,7 +63,9 @@ public class MessageManager {
 
     public boolean canMessageAttendee(int senderId, int receiverId, DataBase db){
         boolean senderCheck = db.getOrganizerById(senderId) != null || db.getAttendeeById(senderId) != null;
-        return senderCheck && db.getAttendeeById(receiverId) != null;
+        boolean ishimself = senderId == receiverId;
+        return (!ishimself) && senderCheck && db.getAttendeeById(receiverId) != null
+                && db.getOrganizerById(receiverId) == null;
     }
 
     public boolean message_speaker(String content, int senderId, int reveiverId, DataBase d){
