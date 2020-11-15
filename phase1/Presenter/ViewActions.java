@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface ViewActions {
     void Introduction();
     int AreURegistered();
@@ -24,4 +26,22 @@ public interface ViewActions {
     void CancelEventMessage();
     void MessageErr();
     void MessageSuccess();
+    void invalidInput();
+    String SignUpEvent();
+    String addRoom();
+    String[]  speakerAdder();
+    String[] setSpeakerEvent();
+    String cancelEnrollment();
+    String[] replyMessage(List<String> receive_message);
+    String[] MessageAllAttendeeEvent();
+    String messageAllUsersInAllSpeakingEvents();
+    String[] messageSpeaker();
+    String messageAllAttendee();
+    String[] messageAttendee();
+    String[] newEvent();
+    String messageAllSpeakers();
+    String[] messageOneSpecificUserInEvent();
+
+
+
 }
