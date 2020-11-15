@@ -221,6 +221,7 @@ public class ViewModel implements ViewActions {
      * returns 5 if user wants to sign up for a new event
      * returns 6 if user wants to cancel an event
      * returns 7 if user wants to change password
+     * returns 8 if user wants to sign out
      * @date: 2020-11-14
      */
 
@@ -236,6 +237,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 5 if you want to sign up for a new event: ");
         System.out.println("Type 6 if you want to cancel an event: ");
         System.out.println("Type 7 if you want to change password");
+        System.out.println("Type 8 if you want to sign out");
         return answer();
     }
 
@@ -248,6 +250,7 @@ public class ViewModel implements ViewActions {
      * returns 4 if user want to assign a speaker to an event
      * returns 5 if user want to create a new event
      * returns 6 if user want to change password
+     * returns 7 if user want to sign out
      * @date: 2020-11-14
      */
 
@@ -260,6 +263,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 4 if you want to assign a speaker to an event: ");
         System.out.println("Type 5 if you want to create a new event: ");
         System.out.println("Type 6 if you want to change password");
+        System.out.println("Type 7 if you want to sign out");
         return answer();
     }
 
@@ -269,6 +273,7 @@ public class ViewModel implements ViewActions {
      * @return returns 1 if user wants to open the Messenger
      * returns 2 if user wants to see a list of talks Speaker gives
      * returns 3 if user wants to change password
+     * returns 4 if user wants to sign out
      * @date: 2020-11-14
      */
 
@@ -278,6 +283,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 1 if you want to open the Messenger: ");
         System.out.println("Type 2 if you want to see a list of talks you are given: ");
         System.out.println("Type 3 if you want to change password");
+        System.out.println("Type 4 if you want to sign out");
         return answer();
     }
 
@@ -718,6 +724,7 @@ public class ViewModel implements ViewActions {
      * @return void
      * @date: 2020-11-14
      */
+    @Override
     public void viewAllAttendees(){
         System.out.println("Here is all the attendees in the conference! Format: in UserName (userID)");
     }
@@ -730,6 +737,7 @@ public class ViewModel implements ViewActions {
      * @return void
      * @date: 2020-11-14
      */
+    @Override
     public void  viewAllSpeakers(){
         System.out.println("Here is all the speakers in the conference! Format: in UserName (userID)");
     }
@@ -740,10 +748,18 @@ public class ViewModel implements ViewActions {
      * @return void
      * @date: 2020-11-14
      */
+    @Override
     public void viewAttendeesInSpeakingEvents(){
         System.out.println("Here is all the attendees who signed up for your talks! Format: in UserName (userID)\"");
     }
 
+    /**
+     * @description: reset password for a user.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+    @Override
     public String resetPassword(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("What's the new password");
@@ -751,8 +767,26 @@ public class ViewModel implements ViewActions {
         return pass;
     }
 
+    /**
+     * @description: tell user you make a new password.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+    @Override
     public void passSuccess(){
         System.out.println("Look! You have a new password.");
+    }
+
+    /**
+     * @description: Tell user that she/he signs out.
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+    @Override
+    public void signOutMessage(){
+        System.out.println("Hope to se you again!");
     }
 
 }

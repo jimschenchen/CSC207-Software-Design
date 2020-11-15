@@ -102,6 +102,11 @@ public class Presenter {
             MessengerOpener();
         }else if (answer == 2){
             viewSpeakingEvents();
+        }else if (answer == 3){
+            resetPassword();
+            MenuOpener();
+        }else if(answer == 4){
+            signOut();
         }else {
             model.invalidInput();
             MenuOpener();
@@ -126,6 +131,11 @@ public class Presenter {
         }else if(answer == 5){
             new_event();
             MenuOpener();
+        }else if(answer == 6){
+            resetPassword();
+            MenuOpener();
+        }else if(answer == 7){
+            signOut();
         }else{
             model.invalidInput();
             MenuOpener();
@@ -148,6 +158,11 @@ public class Presenter {
         }else if(answer == 6){
             cancelEnrollment();
             MenuOpener();
+        }else if(answer == 7){
+            resetPassword();
+            MenuOpener();
+        }else if(answer ==8){
+            signOut();
         }else{
             model.invalidInput();
             MenuOpener();
@@ -463,46 +478,42 @@ public class Presenter {
 
 
 
-    /**
-     * Show all the attendees in the conference
-     *
-     * @Param []
-     * @return: void
-     * @Date: 2020-11-15
-     */
-    public void viewAllAttendees(){
+
+    private void viewAllAttendees(){
         model.viewAllAttendees();
         List<String> l = cs.viewAllAttendees();
         StringPrinter(l);
     }
 
 
-    /**
-     *Show all the speakers in the conference.
-     *
-     * @Param []
-     * @return: void
-     * @Date: 2020-11-15
-     */
-    public void viewAllSpeakers(){
+    private void viewAllSpeakers(){
 
         model.viewAllSpeakers();
         List<String> l = cs.viewAllSpeakers();
         StringPrinter(l);
     }
 
-    /**
-     *Show all the attendees who sign up a event of one specific speaker.
-     *
-     * @Param []
-     * @return: void
-     * @Date: 2020-11-15
-     */
-    public void viewAttendeesInSpeakingEvents(){
+    private void viewAttendeesInSpeakingEvents(){
         model.viewAttendeesInSpeakingEvents();
         List<String> l = cs.viewAttendeesInSpeakingEvents();
         StringPrinter(l);
     }
+    private void resetPassword(){
+        String pass = model.resetPassword();
+        boolean success = cs.resetPassword(pass);
+        if(success){
+            model.passSuccess();
+            this.pass = pass;
+        }else{
+            model.MessageErr();
+        }
+    }
+
+    private void signOut(){
+        System.exit(0);
+    }
+
+
 
 
 
