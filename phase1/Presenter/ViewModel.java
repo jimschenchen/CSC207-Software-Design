@@ -13,6 +13,10 @@ public class ViewModel implements ViewActions {
      * @return: void
      * @date: 2020-11-14
      */
+
+    public void SignUpSuccess(){
+        System.out.println("Hey! You have created an account!");
+    }
     @Override
     public void Introduction() {
 

@@ -1,6 +1,7 @@
 import java.util.List;
 
 public interface ViewActions {
+    void SignUpSuccess();
     void Introduction();
     int AreURegistered();
     String username();
@@ -41,6 +42,9 @@ public interface ViewActions {
     String[] newEvent();
     String messageAllSpeakers();
     String[] messageOneSpecificUserInEvent();
+    void viewAllAttendees();
+    void  viewAllSpeakers();
+    void viewAttendeesInSpeakingEvents();
 
 
 

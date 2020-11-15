@@ -38,6 +38,7 @@ public class Presenter {
         if (!success) {
             model.MessageErr();
         }
+        model.SignUpSuccess();
         IsUserRegistered();
     }
 
@@ -255,6 +256,7 @@ public class Presenter {
             messageAllUsersInAllSpeakingEvents();
             MessengerOpenerSpecific();
         }else if(answer == 3){
+            viewAttendeesInSpeakingEvents();
             messageOneSpecificUserInEvent();
             MessengerOpenerSpecific();
         }else {
@@ -445,18 +447,44 @@ public class Presenter {
 
     }
 
+
+
+
+    /**
+     * Show all the attendees in the conference
+     *
+     * @Param []
+     * @return: void
+     * @Date: 2020-11-15
+     */
     public void viewAllAttendees(){
         model.viewAllAttendees();
         List<String> l = cs.viewAllAttendees();
         StringPrinter(l);
     }
 
+
+    /**
+     *Show all the speakers in the conference.
+     *
+     * @Param []
+     * @return: void
+     * @Date: 2020-11-15
+     */
     public void viewAllSpeakers(){
+
         model.viewAllSpeakers();
         List<String> l = cs.viewAllSpeakers();
         StringPrinter(l);
     }
 
+    /**
+     *Show all the attendees who sign up a event of one specific speaker.
+     *
+     * @Param []
+     * @return: void
+     * @Date: 2020-11-15
+     */
     public void viewAttendeesInSpeakingEvents(){
         model.viewAttendeesInSpeakingEvents();
         List<String> l = cs.viewAttendeesInSpeakingEvents();
