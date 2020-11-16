@@ -1,9 +1,4 @@
-//import com.sun.istack.internal.NotNull;
-//import com.sun.org.apache.xpath.internal.res.XPATHErrorResources_sv;
-
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -426,6 +421,9 @@ public class ConferenceSystem {
      */
     public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
         try{
+            if (!startTime.contains(":00")) {
+                return false;
+            }
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, db);

@@ -108,7 +108,7 @@ public class MessageManager {
          */
         List<User> users = d.getUserList();
         for (User user : users){
-            if (d.getSpeakerById(user.getUser_id()) != null){
+            if (user instanceof Speaker){
                 message_oneuser(senderId, user.getUser_id(), content, d);
             }
         }
@@ -120,7 +120,7 @@ public class MessageManager {
          */
         List<User> users = db.getUserList();
         for (User user : users){
-            if (db.getAttendeeById(user.getUser_id()) != null){
+            if (user instanceof Attendee & !(user instanceof Organizer)){
                 message_oneuser(senderId, user.getUser_id(), content, db);
             }
         }
