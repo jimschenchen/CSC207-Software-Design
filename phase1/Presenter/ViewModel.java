@@ -72,7 +72,7 @@ public class ViewModel implements ViewActions {
     @Override
     public String Pass() {
         Scanner scanner = new Scanner (System.in);
-        System.out.println("Enter your password here: ");
+        System.out.println("Enter your password here(at least 6 characters): ");
         String pass = scanner.nextLine();//converting char array into string
         return pass;
     }
@@ -92,24 +92,24 @@ public class ViewModel implements ViewActions {
         String k =  scanner.nextLine();
         return new String[]{n, k};
     }
+
     /**
      * @description: Greets the user if user successfully log in
      * @param username  User name of the user attempting to log in
      * @return: void
      * @date: 2020-11-14
      */
-
     @Override
     public void Credentials(String username) {
-        System.out.println("Welcome" + username + "!");
+        System.out.println("Welcome " + username + "!");
     }
+
     /**
      * @description: Generates the message if user failed to log in
      * @param: []
      * @return: void
      * @date: 2020-11-14
      */
-
     @Override
     public void CredentialsFail(){
         System.out.println("Oops, something went wrong. Please try again");
@@ -126,7 +126,8 @@ public class ViewModel implements ViewActions {
     public int Messenger(){
         System.out.println("Welcome to Messenger!");
         System.out.println("Type 1 If you want to send a message: ");
-        System.out.println("Type 2 If you want to view your messages: ");
+        System.out.println("Type 2 If you want to view the messages you received : ");
+        System.out.println("Type 3 If you want to view the messages you have sent'");
         System.out.println("Type 3 If you want to reply to a message");
         exit();
         return answer();
@@ -315,6 +316,29 @@ public class ViewModel implements ViewActions {
     @Override
     public void SignUpEventMessage() {
         System.out.println("Hey! You just sign up a new event! Arrive on time! ");
+    }
+
+    /**
+     * @description: Print all the messages a user received;
+     * @param: []
+     * @return void
+     * @date: 2020-11-14
+     */
+
+    @Override
+    public void readReceivedMessages(){
+        System.out.println("Here are the messages you received!");
+    }
+
+    /**
+     * @description: Print all the messages a user has sent;
+     * @param: []
+     * @return void
+     * @date: 2020-11-15
+     */
+    @Override
+    public void  readSentMessages(){
+        System.out.println("Here are the messages you sent");
     }
 
     /**
@@ -744,6 +768,20 @@ public class ViewModel implements ViewActions {
         return l;
     }
 
+
+    /**
+     * @description: Prints a statement to show all elements in the given list.
+     * @param: []
+     * @return void
+     * @date: 2020-11-15
+     */
+    @Override
+    public void StringPrinter(List<String> events){
+        for (String e: events){
+            System.out.println(e);
+        }
+    }
+
     /**
      * @description: Prints a statement to show all attendees.
      * @param: []
@@ -756,6 +794,8 @@ public class ViewModel implements ViewActions {
     }
 
 
+
+
     /**
      * @description: Prints a statement to show all rooms.
      * @param: []
@@ -764,7 +804,7 @@ public class ViewModel implements ViewActions {
      */
     @Override
     public void viewAllRooms() {
-        System.out.println("Here are all rooms (with format room number (room id)):");
+        System.out.println("Here are all rooms (with format room number):");
     }
 
     /**
@@ -798,7 +838,7 @@ public class ViewModel implements ViewActions {
     @Override
     public String resetPassword(){
         Scanner scanner = new Scanner (System.in);
-        System.out.println("What's the new password");
+        System.out.println("What's the new password (at least 6 characters)");
         String pass = scanner.nextLine();
         return pass;
     }

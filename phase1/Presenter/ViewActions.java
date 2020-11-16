@@ -50,6 +50,9 @@ public interface ViewActions {
     void passSuccess();
     void signOutMessage();
     void eventSuccess();
+    void StringPrinter(List<String> events);
+    void readReceivedMessages();
+    void readSentMessages();
 
 
 

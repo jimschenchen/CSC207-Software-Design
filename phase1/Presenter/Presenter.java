@@ -90,11 +90,6 @@ public class Presenter {
         }
     }
 
-    private void StringPrinter(List<String> events){
-        for (String e: events){
-            System.out.println(e);
-        }
-    }
 
 
 
@@ -180,7 +175,7 @@ public class Presenter {
 
     private void viewCanSignUpEvents(){
         List<String> events = cs.viewCanSignUpEvents();
-        StringPrinter(events);
+        model.StringPrinter(events);
         String answer = model.back();
         if (answer != null){
             MenuOpener();
@@ -191,7 +186,7 @@ public class Presenter {
 
     private void viewSpeakingEvents(){
         List<String> l = cs.viewSpeakingEvents();
-        StringPrinter(l);
+        model.StringPrinter(l);
         String answer = model.back();
         if (answer != null){
             MenuOpener();
@@ -203,7 +198,7 @@ public class Presenter {
 
     private void viewSignedUpEvents(){
         List<String> events = cs.viewSignedUpEvents();
-        StringPrinter(events);
+        model.StringPrinter(events);
         String answer = model.back();
         if (answer != null){
             MenuOpener();
@@ -214,7 +209,7 @@ public class Presenter {
 
     private void viewOrganizedEvents(){
         List<String> events = cs.viewOrganizedEvents();
-        StringPrinter(events);
+        model.StringPrinter(events);
         String answer = model.back();
         if (answer != null){
             MenuOpener();
@@ -225,7 +220,7 @@ public class Presenter {
 
     private void viewEvents(){
         List<String> EventList = cs.viewEvents();
-        StringPrinter(EventList);
+        model.StringPrinter(EventList);
         String answer = model.back();
         if (answer != null){
             MenuOpener();
@@ -263,18 +258,27 @@ public class Presenter {
 
     }
 
-    private void viewMessage(){
+    private void readReceivedMessages(){
         List<String> receive_messages = cs.readReceivedMessages();
-        List<String> sent_messages= cs.readSentMessages();
-        System.out.println("Here are the messages you received!");
-        StringPrinter(receive_messages);
-        System.out.println("Here are the messages you sent");
-        StringPrinter(sent_messages);
+        model.readReceivedMessages();
+        model.StringPrinter(receive_messages);
         String answer1 = model.back();
         if (answer1 != null){
             MessengerOpener();
         }else{
-            viewMessage();
+            readReceivedMessages();
+        }
+    }
+
+    private void readSentMessages(){
+        List<String> sent_messages= cs.readSentMessages();
+        model.readSentMessages();
+        model.StringPrinter(sent_messages);
+        String answer1 = model.back();
+        if (answer1 != null){
+            MessengerOpener();
+        }else{
+           readSentMessages();
         }
     }
 
@@ -284,8 +288,10 @@ public class Presenter {
         if (answer == 1){
             MessengerOpenerSpecific();
         }else if(answer == 2){
-            viewMessage();
-        }else if (answer == 3){
+            readReceivedMessages();
+        }else if(answer == 3){
+            readSentMessages();
+        }else if (answer == 4){
             if(type == 1){
                 model.SorryMessenger();
             }else{
@@ -401,9 +407,9 @@ public class Presenter {
         }
     }
     private void setSpeakerEvent(){
-        System.out.println("Here are all speakers:");
+        model.viewAllSpeakers();
         System.out.println(cs.viewAllSpeakers());
-        System.out.println("Here are all events:");
+
         System.out.println(cs.viewEvents());
         String[] l = model.setSpeakerEvent();
         String speaker_id = l[0];
@@ -490,9 +496,8 @@ public class Presenter {
     }
 
     private void new_event(){
-        System.out.println("Here are all speakers:");
-        model.viewAllSpeakers();
-        model.viewAllRooms();
+        viewAllSpeakers();
+        viewAllRooms();
         System.out.println(cs.viewAllRooms());
         String[] l = model.newEvent();
         String start = l[0];
@@ -507,6 +512,12 @@ public class Presenter {
         }
     }
 
+    private void  viewAllRooms(){
+        List<String> l = cs.viewAllRooms();
+        model.viewAllRooms();
+        model.StringPrinter(l);
+    }
+
 
 
 
@@ -514,7 +525,7 @@ public class Presenter {
     private void viewAllAttendees(){
         model.viewAllAttendees();
         List<String> l = cs.viewAllAttendees();
-        StringPrinter(l);
+        model.StringPrinter(l);
     }
 
 
@@ -522,13 +533,13 @@ public class Presenter {
 
         model.viewAllSpeakers();
         List<String> l = cs.viewAllSpeakers();
-        StringPrinter(l);
+        model.StringPrinter(l);
     }
 
     private void viewAttendeesInSpeakingEvents(){
         model.viewAttendeesInSpeakingEvents();
         List<String> l = cs.viewAttendeesInSpeakingEvents();
-        StringPrinter(l);
+        model.StringPrinter(l);
     }
     private void resetPassword(){
         String pass = model.resetPassword();
