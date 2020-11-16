@@ -15,6 +15,8 @@ public class Speaker extends User implements java.io.Serializable{
         giving_event_list.add(eid);
     }
 
+    public void removeGivingEvent (int eid) {giving_event_list.remove(eid);}
+
     public ArrayList<Integer> get_GivingEventList(){
         return giving_event_list;
     }

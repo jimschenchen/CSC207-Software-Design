@@ -36,7 +36,7 @@ public class UserManager {
 
     public boolean canAddEventToSpeaker(Event event, int speakerId, DataBase d){
         Speaker s = d.getSpeakerById(speakerId);
-        if (s == null) {
+        if (s == null || event == null) {
             return false;
         }
         else {
@@ -51,7 +51,14 @@ public class UserManager {
     }
 
     public void addEventToSpeaker(int eventId, int speakerId, DataBase d){
+        removeEventFromSpeaker(eventId,d);
         d.getSpeakerById(speakerId).addGivingEvent(eventId);
+
+    }
+
+    private void removeEventFromSpeaker(int eventId, DataBase d) {
+        Event e = d.getEventById(eventId);
+        d.getSpeakerById(e.getSpeakerId()).removeGivingEvent(eventId);
     }
 
     public boolean canSignUpForEvent(int eventId, int userId, DataBase d) {
