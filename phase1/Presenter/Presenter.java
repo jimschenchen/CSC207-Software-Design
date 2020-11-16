@@ -203,7 +203,7 @@ public class Presenter {
         if (answer != null){
             MenuOpener();
         }else{
-            viewCanSignUpEvents();
+            viewSignedUpEvents();
         }
     }
 
@@ -214,7 +214,7 @@ public class Presenter {
         if (answer != null){
             MenuOpener();
         }else{
-            viewCanSignUpEvents();
+            viewOrganizedEvents();
         }
     }
 
@@ -498,7 +498,6 @@ public class Presenter {
     private void new_event(){
         viewAllSpeakers();
         viewAllRooms();
-        System.out.println(cs.viewAllRooms());
         String[] l = model.newEvent();
         String start = l[0];
         String speaker_id = l[1];
@@ -530,7 +529,6 @@ public class Presenter {
 
 
     private void viewAllSpeakers(){
-
         model.viewAllSpeakers();
         List<String> l = cs.viewAllSpeakers();
         model.StringPrinter(l);
