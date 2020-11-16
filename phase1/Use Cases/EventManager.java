@@ -60,7 +60,7 @@ public class EventManager {
     }
 
     public boolean canAddUserToEvent(int userid, int eventid, DataBase d) {
-        if (d.getEventById(eventid) == null) {
+        if (!isExistingEvent(eventid, d)) {
             return false;
         }
         else {
@@ -80,10 +80,8 @@ public class EventManager {
 
 
     public boolean canRemoveUser(int userid, int eventid, DataBase d) {
-        if (d.getEventById(eventid) != null) {
-            if (d.getEventById(eventid).getSingned_userid().contains(userid)) {
-                return true;
-            }
+        if (isExistingEvent(eventid, d)) {
+            return d.getEventById(eventid).getSingned_userid().contains(userid);
         }
         return false;
     }
@@ -156,6 +154,10 @@ public class EventManager {
 
     public DateTimeFormatter getStartTimeFormatter(){
         return this.formatter;
+    }
+
+    public boolean isExistingEvent(int eventID, DataBase db){
+        return db.getEventById(eventID) != null;
     }
 }
 
