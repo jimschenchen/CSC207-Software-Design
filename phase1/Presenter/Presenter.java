@@ -270,8 +270,10 @@ public class Presenter {
         }else if (answer == 3){
             if(type == 1){
                 model.SorryMessenger();
+            }else{
+                replyMessage();
             }
-            replyMessage();
+            MessengerOpener();
         }else{
             MenuOpener();
         }
@@ -522,6 +524,7 @@ public class Presenter {
     }
 
     private void signOut(){
+        model.signOutMessage();
         System.exit(0);
     }
 

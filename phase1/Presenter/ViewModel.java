@@ -36,7 +36,7 @@ public class ViewModel implements ViewActions {
         int i = 0;
         Scanner scanner = new Scanner (System.in);
         System.out.println("Do you have an account? Type: Yes/No");
-        String n = scanner.next();
+        String n = scanner.nextLine();
         if (n.equals("Yes")) {
             i = 1;
         } else if (n.equals("No")) {
@@ -58,7 +58,7 @@ public class ViewModel implements ViewActions {
     public String username() {
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter your username here:");
-        String username = scanner.next();
+        String username = scanner.nextLine();
         return username;
     }
     /**
@@ -73,7 +73,7 @@ public class ViewModel implements ViewActions {
     public String Pass() {
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter your password here: ");
-        String pass = scanner.next();//converting char array into string
+        String pass = scanner.nextLine();//converting char array into string
         return pass;
     }
     /**
@@ -87,9 +87,9 @@ public class ViewModel implements ViewActions {
     public String[] SignIn(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("To sign in enter your username here:");
-        String n = scanner.next();
+        String n = scanner.nextLine();
         System.out.println("To sign in enter your password here:");
-        String k =  scanner.next();
+        String k =  scanner.nextLine();
         return new String[]{n, k};
     }
     /**
@@ -135,7 +135,7 @@ public class ViewModel implements ViewActions {
     private int answer(){
         int i = 0;
         Scanner scanner = new Scanner (System.in);
-        String answer = scanner.next();
+        String answer = scanner.nextLine();
         i = Integer.parseInt(answer);
         return i;
     }
@@ -207,7 +207,7 @@ public class ViewModel implements ViewActions {
     public String back(){
         System.out.println("Type any thing to go back to previous page");
         Scanner scanner = new Scanner (System.in);
-        String answer =scanner.next();
+        String answer =scanner.nextLine();
         return answer;
     }
 
@@ -468,7 +468,7 @@ public class ViewModel implements ViewActions {
     public String SignUpEvent(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the event id you would like to attend");
-        String eventID = scanner.next();
+        String eventID = scanner.nextLine();
         return eventID;
     }
 
@@ -483,7 +483,7 @@ public class ViewModel implements ViewActions {
     public String addRoom(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the room name you want to add");
-        String room = scanner.next();
+        String room = scanner.nextLine();
         return room;
     }
 
@@ -498,9 +498,9 @@ public class ViewModel implements ViewActions {
     public String[]  speakerAdder(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the username of the speaker you want to add: ");
-        String speaker_name = scanner.next();
+        String speaker_name = scanner.nextLine();
         System.out.println("Enter the password of the speaker you want to add: ");
-        String speaker_pass = scanner.next();
+        String speaker_pass = scanner.nextLine();
         String[] l = new String[]{speaker_name, speaker_pass};
         return l;
     }
@@ -516,9 +516,9 @@ public class ViewModel implements ViewActions {
     public String[] setSpeakerEvent(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the ID of the speaker you want to set for an event: ");
-        String speaker_id = scanner.next();
+        String speaker_id = scanner.nextLine();
         System.out.println("Enter the event ID you want to set the speaker for: ");
-        String event_id = scanner.next();
+        String event_id = scanner.nextLine();
         String[] l = {speaker_id, event_id};
         return l;
     }
@@ -532,7 +532,7 @@ public class ViewModel implements ViewActions {
     public String cancelEnrollment(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the ID of the event you want to cancel: ");
-        String event_id = scanner.next();
+        String event_id = scanner.nextLine();
         return event_id;
     }
 
@@ -546,7 +546,7 @@ public class ViewModel implements ViewActions {
     private String AskForUser(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("What is the ID of the User you want to send message to?");
-        String user_id = scanner.next();
+        String user_id = scanner.nextLine();
         return user_id;
     }
     /**
@@ -558,7 +558,7 @@ public class ViewModel implements ViewActions {
     private String AskForEvent(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("What is the ID of the event the user you want to message to is in?");
-        String event_id = scanner.next();
+        String event_id = scanner.nextLine();
         return event_id;
     }
 
@@ -572,7 +572,7 @@ public class ViewModel implements ViewActions {
     private String AskForMessage(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("Type what you want to send there");
-        String message = scanner.next();
+        String message = scanner.nextLine();
         return message;
     }
     /**
@@ -590,9 +590,9 @@ public class ViewModel implements ViewActions {
         }
         Scanner scanner = new Scanner (System.in);
         System.out.println("Enter the number of the message you want to reply here: ");
-        String num = scanner.next();
+        String num = scanner.nextLine();
         System.out.println("Enter what you want to reply here: ");
-        String reply = scanner.next();
+        String reply = scanner.nextLine();
         String[] l = {num, reply};
         return l;
     }
@@ -692,7 +692,7 @@ public class ViewModel implements ViewActions {
      */
     private String AskStartTime(){
         Scanner scanner = new Scanner (System.in);
-        System.out.println("When does the event start at? Format: yyyy-MM-dd HH:00");
+        System.out.println("When does the event start at? Format: YYYY--MM--DD HH:MM");
         String start = scanner.nextLine();
         return start;
     }
@@ -706,7 +706,7 @@ public class ViewModel implements ViewActions {
     private String AskTopic(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("What is the topic of the event");
-        String topic = scanner.next();
+        String topic = scanner.nextLine();
         return topic;
     }
     /**
@@ -719,7 +719,7 @@ public class ViewModel implements ViewActions {
     private String AskForSpeaker() {
         Scanner scanner = new Scanner (System.in);
         System.out.println("What's the Speaker id you want to set to this event?");
-        String user_id = scanner.next();
+        String user_id = scanner.nextLine();
         return user_id;
     }
 
@@ -733,7 +733,7 @@ public class ViewModel implements ViewActions {
         String topic = this.AskTopic();
         Scanner scanner = new Scanner (System.in);
         System.out.println("What is the room number where the event takes place?");
-        String room = scanner.next();
+        String room = scanner.nextLine();
         String[] l = {start, user_id, topic, room};
         return l;
     }
@@ -783,7 +783,7 @@ public class ViewModel implements ViewActions {
     public String resetPassword(){
         Scanner scanner = new Scanner (System.in);
         System.out.println("What's the new password");
-        String pass = scanner.next();
+        String pass = scanner.nextLine();
         return pass;
     }
 
