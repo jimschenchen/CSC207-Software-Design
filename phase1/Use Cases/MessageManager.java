@@ -131,8 +131,8 @@ public class MessageManager {
      * @param message the message wanted
      * @return String of the message in format "From: xxx Content: yyy"
      */
-    private String getStringOfReceivedMessage(Message message){
-        return "From: " + message.getSenderId() +
+    private String getStringOfReceivedMessage(Message message, DataBase db){
+        return "From: " + db.getUserById(message.getSenderId()).getUserName() +
                 " Content: " + message.getInfo();
     }
 
@@ -141,8 +141,8 @@ public class MessageManager {
      * @param message the message wanted
      * @return String of the message in format "To: xxx Content: yyy"
      */
-    private String getStringOfSentMessage(Message message){
-        return "To: " + message.getReceiverId() +
+    private String getStringOfSentMessage(Message message, DataBase db){
+        return "To: " + db.getUserById(message.getReceiverId()).getUserName() +
                 " Content: " + message.getInfo();
     }
 
@@ -153,7 +153,7 @@ public class MessageManager {
         List<Message> messages = d.getReceivedMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(getStringOfReceivedMessage(message));
+            sMessages.add(getStringOfReceivedMessage(message, d));
         }
         return sMessages;
     }
@@ -165,7 +165,7 @@ public class MessageManager {
         List<Message> messages = d.getSentMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(getStringOfSentMessage(message));
+            sMessages.add(getStringOfSentMessage(message, d));
         }
         return sMessages;
     }
