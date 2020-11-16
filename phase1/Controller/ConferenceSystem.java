@@ -421,14 +421,12 @@ public class ConferenceSystem {
      */
     public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
         try{
-            if (!startTime.contains(":00")) {
-                return false;
-            }
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, db);
             if (um.isExistingSpeaker(sID, db) && em.canCreateEvent(rID, sTime, db) && um.isSpeakerBusy(sID,sTime,db)){
-                em.createEvent(sTime, sID, topic, rID, db);
+                int eventID = em.createEvent(sTime, sID, topic, rID, db);
+                um.addEventToOrganizedList(eventID, user, db);
                 return true;
             }
             return false; // return false when unsuccessful

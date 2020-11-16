@@ -124,6 +124,17 @@ public class UserManager {
         }
     }
 
+    /**
+     * Add event to the list of organized events of an organizer
+     * @param eventID Event's ID
+     * @param organizerID Organizer's ID
+     * @param db Database
+     */
+    public void addEventToOrganizedList(int eventID, int organizerID, DataBase db){
+        Organizer organizer = db.getOrganizerById(organizerID);
+        organizer.AddCreatedEvent(eventID);
+    }
+
     public void setPassword(int userId,String password, DataBase d) {
         /**
          * @Description: set password for an User
