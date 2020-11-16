@@ -137,7 +137,12 @@ public class ViewModel implements ViewActions {
         int i = 0;
         Scanner scanner = new Scanner (System.in);
         String answer = scanner.nextLine();
-        i = Integer.parseInt(answer);
+        try{
+            i = Integer.parseInt(answer);
+        }catch (Exception e){
+            invalidInput();
+            System.out.println("Remember! WE NEED A NUMBER!!!!");
+        }
         return i;
     }
 

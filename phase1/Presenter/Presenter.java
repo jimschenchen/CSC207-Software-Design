@@ -408,7 +408,8 @@ public class Presenter {
     }
     private void setSpeakerEvent(){
         viewAllSpeakers();
-        viewEvents();
+        List<String> EventList = cs.viewEvents();
+        model.StringPrinter(EventList);
         String[] l = model.setSpeakerEvent();
         String speaker_id = l[0];
         String event_id = l[1];
