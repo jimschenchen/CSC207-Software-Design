@@ -25,7 +25,7 @@ public class EventManager {
 //    public void setSpeakerId(int speaker_id) {
 //        this.speaker_id = speaker_id;
 //    }
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
 
     public boolean canCreateEvent(int room_id, LocalDateTime start, DataBase db){
         List<Event> all_event = db.getEventList();
@@ -37,9 +37,11 @@ public class EventManager {
         return true;
     }
 
-    public void createEvent(LocalDateTime start, int speakerId, String title, int roomId, DataBase d){
+    // return eventID of the newly created event
+    public int createEvent(LocalDateTime start, int speakerId, String title, int roomId, DataBase d){
         Event nEvent = new Event(start, d.getNextEventId(), speakerId, title, roomId);
         d.addEvent(nEvent);
+        return nEvent.getEvent_id();
     }
 
 // this method is never used
