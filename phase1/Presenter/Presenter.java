@@ -64,10 +64,12 @@ public class Presenter {
      * @Date: 2020-11-15
      */
     public void IsUserRegistered(){
-        if (model.AreURegistered() == 0){
+        int answer = model.AreURegistered();
+        if (answer == 0){
             SignUp();
-        }
-        else{
+        } else if(answer == -1){
+            IsUserRegistered();
+        }else{
             String[] l = model.SignIn();
             String username = l[0];
             String pass = l[1];

@@ -33,19 +33,17 @@ public class ViewModel implements ViewActions {
 
     @Override
     public int AreURegistered() {
-        int i = 0;
         Scanner scanner = new Scanner (System.in);
         System.out.println("Do you have an account? Type: Yes/No");
         String n = scanner.nextLine();
         if (n.equals("Yes")) {
-            i = 1;
+            return 1;
         } else if (n.equals("No")) {
-            i = 0;
+            return 0;
         }else{
             System.out.println("Invalid input! Please Type: Yes/No");
-            AreURegistered();
+            return -1;
         }
-        return i;
     }
     /**
      * @description: Interacts with the user and takes its username from the console
