@@ -101,7 +101,7 @@ public class MessageManager {
     public void messageAllAttendees(int senderId, String content, DataBase db){
         List<User> users = db.getUserList();
         for (User user : users){
-            if (user instanceof Attendee){
+            if (user instanceof Attendee & !(user instanceof Organizer)){
                 message_oneuser(senderId, user.getUser_id(), content, db);
             }
         }
