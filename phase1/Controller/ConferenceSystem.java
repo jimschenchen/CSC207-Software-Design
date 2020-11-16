@@ -526,7 +526,7 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllAttendees(){
-        List<Integer> allAttendees = um.getListOfUsers(3, db);
+        List<Integer> allAttendees = um.getListOfUsers(2, db);
         List<String> sAllAttendees = new ArrayList<>();
         for (Integer userID : allAttendees){
             sAllAttendees.add(um.getUserString(userID, db));
