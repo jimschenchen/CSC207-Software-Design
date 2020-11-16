@@ -501,7 +501,7 @@ public class ConferenceSystem {
         List<Integer> allEvents = em.getEventList(db);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, db)){//use canAddUserToEvent in eventmanager
+            if (um.canSignUpForEvent(eventID, this.user, db) && em.canAddUserToEvent(user, eventID, db)){
                 events.add(em.getStringOfEvent(eventID, db));
             }
         }
