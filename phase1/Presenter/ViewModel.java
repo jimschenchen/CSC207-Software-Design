@@ -128,7 +128,7 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 1 If you want to send a message: ");
         System.out.println("Type 2 If you want to view the messages you received : ");
         System.out.println("Type 3 If you want to view the messages you have sent'");
-        System.out.println("Type 3 If you want to reply to a message");
+        System.out.println("Type 4 If you want to reply to a message");
         exit();
         return answer();
     }
@@ -137,7 +137,11 @@ public class ViewModel implements ViewActions {
         int i = 0;
         Scanner scanner = new Scanner (System.in);
         String answer = scanner.nextLine();
-        i = Integer.parseInt(answer);
+        try{
+            i = Integer.parseInt(answer);
+        }catch (Exception e){
+            System.out.println("Remember! WE NEED A NUMBER!!!!");
+        }
         return i;
     }
 
