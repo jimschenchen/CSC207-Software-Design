@@ -249,8 +249,11 @@ public class ViewModel implements ViewActions {
      * return 3 if user want to create a new speaker
      * returns 4 if user want to assign a speaker to an event
      * returns 5 if user want to create a new event
-     * returns 6 if user want to change password
-     * returns 7 if user want to sign out
+     * return 6 if the user wants to view all events the user signs up
+     * returns 7 if the user wants to sign up to a new event
+     * returns 8 if the user wants to view all the events the user has organized
+     * returns 9 if the user wants to change password
+     * returns 10 if the user wants to sign out
      * @date: 2020-11-14
      */
 
@@ -262,8 +265,11 @@ public class ViewModel implements ViewActions {
         System.out.println("Type 3 if you want to create a new speaker: ");
         System.out.println("Type 4 if you want to assign a speaker to an event: ");
         System.out.println("Type 5 if you want to create a new event: ");
-        System.out.println("Type 6 if you want to change password");
-        System.out.println("Type 7 if you want to sign out");
+        System.out.println("Type 6 if you want to view all events you sign up; ");
+        System.out.println("Type 7 if you want to sign up to a new event");
+        System.out.println("Type 8 if you want to view all the events you have organized; ");
+        System.out.println("Type 9 if you want to change password");
+        System.out.println("Type 10 if you want to sign out");
         return answer();
     }
 
@@ -750,6 +756,16 @@ public class ViewModel implements ViewActions {
     }
 
 
+    /**
+     * @description: Prints a statement to show all rooms.
+     * @param: []
+     * @return void
+     * @date: 2020-11-15
+     */
+    @Override
+    public void viewAllRooms() {
+        System.out.println("Here are all rooms (with format room number (room id)):");
+    }
 
     /**
      * @description: Prints a statement to show all speakers.
@@ -809,5 +825,6 @@ public class ViewModel implements ViewActions {
     public void signOutMessage(){
         System.out.println("Hope to se you again!");
     }
+
 
 }

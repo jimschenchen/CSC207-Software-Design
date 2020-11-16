@@ -45,10 +45,12 @@ public interface ViewActions {
     void viewAllAttendees();
     void  viewAllSpeakers();
     void viewAttendeesInSpeakingEvents();
+    void viewAllRooms();
     String resetPassword();
     void passSuccess();
     void signOutMessage();
     void eventSuccess();
+
 
 
 

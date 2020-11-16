@@ -133,9 +133,16 @@ public class Presenter {
             new_event();
             MenuOpener();
         }else if(answer == 6){
+            viewSignedUpEvents();
+        }else if(answer == 7){
+            SignUpEvent();
+            MenuOpener();
+        }else if(answer == 8){
+            viewOrganizedEvents();
+        }else if(answer == 9){
             resetPassword();
             MenuOpener();
-        }else if(answer == 7){
+        }else if(answer == 10){
             signOut();
         }else{
             model.invalidInput();
@@ -150,7 +157,7 @@ public class Presenter {
         }else if(answer == 2){
             viewEvents();
         }else if(answer == 3){
-            viewSignedUpOrOrganizedEvents();
+            viewSignedUpEvents();
         }else if(answer ==4){
             viewCanSignUpEvents();
         }else if(answer == 5){
@@ -194,8 +201,19 @@ public class Presenter {
 
     }
 
-    private void viewSignedUpOrOrganizedEvents(){
-        List<String> events = cs.viewSignedUpOrOrganizedEvents();
+    private void viewSignedUpEvents(){
+        List<String> events = cs.viewSignedUpEvents();
+        StringPrinter(events);
+        String answer = model.back();
+        if (answer != null){
+            MenuOpener();
+        }else{
+            viewCanSignUpEvents();
+        }
+    }
+
+    private void viewOrganizedEvents(){
+        List<String> events = cs.viewOrganizedEvents();
         StringPrinter(events);
         String answer = model.back();
         if (answer != null){
@@ -473,8 +491,8 @@ public class Presenter {
 
     private void new_event(){
         System.out.println("Here are all speakers:");
-        System.out.println(cs.viewAllSpeakers());
-        System.out.println("Here are all rooms (with format room number (room id)):");
+        model.viewAllSpeakers();
+        model.viewAllRooms();
         System.out.println(cs.viewAllRooms());
         String[] l = model.newEvent();
         String start = l[0];
