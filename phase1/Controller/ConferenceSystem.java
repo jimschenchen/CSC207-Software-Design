@@ -427,11 +427,12 @@ public class ConferenceSystem {
             if (um.isExistingSpeaker(sID, db) && em.canCreateEvent(rID, sTime, db) && um.isSpeakerBusy(sID,sTime,db)){
                 int eventID = em.createEvent(sTime, sID, topic, rID, db);
                 um.addEventToOrganizedList(eventID, user, db);
+                um.addEventToSpeaker(eventID, sID, db);
                 return true;
             }
             return false; // return false when unsuccessful
         }
-        catch(DateTimeParseException dtpe){
+        catch(DateTimeParseException | NullPointerException ex){
             return false; // return false on invalid input
         }
     }
