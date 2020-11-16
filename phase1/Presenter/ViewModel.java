@@ -692,7 +692,7 @@ public class ViewModel implements ViewActions {
      */
     private String AskStartTime(){
         Scanner scanner = new Scanner (System.in);
-        System.out.println("When does the event start at? Format: YYYY--MM--DD HH:MM");
+        System.out.println("When does the event start at? Format: YYYY-MM-DD HH:MM");
         String start = scanner.nextLine();
         return start;
     }
