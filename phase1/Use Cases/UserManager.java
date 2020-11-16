@@ -34,8 +34,9 @@ public class UserManager {
         d.addUser(a);
     }
 
-    public boolean canAddEventToSpeaker(Event event, int speakerId, DataBase d){
+    public boolean canAddEventToSpeaker(int eventID, int speakerId, DataBase d){
         Speaker s = d.getSpeakerById(speakerId);
+        Event event = d.getEventById(eventID);
         if (s == null || event == null) {
             return false;
         }

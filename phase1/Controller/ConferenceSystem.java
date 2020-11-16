@@ -384,7 +384,7 @@ public class ConferenceSystem {
         try{
             int sID = Integer.parseInt(speakerID);
             int eID = Integer.parseInt(eventID);
-            if(um.canAddEventToSpeaker(db.getEventById(eID), sID, db)){
+            if(um.canAddEventToSpeaker(eID, sID, db)){
                 um.addEventToSpeaker(eID, sID, db);
                 em.setSpeaker(sID, eID, db);
                 return true;
