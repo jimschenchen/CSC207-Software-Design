@@ -77,15 +77,17 @@ public class Event implements java.io.Serializable{
 
     /**
      * A getter for the room id of this event.
-     * @return
+     *
+     * @return the room id this event will take place
      */
     public int getRoomId() {
         return room_id;
     }
 
     /**
+     * A getter for the event id
      *
-     * @return
+     * @return the event id of this event
      */
     public int getEvent_id() {
         return event_id;
