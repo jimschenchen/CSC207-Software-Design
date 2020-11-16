@@ -149,6 +149,10 @@ public class UserManager {
         }
     }
 
+    public List<Integer> getOrganizedEventList(int organizerID, DataBase db){
+        return db.getOrganizerById(organizerID).getCreatedEventList();
+    }
+
     public List<Integer> getSpeakerEventList(int speakerID, DataBase d){
         /**
          * @Description: get Speaker Event list

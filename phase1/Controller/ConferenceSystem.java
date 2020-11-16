@@ -453,13 +453,26 @@ public class ConferenceSystem {
     }
 
     /**
-     * Return a list of events that the current logged in user has signed up for, or has organized, depending
-     * on the user type.
+     * Return a list of events that the current logged in user has signed up for.
      *
      * @return List of Strings of the events
      */
-    public List<String> viewSignedUpOrOrganizedEvents(){
+    public List<String> viewSignedUpEvents(){
         List<Integer> events = um.getOrganizerOrAttendeeEventList(user, db);
+        List<String> sEvents = new ArrayList<>();
+        for (Integer eventID : events){
+            sEvents.add(em.getStringOfEvent(eventID, db));
+        }
+        return sEvents;
+    }
+
+    /**
+     * Return a list of events that the current logged in organizer has organized
+     *
+     * @return List of Strings of the events
+     */
+    public List<String> viewOrganizedEvents(){
+        List<Integer> events = um.getOrganizedEventList(user, db);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
             sEvents.add(em.getStringOfEvent(eventID, db));
