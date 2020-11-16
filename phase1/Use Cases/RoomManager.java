@@ -30,6 +30,6 @@ public class RoomManager {
 
     public String getRoomString(int roomId, DataBase db){
         Room room = db.getRoomById(roomId);
-        return room.getRoom_num() + " (" + room.getRid() + ")";
+        return room.getRoom_num();
     }
 }
