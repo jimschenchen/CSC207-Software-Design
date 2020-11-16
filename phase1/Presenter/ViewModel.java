@@ -140,7 +140,6 @@ public class ViewModel implements ViewActions {
         try{
             i = Integer.parseInt(answer);
         }catch (Exception e){
-            invalidInput();
             System.out.println("Remember! WE NEED A NUMBER!!!!");
         }
         return i;
