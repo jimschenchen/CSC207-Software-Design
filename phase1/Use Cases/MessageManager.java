@@ -153,7 +153,7 @@ public class MessageManager {
         List<Message> messages = d.getReceivedMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(getStringOfReceivedMessage(message);
+            sMessages.add(getStringOfReceivedMessage(message));
         }
         return sMessages;
     }
