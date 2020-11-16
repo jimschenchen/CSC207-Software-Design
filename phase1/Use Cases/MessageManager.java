@@ -126,6 +126,26 @@ public class MessageManager {
         }
     }
 
+    /**
+     * Get formatted string of a received message
+     * @param message the message wanted
+     * @return String of the message in format "From: xxx Content: yyy"
+     */
+    private String getStringOfReceivedMessage(Message message){
+        return "From: " + message.getSenderId() +
+                " Content: " + message.getInfo();
+    }
+
+    /**
+     * Get formatted string of a sent message
+     * @param message the message wanted
+     * @return String of the message in format "To: xxx Content: yyy"
+     */
+    private String getStringOfSentMessage(Message message){
+        return "To: " + message.getReceiverId() +
+                " Content: " + message.getInfo();
+    }
+
     public List<String> getReceivedMessageListByUserId(int userID, DataBase d){
         /**
          * @Description: get all Messages which received by a User whose id is userID
@@ -133,7 +153,7 @@ public class MessageManager {
         List<Message> messages = d.getReceivedMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(message.toString());
+            sMessages.add(getStringOfReceivedMessage(message);
         }
         return sMessages;
     }
@@ -145,7 +165,7 @@ public class MessageManager {
         List<Message> messages = d.getSentMessageListByUserId(userID);
         List<String> sMessages = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(message.toString());
+            sMessages.add(getStringOfSentMessage(message));
         }
         return sMessages;
     }

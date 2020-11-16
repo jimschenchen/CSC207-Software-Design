@@ -335,7 +335,7 @@ public class ConferenceSystem {
 
 
     /**
-     * Allow current logged in attendee to cancel their enrollment in an event.
+     * Allow current logged in attendee/organizer to cancel their enrollment in an event.
      *
      * @param eventID ID of the event they want to deregister from.
      * @return Return True when the user has successful cancelled their enrollment in the event.
@@ -562,6 +562,12 @@ public class ConferenceSystem {
         return sAllSpeakers;
     }
 
+    /**
+     * View all rooms in the system.
+     *
+     * @return Return a list of strings that represent all rooms in the system.
+     * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
+     */
     public List<String> viewAllRooms(){
         List<Room> allRooms = rm.getListOfRooms(db);
         List<String> sAllRooms = new ArrayList<>();
