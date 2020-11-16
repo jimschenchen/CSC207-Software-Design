@@ -37,7 +37,7 @@ public class Event implements java.io.Serializable{
      * @param user_id the user id
      */
     public void remove_user(int user_id){
-        singned_userid.remove(user_id);
+        singned_userid.remove(new Integer(user_id));
     }
 
     /**
