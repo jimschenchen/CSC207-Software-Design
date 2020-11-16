@@ -722,7 +722,7 @@ public class ViewModel implements ViewActions {
      */
     private String AskStartTime(){
         Scanner scanner = new Scanner (System.in);
-        System.out.println("When does the event start at? Format: YYYY-MM-DD HH:MM");
+        System.out.println("When does the event start at? Format: YYYY-MM-DD HH");
         String start = scanner.nextLine();
         return start;
     }
@@ -755,7 +755,12 @@ public class ViewModel implements ViewActions {
 
 
 
-
+    /**
+     * @description: ask the organizer to create a new event
+     * @param: String[]
+     * @return void
+     * @date: 2020-11-15
+     */
     @Override
     public String[] newEvent(){
         String start = this.AskStartTime();
@@ -842,6 +847,7 @@ public class ViewModel implements ViewActions {
         String pass = scanner.nextLine();
         return pass;
     }
+
 
     /**
      * @description: tell user you make a new password.
