@@ -34,8 +34,9 @@ public class UserManager {
         d.addUser(a);
     }
 
-    public boolean canAddEventToSpeaker(Event event, int speakerId, DataBase d){
+    public boolean canAddEventToSpeaker(int eventID, int speakerId, DataBase d){
         Speaker s = d.getSpeakerById(speakerId);
+        Event event = d.getEventById(eventID);
         if (s == null || event == null) {
             return false;
         }
@@ -63,7 +64,7 @@ public class UserManager {
 
     public boolean canSignUpForEvent(int eventId, int userId, DataBase d) {
         Event e = d.getEventById(eventId);
-        if (e == null | d.getSpeakerById(userId) != null |
+        if (e == null | isExistingSpeaker(userId, d) |
                 d.getRoomById(e.getRoomId()).getCapacity() <= e.getSingned_userid().size()) {
             return false;
         }
@@ -79,7 +80,7 @@ public class UserManager {
     }
 
     public void addEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d){
-        if (d.getAttendeeById(userId) == null){
+        if (!isExistingAttendee(userId, d)){
             d.getOrganizerById(userId).signUpEvent(eventId);
         }
         else{
@@ -88,7 +89,7 @@ public class UserManager {
     }
 
     public void cancelEventToAttendeeOrOrganizer(int eventId, int userId, DataBase d) {
-        if (d.getOrganizerById(userId) == null) {
+        if (!isExistingOrganizer(userId, d)) {
             d.getAttendeeById(userId).cancelEvent(eventId);
         } else {
             d.getOrganizerById(userId).cancelEvent(eventId);
@@ -104,7 +105,7 @@ public class UserManager {
     }
 
     public ArrayList<Integer> getOrganizerOrAttendeeEventList(int Id, DataBase d){
-        if (d.getAttendeeById(Id) == null){
+        if (isExistingOrganizer(Id, d)){
             return d.getOrganizerById(Id).getEventList();
         }else {
             return d.getAttendeeById(Id).getEventList();
@@ -124,7 +125,7 @@ public class UserManager {
     }
 
     public int getUserCategory(int id, DataBase d){
-        if (d.getSpeakerById(id) != null){
+        if (isExistingSpeaker(id, d)){
             // return 0 when id is a speaker
             return 0;
         }
@@ -164,6 +165,22 @@ public class UserManager {
             }
         }
         return true;
+    }
+
+    public boolean isExistingSpeaker(int userID, DataBase db){
+        return db.getSpeakerById(userID) != null;
+    }
+
+    public boolean isExistingUser(String username, DataBase db){
+        return db.getUserByUserName(username) != null;
+    }
+
+    public boolean isExistingAttendee(int userID, DataBase db){
+        return db.getAttendeeById(userID) != null;
+    }
+
+    public boolean isExistingOrganizer(int userID, DataBase db){
+        return db.getOrganizerById(userID) != null;
     }
 
 }

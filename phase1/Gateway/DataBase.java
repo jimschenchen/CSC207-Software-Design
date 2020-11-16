@@ -84,7 +84,7 @@ public class DataBase implements Serializable {
     */
     public Attendee getAttendeeById(int id) {
         User user = this.getUserById(id);
-        if (user instanceof Attendee) {
+        if (user.getClass().equals(Attendee.class)) {
             return (Attendee)user;
         }
         return null;
@@ -99,7 +99,7 @@ public class DataBase implements Serializable {
     */
     public Attendee getAttendeeByUserName(String username) {
         User user = this.getUserByUserName(username);
-        if (user instanceof Attendee) {
+        if (user.getClass().equals(Attendee.class)) {
             return (Attendee)user;
         }
         return null;
@@ -114,7 +114,7 @@ public class DataBase implements Serializable {
     */
     public Speaker getSpeakerById(int id) {
         User user = this.getUserById(id);
-        if (user instanceof Speaker) {
+        if (user.getClass().equals(Speaker.class)) {
             return (Speaker)user;
         }
         return null;
@@ -129,7 +129,7 @@ public class DataBase implements Serializable {
     */
     public Speaker getSpeakerByUserName(String username) {
         User user = this.getUserByUserName(username);
-        if (user instanceof Speaker) {
+        if (user.getClass().equals(Speaker.class)) {
             return (Speaker)user;
         }
         return null;
@@ -143,7 +143,7 @@ public class DataBase implements Serializable {
     */
     public Organizer getOrganizerByUserName(String username) {
         User user = this.getUserByUserName(username);
-        if (user instanceof Organizer) {
+        if (user.getClass().equals(Organizer.class)) {
             return (Organizer)user;
         }
         return null;
@@ -158,7 +158,7 @@ public class DataBase implements Serializable {
     */
     public Organizer getOrganizerById(int id) {
         User user = this.getUserById(id);
-        if (user instanceof Organizer) {
+        if (user.getClass().equals(Organizer.class)) {
             return (Organizer)user;
         }
         return null;

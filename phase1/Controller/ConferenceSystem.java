@@ -78,7 +78,7 @@ public class ConferenceSystem {
      *         returns 2 when the user is an Attendee.
      */
     public int login(String username, String password){
-        if (db.getUserByUserName(username) != null){
+        if (um.isExistingUser(username, db)){
             String dbPassword = um.getUserPassword(username, db);
             if (dbPassword.equals(password)){
                 this.user = um.getUserID(username, db);
@@ -143,7 +143,7 @@ public class ConferenceSystem {
     public boolean messageAllAttendeesInEvent(String eventID, String content){
         try{
             int eID = Integer.parseInt(eventID);
-            if (db.getEventById(eID) != null){
+            if (em.isExistingEvent(eID, db)){
                 mm.message_allusers(eID, user, content, db);
                 return true;
             }
@@ -161,7 +161,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, else return false.
      */
     public boolean messageAllUsersInAllSpeakingEvents(String content){
-        if (db.getSpeakerById(user) != null){
+        if (um.isExistingSpeaker(user, db)){
             mm.messageAllUsersInAllSpeakingEvents(user, content, db);
             return true;
         }
@@ -180,7 +180,7 @@ public class ConferenceSystem {
         try{
             int eID = Integer.parseInt(eventID);
             int reID = Integer.parseInt(receiverID);
-            if (db.getEventById(eID) != null && mm.canMessageAttendeeOfEvent(eID, reID, db)){
+            if (em.isExistingEvent(eID, db) && mm.canMessageAttendeeOfEvent(eID, reID, db)){
                 mm.message_oneuser(user, reID, content, db);
                 return true;
             }
@@ -379,7 +379,7 @@ public class ConferenceSystem {
         try{
             int sID = Integer.parseInt(speakerID);
             int eID = Integer.parseInt(eventID);
-            if(um.canAddEventToSpeaker(db.getEventById(eID), sID, db)){
+            if(um.canAddEventToSpeaker(eID, sID, db)){
                 um.addEventToSpeaker(eID, sID, db);
                 em.setSpeaker(sID, eID, db);
                 return true;
@@ -427,7 +427,7 @@ public class ConferenceSystem {
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, db);
-            if (db.getSpeakerById(sID) != null && em.canCreateEvent(rID, sTime, db) && um.isSpeakerBusy(sID,sTime,db)){
+            if (um.isExistingSpeaker(sID, db) && em.canCreateEvent(rID, sTime, db) && um.isSpeakerBusy(sID,sTime,db)){
                 em.createEvent(sTime, sID, topic, rID, db);
                 return true;
             }
@@ -524,7 +524,7 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllAttendees(){
-        List<Integer> allAttendees = um.getListOfUsers(3, db);
+        List<Integer> allAttendees = um.getListOfUsers(2, db);
         List<String> sAllAttendees = new ArrayList<>();
         for (Integer userID : allAttendees){
             sAllAttendees.add(um.getUserString(userID, db));
