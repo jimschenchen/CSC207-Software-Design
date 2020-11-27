@@ -1,15 +1,13 @@
+/**
+ * @Reference: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
+ * @Reference: https://medium.com/@ezralazuardy/gson-custom-interface-adapter-3f3b863e063d
+*/
+
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
-/**
- * @program: group_0173
- * @description: UserAdapter is a Gson Adapter for serializing User Class and its sub Classes
- * @reference: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
- * @reference: https://medium.com/@ezralazuardy/gson-custom-interface-adapter-3f3b863e063d
- * @create: 2020-11-27 11:09
- **/
-public class UserAdapter implements JsonSerializer, JsonDeserializer{
+public class InterfaceAdapter implements JsonSerializer, JsonDeserializer {
 
     private static final String CLASSNAME = "CLASSNAME";
     private static final String DATA = "DATA";
@@ -31,11 +29,14 @@ public class UserAdapter implements JsonSerializer, JsonDeserializer{
         return jsonObject;
     }
 
+    /****** Helper method to get the className of the object to be deserialized *****/
     public Class getObjectClass(String className) {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException e) {
+            //e.printStackTrace();
             throw new JsonParseException(e.getMessage());
         }
     }
 }
+

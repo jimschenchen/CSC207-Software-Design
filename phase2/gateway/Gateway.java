@@ -4,8 +4,11 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program: group_0173
@@ -19,6 +22,13 @@ public class Gateway {
     static final String DATABASE_URL = "207.246.94.177";
     static final int DATABASE_PORT = 6379;
     static final String DATABASE_PASSWORD = "207207";
+
+    /** NAME IN DB*/
+    static final String NEXT_USER_ID = "next_user_id";
+    static final String NEXT_EVENT_ID = "next_event_id";
+    static final String NEXT_ROOM_ID = "next_room_id";
+    static final String USER_HASH = "user_hash";
+    static final String EVENT_HASH = "event_hash";
 
     public void init() {
         shutDownHook();
@@ -70,15 +80,10 @@ public class Gateway {
     }
     // ===== Gson =====
 
-    public static void main(String[] args) {
-        Gateway gateway = new Gateway();
-        gateway.init();
-        System.out.println(gateway.getNextUserId());
-    }
 
     // String Type
     /** Helper Func for get <key> id and increase it by 1 */
-    private int getNextId(String key) {
+    private int getNextId (String key) {
         Jedis jedis = getJedis();
         int ret = 0;
         String response = jedis.get(key);
@@ -94,19 +99,86 @@ public class Gateway {
 
     /** Return the next user id and self increase by 1 */
     public int getNextUserId() {
-        return getNextId("next_user_id");
+        return getNextId(NEXT_USER_ID);
     }
 
     /** Return the next event id and self increase by 1 */
     public int getNextEventId() {
-        return getNextId("next_event_id");
+        return getNextId(NEXT_EVENT_ID);
     }
 
     /** Return the next room id and self increase by 1 */
     public int getNextRoomId() {
-        return getNextId("next_room_id");
+        return getNextId(NEXT_ROOM_ID);
     }
 
+
+    // Hash type
+    /** Helper Func, adding (id, value) to the <key>map */
+    private void addToHash (String key, int id, String value) {
+        Jedis jedis = getJedis();
+        String type = jedis.type(key);
+        if (type.equals("hash")) {
+            jedis.hset(key, String.valueOf(id), value);
+        } else {
+            jedis.del(key);
+            Map<String,String> map = new HashMap<String, String>();
+            map.put(String.valueOf(id), value);
+            jedis.hmset(key,map);
+        }
+        closeJedis(jedis);
+    }
+    private Map<String, String> getAllFromHash(String key) {
+        Jedis jedis = getJedis();
+        Map<String, String> map = jedis.hgetAll(key);
+        closeJedis(jedis);
+        return map;
+    }
+    private String getByIdFromHash (String key, int id) {
+        Jedis jedis = getJedis();
+        String value = jedis.hget(key, String.valueOf(id));
+        closeJedis(jedis);
+        return value;
+    }
+
+
+
+    // ===== User: Hash=====
+    public void addUser(User user) {
+        UserBean userBean = new UserBean(user);
+        String serData = gson(User.class, new UserAdapter()).toJson(userBean);
+        addToHash(USER_HASH, user.getUser_id(), serData);
+    }
+    public User getUserById(int id) {
+        String serData = getByIdFromHash(USER_HASH, id);
+        UserBean userBean = gson(User.class, new UserAdapter()).fromJson(serData, UserBean.class);
+        User user = userBean.convertToUser();
+        return user;
+    }
+    public List<User> getUserList() {
+        List userList = new ArrayList();
+        // TODO: DO WE NEED TO GET LIST OF USERS?
+        return userList;
+    }
+
+    // TODO: WHY I USE NONSQL??? HOW TO SOLVE GET BY USERNAME? DAMN!
+
+
+
+
+
+    // ===== Message: List =====
+
+
+
+    public static void main(String[] args) {
+        Gateway gateway = new Gateway();
+        gateway.init();
+        User u = new Attendee(0, "jim", "123123");
+        // gateway.addUser(u);
+        gateway.getAllFromHash(USER_HASH);
+        System.out.println(gateway.getUserById(0));
+    }
 
 
 
