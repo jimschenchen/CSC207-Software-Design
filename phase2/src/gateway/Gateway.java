@@ -33,6 +33,10 @@ public class Gateway {
     static final String ROOM_HASH = "room_hash";
     static final String MESSAGE_LIST = "message_list";
 
+    public Gateway() {
+        init();
+    }
+
     public void init() {
         shutDownHook();
         initJedisPool();
@@ -531,7 +535,7 @@ public class Gateway {
 
 
 
-    /** Testing */
+    /** MAIN CLI */
     public static void main(String[] args) {
         Gateway gateway = new Gateway();
         gateway.init();
@@ -627,41 +631,46 @@ public class Gateway {
     }
 
     private void testUser () {
-        addUser(new Attendee(0, "123123", "Jim"));
-        addUser(new Organizer(1, "234234", "JimO"));
-        assert (getUserById(0).getUserName().equals("Jim"));
-        assert (getOrganizerById(0) == null);
-        assert (getOrganizerById(1).getUserName().equals("JimO"));
-        assert (getUserList().get(1).getClass().equals(Organizer.class));
+        addUser(new Attendee(998, "114514", "testJIm"));
+        addUser(new Organizer(999, "234234", "testJim2"));
+        assert (getUserById(998).getUserName().equals("testJIm"));
+        assert (getOrganizerById(998) == null);
+        assert (getOrganizerById(999).getUserName().equals("testJim2"));
+        assert (getUserList().get(999).getClass().equals(Organizer.class));
+        deleteFromHash(USER_HASH, 999);
+        deleteFromHash(USER_HASH, 998);
         System.out.print("**");
     }
 
     private void testEvent () {
-        addEvent(new Event(LocalDateTime.now(), 0,0, "First Event", 0));
-        addEvent(new Event(LocalDateTime.now(), 1,125, "Second Event", 0));
-        assert (getEventById(0).getTitle().equals("First Event"));
-        assert (getEventList().get(1).getSpeakerId() == 125);
+        addEvent(new Event(LocalDateTime.now(), 998,0, "First Event", 0));
+        addEvent(new Event(LocalDateTime.now(), 999,125, "Second Event", 0));
+        assert (getEventById(998).getTitle().equals("First Event"));
+        assert (getEventList().get(999).getSpeakerId() == 125);
+        deleteFromHash(EVENT_HASH, 999);
+        deleteFromHash(EVENT_HASH, 998);
         System.out.print("**");
     }
 
     private void testRoom () {
-        addRoom(new Room("123313", 0));
-        assert (getRoomById(0).getRoom_num().equals("123313"));
-        assert (getRoomByRoomNum("123313").getRid() == 0);
+        addRoom(new Room("123313", 999));
+        assert (getRoomById(999).getRoom_num().equals("123313"));
+        assert (getRoomByRoomNum("123313").getRid() == 999);
+        deleteFromHash(ROOM_HASH, 999);
         System.out.print("**");
     }
 
     private void testMessage () {
         boolean check = false;
-        List<Message> messageList= getSentMessageListByUserId(0);
+        List<Message> messageList= getSentMessageListByUserId(999);
         for(Message message : messageList) {
             check = (message.getInfo().equals("Hello Message") || check);
         }
         if (!check) {
-            Message m = new Message("Hello Message", 0, 1);
+            Message m = new Message("Hello Message", 999, 998);
             addMessage(m);
         }
-        messageList= getSentMessageListByUserId(0);
+        messageList= getSentMessageListByUserId(999);
         check = false;
         for(Message message : messageList) {
             check = (message.getInfo().equals("Hello Message") || check);
