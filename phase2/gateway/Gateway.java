@@ -149,6 +149,12 @@ public class Gateway {
         closeJedis(jedis);
         return value;
     }
+    private void deleteFromHash(String key, int id) {
+        Jedis jedis = getJedis();
+        String type = jedis.type(key);
+        jedis.hdel(key, String.valueOf(id));
+        closeJedis(jedis);
+    }
     private void addToList (String key, String value) {
         Jedis jedis = getJedis();
         String type = jedis.type(key);
@@ -182,6 +188,9 @@ public class Gateway {
         UserBean userBean = new UserBean(user);
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
         updateToHash(USER_HASH, user.getUser_id(), serData);
+    }
+    public void deleteUser(User user) {
+        deleteFromHash(USER_HASH, user.getUser_id());
     }
     /**
     * @Description: Get user by given id.
@@ -338,6 +347,10 @@ public class Gateway {
         String serData = gson().toJson(event);
         updateToHash(EVENT_HASH, event.getEvent_id(), serData);
     }
+    public void deleteEvent(Event event) {
+        deleteFromHash(EVENT_HASH, event.getEvent_id());
+    }
+
     /**
      * @Description: Get list of all events. *This is method may lag the performance.
      * @Param: []
@@ -385,6 +398,9 @@ public class Gateway {
     public void updateRoom(Room room) {
         String serData = gson().toJson(room);
         updateToHash(ROOM_HASH, room.getRid(), serData);
+    }
+    public void deleteRoom(Room room) {
+        deleteFromHash(ROOM_HASH, room.getRid());
     }
     /**
      * @Description: get list of rooms
