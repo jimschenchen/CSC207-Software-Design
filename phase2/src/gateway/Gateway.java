@@ -33,10 +33,6 @@ public class Gateway {
     static final String ROOM_HASH = "room_hash";
     static final String MESSAGE_LIST = "message_list";
 
-    public Gateway() {
-        init();
-    }
-
     public void init() {
         shutDownHook();
         initJedisPool();
@@ -174,44 +170,44 @@ public class Gateway {
 
     // ===== User: Hash=====
     /**
-    * @Description: Add user to DB. It will automatically substitute the user in DB with the same uid
-    * @Param: [user]
-    * @return: void
-    * @Author: 
-    * @Date: 2020-11-28
-    */
+     * @Description: Add user to DB. It will automatically substitute the user in DB with the same uid
+     * @Param: [user]
+     * @return: void
+     * @Author:
+     * @Date: 2020-11-28
+     */
     public void addUser(User user) {
         UserBean userBean = new UserBean(user);
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
-        addToHash(USER_HASH, user.getUser_id(), serData);
+        addToHash(USER_HASH, user.getUserId(), serData);
     }
     public void updateUser(User user) {
         UserBean userBean = new UserBean(user);
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
-        updateToHash(USER_HASH, user.getUser_id(), serData);
+        updateToHash(USER_HASH, user.getUserId(), serData);
     }
     public void deleteUser(User user) {
-        deleteFromHash(USER_HASH, user.getUser_id());
+        deleteFromHash(USER_HASH, user.getUserId());
     }
     /**
-    * @Description: Get user by given id.
-    * @Param: [id]
-    * @return: User
-    * @Author: 
-    * @Date: 2020-11-28
-    */
+     * @Description: Get user by given id.
+     * @Param: [id]
+     * @return: User
+     * @Author:
+     * @Date: 2020-11-28
+     */
     public User getUserById(int id) {
         String serData = getByIdFromHash(USER_HASH, id);
         UserBean userBean = gson(User.class, new UserAdapter()).fromJson(serData, UserBean.class);
         return userBean.convertToUser();
     }
     /**
-    * @Description: Get the Whole User List. *This is method may lag the performance.
-    * @Param: []
-    * @return: java.util.List<User>
-    * @Author: 
-    * @Date: 2020-11-28
-    */
+     * @Description: Get the Whole User List. *This is method may lag the performance.
+     * @Param: []
+     * @return: java.util.List<User>
+     * @Author:
+     * @Date: 2020-11-28
+     */
     public List<User> getUserList() {
         List<String> dateList = new ArrayList<>(getAllFromHash(USER_HASH).values());
         List<User> userList = new ArrayList<>();
@@ -226,12 +222,12 @@ public class Gateway {
         return userList;
     }
     /**
-    * @Description: Get User by given username. *This is method may lag the performance. Then use `getUserById` instead.
-    * @Param: [username]
-    * @return: User
-    * @Author: 
-    * @Date: 2020-11-28
-    */
+     * @Description: Get User by given username. *This is method may lag the performance. Then use `getUserById` instead.
+     * @Param: [username]
+     * @return: User
+     * @Author:
+     * @Date: 2020-11-28
+     */
     public User getUserByUserName(String username) {
         ArrayList<User> userList = (ArrayList<User>) getUserList();
         for (User u : userList) {
@@ -342,14 +338,14 @@ public class Gateway {
      */
     public void addEvent(Event event) {
         String serData = gson().toJson(event);
-        addToHash(EVENT_HASH, event.getEvent_id(), serData);
+        addToHash(EVENT_HASH, event.getEventId(), serData);
     }
     public void updateEvent(Event event) {
         String serData = gson().toJson(event);
-        updateToHash(EVENT_HASH, event.getEvent_id(), serData);
+        updateToHash(EVENT_HASH, event.getEventId(), serData);
     }
     public void deleteEvent(Event event) {
-        deleteFromHash(EVENT_HASH, event.getEvent_id());
+        deleteFromHash(EVENT_HASH, event.getEventId());
     }
 
     /**
@@ -443,7 +439,7 @@ public class Gateway {
     public Room getRoomByRoomNum(String roomNum) {
         ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
         for (Room r : roomList) {
-            if (r.getRoom_num().equals(roomNum)) {
+            if (r.getRoomNum().equals(roomNum)) {
                 return r;
             }
         }
@@ -535,7 +531,7 @@ public class Gateway {
 
 
 
-    /** MAIN CLI */
+    /** Testing */
     public static void main(String[] args) {
         Gateway gateway = new Gateway();
         gateway.init();
@@ -631,46 +627,41 @@ public class Gateway {
     }
 
     private void testUser () {
-        addUser(new Attendee(998, "114514", "testJIm"));
-        addUser(new Organizer(999, "234234", "testJim2"));
-        assert (getUserById(998).getUserName().equals("testJIm"));
-        assert (getOrganizerById(998) == null);
-        assert (getOrganizerById(999).getUserName().equals("testJim2"));
-        assert (getUserList().get(999).getClass().equals(Organizer.class));
-        deleteFromHash(USER_HASH, 999);
-        deleteFromHash(USER_HASH, 998);
+        addUser(new Attendee(0, "123123", "Jim"));
+        addUser(new Organizer(1, "234234", "JimO"));
+        assert (getUserById(0).getUserName().equals("Jim"));
+        assert (getOrganizerById(0) == null);
+        assert (getOrganizerById(1).getUserName().equals("JimO"));
+        assert (getUserList().get(1).getClass().equals(Organizer.class));
         System.out.print("**");
     }
 
     private void testEvent () {
-        addEvent(new Event(LocalDateTime.now(), 998,0, "First Event", 0));
-        addEvent(new Event(LocalDateTime.now(), 999,125, "Second Event", 0));
-        assert (getEventById(998).getTitle().equals("First Event"));
-        assert (getEventList().get(999).getSpeakerId() == 125);
-        deleteFromHash(EVENT_HASH, 999);
-        deleteFromHash(EVENT_HASH, 998);
+        addEvent(new Event(LocalDateTime.now(), 0,0, "First Event", 0));
+        addEvent(new Event(LocalDateTime.now(), 1,125, "Second Event", 0));
+        assert (getEventById(0).getTitle().equals("First Event"));
+        assert (getEventList().get(1).getSpeakerId() == 125);
         System.out.print("**");
     }
 
     private void testRoom () {
-        addRoom(new Room("123313", 999));
-        assert (getRoomById(999).getRoom_num().equals("123313"));
-        assert (getRoomByRoomNum("123313").getRid() == 999);
-        deleteFromHash(ROOM_HASH, 999);
+        addRoom(new Room("123313", 0));
+        assert (getRoomById(0).getRoomNum().equals("123313"));
+        assert (getRoomByRoomNum("123313").getRid() == 0);
         System.out.print("**");
     }
 
     private void testMessage () {
         boolean check = false;
-        List<Message> messageList= getSentMessageListByUserId(999);
+        List<Message> messageList= getSentMessageListByUserId(0);
         for(Message message : messageList) {
             check = (message.getInfo().equals("Hello Message") || check);
         }
         if (!check) {
-            Message m = new Message("Hello Message", 999, 998);
+            Message m = new Message("Hello Message", 0, 1);
             addMessage(m);
         }
-        messageList= getSentMessageListByUserId(999);
+        messageList= getSentMessageListByUserId(0);
         check = false;
         for(Message message : messageList) {
             check = (message.getInfo().equals("Hello Message") || check);
