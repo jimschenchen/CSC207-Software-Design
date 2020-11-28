@@ -277,76 +277,76 @@
 ////        this.roomList.add(room);
 ////    }
 //
-//    /**
-//    * @Description: get List of all messages
-//    * @Param: []
-//    * @return: java.util.List<Message>
-//    * @Date: 2020-11-11
-//    */
-//    private List<Message> getMessageList() {
-//        return messageList;
-//    }
-//
-//    /**
-//    * @Description: Return the List of messages related to <userId>; Cannot add message
-//    * @Param: [userId]
-//    * @return: java.util.List<Message>
-//    * @Date: 2020-11-11
-//    */
-//    public List<Message> getAllMessageListByUserId(int userId) {
-//        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
-//        List<Message> ret = new ArrayList<>();
-//        for (Message m : messageList) {
-//            if (m.getReceiverId() == userId || m.getSenderId() == userId) {
-//                ret.add(m);
-//            }
-//        }
-//        return ret;
-//    }
-//    /**
-//    * @Description: Return the List of Sent messages related to <userId>; Cannot add message
-//    * @Param: [userId]
-//    * @return: java.util.List<Message>
-//    * @Author:
-//    * @Date: 2020-11-14
-//    */
-//    public List<Message> getSentMessageListByUserId(int userId) {
-//        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
-//        List<Message> ret = new ArrayList<>();
-//        for (Message m : messageList) {
-//            if (m.getSenderId() == userId) {
-//                ret.add(m);
-//            }
-//        }
-//        return ret;
-//    }
-//    /**
-//    * @Description: Return the List of Received messages related to <userId>; Cannot add message
-//    * @Param: [userId]
-//    * @return: java.util.List<Message>
-//    * @Author:
-//    * @Date: 2020-11-14
-//    */
-//    public List<Message> getReceivedMessageListByUserId(int userId) {
-//        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
-//        List<Message> ret = new ArrayList<>();
-//        for (Message m : messageList) {
-//            if (m.getReceiverId() == userId) {
-//                ret.add(m);
-//            }
-//        }
-//        return ret;
-//    }
-//    /**
-//    * @Description: add Message to the Message List
-//    * @Param: [message]
-//    * @return: void
-//    * @Author:
-//    * @Date: 2020-11-12
-//    */
-//    public void addMessage(Message message) {
-//        this.messageList.add(message);
-//    }
+////    /**
+////    * @Description: get List of all messages
+////    * @Param: []
+////    * @return: java.util.List<Message>
+////    * @Date: 2020-11-11
+////    */
+////    private List<Message> getMessageList() {
+////        return messageList;
+////    }
+////
+////    /**
+////    * @Description: Return the List of messages related to <userId>; Cannot add message
+////    * @Param: [userId]
+////    * @return: java.util.List<Message>
+////    * @Date: 2020-11-11
+////    */
+////    public List<Message> getAllMessageListByUserId(int userId) {
+////        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+////        List<Message> ret = new ArrayList<>();
+////        for (Message m : messageList) {
+////            if (m.getReceiverId() == userId || m.getSenderId() == userId) {
+////                ret.add(m);
+////            }
+////        }
+////        return ret;
+////    }
+////    /**
+////    * @Description: Return the List of Sent messages related to <userId>; Cannot add message
+////    * @Param: [userId]
+////    * @return: java.util.List<Message>
+////    * @Author:
+////    * @Date: 2020-11-14
+////    */
+////    public List<Message> getSentMessageListByUserId(int userId) {
+////        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+////        List<Message> ret = new ArrayList<>();
+////        for (Message m : messageList) {
+////            if (m.getSenderId() == userId) {
+////                ret.add(m);
+////            }
+////        }
+////        return ret;
+////    }
+////    /**
+////    * @Description: Return the List of Received messages related to <userId>; Cannot add message
+////    * @Param: [userId]
+////    * @return: java.util.List<Message>
+////    * @Author:
+////    * @Date: 2020-11-14
+////    */
+////    public List<Message> getReceivedMessageListByUserId(int userId) {
+////        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+////        List<Message> ret = new ArrayList<>();
+////        for (Message m : messageList) {
+////            if (m.getReceiverId() == userId) {
+////                ret.add(m);
+////            }
+////        }
+////        return ret;
+////    }
+////    /**
+////    * @Description: add Message to the Message List
+////    * @Param: [message]
+////    * @return: void
+////    * @Author:
+////    * @Date: 2020-11-12
+////    */
+////    public void addMessage(Message message) {
+////        this.messageList.add(message);
+////    }
 //
 //    public void firstOrganizer() {
 //        Organizer o= new Organizer(getNextUserId(), "password", "user");
