@@ -128,11 +128,14 @@ public class Gateway {
             jedis.hset(key, String.valueOf(id), value);
         } else {
             jedis.del(key);
-            Map<String,String> map = new HashMap<String, String>();
+            Map<String,String> map = new HashMap<>();
             map.put(String.valueOf(id), value);
             jedis.hmset(key,map);
         }
         closeJedis(jedis);
+    }
+    private void updateToHash(String key, int id, String value) {
+        addToHash(key, id, value);
     }
     private Map<String, String> getAllFromHash(String key) {
         Jedis jedis = getJedis();
@@ -162,8 +165,6 @@ public class Gateway {
         return list;
     }
 
-
-
     // ===== User: Hash=====
     /**
     * @Description: Add user to DB. It will automatically substitute the user in DB with the same uid
@@ -177,9 +178,11 @@ public class Gateway {
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
         addToHash(USER_HASH, user.getUser_id(), serData);
     }
-
-    // TODO: UPDATE USER
-    
+    public void updateUser(User user) {
+        UserBean userBean = new UserBean(user);
+        String serData = gson(User.class, new UserAdapter()).toJson(userBean);
+        updateToHash(USER_HASH, user.getUser_id(), serData);
+    }
     /**
     * @Description: Get user by given id.
     * @Param: [id]
@@ -190,8 +193,7 @@ public class Gateway {
     public User getUserById(int id) {
         String serData = getByIdFromHash(USER_HASH, id);
         UserBean userBean = gson(User.class, new UserAdapter()).fromJson(serData, UserBean.class);
-        User user = userBean.convertToUser();
-        return user;
+        return userBean.convertToUser();
     }
     /**
     * @Description: Get the Whole User List. *This is method may lag the performance.
@@ -201,15 +203,14 @@ public class Gateway {
     * @Date: 2020-11-28
     */
     public List<User> getUserList() {
-        List<String> dateList = new ArrayList<String>(getAllFromHash(USER_HASH).values());
+        List<String> dateList = new ArrayList<>(getAllFromHash(USER_HASH).values());
         List<User> userList = new ArrayList<>();
         Gson gson = gson(User.class, new UserAdapter());
         for (String serData : dateList) {
             try {
                 UserBean userBean = gson.fromJson(serData, UserBean.class);
                 userList.add(userBean.convertToUser());
-            } finally {
-                continue;
+            } catch(Exception e) {
             }
         }
         return userList;
@@ -333,7 +334,10 @@ public class Gateway {
         String serData = gson().toJson(event);
         addToHash(EVENT_HASH, event.getEvent_id(), serData);
     }
-
+    public void updateEvent(Event event) {
+        String serData = gson().toJson(event);
+        updateToHash(EVENT_HASH, event.getEvent_id(), serData);
+    }
     /**
      * @Description: Get list of all events. *This is method may lag the performance.
      * @Param: []
@@ -342,14 +346,13 @@ public class Gateway {
      * @Date: 2020-11-28
      */
     public List<Event> getEventList() {
-        List<String> dateList = new ArrayList<String>(getAllFromHash(EVENT_HASH).values());
+        List<String> dateList = new ArrayList<>(getAllFromHash(EVENT_HASH).values());
         List<Event> eventList = new ArrayList<>();
         Gson gson = gson();
         for (String serData : dateList) {
             try {
                 eventList.add(gson.fromJson(serData, Event.class));
-            } finally {
-                continue;
+            } catch(Exception e) {
             }
         }
         return eventList;
@@ -379,6 +382,10 @@ public class Gateway {
         String serData = gson().toJson(room);
         addToHash(ROOM_HASH, room.getRid(), serData);
     }
+    public void updateRoom(Room room) {
+        String serData = gson().toJson(room);
+        updateToHash(ROOM_HASH, room.getRid(), serData);
+    }
     /**
      * @Description: get list of rooms
      * @Param: []
@@ -387,14 +394,13 @@ public class Gateway {
      * @Date: 2020-11-28
      */
     public List<Room> getRoomList() {
-        List<String> dateList = new ArrayList<String>(getAllFromHash(ROOM_HASH).values());
+        List<String> dateList = new ArrayList<>(getAllFromHash(ROOM_HASH).values());
         List<Room> roomList = new ArrayList<>();
         Gson gson = gson();
         for (String serData : dateList) {
             try {
                 roomList.add(gson.fromJson(serData, Room.class));
-            } finally {
-                continue;
+            } catch(Exception e) {
             }
         }
         return roomList;
@@ -448,14 +454,13 @@ public class Gateway {
      * @Date: 2020-11-28
      */
     private List<Message> getMessageList() {
-        List<String> dateList = new ArrayList<String>(getAllFromList(MESSAGE_LIST));
+        List<String> dateList = new ArrayList<>(getAllFromList(MESSAGE_LIST));
         List<Message> messageList = new ArrayList<>();
         Gson gson = gson();
         for (String serData : dateList) {
             try {
                 messageList.add(gson.fromJson(serData, Message.class));
-            } finally {
-                continue;
+            } catch(Exception e) {
             }
         }
         return messageList;
@@ -513,15 +518,11 @@ public class Gateway {
 
 
 
-
-
-
+    /** Testing */
     public static void main(String[] args) {
         Gateway gateway = new Gateway();
         gateway.init();
         gateway.testCases();
-
-
 //        gateway.printDataBase();
     }
 
@@ -534,7 +535,6 @@ public class Gateway {
         testMessage();
         System.out.println("Gateway: All tests passed");
     }
-
     /** This method is used for test    */
     public void printDataBase () {
         Jedis jedis = getJedis();
@@ -583,10 +583,10 @@ public class Gateway {
     }
 
     private void testMessage () {
-        Boolean check = false;
+        boolean check = false;
         List<Message> messageList= getSentMessageListByUserId(0);
         for(Message message : messageList) {
-            check = (message.getInfo().equals("Hello Message") ? true : check);
+            check = (message.getInfo().equals("Hello Message") || check);
         }
         if (check) {
             Message m = new Message("Hello Message", 0, 1);
@@ -595,7 +595,7 @@ public class Gateway {
         messageList= getSentMessageListByUserId(0);
         check = false;
         for(Message message : messageList) {
-            check = (message.getInfo().equals("Hello Message") ? true : check);
+            check = (message.getInfo().equals("Hello Message") || check);
         }
         assert (check);
     }
