@@ -3,8 +3,10 @@ import com.google.gson.GsonBuilder;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,7 @@ public class Gateway {
     static final String NEXT_ROOM_ID = "next_room_id";
     static final String USER_HASH = "user_hash";
     static final String EVENT_HASH = "event_hash";
+    static final String ROOM_HASH = "room_hash";
 
     public void init() {
         shutDownHook();
@@ -159,6 +162,8 @@ public class Gateway {
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
         addToHash(USER_HASH, user.getUser_id(), serData);
     }
+
+    // TODO: UPDATE USER
     
     /**
     * @Description: Get user by given id.
@@ -301,12 +306,118 @@ public class Gateway {
     }
 
 
+    // ===== Event: Hash=====
+    /**
+     * @Description: Get list of all events. *This is method may lag the performance.
+     * @Param: []
+     * @return: java.util.List<Event>
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public List<Event> getEventList() {
+        List<String> dateList = new ArrayList<String>(getAllFromHash(EVENT_HASH).values());
+        List<Event> eventList = new ArrayList<>();
+        Gson gson = gson();
+        for (String serData : dateList) {
+            try {
+                eventList.add(gson.fromJson(serData, Event.class));
+            } finally {
+                continue;
+            }
+        }
+        return eventList;
+    }
+    /**
+     * @Description: Get event by given id
+     * @Param: [id]
+     * @return: Event
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public Event getEventById(int id) {
+        String serData = getByIdFromHash(EVENT_HASH, id);
+        return gson().fromJson(serData, Event.class);
+    }
+    /**
+     * @Description: Add event to event list
+     * @Param: [event]
+     * @return: void
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public void addEvent(Event event) {
+        String serData = gson().toJson(event);
+        addToHash(EVENT_HASH, event.getEvent_id(), serData);
+    }
 
 
-    
-    
-    
-    
+
+
+    // ===== Room: Hash=====
+    /**
+     * @Description: add room to room list
+     * @Param: [room]
+     * @return: void
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public void addRoom(Room room) {
+        String serData = gson().toJson(room);
+        addToHash(ROOM_HASH, room.getRid(), serData);
+    }
+    /**
+     * @Description: get list of rooms
+     * @Param: []
+     * @return: java.util.List<Room>
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public List<Room> getRoomList() {
+        List<String> dateList = new ArrayList<String>(getAllFromHash(ROOM_HASH).values());
+        List<Room> roomList = new ArrayList<>();
+        Gson gson = gson();
+        for (String serData : dateList) {
+            try {
+                roomList.add(gson.fromJson(serData, Room.class));
+            } finally {
+                continue;
+            }
+        }
+        return roomList;
+    }
+    /**
+     * @Description: get room by given id
+     * @Param: [id]
+     * @return: Room
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public Room getRoomById(int id) {
+        String serData = getByIdFromHash(ROOM_HASH, id);
+        return gson().fromJson(serData, Room.class);
+    }
+    /**
+     * @Description: get room by given roomNum
+     * @Param: [roomNum]
+     * @return: Room
+     * @Author:
+     * @Date: 2020-11-28
+     */
+    public Room getRoomByRoomNum(String roomNum) {
+        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+        for (Room r : roomList) {
+            if (r.getRoom_num().equals(roomNum)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+
 
     // ===== Message: List =====
 
@@ -315,11 +426,10 @@ public class Gateway {
     public static void main(String[] args) {
         Gateway gateway = new Gateway();
         gateway.init();
+        gateway.testUser ();
+        gateway.testEvent();
+        gateway.testRoom ();
         gateway.printDataBase();
-        // User u = new Attendee(0, "123", "Jim");
-        // gateway.addUser(u);
-//        System.out.println(gateway.getOrganizerByUserName("Jim"));
-        // System.out.println(gateway.getUserById(0));
     }
 
     /** This method is used for test    */
@@ -327,21 +437,43 @@ public class Gateway {
         Jedis jedis = getJedis();
 
         System.out.println("DataBase: Data for testing");
-        System.out.println("---------- ---------- ---------- ----------");
+        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
+        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
         System.out.println("+ UserNextId: " + jedis.get(NEXT_USER_ID));
         System.out.println("+ EventNextId: " + jedis.get(NEXT_EVENT_ID));
         System.out.println("+ RoomNextId: " + jedis.get(NEXT_ROOM_ID));
         System.out.println("+ User List");
         getUserList().forEach((u) -> System.out.println("   - " + u.toString()));
-//        System.out.println("+ Event List");
-//        getEventList().forEach((e) -> System.out.println("  - " + e.toString()));
-//        System.out.println("+ Room List");
-//        getRoomList().forEach((r) -> System.out.println("   - " + r.toString()));
+        System.out.println("+ Event List");
+        getEventList().forEach((e) -> System.out.println("  - " + e.toString()));
+        System.out.println("+ Room List");
+        getRoomList().forEach((r) -> System.out.println("   - " + r.toString()));
 //        System.out.println("+ Message List");
 //        getMessageList().forEach((m) -> System.out.println("    - " + m.toString()));
-//        System.out.println("---------- ---------- ---------- ----------");
+        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
 
         // Close
         closeJedis(jedis);
+    }
+
+    public void testUser () {
+        addUser(new Attendee(0, "123123", "Jim"));
+        addUser(new Organizer(1, "234234", "JimO"));
+        assert (getUserById(0).getUserName().equals("Jim"));
+        assert (getOrganizerById(0).equals(null));
+        assert (getOrganizerById(1).getUserName().equals("JimO"));
+        assert (getUserList().get(1).getClass().equals(Organizer.class));
+    }
+
+    public void testEvent () {
+        addEvent(new Event(LocalDateTime.now(), 0,0, "First Event", 0));
+        addEvent(new Event(LocalDateTime.now(), 1,125, "Second Event", 0));
+        assert (getEventById(0).getTitle().equals("First Event"));
+        assert (getEventList().get(1).getSpeakerId() == 125);
+    }
+
+    public void testRoom () {
+        addRoom(new Room("123313", 0));
+        assert (getRoomById(0).getRoom_num().equals("123313"));
     }
 }

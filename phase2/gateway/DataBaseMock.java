@@ -187,95 +187,95 @@
 ////    }
 //
 //
-//    /**
-//    * @Description: get list of all events
-//    * @Param: []
-//    * @return: java.util.List<Event>
-//    * @Author:
-//    * @Date: 2020-11-11
-//    */
-//    public List<Event> getEventList() {
-//        return eventList;
-//    }
-//    /**
-//    * @Description: get event by given id
-//    * @Param: [id]
-//    * @return: Event
-//    * @Author:
-//    * @Date: 2020-11-11
-//    */
-//    public Event getEventById(int id) {
-//        ArrayList<Event> eventList = (ArrayList<Event>) getEventList();
-//        for (Event e : eventList) {
-//            if (e.getEvent_id() == id) {
-//                return e;
-//            }
-//        }
-//        return null;
-//    }
-//    /**
-//    * @Description: add event to event list
-//    * @Param: [event]
-//    * @return: void
-//    * @Author:
-//    * @Date: 2020-11-12
-//    */
-//    public void addEvent(Event event) {
-//        this.eventList.add(event);
-//    }
+////    /**
+////    * @Description: get list of all events
+////    * @Param: []
+////    * @return: java.util.List<Event>
+////    * @Author:
+////    * @Date: 2020-11-11
+////    */
+////    public List<Event> getEventList() {
+////        return eventList;
+////    }
+////    /**
+////    * @Description: get event by given id
+////    * @Param: [id]
+////    * @return: Event
+////    * @Author:
+////    * @Date: 2020-11-11
+////    */
+////    public Event getEventById(int id) {
+////        ArrayList<Event> eventList = (ArrayList<Event>) getEventList();
+////        for (Event e : eventList) {
+////            if (e.getEvent_id() == id) {
+////                return e;
+////            }
+////        }
+////        return null;
+////    }
+////    /**
+////    * @Description: add event to event list
+////    * @Param: [event]
+////    * @return: void
+////    * @Author:
+////    * @Date: 2020-11-12
+////    */
+////    public void addEvent(Event event) {
+////        this.eventList.add(event);
+////    }
 //
-//    /**
-//    * @Description: get list of rooms
-//    * @Param: []
-//    * @return: java.util.List<Room>
-//    * @Author:
-//    * @Date: 2020-11-11
-//    */
-//    public List<Room> getRoomList() {
-//        return roomList;
-//    }
-//    /**
-//    * @Description: get room by given id
-//    * @Param: [id]
-//    * @return: Room
-//    * @Author:
-//    * @Date: 2020-11-11
-//    */
-//    public Room getRoomById(int id) {
-//        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
-//        for (Room r : roomList) {
-//            if (r.getRid() == id) {
-//                return r;
-//            }
-//        }
-//        return null;
-//    }
-//    /**
-//    * @Description: get room by given roomNum
-//    * @Param: [roomNum]
-//    * @return: Room
-//    * @Author:
-//    * @Date: 2020-11-14
-//    */
-//    public Room getRoomByRoomNum(String roomNum) {
-//        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
-//        for (Room r : roomList) {
-//            if (r.getRoom_num().equals(roomNum)) {
-//                return r;
-//            }
-//        }
-//        return null;
-//    }
-//    /**
-//    * @Description: add room to room list
-//    * @Param: [room]
-//    * @return: void
-//    * @Author:
-//    * @Date: 2020-11-12
-//    */
-//    public void addRoom(Room room) {
-//        this.roomList.add(room);
-//    }
+////    /**
+////    * @Description: get list of rooms
+////    * @Param: []
+////    * @return: java.util.List<Room>
+////    * @Author:
+////    * @Date: 2020-11-11
+////    */
+////    public List<Room> getRoomList() {
+////        return roomList;
+////    }
+////    /**
+////    * @Description: get room by given id
+////    * @Param: [id]
+////    * @return: Room
+////    * @Author:
+////    * @Date: 2020-11-11
+////    */
+////    public Room getRoomById(int id) {
+////        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+////        for (Room r : roomList) {
+////            if (r.getRid() == id) {
+////                return r;
+////            }
+////        }
+////        return null;
+////    }
+////    /**
+////    * @Description: get room by given roomNum
+////    * @Param: [roomNum]
+////    * @return: Room
+////    * @Author:
+////    * @Date: 2020-11-14
+////    */
+////    public Room getRoomByRoomNum(String roomNum) {
+////        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+////        for (Room r : roomList) {
+////            if (r.getRoom_num().equals(roomNum)) {
+////                return r;
+////            }
+////        }
+////        return null;
+////    }
+////    /**
+////    * @Description: add room to room list
+////    * @Param: [room]
+////    * @return: void
+////    * @Author:
+////    * @Date: 2020-11-12
+////    */
+////    public void addRoom(Room room) {
+////        this.roomList.add(room);
+////    }
 //
 //    /**
 //    * @Description: get List of all messages
