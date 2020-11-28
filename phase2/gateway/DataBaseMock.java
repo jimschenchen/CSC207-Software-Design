@@ -66,104 +66,104 @@
 //    * @Author:
 //    * @Date: 2020-11-13
 //    */
-//    public User getUserByUserName(String username) {
-//        ArrayList<User> userList = (ArrayList<User>) getUserList();
-//        for (User u : userList) {
-//            if (u.getUserName().equals(username)) {
-//                return u;
-//            }
-//        }
-//        return null;
-//    }
+////    public User getUserByUserName(String username) {
+////        ArrayList<User> userList = (ArrayList<User>) getUserList();
+////        for (User u : userList) {
+////            if (u.getUserName().equals(username)) {
+////                return u;
+////            }
+////        }
+////        return null;
+////    }
 //
-//    /**
-//    * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
-//    * @Param: [id]
-//    * @return: Attendee
-//    * @Author:
-//    * @Date: 2020-11-12
-//    */
-//    public Attendee getAttendeeById(int id) {
-//        User user = this.getUserById(id);
-//        if (user.getClass().equals(Attendee.class)) {
-//            return (Attendee)user;
-//        }
-//        return null;
-//    }
-//
-//    /**
-//    * @Description: get attendee by given username
-//    * @Param: [username]
-//    * @return: Attendee
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public Attendee getAttendeeByUserName(String username) {
-//        User user = this.getUserByUserName(username);
-//        if (user.getClass().equals(Attendee.class)) {
-//            return (Attendee)user;
-//        }
-//        return null;
-//    }
-//
-//    /**
-//    * @Description: Return Speaker by given <id>, if the user does not exist or is not Speaker, return null
-//    * @Param: [id]
-//    * @return: Speaker
-//    * @Author:
-//    * @Date: 2020-11-12
-//    */
-//    public Speaker getSpeakerById(int id) {
-//        User user = this.getUserById(id);
-//        if (user.getClass().equals(Speaker.class)) {
-//            return (Speaker)user;
-//        }
-//        return null;
-//    }
-//
-//    /**
-//    * @Description: get speaker by given username
-//    * @Param: [username]
-//    * @return: Speaker
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public Speaker getSpeakerByUserName(String username) {
-//        User user = this.getUserByUserName(username);
-//        if (user.getClass().equals(Speaker.class)) {
-//            return (Speaker)user;
-//        }
-//        return null;
-//    }
-//    /**
-//    * @Description:
-//    * @Param: [username]
-//    * @return: Organizer
-//    * @Author:
-//    * @Date: 2020-11-13
-//    */
-//    public Organizer getOrganizerByUserName(String username) {
-//        User user = this.getUserByUserName(username);
-//        if (user.getClass().equals(Organizer.class)) {
-//            return (Organizer)user;
-//        }
-//        return null;
-//    }
-//
-//    /**
-//    * @Description: Return Organizer by given <id>, if the user does not exist or is not Organizer, return null
-//    * @Param: [id]
-//    * @return: Organizer
-//    * @Author:
-//    * @Date: 2020-11-12
-//    */
-//    public Organizer getOrganizerById(int id) {
-//        User user = this.getUserById(id);
-//        if (user.getClass().equals(Organizer.class)) {
-//            return (Organizer)user;
-//        }
-//        return null;
-//    }
+////    /**
+////    * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
+////    * @Param: [id]
+////    * @return: Attendee
+////    * @Author:
+////    * @Date: 2020-11-12
+////    */
+////    public Attendee getAttendeeById(int id) {
+////        User user = this.getUserById(id);
+////        if (user.getClass().equals(Attendee.class)) {
+////            return (Attendee)user;
+////        }
+////        return null;
+////    }
+////
+////    /**
+////    * @Description: get attendee by given username
+////    * @Param: [username]
+////    * @return: Attendee
+////    * @Author:
+////    * @Date: 2020-11-13
+////    */
+////    public Attendee getAttendeeByUserName(String username) {
+////        User user = this.getUserByUserName(username);
+////        if (user.getClass().equals(Attendee.class)) {
+////            return (Attendee)user;
+////        }
+////        return null;
+////    }
+////
+////    /**
+////    * @Description: Return Speaker by given <id>, if the user does not exist or is not Speaker, return null
+////    * @Param: [id]
+////    * @return: Speaker
+////    * @Author:
+////    * @Date: 2020-11-12
+////    */
+////    public Speaker getSpeakerById(int id) {
+////        User user = this.getUserById(id);
+////        if (user.getClass().equals(Speaker.class)) {
+////            return (Speaker)user;
+////        }
+////        return null;
+////    }
+////
+////    /**
+////    * @Description: get speaker by given username
+////    * @Param: [username]
+////    * @return: Speaker
+////    * @Author:
+////    * @Date: 2020-11-13
+////    */
+////    public Speaker getSpeakerByUserName(String username) {
+////        User user = this.getUserByUserName(username);
+////        if (user.getClass().equals(Speaker.class)) {
+////            return (Speaker)user;
+////        }
+////        return null;
+////    }
+////    /**
+////    * @Description:
+////    * @Param: [username]
+////    * @return: Organizer
+////    * @Author:
+////    * @Date: 2020-11-13
+////    */
+////    public Organizer getOrganizerByUserName(String username) {
+////        User user = this.getUserByUserName(username);
+////        if (user.getClass().equals(Organizer.class)) {
+////            return (Organizer)user;
+////        }
+////        return null;
+////    }
+////
+////    /**
+////    * @Description: Return Organizer by given <id>, if the user does not exist or is not Organizer, return null
+////    * @Param: [id]
+////    * @return: Organizer
+////    * @Author:
+////    * @Date: 2020-11-12
+////    */
+////    public Organizer getOrganizerById(int id) {
+////        User user = this.getUserById(id);
+////        if (user.getClass().equals(Organizer.class)) {
+////            return (Organizer)user;
+////        }
+////        return null;
+////    }
 //
 //    /**
 //    * @Description: get List of all users
