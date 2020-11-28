@@ -15,42 +15,40 @@ public class ConferenceSystem {
     private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
-    private DataBase db;
     private Gateway gw = new Gateway();
-    private int user; // store current logged in user's id
-
-
-    /**
-    * @Description: Initialization of Gateway and Databse
-    * @Param: []
-    * @return: void
-    * @Date: 2020-11-14
-    */
-    public void init () throws IOException {
-        shutDownHook();
-        /** initial of database */
-        this.db = gw.init();
-    }
-    /**
-    * @Description: Hook for listening the Shutdown of program and save all the data before exist0
-    * @Param: []
-    * @return: void
-    * @Date: 2020-11-14
-    */
-    private void shutDownHook() {
-        Runtime run = Runtime.getRuntime();
-        run.addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                try {
-                    System.out.println("System: ShutDownHook");
-                    gw.termination(db);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    private int user;
+//
+//    /**
+//    * @Description: Initialization of Gateway and Databse
+//    * @Param: []
+//    * @return: void
+//    * @Date: 2020-11-14
+//    */
+//    public void init () throws IOException {
+//        shutDownHook();
+//        /** initial of database */
+//        gw.init();
+//    }
+//    /**
+//    * @Description: Hook for listening the Shutdown of program and save all the data before exist0
+//    * @Param: []
+//    * @return: void
+//    * @Date: 2020-11-14
+//    */
+//    private void shutDownHook() {
+//        Runtime run = Runtime.getRuntime();
+//        run.addShutdownHook(new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    System.out.println("System: ShutDownHook");
+//                    gw.termination(gw);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     /**
      * Sign up a new attendee to the system.
@@ -60,8 +58,8 @@ public class ConferenceSystem {
      * @return Return true if the account is created successfully, false otherwise.
      */
     public boolean signup(String username, String password){
-        if (um.canCreateAttendee(username, db) && password.length() >= 6){
-            um.createAttendee(password, username, db);
+        if (um.canCreateAttendee(username, gw) && password.length() >= 6){
+            um.createAttendee(password, username, gw);
             return true;
         }
         return false;
@@ -78,11 +76,11 @@ public class ConferenceSystem {
      *         returns 2 when the user is an Attendee.
      */
     public int login(String username, String password){
-        if (um.isExistingUser(username, db)){
-            String dbPassword = um.getUserPassword(username, db);
+        if (um.isExistingUser(username, gw)){
+            String dbPassword = um.getUserPassword(username, gw);
             if (dbPassword.equals(password)){
-                this.user = um.getUserID(username, db);
-                return um.getUserCategory(this.user, db);
+                this.user = um.getUserID(username, gw);
+                return um.getUserCategory(this.user, gw);
             }
         }
         return -1;
@@ -97,7 +95,7 @@ public class ConferenceSystem {
     public boolean resetPassword(String newPassword){
         // passwords should always be 6 characters or longer
         if (newPassword.length() >= 6){
-            um.setPassword(user, newPassword, db);
+            um.setPassword(user, newPassword, gw);
             return true;
         }
         return false;
@@ -119,7 +117,7 @@ public class ConferenceSystem {
      * @return Return user's ID
      */
     public String getUserIDbyUserName(String username){
-        return Integer.toString(um.getUserID(username, db));
+        return Integer.toString(um.getUserID(username, gw));
     }
 
     /**
@@ -130,7 +128,7 @@ public class ConferenceSystem {
      */
     public String getUserNameByID(String userID){
         int uID = Integer.parseInt(userID);
-        return um.getUserName(uID, db);
+        return um.getUserName(uID, gw);
     }
 
     /**
@@ -143,8 +141,8 @@ public class ConferenceSystem {
     public boolean messageAllAttendeesInEvent(String eventID, String content){
         try{
             int eID = Integer.parseInt(eventID);
-            if (em.isExistingEvent(eID, db)){
-                mm.message_allusers(eID, user, content, db);
+            if (em.isExistingEvent(eID, gw)){
+                mm.messageAllUsers(eID, user, content, gw);
                 return true;
             }
             return false;
@@ -161,8 +159,8 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, else return false.
      */
     public boolean messageAllUsersInAllSpeakingEvents(String content){
-        if (um.isExistingSpeaker(user, db)){
-            mm.messageAllUsersInAllSpeakingEvents(user, content, db);
+        if (um.isExistingSpeaker(user, gw)){
+            mm.messageAllUsersInAllSpeakingEvents(user, content, gw);
             return true;
         }
         return false;
@@ -180,8 +178,8 @@ public class ConferenceSystem {
         try{
             int eID = Integer.parseInt(eventID);
             int reID = Integer.parseInt(receiverID);
-            if (em.isExistingEvent(eID, db) && mm.canMessageAttendeeOfEvent(eID, reID, db)){
-                mm.message_oneuser(user, reID, content, db);
+            if (em.isExistingEvent(eID, gw) && mm.canMessageAttendeeOfEvent(eID, reID, gw)){
+                mm.messageOneUser(user, reID, content, gw);
                 return true;
             }
             return false;
@@ -198,8 +196,8 @@ public class ConferenceSystem {
      * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
      */
     public boolean messageAllSpeakers(String content){
-        if (mm.canMessageAllSpeakersOrAllAttendee(user, db)){
-            mm.messageAllSpeakers(content, user, db);
+        if (mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
+            mm.messageAllSpeakers(content, user, gw);
             return true;
         }
         return false;
@@ -216,8 +214,8 @@ public class ConferenceSystem {
     public boolean messageSpeaker(String receiverID, String content){
         try{
             int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageSpeaker(user, rID, db)){
-                mm.message_oneuser(user, rID, content, db);
+            if (mm.canMessageSpeaker(user, rID, gw)){
+                mm.messageOneUser(user, rID, content, gw);
                 return true;
             }
             return false;
@@ -235,8 +233,8 @@ public class ConferenceSystem {
      * perform this action.
      */
     public boolean messageAllAttendee(String content){
-        if(mm.canMessageAllSpeakersOrAllAttendee(user, db)){
-            mm.messageAllAttendees(user, content, db);
+        if(mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
+            mm.messageAllAttendees(user, content, gw);
             return true;
         }
         return false;
@@ -253,8 +251,8 @@ public class ConferenceSystem {
     public boolean messageAttendee(String receiverID, String content){
         try{
             int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageAttendee(user, rID, db)){
-                mm.message_oneuser(user, rID, content, db);
+            if (mm.canMessageAttendee(user, rID, gw)){
+                mm.messageOneUser(user, rID, content, gw);
                 return true;
             }
             return false;
@@ -270,7 +268,7 @@ public class ConferenceSystem {
      * @return List of Strings representing the messages the user sent.
      */
     public List<String> readSentMessages(){
-        return mm.getSentMessageListByUserId(user, db);
+        return mm.getSentMessageListByUserId(user, gw);
     }
 
     /**
@@ -279,7 +277,7 @@ public class ConferenceSystem {
      * @return List of Strings representing the messages the user reveived.
      */
     public List<String> readReceivedMessages(){
-        return mm.getReceivedMessageListByUserId(user, db);
+        return mm.getReceivedMessageListByUserId(user, gw);
     }
 
     /**
@@ -293,8 +291,8 @@ public class ConferenceSystem {
     public boolean replyMessage(String messageIndex, String content){
         try{
             int mIndex = Integer.parseInt(messageIndex);
-            if (mm.canReplyMessage(user, mIndex, db)){
-                mm.replyMessage(content, user, mIndex, db);
+            if (mm.canReplyMessage(user, mIndex, gw)){
+                mm.replyMessage(content, user, mIndex, gw);
                 return true;
             }
             return false;
@@ -314,9 +312,9 @@ public class ConferenceSystem {
         try{
             int eid = Integer.parseInt(eventID);
             // check if the event exists, and user can sign up for event
-            if (em.canAddUserToEvent(user, eid, db) && um.canSignUpForEvent(eid, user, db)){ //need confirm
-                um.addEventToAttendeeOrOrganizer(eid, user, db);
-                em.addUserToEvent(user, eid, db);
+            if (em.canAddUserToEvent(user, eid, gw) && um.canSignUpForEvent(eid, user, gw)){ //need confirm
+                um.addEventToAttendeeOrOrganizer(eid, user, gw);
+                em.addUserToEvent(user, eid, gw);
                 return true;
             }
             // return false when event doesn't exist or user cannot sign up for event
@@ -338,9 +336,9 @@ public class ConferenceSystem {
     public boolean cancelEnrollmentInEvent(String eventID){
         try{
             int eid = Integer.parseInt(eventID);
-            if (em.canRemoveUser(this.user ,eid, db)){
-                em.removeUser(this.user, eid, db);
-                um.cancelEventToAttendeeOrOrganizer(eid, this.user, db);
+            if (em.canRemoveUser(this.user ,eid, gw)){
+                em.removeUser(this.user, eid, gw);
+                um.cancelEventToAttendeeOrOrganizer(eid, this.user, gw);
                 return true;
             }
             return false;
@@ -361,8 +359,8 @@ public class ConferenceSystem {
      *          or when the user name is not unique.
      */
     public boolean addNewSpeaker(String userName, String password){
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateSpeaker(userName, db)){
-            um.createSpeaker(password.trim(), userName.trim(), db);
+        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateSpeaker(userName, gw)){
+            um.createSpeaker(password.trim(), userName.trim(), gw);
             return true;
         }
         return false;
@@ -379,9 +377,9 @@ public class ConferenceSystem {
         try{
             int sID = Integer.parseInt(speakerID);
             int eID = Integer.parseInt(eventID);
-            if(um.canAddEventToSpeaker(eID, sID, db)){
-                um.addEventToSpeaker(eID, sID, db);
-                em.setSpeaker(sID, eID, db);
+            if(um.canAddEventToSpeaker(eID, sID, gw)){
+                um.addEventToSpeaker(eID, sID, gw);
+                em.setSpeaker(sID, eID, gw);
                 return true;
             }
             return false; // return false when cannot add event to speaker
@@ -399,8 +397,8 @@ public class ConferenceSystem {
      */
     public boolean addNewRoom(String roomNumber){
         try{
-            if (rm.canAddRoom(roomNumber, db)){
-                rm.add_room(roomNumber, db);
+            if (rm.canAddRoom(roomNumber, gw)){
+                rm.add_room(roomNumber, gw);
                 return true;
             }
             return false;
@@ -423,11 +421,11 @@ public class ConferenceSystem {
         try{
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
-            int rID = rm.getRoomIDbyRoomNumber(roomNumber, db);
-            if (um.isExistingSpeaker(sID, db) && em.canCreateEvent(rID, sTime, db) && um.isSpeakerBusy(sID,sTime,db)){
-                int eventID = em.createEvent(sTime, sID, topic, rID, db);
-                um.addEventToOrganizedList(eventID, user, db);
-                um.addEventToSpeaker(eventID, sID, db);
+            int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
+            if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, gw) && um.isSpeakerBusy(sID,sTime, gw)){
+                int eventID = em.createEvent(sTime, sID, topic, rID, gw);
+                um.addEventToOrganizedList(eventID, user, gw);
+                um.addEventToSpeaker(eventID, sID, gw);
                 return true;
             }
             return false; // return false when unsuccessful
@@ -443,10 +441,10 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewEvents(){
-        List<Integer> events = em.getEventList(db);
+        List<Integer> events = em.getEventList(gw);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, db));
+            sEvents.add(em.getStringOfEvent(eventID, gw));
         }
         return sEvents;
     }
@@ -457,10 +455,10 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewSignedUpEvents(){
-        List<Integer> events = um.getOrganizerOrAttendeeEventList(user, db);
+        List<Integer> events = um.getOrganizerOrAttendeeEventList(user, gw);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, db));
+            sEvents.add(em.getStringOfEvent(eventID, gw));
         }
         return sEvents;
     }
@@ -471,10 +469,10 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewOrganizedEvents(){
-        List<Integer> events = um.getOrganizedEventList(user, db);
+        List<Integer> events = um.getOrganizedEventList(user, gw);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, db));
+            sEvents.add(em.getStringOfEvent(eventID, gw));
         }
         return sEvents;
     }
@@ -485,10 +483,10 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewSpeakingEvents(){
-        List<Integer> events = um.getSpeakerEventList(user, db);
+        List<Integer> events = um.getSpeakerEventList(user, gw);
         List<String> sEvents = new ArrayList<>();
         for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, db));
+            sEvents.add(em.getStringOfEvent(eventID, gw));
         }
         return sEvents;
     }
@@ -499,11 +497,11 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewCanSignUpEvents(){
-        List<Integer> allEvents = em.getEventList(db);
+        List<Integer> allEvents = em.getEventList(gw);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, db) && em.canAddUserToEvent(user, eventID, db)){
-                events.add(em.getStringOfEvent(eventID, db));
+            if (um.canSignUpForEvent(eventID, this.user, gw) && em.canAddUserToEvent(user, eventID, gw)){
+                events.add(em.getStringOfEvent(eventID, gw));
             }
         }
         return events;
@@ -516,15 +514,15 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formated as follows: "UserName (userID)"
      */
     public List<String> viewAttendeesInSpeakingEvents(){
-        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, db);
+        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, gw);
         Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
         List<String> sAllAttendeesInEvents = new ArrayList<>();
         for (Integer eventID : allSpeakingEvents){
-            List<Integer> usersInEvent = em.getUserList(eventID, db);
+            List<Integer> usersInEvent = em.getUserList(eventID, gw);
             allAttendeesInEvents.addAll(usersInEvent);
         }
         for (Integer userID : allAttendeesInEvents){
-            sAllAttendeesInEvents.add(um.getUserString(userID, db));
+            sAllAttendeesInEvents.add(um.getUserString(userID, gw));
         }
         return sAllAttendeesInEvents;
     }
@@ -536,10 +534,10 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllAttendees(){
-        List<Integer> allAttendees = um.getListOfUsers(2, db);
+        List<Integer> allAttendees = um.getListOfUsers(2, gw);
         List<String> sAllAttendees = new ArrayList<>();
         for (Integer userID : allAttendees){
-            sAllAttendees.add(um.getUserString(userID, db));
+            sAllAttendees.add(um.getUserString(userID, gw));
         }
         return sAllAttendees;
     }
@@ -551,10 +549,10 @@ public class ConferenceSystem {
      * Every speaker is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllSpeakers(){
-        List<Integer> allSpeakers = um.getListOfUsers(0, db);
+        List<Integer> allSpeakers = um.getListOfUsers(0, gw);
         List<String> sAllSpeakers = new ArrayList<>();
         for (Integer userID : allSpeakers){
-            sAllSpeakers.add(um.getUserString(userID, db));
+            sAllSpeakers.add(um.getUserString(userID, gw));
         }
         return sAllSpeakers;
     }
@@ -566,10 +564,10 @@ public class ConferenceSystem {
      * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
      */
     public List<String> viewAllRooms(){
-        List<Room> allRooms = rm.getListOfRooms(db);
+        List<Room> allRooms = rm.getListOfRooms(gw);
         List<String> sAllRooms = new ArrayList<>();
         for (Room r: allRooms) {
-            sAllRooms.add(rm.getRoomString(r.getRid(),db));
+            sAllRooms.add(rm.getRoomString(r.getRid(), gw));
         }
         return sAllRooms;
     }

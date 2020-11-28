@@ -179,15 +179,15 @@ public class Gateway {
     public void addUser(User user) {
         UserBean userBean = new UserBean(user);
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
-        addToHash(USER_HASH, user.getUser_id(), serData);
+        addToHash(USER_HASH, user.getUserId(), serData);
     }
     public void updateUser(User user) {
         UserBean userBean = new UserBean(user);
         String serData = gson(User.class, new UserAdapter()).toJson(userBean);
-        updateToHash(USER_HASH, user.getUser_id(), serData);
+        updateToHash(USER_HASH, user.getUserId(), serData);
     }
     public void deleteUser(User user) {
-        deleteFromHash(USER_HASH, user.getUser_id());
+        deleteFromHash(USER_HASH, user.getUserId());
     }
     /**
     * @Description: Get user by given id.
@@ -338,14 +338,14 @@ public class Gateway {
      */
     public void addEvent(Event event) {
         String serData = gson().toJson(event);
-        addToHash(EVENT_HASH, event.getEvent_id(), serData);
+        addToHash(EVENT_HASH, event.getEventId(), serData);
     }
     public void updateEvent(Event event) {
         String serData = gson().toJson(event);
-        updateToHash(EVENT_HASH, event.getEvent_id(), serData);
+        updateToHash(EVENT_HASH, event.getEventId(), serData);
     }
     public void deleteEvent(Event event) {
-        deleteFromHash(EVENT_HASH, event.getEvent_id());
+        deleteFromHash(EVENT_HASH, event.getEventId());
     }
 
     /**
@@ -439,7 +439,7 @@ public class Gateway {
     public Room getRoomByRoomNum(String roomNum) {
         ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
         for (Room r : roomList) {
-            if (r.getRoom_num().equals(roomNum)) {
+            if (r.getRoomNum().equals(roomNum)) {
                 return r;
             }
         }
@@ -646,7 +646,7 @@ public class Gateway {
 
     private void testRoom () {
         addRoom(new Room("123313", 0));
-        assert (getRoomById(0).getRoom_num().equals("123313"));
+        assert (getRoomById(0).getRoomNum().equals("123313"));
         assert (getRoomByRoomNum("123313").getRid() == 0);
         System.out.print("**");
     }

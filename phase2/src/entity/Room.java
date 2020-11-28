@@ -2,19 +2,19 @@
  * The Room class
  */
 public class Room implements java.io.Serializable {
-    private String room_num;
+    private String roomNum;
     private final int rid;
     private int capacity;
 
     /**
      * Constructor of Room object.
      *
-     * @param room_num the room number
+     * @param roomNum the room number
      * @param rid the room id
      */
-    public Room(String room_num, int rid){
+    public Room(String roomNum, int rid){
         this.capacity = 2;
-        this.room_num = room_num;
+        this.roomNum = roomNum;
         this.rid = rid;
     }
 
@@ -23,8 +23,8 @@ public class Room implements java.io.Serializable {
      *
      * @return the room number
      */
-    public String getRoom_num() {
-        return room_num;
+    public String getRoomNum() {
+        return roomNum;
     }
 
     /**
@@ -48,8 +48,8 @@ public class Room implements java.io.Serializable {
     @Override
     public String toString() {
         return "Room{" +
-                "room_num=" + room_num +
-                ", rid=" + rid +
+                "room num=" + roomNum +
+                ", room id=" + rid +
                 ", capacity=" + capacity +
                 '}';
     }

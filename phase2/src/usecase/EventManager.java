@@ -14,15 +14,15 @@ public class EventManager {
     /**
      * Judge whether the new event can be created
      *
-     * @param room_id the room id this new event will take place
+     * @param roomId the room id this new event will take place
      * @param start the start time of this new event
-     * @param db the database
+     * @param g the database
      * @return the boolean show whether the new event can be created
      */
-    public boolean canCreateEvent(int room_id, LocalDateTime start, DataBase db){
-        List<Event> all_event = db.getEventList();
-        for (Event event : all_event) {
-            if (room_id == event.getRoomId() && start.equals(event.getStart_time())) {
+    public boolean canCreateEvent(int roomId, LocalDateTime start, Gateway g){
+        List<Event> allEvent = g.getEventList();
+        for (Event event : allEvent) {
+            if (roomId == event.getRoomId() && start.equals(event.getStartTime())) {
                 return false;
             }
         }
@@ -35,23 +35,23 @@ public class EventManager {
      * @param speakerId the speaker id of this event
      * @param title the title of this event
      * @param roomId the room id where this event will take place
-     * @param d the database
+     * @param g the database
      * @return the new event id
      */
-    public int createEvent(LocalDateTime start, int speakerId, String title, int roomId, DataBase d){
-        Event nEvent = new Event(start, d.getNextEventId(), speakerId, title, roomId);
-        d.addEvent(nEvent);
-        return nEvent.getEvent_id();
+    public int createEvent(LocalDateTime start, int speakerId, String title, int roomId, Gateway g){
+        Event nEvent = new Event(start, g.getNextEventId(), speakerId, title, roomId);
+        g.addEvent(nEvent);
+        return nEvent.getEventId();
     }
 
     /**
      * Set a new speaker to the exist event
      * @param speakerId the new speaker id
      * @param eventId the event id
-     * @param d the database
+     * @param g the database
      */
-    public void setSpeaker(int speakerId, int eventId, DataBase d){
-        d.getEventById(eventId).setSpeaker_id(speakerId);
+    public void setSpeaker(int speakerId, int eventId, Gateway g){
+        g.getEventById(eventId).setSpeakerId(speakerId);
 
     }
 
@@ -59,18 +59,18 @@ public class EventManager {
      * Judge whether a user can sign up to an event
      *
      * @param userid the userid
-     * @param eventid the event id
-     * @param d the database
+     * @param eventId the event id
+     * @param g the database
      * @return the boolean shows whether a user can sign up to an event
      */
-    public boolean canAddUserToEvent(int userid, int eventid, DataBase d) {
-        if (!isExistingEvent(eventid, d)) {
+    public boolean canAddUserToEvent(int userid, int eventId, Gateway g) {
+        if (!isExistingEvent(eventId, g)) {
             return false;
         }
         else {
-            Event e = d.getEventById(eventid);
-            if (e.getSingned_userid().contains(userid)
-                    | d.getRoomById(e.getRoomId()).getCapacity() <= e.getSingned_userid().size()) {
+            Event e = g.getEventById(eventId);
+            if (e.getSingnedUserId().contains(userid)
+                    | g.getRoomById(e.getRoomId()).getCapacity() <= e.getSingnedUserId().size()) {
                 return false;
             }
             return true;
@@ -81,22 +81,22 @@ public class EventManager {
      * Add user to an event
      * @param userId the user id
      * @param eventId the event id
-     * @param d the database
+     * @param g the database
      */
-    public void addUserToEvent(int userId, int eventId, DataBase d){
-        d.getEventById(eventId).add_user(userId);
+    public void addUserToEvent(int userId, int eventId, Gateway g){
+        g.getEventById(eventId).addUser(userId);
     }
 
     /**
      * Judge whether a user can be removed by an event
      * @param userid the user id
-     * @param eventid the event id
-     * @param d the database
+     * @param eventId the event id
+     * @param g the database
      * @return the boolean whether a user can be removed by an event
      */
-    public boolean canRemoveUser(int userid, int eventid, DataBase d) {
-        if (isExistingEvent(eventid, d)) {
-            return d.getEventById(eventid).getSingned_userid().contains(userid);
+    public boolean canRemoveUser(int userid, int eventId, Gateway g) {
+        if (isExistingEvent(eventId, g)) {
+            return g.getEventById(eventId).getSingnedUserId().contains(userid);
         }
         return false;
     }
@@ -105,46 +105,46 @@ public class EventManager {
      * Remove the user from an event
      * @param userId the user id
      * @param eventId the event id
-     * @param d the database
+     * @param g the database
      */
-    public void removeUser(int userId, int eventId, DataBase d) {
-        d.getEventById(eventId).remove_user(userId);
+    public void removeUser(int userId, int eventId, Gateway g) {
+        g.getEventById(eventId).removeUser(userId);
     }
 
     /**
      * A getter for the all signed up user of and event
      *
      * @param eventID the event id
-     * @param db the database
+     * @param g the database
      * @return all signed up user of and event
      */
-    public List<Integer> getUserList(int eventID, DataBase db){
-        Event event = db.getEventById(eventID);
-        return event.getSingned_userid();
+    public List<Integer> getUserList(int eventID, Gateway g){
+        Event event = g.getEventById(eventID);
+        return event.getSingnedUserId();
     }
 
 
     /**
      * A getter for ids of all events in the database
-     * @param db the database
+     * @param g the database
      * @return the list of ids of all events in the database
      */
-    public List<Integer> getEventList(DataBase db){
+    public List<Integer> getEventList(Gateway g){
         List<Integer> allEvents = new ArrayList<>();
-        List<Event> events = db.getEventList();
+        List<Event> events = g.getEventList();
         for (Event event : events){
-            allEvents.add(event.getEvent_id());
+            allEvents.add(event.getEventId());
         }
         return allEvents;
     }
 
-    public String getStringOfEvent(int eventID, DataBase db){
-        Event event = db.getEventById(eventID);
+    public String getStringOfEvent(int eventID, Gateway g){
+        Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
-                " with ID " + event.getEvent_id() +
-                " by " + db.getSpeakerById(event.getSpeakerId()).getUserName() +
-                " starts at " + event.getStart_time().format(getStartTimeFormatter()) +
-                " takes place in " + db.getRoomById(event.getRoomId()).getRoom_num();
+                " with ID " + event.getEventId() +
+                " by " + g.getSpeakerById(event.getSpeakerId()).getUserName() +
+                " starts at " + event.getStartTime().format(getStartTimeFormatter()) +
+                " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum();
     }
 
     /**
@@ -159,11 +159,11 @@ public class EventManager {
     /**
      * Judge whether the event is in the database
      * @param eventID event id
-     * @param db the database
+     * @param g the database
      * @return the boolean shows whether the event is in the database
      */
-    public boolean isExistingEvent(int eventID, DataBase db){
-        return db.getEventById(eventID) != null;
+    public boolean isExistingEvent(int eventID, Gateway g){
+        return g.getEventById(eventID) != null;
     }
 }
 

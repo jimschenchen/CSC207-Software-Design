@@ -1,12 +1,11 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Organizer class, extends from Attendee.
  */
 public class Organizer extends Attendee implements java.io.Serializable{
 
-    private ArrayList<Integer> created_event_list;
+    private ArrayList<Integer> createdEventList;
 
     /**
      * Constructor for an organizer object
@@ -17,7 +16,7 @@ public class Organizer extends Attendee implements java.io.Serializable{
      */
     public Organizer(int uid, String password, String name) {
         super(uid, password, name);
-        this.created_event_list = new ArrayList<>();
+        this.createdEventList = new ArrayList<>();
     }
 
     /**
@@ -26,8 +25,8 @@ public class Organizer extends Attendee implements java.io.Serializable{
      * @param eid the event id
      */
     public void AddCreatedEvent (int eid) {
-        if (!created_event_list.contains(eid)) {
-            created_event_list.add(eid);
+        if (!createdEventList.contains(eid)) {
+            createdEventList.add(eid);
         }
     }
 
@@ -37,16 +36,16 @@ public class Organizer extends Attendee implements java.io.Serializable{
      * @return the list of event id this organizer created
      */
     public ArrayList<Integer> getCreatedEventList() {
-        return created_event_list;
+        return createdEventList;
     }
 
     @Override
     public String toString() {
         return "Organizer{" +
-                "uid=" + super.getUser_id() +
+                "uid=" + super.getUserId() +
                 ", username='" + super.getUserName() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
-                ", created_event_list=" + created_event_list +
+                ", created event list=" + createdEventList +
                 '}';
     }
 }

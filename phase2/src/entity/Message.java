@@ -3,20 +3,20 @@
  */
 public class Message implements java.io.Serializable {
     private String content;
-    private int sender_id;
-    private int receiver_id;
+    private int senderId;
+    private int receiverId;
 
     /**
      * Constructor of a message object.
      *
      * @param information the message content
-     * @param sender_id the sender id
-     * @param receiver_id the receiver id
+     * @param senderId the sender id
+     * @param receiverId the receiver id
      */
-    public Message(String information, int sender_id, int receiver_id){
+    public Message(String information, int senderId, int receiverId){
         this.content = information;
-        this.sender_id = sender_id;
-        this.receiver_id = receiver_id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Message implements java.io.Serializable {
      * @return the sender id of this message
      */
     public int getSenderId() {
-        return sender_id;
+        return senderId;
     }
 
     /**
@@ -43,15 +43,15 @@ public class Message implements java.io.Serializable {
      * @return the receiver id of this message
      */
     public int getReceiverId() {
-        return receiver_id;
+        return receiverId;
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "content='" + content + '\'' +
-                ", sender_id=" + sender_id +
-                ", receiver_id=" + receiver_id +
+                ", sender_id=" + senderId +
+                ", receiver_id=" + receiverId +
                 '}';
     }
 }

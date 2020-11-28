@@ -33,7 +33,7 @@ public abstract class User implements java.io.Serializable{
      *
      * @return the user id
      */
-    public int getUser_id() {
+    public int getUserId() {
         return uid;
     }
 

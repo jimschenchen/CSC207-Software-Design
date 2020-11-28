@@ -6,7 +6,7 @@ import java.util.List;
  */
 public class Attendee extends User implements java.io.Serializable{
 
-    private ArrayList<Integer> signed_up_event;
+    private ArrayList<Integer> signedUpEvent;
 
     /**
      * Constructor of a Attendee object.
@@ -17,7 +17,7 @@ public class Attendee extends User implements java.io.Serializable{
      */
     public Attendee(int uid,String password, String name) {
         super(uid, password, name);
-        this.signed_up_event = new ArrayList<>();
+        this.signedUpEvent = new ArrayList<>();
     }
 
     /**
@@ -26,7 +26,7 @@ public class Attendee extends User implements java.io.Serializable{
      * @param eid the event id
      */
     public void signUpEvent (int eid){
-            signed_up_event.add(eid);
+        signedUpEvent.add(eid);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Attendee extends User implements java.io.Serializable{
      * @param eid event id
      */
     public void cancelEvent (int eid){
-            signed_up_event.remove(eid);
+            signedUpEvent.remove(eid);
     }
 
     /**
@@ -43,16 +43,16 @@ public class Attendee extends User implements java.io.Serializable{
      * @return the list of signed up events' ids
      */
     public ArrayList<Integer> getEventList (){
-        return signed_up_event;
+        return signedUpEvent;
     }
 
     @Override
     public String toString() {
         return "Attendee{" +
-                "uid=" + super.getUser_id() +
+                "uid=" + super.getUserId() +
                 ", username='" + super.getUserName() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
-                ", signed_up_event=" + signed_up_event +
+                ", signed up event=" + signedUpEvent +
                 '}';
     }
 }

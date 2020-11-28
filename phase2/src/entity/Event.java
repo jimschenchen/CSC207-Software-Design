@@ -6,46 +6,46 @@ import java.time.LocalDateTime;
  * The Event class.
  */
 public class Event implements java.io.Serializable{
-    private LocalDateTime start_time;
-    private int speaker_id;
+    private LocalDateTime startTime;
+    private int speakerId;
     private String title;
-    private int room_id;
-    private ArrayList<Integer> singned_userid;
-    private int event_id;
+    private int roomId;
+    private ArrayList<Integer> singnedUserId;
+    private int eventId;
 
     /**
      * Constructor of an event object.
      *
      * @param start the start time of event
-     * @param event_id the event id
-     * @param speaker_id the speaker id of this event
+     * @param eventId the event id
+     * @param speakerId the speaker id of this event
      * @param topic the title of the event
-     * @param room_n the room number this event will be hold
+     * @param roomN the room number this event will be hold
      */
-    public Event(LocalDateTime start, int event_id, int speaker_id, String topic, int room_n){
-        this.start_time = start;
-        this.speaker_id = speaker_id;
+    public Event(LocalDateTime start, int eventId, int speakerId, String topic, int roomN){
+        this.startTime = start;
+        this.speakerId = speakerId;
         this.title = topic;
-        this.room_id = room_n;
-        this.singned_userid = new ArrayList<>();
-        this.event_id = event_id;
+        this.roomId = roomN;
+        this.singnedUserId = new ArrayList<>();
+        this.eventId = eventId;
     }
 
     /**
      * Remove a signed up user from this event.
      *
-     * @param user_id the user id
+     * @param userId the user id
      */
-    public void remove_user(int user_id){
-        singned_userid.remove(new Integer(user_id));
+    public void removeUser(int userId){
+        singnedUserId.remove(new Integer(userId));
     }
 
     /**
      * Add a user who want to sign up for this event.
-     * @param user_id the user id
+     * @param userId the user id
      */
-    public void add_user(int user_id){
-        singned_userid.add(user_id);
+    public void addUser(int userId){
+        singnedUserId.add(userId);
     }
 
     /**
@@ -53,8 +53,8 @@ public class Event implements java.io.Serializable{
      *
      * @return the start time
      */
-    public LocalDateTime getStart_time() {
-        return start_time;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Event implements java.io.Serializable{
      * @return the speaker id
      */
     public int getSpeakerId() {
-        return speaker_id;
+        return speakerId;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Event implements java.io.Serializable{
      * @return the room id this event will take place
      */
     public int getRoomId() {
-        return room_id;
+        return roomId;
     }
 
     /**
@@ -89,23 +89,23 @@ public class Event implements java.io.Serializable{
      *
      * @return the event id of this event
      */
-    public int getEvent_id() {
-        return event_id;
+    public int getEventId() {
+        return eventId;
     }
 
-    public ArrayList<Integer> getSingned_userid() {
-        return singned_userid;
+    public ArrayList<Integer> getSingnedUserId() {
+        return singnedUserId;
     }
 
-    public void setSpeaker_id(int speaker_id) {
-        this.speaker_id = speaker_id;
+    public void setSpeakerId(int speakerId) {
+        this.speakerId = speakerId;
     }
 
     @Override
     public String toString() {
         return "Event{" +
-                "speaker_id=" + speaker_id +
-                ", event_id=" + event_id +
+                "speaker id=" + speakerId +
+                ", event id=" + eventId +
                 '}';
     }
 }
