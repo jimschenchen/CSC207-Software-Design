@@ -7,10 +7,7 @@ import sun.jvm.hotspot.utilities.Assert;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @program: group_0173
@@ -538,8 +535,62 @@ public class Gateway {
     public static void main(String[] args) {
         Gateway gateway = new Gateway();
         gateway.init();
-        gateway.testCases();
-//        gateway.printDataBase();
+        Scanner scan = new Scanner(System.in);
+        String input = "";
+        while (!input.equals("0")) {
+            System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
+            System.out.println("Gateway: Welcome to Gateway CLI");
+            System.out.println("1. Display all data");
+            System.out.println("2. Check gateway errors");
+            System.out.println("3. Format Database");
+            System.out.println("0. Exit");
+            input = scan.nextLine();
+            switch (input) {
+                case "1":
+                    gateway.printDataBase();
+                    break;
+                case "2":
+                    gateway.testCases();
+                    break;
+                case "3":
+                    gateway.rmrf();
+                    break;
+                case "0":
+                    System.out.println("Gateway: CLI exit");
+                    break;
+                default:
+                    System.out.println("Gateway: Please type correct operation number");
+            }
+        }
+    }
+
+    private void rmrf() {
+        Jedis jedis = getJedis();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Gateway: Warning! Are you sure want to FORMAT Database! (N/Y)");
+        String input = scan.nextLine();
+        if (input.equals("Y")){
+            System.out.println("Gateway: FORMATTING Database ...");
+            System.out.print("Process:");
+            jedis.del(NEXT_USER_ID);
+            System.out.print("**");
+            jedis.del(NEXT_EVENT_ID);
+            System.out.print("**");
+            jedis.del(NEXT_ROOM_ID);
+            System.out.print("**");
+            jedis.del(USER_HASH);
+            System.out.print("**");
+            jedis.del(EVENT_HASH);
+            System.out.print("**");
+            jedis.del(ROOM_HASH);
+            System.out.print("**");
+            jedis.del(MESSAGE_LIST);
+            System.out.print("**");
+            System.out.println("\nGateway: Database has been formatted");
+        } else {
+            System.out.println("Gateway: Format operation cancelled");
+        }
+        closeJedis(jedis);
     }
 
     /** Enable '-ea' in VM option in config before testing*/
@@ -549,7 +600,7 @@ public class Gateway {
         testEvent ();
         testRoom ();
         testMessage();
-        System.out.println("Gateway: All tests passed");
+        System.out.println("\nGateway: All tests passed");
     }
     /** This method is used for test    */
     public void printDataBase () {
@@ -570,7 +621,6 @@ public class Gateway {
         System.out.println("+ Message List");
         getMessageList().forEach((m) -> System.out.println("    - " + m.toString()));
         System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
-        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
 
         // Close
         closeJedis(jedis);
@@ -583,6 +633,7 @@ public class Gateway {
         assert (getOrganizerById(0) == null);
         assert (getOrganizerById(1).getUserName().equals("JimO"));
         assert (getUserList().get(1).getClass().equals(Organizer.class));
+        System.out.print("**");
     }
 
     private void testEvent () {
@@ -590,12 +641,14 @@ public class Gateway {
         addEvent(new Event(LocalDateTime.now(), 1,125, "Second Event", 0));
         assert (getEventById(0).getTitle().equals("First Event"));
         assert (getEventList().get(1).getSpeakerId() == 125);
+        System.out.print("**");
     }
 
     private void testRoom () {
         addRoom(new Room("123313", 0));
         assert (getRoomById(0).getRoom_num().equals("123313"));
         assert (getRoomByRoomNum("123313").getRid() == 0);
+        System.out.print("**");
     }
 
     private void testMessage () {
@@ -604,7 +657,7 @@ public class Gateway {
         for(Message message : messageList) {
             check = (message.getInfo().equals("Hello Message") || check);
         }
-        if (check) {
+        if (!check) {
             Message m = new Message("Hello Message", 0, 1);
             addMessage(m);
         }
@@ -614,5 +667,6 @@ public class Gateway {
             check = (message.getInfo().equals("Hello Message") || check);
         }
         assert (check);
+        System.out.print("**");
     }
 }
