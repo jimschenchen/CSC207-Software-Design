@@ -43,7 +43,6 @@ public class SerUtils {
             fileIn.close();
             return db;
         } catch(IOException i) {
-            // i.printStackTrace();
             System.out.println("Database: Data File does not found, initializing new Data");
             DataBase d = new DataBase();
             d.firstOrganizer();

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * The Event class.
  */
 public class Event implements java.io.Serializable{
-    private LocalDateTime start_time; // think about time.localdatetime.
+    private LocalDateTime start_time;
     private int speaker_id;
     private String title;
     private int room_id;
@@ -107,9 +107,5 @@ public class Event implements java.io.Serializable{
                 "speaker_id=" + speaker_id +
                 ", event_id=" + event_id +
                 '}';
-    }
-
-    public void addSigned_userId(User user) {
-        this.singned_userid.add(user.getUser_id());
     }
 }

@@ -3,31 +3,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-//!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
-// FEEL FREE TO ADD THEM!!! THANKSSSS :)
-
 /**
  * The Event Manager class
  */
 public class EventManager {
 
-    //don't need these instance
-//    private int event_id;
-//    private int speaker_id;
-//    private String title;
-//
-//don't need these setter
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public void setEventId(int event_id) {
-//        this.event_id = event_id;
-//    }
-//
-//    public void setSpeakerId(int speaker_id) {
-//        this.speaker_id = speaker_id;
-//    }
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
 
     /**
@@ -48,8 +29,6 @@ public class EventManager {
         return true;
     }
 
-    // return eventID of the newly created event
-
     /**
      * Create a new event
      * @param start the start time
@@ -64,16 +43,6 @@ public class EventManager {
         d.addEvent(nEvent);
         return nEvent.getEvent_id();
     }
-
-// this method is never used
-//    public boolean addEventToDB(Event new_event, DataBase db){
-//        boolean value = canCreateEvent(new_event.getRoomId(), new_event.getStart_time(), db);
-//        if(value == true){
-//            db.addEvent(new_event);
-//            return true;
-//        }
-//        return false;
-//    }
 
     /**
      * Set a new speaker to the exist event
@@ -142,36 +111,6 @@ public class EventManager {
         d.getEventById(eventId).remove_user(userId);
     }
 
-    // methods never used
-//    public LocalDateTime getStart_time(Event event) {
-//        return event.getStart_time();
-//    }
-//
-//    public int getSpeakerId(Event event) {
-//        return event.getSpeakerId();
-//    }
-//
-//    public String getTitle(Event event) {
-//        return event.getTitle();
-//    }
-//
-//    public int getRoomId(Event event) {
-//        return event.getRoomId();
-//    }
-//
-//    public int getEvent_id(Event event) {
-//        return event.getEvent_id();
-//    }
-
-//    public List<User> getUserList(Event event, DataBase bd){
-//        ArrayList<User> all_User= new ArrayList<>();
-//        ArrayList<Integer> allUserID = event.getSingned_userid();
-//        for (Integer integer : allUserID) {
-//            all_User.add(bd.getUserById(integer));
-//        }
-//        return all_User;
-//    }
-
     /**
      * A getter for the all signed up user of and event
      *
@@ -184,14 +123,6 @@ public class EventManager {
         return event.getSingned_userid();
     }
 
-//    public List<Event> getEventList(DataBase bd) {
-//        ArrayList<Event> all_Events = new ArrayList<>();
-//        List<Event> events = bd.getEventList();
-//        for (Event e : events) {
-//            all_Events.add(bd.getEventById(e.getEvent_id()));
-//        }
-//        return all_Events;
-//    }
 
     /**
      * A getter for ids of all events in the database
@@ -236,13 +167,3 @@ public class EventManager {
     }
 }
 
-
-
-//    read events from database and create map of events with key (room) and value (event) sorted by time.
-//        create a new event if it is not conflict with current events.
-//        save new event to database and add it to list.
-//        set the Speaker for event
-//        add new signed up user to the event.
-//        delete current signed up user from event.
-//        getter for start time, room, speaker, user list
-//        getter for the event list

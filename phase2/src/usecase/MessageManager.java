@@ -2,12 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 public class MessageManager {
 
-    private int senderId;
-
-    public void setSender_id(int i) {
-        this.senderId = i;
-    }
-
     public void message_allusers(int eventId, int senderId, String content, DataBase d){
         /**
          * @Description: message all signed up users in an event

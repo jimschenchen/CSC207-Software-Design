@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//!!!ADD FUNCTION NAMES IF YOU THINK NECESSARY!!!!!!
-// FEEL FREE TO ADD THEM!!! THANKSSSS :)
-
 /**
  * The Room Manager class
  */

@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * CSC207.Store All the Data
  */
 public class DataBase implements Serializable {
@@ -352,21 +352,4 @@ public class DataBase implements Serializable {
         addUser(o);
     }
 
-// This method is used for test
-//    public void printDataBase () {
-//        System.out.println("DataBase: Data for testing");
-//        System.out.println("---------- ---------- ---------- ----------");
-//        System.out.println("+ UserNextId: " + this.nextUserId);
-//        System.out.println("+ EventNextId: " + this.nextEventId);
-//        System.out.println("+ RoomNextId: " + this.nextRoomId);
-//        System.out.println("+ User List");
-//        getUserList().forEach((u) -> System.out.println("   - " + u.toString()));
-//        System.out.println("+ Event List");
-//        getEventList().forEach((e) -> System.out.println("  - " + e.toString()));
-//        System.out.println("+ Room List");
-//        getRoomList().forEach((r) -> System.out.println("   - " + r.toString()));
-//        System.out.println("+ Message List");
-//        getMessageList().forEach((m) -> System.out.println("    - " + m.toString()));
-//        System.out.println("---------- ---------- ---------- ----------");
-//    }
 }
