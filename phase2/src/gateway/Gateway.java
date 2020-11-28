@@ -3,7 +3,6 @@ import com.google.gson.GsonBuilder;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
@@ -148,7 +147,6 @@ public class Gateway {
     }
     private void deleteFromHash(String key, int id) {
         Jedis jedis = getJedis();
-        String type = jedis.type(key);
         jedis.hdel(key, String.valueOf(id));
         closeJedis(jedis);
     }
