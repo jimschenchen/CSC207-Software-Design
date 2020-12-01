@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpWindow extends JFrame{
+public class SignUpWindow extends JFrame implements IWindow{
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;
@@ -19,7 +19,7 @@ public class SignUpWindow extends JFrame{
         init();
     }
 
-    private void init(){
+    public void init(){
         language = new English();
         setLayout(null);
         usernameLabel = new JLabel(language.username());

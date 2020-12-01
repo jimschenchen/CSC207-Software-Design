@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //All the windows are the UI
-public class LoginWindow extends JFrame {
+public class LoginWindow extends JFrame implements IWindow{
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;

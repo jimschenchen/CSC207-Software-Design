@@ -3,7 +3,7 @@ package presenter;
 import javax.swing.*;
 import java.awt.*;
 
-public class LanguageWindow extends JFrame{
+public class LanguageWindow extends JFrame implements IWindow{
     ButtonGroup buttonGroup;
     JRadioButton simplifiedChineseButton;
     JRadioButton englishButton;
@@ -76,5 +76,6 @@ public class LanguageWindow extends JFrame{
         setVisible(true);
 
     }
+
 
 }

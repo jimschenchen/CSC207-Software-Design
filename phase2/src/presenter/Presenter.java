@@ -38,12 +38,12 @@ public class Presenter {
      * @Date: 2020-11-15
      */
     public void Introduction() {
-        try{
-            cs.init();
-        } catch (IOException e){
-            model.MessageErr();
-        }
-        model.Introduction();
+        //try{
+           // cs.init();
+       // } catch (IOException e){
+        //    model.MessageErr();
+       // }
+        //model.Introduction();
     }
 
     private void SignUp(){
