@@ -7,16 +7,18 @@ public class SignUpWindow extends JFrame{
     JTextField usernameText;
     JTextField passwordText;
     JButton okButton;
-    JButton exitButton;
+    JButton backButton;
     Font defaultFont = new Font("Mononspace", 1, 25);
+    Language language;
 
     public SignUpWindow(){
         init();
     }
 
     private void init(){
+        language = new English();
         setLayout(null);
-        usernameLabel = new JLabel("Username: ");
+        usernameLabel = new JLabel(language.username());
         usernameLabel.setBounds(50,30, 200, 80);
         usernameLabel.setFont(defaultFont);
         add(usernameLabel);
@@ -26,7 +28,7 @@ public class SignUpWindow extends JFrame{
         usernameText.setFont(defaultFont);
         add(usernameText);
 
-        passwordLabel = new JLabel("Password: ");
+        passwordLabel = new JLabel(language.password());
         passwordLabel.setBounds(50, 160, 200, 80);
         passwordLabel.setFont(defaultFont);
         add(passwordLabel);
@@ -36,17 +38,17 @@ public class SignUpWindow extends JFrame{
         passwordText.setFont(defaultFont);
         add(passwordText);
 
-        okButton = new JButton("OK");
+        okButton = new JButton(language.ok());
         okButton.setBounds(100, 325, 100,75);
         okButton.setFont(defaultFont);
         add(okButton);
 
-        exitButton = new JButton("Exit");
-        exitButton.setBounds(300, 325, 100,75);
-        exitButton.setFont(defaultFont);
-        add(exitButton);
+        backButton = new JButton(language.back());
+        backButton.setBounds(300, 325, 100,75);
+        backButton.setFont(defaultFont);
+        add(backButton);
 
-        setTitle("You are signing up!");
+        setTitle(language.titleSignUp());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(500, 450);
         setLocation(450,200);
