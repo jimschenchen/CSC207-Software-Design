@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginWindow extends JFrame {
     JLabel usernameLabel;
@@ -11,6 +13,7 @@ public class LoginWindow extends JFrame {
     JButton signUpButton;
     Font defaultFont = new Font("Mononspace", 1, 25);
     Language language;
+    ConferenceSystem cs = new ConferenceSystem();
 
     public LoginWindow(){//The language is English By default
         language = new English();
@@ -64,5 +67,22 @@ public class LoginWindow extends JFrame {
         setSize(600, 500);
         setLocation(450,200);
         setVisible(true);
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int type = cs.login(usernameText.getText(), passwordText.getText());
+                //Need to make more window to implements the following
+            }
+        });
+
     }
 }
+
