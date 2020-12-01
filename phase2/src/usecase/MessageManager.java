@@ -1,5 +1,9 @@
+package usecase;
+
 import java.util.ArrayList;
 import java.util.List;
+import entity.*;
+import gateway.Gateway;
 public class MessageManager {
 
     public void messageAllUsers(int eventId, int senderId, String content, Gateway g){

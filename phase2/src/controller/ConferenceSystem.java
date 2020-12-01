@@ -1,10 +1,11 @@
+package controller;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+import usecase.*;
+import gateway.Gateway;
 
 public class ConferenceSystem {
 
@@ -17,6 +18,8 @@ public class ConferenceSystem {
     private UserManager um = new UserManager();
     private Gateway gw = new Gateway();
     private int user;
+    private MessagingSystem ms = new MessagingSystem();
+    private ViewingSystem vs = new ViewingSystem();
 //
 //    /**
 //    * @Description: Initialization of Gateway and Databse
@@ -80,6 +83,8 @@ public class ConferenceSystem {
             String dbPassword = um.getUserPassword(username, gw);
             if (dbPassword.equals(password)){
                 this.user = um.getUserID(username, gw);
+                ms.setUser(this.user);
+                vs.setUser(this.user);
                 return um.getUserCategory(this.user, gw);
             }
         }
@@ -139,17 +144,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
     public boolean messageAllAttendeesInEvent(String eventID, String content){
-        try{
-            int eID = Integer.parseInt(eventID);
-            if (em.isExistingEvent(eID, gw)){
-                mm.messageAllUsers(eID, user, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageAllAttendeesInEvent(eventID, content, gw);
     }
 
     /**
@@ -159,11 +154,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, else return false.
      */
     public boolean messageAllUsersInAllSpeakingEvents(String content){
-        if (um.isExistingSpeaker(user, gw)){
-            mm.messageAllUsersInAllSpeakingEvents(user, content, gw);
-            return true;
-        }
-        return false;
+        return ms.messageAllUsersInAllSpeakingEvents(content, gw);
     }
 
     /**
@@ -175,18 +166,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
     public boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String content){
-        try{
-            int eID = Integer.parseInt(eventID);
-            int reID = Integer.parseInt(receiverID);
-            if (em.isExistingEvent(eID, gw) && mm.canMessageAttendeeOfEvent(eID, reID, gw)){
-                mm.messageOneUser(user, reID, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageOneSpecificUserInEvent(eventID, receiverID, content, gw);
     }
 
     /**
@@ -196,11 +176,7 @@ public class ConferenceSystem {
      * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
      */
     public boolean messageAllSpeakers(String content){
-        if (mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
-            mm.messageAllSpeakers(content, user, gw);
-            return true;
-        }
-        return false;
+        return ms.messageAllSpeakers(content, gw);
     }
 
     /**
@@ -212,17 +188,7 @@ public class ConferenceSystem {
      * is not allowed to message the speaker.
      */
     public boolean messageSpeaker(String receiverID, String content){
-        try{
-            int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageSpeaker(user, rID, gw)){
-                mm.messageOneUser(user, rID, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageSpeaker(receiverID, content, gw);
     }
 
     /**
@@ -233,11 +199,7 @@ public class ConferenceSystem {
      * perform this action.
      */
     public boolean messageAllAttendee(String content){
-        if(mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
-            mm.messageAllAttendees(user, content, gw);
-            return true;
-        }
-        return false;
+        return ms.messageAllAttendee(content, gw);
     }
 
     /**
@@ -249,17 +211,7 @@ public class ConferenceSystem {
      * attendee, or input is invalid.
      */
     public boolean messageAttendee(String receiverID, String content){
-        try{
-            int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageAttendee(user, rID, gw)){
-                mm.messageOneUser(user, rID, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageAttendee(receiverID, content, gw);
     }
 
     /**
@@ -268,7 +220,7 @@ public class ConferenceSystem {
      * @return List of Strings representing the messages the user sent.
      */
     public List<String> readSentMessages(){
-        return mm.getSentMessageListByUserId(user, gw);
+        return ms.readSentMessages(gw);
     }
 
     /**
@@ -277,7 +229,7 @@ public class ConferenceSystem {
      * @return List of Strings representing the messages the user reveived.
      */
     public List<String> readReceivedMessages(){
-        return mm.getReceivedMessageListByUserId(user, gw);
+        return ms.readReceivedMessages(gw);
     }
 
     /**
@@ -289,17 +241,7 @@ public class ConferenceSystem {
      * message.
      */
     public boolean replyMessage(String messageIndex, String content){
-        try{
-            int mIndex = Integer.parseInt(messageIndex);
-            if (mm.canReplyMessage(user, mIndex, gw)){
-                mm.replyMessage(content, user, mIndex, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.replyMessage(messageIndex, content, gw);
     }
 
     /**
@@ -435,18 +377,28 @@ public class ConferenceSystem {
         }
     }
 
+    public boolean cancelEvent(String eventID){
+        try{
+            int eID = Integer.parseInt(eventID);
+            if (um.canCancelEvent(user, eID, gw) && em.canCancelEvent(eID, gw)){
+                um.cancelEvent(eID, gw);
+                em.cancelEvent(eID, gw);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
+    }
+
     /**
      * Return all events that are currently scheduled.
      *
      * @return List of Strings of the events
      */
     public List<String> viewEvents(){
-        List<Integer> events = em.getEventList(gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewEvents(gw);
     }
 
     /**
@@ -455,12 +407,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewSignedUpEvents(){
-        List<Integer> events = um.getOrganizerOrAttendeeEventList(user, gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewSignedUpEvents(gw);
     }
 
     /**
@@ -469,12 +416,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewOrganizedEvents(){
-        List<Integer> events = um.getOrganizedEventList(user, gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewOrganizedEvents(gw);
     }
 
     /**
@@ -483,12 +425,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewSpeakingEvents(){
-        List<Integer> events = um.getSpeakerEventList(user, gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewSpeakingEvents(gw);
     }
 
     /**
@@ -497,14 +434,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewCanSignUpEvents(){
-        List<Integer> allEvents = em.getEventList(gw);
-        List<String> events = new ArrayList<>();
-        for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, gw) && em.canAddUserToEvent(user, eventID, gw)){
-                events.add(em.getStringOfEvent(eventID, gw));
-            }
-        }
-        return events;
+        return vs.viewCanSignUpEvents(gw);
     }
 
     /**
@@ -514,17 +444,7 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formated as follows: "UserName (userID)"
      */
     public List<String> viewAttendeesInSpeakingEvents(){
-        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, gw);
-        Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
-        List<String> sAllAttendeesInEvents = new ArrayList<>();
-        for (Integer eventID : allSpeakingEvents){
-            List<Integer> usersInEvent = em.getUserList(eventID, gw);
-            allAttendeesInEvents.addAll(usersInEvent);
-        }
-        for (Integer userID : allAttendeesInEvents){
-            sAllAttendeesInEvents.add(um.getUserString(userID, gw));
-        }
-        return sAllAttendeesInEvents;
+        return vs.viewAttendeesInSpeakingEvents(gw);
     }
 
     /**
@@ -534,12 +454,7 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllAttendees(){
-        List<Integer> allAttendees = um.getListOfUsers(2, gw);
-        List<String> sAllAttendees = new ArrayList<>();
-        for (Integer userID : allAttendees){
-            sAllAttendees.add(um.getUserString(userID, gw));
-        }
-        return sAllAttendees;
+        return vs.viewAllAttendees(gw);
     }
 
     /**
@@ -549,12 +464,7 @@ public class ConferenceSystem {
      * Every speaker is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllSpeakers(){
-        List<Integer> allSpeakers = um.getListOfUsers(0, gw);
-        List<String> sAllSpeakers = new ArrayList<>();
-        for (Integer userID : allSpeakers){
-            sAllSpeakers.add(um.getUserString(userID, gw));
-        }
-        return sAllSpeakers;
+        return vs.viewAllSpeakers(gw);
     }
 
     /**
@@ -564,11 +474,6 @@ public class ConferenceSystem {
      * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
      */
     public List<String> viewAllRooms(){
-        List<Room> allRooms = rm.getListOfRooms(gw);
-        List<String> sAllRooms = new ArrayList<>();
-        for (Room r: allRooms) {
-            sAllRooms.add(rm.getRoomString(r.getRid(), gw));
-        }
-        return sAllRooms;
+        return vs.viewAllRooms(gw);
     }
 }

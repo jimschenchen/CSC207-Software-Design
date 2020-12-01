@@ -1,4 +1,8 @@
+package usecase;
+
 import java.util.List;
+import entity.Room;
+import gateway.Gateway;
 
 /**
  * The Room Manager class

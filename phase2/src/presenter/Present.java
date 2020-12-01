@@ -1,10 +1,11 @@
-import java.io.IOException;
+package presenter;
+
+import javax.swing.*;
 
 public class Present {
-    public static void main(String[] args) throws IOException {
-        ViewModel model = new ViewModel();
-        Presenter p = new Presenter(model);
-        p.Introduction();
-        p.IsUserRegistered();
+    public static void main(String[] args) {
+        //LoginWindow loginWindow = new LoginWindow();
+        //SignUpWindow signUpWindow = new SignUpWindow();
+        LanguageWindow languageWindow = new LanguageWindow(new English());
     }
 }
