@@ -1,3 +1,5 @@
+package controller;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -5,6 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import usecase.*;
+import gateway.Gateway;
 
 public class ConferenceSystem {
 
@@ -17,6 +21,7 @@ public class ConferenceSystem {
     private UserManager um = new UserManager();
     private Gateway gw = new Gateway();
     private int user;
+    private MessagingSystem ms = new MessagingSystem();
 //
 //    /**
 //    * @Description: Initialization of Gateway and Databse
@@ -80,6 +85,7 @@ public class ConferenceSystem {
             String dbPassword = um.getUserPassword(username, gw);
             if (dbPassword.equals(password)){
                 this.user = um.getUserID(username, gw);
+                ms.setUser(this.user);
                 return um.getUserCategory(this.user, gw);
             }
         }
@@ -139,17 +145,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
     public boolean messageAllAttendeesInEvent(String eventID, String content){
-        try{
-            int eID = Integer.parseInt(eventID);
-            if (em.isExistingEvent(eID, gw)){
-                mm.messageAllUsers(eID, user, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageAllAttendeesInEvent(eventID, content, gw);
     }
 
     /**
@@ -159,11 +155,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, else return false.
      */
     public boolean messageAllUsersInAllSpeakingEvents(String content){
-        if (um.isExistingSpeaker(user, gw)){
-            mm.messageAllUsersInAllSpeakingEvents(user, content, gw);
-            return true;
-        }
-        return false;
+        return ms.messageAllUsersInAllSpeakingEvents(content, gw);
     }
 
     /**
@@ -175,18 +167,7 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
     public boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String content){
-        try{
-            int eID = Integer.parseInt(eventID);
-            int reID = Integer.parseInt(receiverID);
-            if (em.isExistingEvent(eID, gw) && mm.canMessageAttendeeOfEvent(eID, reID, gw)){
-                mm.messageOneUser(user, reID, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageOneSpecificUserInEvent(eventID, receiverID, content, gw);
     }
 
     /**
@@ -196,11 +177,7 @@ public class ConferenceSystem {
      * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
      */
     public boolean messageAllSpeakers(String content){
-        if (mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
-            mm.messageAllSpeakers(content, user, gw);
-            return true;
-        }
-        return false;
+        return ms.messageAllSpeakers(content, gw);
     }
 
     /**
@@ -212,17 +189,7 @@ public class ConferenceSystem {
      * is not allowed to message the speaker.
      */
     public boolean messageSpeaker(String receiverID, String content){
-        try{
-            int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageSpeaker(user, rID, gw)){
-                mm.messageOneUser(user, rID, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ms.messageSpeaker(receiverID, content, gw);
     }
 
     /**
@@ -233,11 +200,7 @@ public class ConferenceSystem {
      * perform this action.
      */
     public boolean messageAllAttendee(String content){
-        if(mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
-            mm.messageAllAttendees(user, content, gw);
-            return true;
-        }
-        return false;
+        return ms.messageAllAttendee(content, gw);
     }
 
     /**
@@ -249,17 +212,7 @@ public class ConferenceSystem {
      * attendee, or input is invalid.
      */
     public boolean messageAttendee(String receiverID, String content){
-        try{
-            int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageAttendee(user, rID, gw)){
-                mm.messageOneUser(user, rID, content, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        ms.messageAttendee(receiverID, content, gw);
     }
 
     /**
@@ -289,17 +242,7 @@ public class ConferenceSystem {
      * message.
      */
     public boolean replyMessage(String messageIndex, String content){
-        try{
-            int mIndex = Integer.parseInt(messageIndex);
-            if (mm.canReplyMessage(user, mIndex, gw)){
-                mm.replyMessage(content, user, mIndex, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        ms.replyMessage(messageIndex, content, gw);
     }
 
     /**

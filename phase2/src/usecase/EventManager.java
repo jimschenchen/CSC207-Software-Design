@@ -1,7 +1,11 @@
+package usecase;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import entity.*;
+import gateway.Gateway;
 
 /**
  * The Event Manager class

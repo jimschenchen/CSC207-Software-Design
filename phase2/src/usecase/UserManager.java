@@ -1,6 +1,10 @@
+package usecase;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import entity.*;
+import gateway.Gateway;
 
 
 public class UserManager {
