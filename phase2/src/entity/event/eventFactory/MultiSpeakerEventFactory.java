@@ -1,5 +1,8 @@
+package event.eventFactory;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import event.event.*;
 
 public class MultiSpeakerEventFactory extends AbstractEventFactory{
     @Override
