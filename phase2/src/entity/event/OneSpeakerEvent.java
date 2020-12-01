@@ -16,4 +16,10 @@ public abstract class OneSpeakerEvent extends Event{
     public void setSpeakerId(int speakerId) {
         this.speakerId = speakerId;
     }
+
+
+    @Override
+    public void setSpeaker(int speakerId) {
+        this.speakerId = speakerId;
+    }
 }

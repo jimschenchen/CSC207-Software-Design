@@ -45,10 +45,20 @@ public class EventManager {
      * @param g the database
      * @return the new event id
      */
-    public int createEvent(int type1, int type2, LocalDateTime start,
+    public int createEvent(int type1, int type2, int speakerId, LocalDateTime start,
                            LocalDateTime end, String title, int roomId, int capacity, Gateway g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
+        nEvent.setSpeaker(speakerId);
+        g.addEvent(nEvent);
+        return nEvent.getEventId();
+    }
+
+    public int createEvent(int type1, int type2, ArrayList<Integer> speakerList, LocalDateTime start,
+                           LocalDateTime end, String title, int roomId, int capacity, Gateway g){
+        Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
+                g.getNextEventId(), title, roomId, capacity);
+        nEvent.setSpeaker(speakerList);
         g.addEvent(nEvent);
         return nEvent.getEventId();
     }

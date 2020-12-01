@@ -78,4 +78,10 @@ public abstract class  Event {
     public void removeUser(int userId) {
         signedUserList.remove(userId);
     };
+
+    public abstract void setSpeaker();
+
+    public abstract void setSpeaker(ArrayList<Integer> speakerList);
+
+    public abstract void setSpeaker(int speakerId);
 }

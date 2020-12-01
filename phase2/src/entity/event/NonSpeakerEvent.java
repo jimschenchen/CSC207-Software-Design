@@ -8,4 +8,10 @@ public abstract class NonSpeakerEvent extends Event{
                            int eventId, String title, int roomId, int capacity) {
         super(startTime, endTime, eventId, title, roomId, capacity);
     }
+
+
+    @Override
+    public void setSpeaker() {
+
+    }
 }

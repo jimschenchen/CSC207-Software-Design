@@ -359,13 +359,18 @@ public class ConferenceSystem {
      * @param roomNumber Room number of the location of this event.
      * @return Return true if successfully created a new event into the system, false otherwise.
      */
-    public boolean newEvent(String startTime, String speakerID, String topic, String roomNumber){
+    public boolean newEvent(String type1, String type2, String startTime, String endTime, String speakerID,
+                            String topic, String roomNumber, String capacity){
         try{
+            int type3 = Integer.parseInt(type1);
+            int type4 = Integer.parseInt(type2);
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
+            LocalDateTime eTime = LocalDateTime.parse(endTime, em.getStartTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
-            if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, gw) && um.isSpeakerBusy(sID,sTime, gw)){
-                int eventID = em.createEvent(sTime, sID, topic, rID, gw);
+            int cap = Integer.parseInt(capacity);
+            if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime,gw) && um.isSpeakerBusy(sID,sTime, gw)){
+                int eventID = em.createEvent(type3, type4, sID, sTime, eTime, topic, rID, cap, gw);
                 um.addEventToOrganizedList(eventID, user, gw);
                 um.addEventToSpeaker(eventID, sID, gw);
                 return true;
