@@ -12,10 +12,10 @@ public class SignUpWindow extends JFrame{
     JTextField passwordText;
     JButton okButton;
     JButton backButton;
-    Font defaultFont = new Font("Mononspace", 1, 25);
+    Font defaultFont = new Font("Mononspace", 1, 20);
     Language language;
 
-    public SignUpWindow(){
+    public SignUpWindow(Language language){
         init();
     }
 

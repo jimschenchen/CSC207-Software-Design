@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Present {
     public static void main(String[] args) {
-
-        //JFrame loginWindow = new LoginWindow();
-        JFrame signUpWindow = new SignUpWindow();
+        //LoginWindow loginWindow = new LoginWindow();
+        //SignUpWindow signUpWindow = new SignUpWindow();
+        LanguageWindow languageWindow = new LanguageWindow(new English());
     }
 }
