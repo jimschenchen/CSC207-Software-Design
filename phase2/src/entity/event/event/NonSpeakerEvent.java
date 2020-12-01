@@ -1,3 +1,5 @@
+package event.event;
+
 import java.time.LocalDateTime;
 
 public abstract class NonSpeakerEvent extends Event{

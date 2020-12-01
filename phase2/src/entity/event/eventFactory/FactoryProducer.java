@@ -1,3 +1,5 @@
+package event.eventFactory;
+
 public class FactoryProducer {
 
     public static AbstractEventFactory getFactory(int type){
