@@ -1,53 +1,53 @@
 package presenter;
 
-public class English implements Language {
+public class SimplifiedChinese implements Language{
     @Override
     public String username(){
-        return ("Username:");
+        return ("用户名：");
     };
 
     @Override
     public String password(){
-        return ("Password: ");
+        return ("密码: ");
     };
 
     @Override
     public String signUpAccount(){
-        return ("Sign up for free now!");
+        return ("免费注册账户！");
     };
 
     @Override
     public String ok(){
-        return ("OK");
+        return ("确认");
     };
 
     @Override
     public String exit(){
-        return ("Exit");
+        return ("退出");
     };
 
     @Override
     public String titleLogin(){
-        return ("Welcome to the Best Conference in the World! ");
+        return ("欢迎来到最NB的会议");
     };
 
     @Override
     public String back() {
-        return ("Back");
+        return ("返回");
     }
 
     @Override
     public String titleSignUp() {
-        return ("You are signing up!");
+        return ("你正在注册!");
     }
 
     @Override
     public String language(){
-        return ("English");
+        return("语言");
     }
 
     @Override
     public String selectLanguage(){
-        return("Select your language! ");
+        return("选择语言！ ");
     }
 }

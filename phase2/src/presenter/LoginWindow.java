@@ -14,6 +14,7 @@ public class LoginWindow extends JFrame {
     JButton okButton;
     JButton exitButton;
     JButton signUpButton;
+    JButton languageButton;
     Font defaultFont = new Font("Mononspace", 1, 25);
     Language language;
     ConferenceSystem cs = new ConferenceSystem();
@@ -51,9 +52,14 @@ public class LoginWindow extends JFrame {
         add(passwordText);
 
         signUpButton = new JButton(language.signUpAccount());
-        signUpButton.setBounds(50, 275, 500, 80);
+        signUpButton.setBounds(50, 275, 350, 80);
         signUpButton.setFont(defaultFont);
         add(signUpButton);
+
+        languageButton = new JButton();
+        languageButton.setBounds(500, 275, 100,80);
+        languageButton.setFont(defaultFont);
+        add(languageButton);
 
         okButton = new JButton(language.ok());
         okButton.setBounds(100, 375, 100,75);
@@ -65,11 +71,14 @@ public class LoginWindow extends JFrame {
         exitButton.setFont(defaultFont);
         add(exitButton);
 
+
         setTitle(language.titleLogin());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600, 500);
         setLocation(450,200);
         setVisible(true);
+
+
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -89,9 +98,12 @@ public class LoginWindow extends JFrame {
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignUpWindow signUpWindow = new SignUpWindow();
+                SignUpWindow signUpWindow = new SignUpWindow(language);
+                dispose();
             }
         });
+
+
 
     }
 }

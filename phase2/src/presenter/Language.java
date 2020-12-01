@@ -9,4 +9,6 @@ public interface Language {
     public String back();
     public String titleLogin();
     public String titleSignUp();
+    public String language();
+    public String selectLanguage();
 }
