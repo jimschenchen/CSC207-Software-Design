@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import controller.*;
-
+//All the windows are the UI
 public class LoginWindow extends JFrame {
     JLabel usernameLabel;
     JLabel passwordLabel;
@@ -17,7 +16,6 @@ public class LoginWindow extends JFrame {
     JButton languageButton;
     Font defaultFont = new Font("Mononspace", 1, 25);
     Language language;
-    ConferenceSystem cs = new ConferenceSystem();
 
     public LoginWindow(){//The language is English By default
         language = new English();
@@ -90,8 +88,7 @@ public class LoginWindow extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int type = cs.login(usernameText.getText(), passwordText.getText());
-                //Need to make more window to implements the following
+                //Call the Presenter to presenter
             }
         });
 
