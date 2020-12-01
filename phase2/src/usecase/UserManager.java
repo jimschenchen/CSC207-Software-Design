@@ -267,4 +267,25 @@ public class UserManager {
         return g.getOrganizerById(userID) != null;
     }
 
+    public boolean canCancelEvent(int userID, int eventID, Gateway gw) {
+        // only the organizer who organized the event can cancel the event
+        try{
+            Organizer user = gw.getOrganizerById(userID);
+            return user.getCreatedEventList().contains(eventID);
+            }
+        catch(NullPointerException npe){
+            return false; // return false when userID is not pointing to organizer
+        }
+        // any organizer can cancel an event
+        // return isExistingOrganizer(userID, gw);
+    }
+
+    public void cancelEvent(int eventID, Gateway gw) {
+        Event event = gw.getEventById(eventID);
+        List<Integer> userList = event.getSingnedUserId();
+        for (Integer userID : userList){
+            Attendee user = (Attendee) gw.getUserById(userID);
+            user.cancelEvent(eventID);
+        }
+    }
 }

@@ -169,5 +169,13 @@ public class EventManager {
     public boolean isExistingEvent(int eventID, Gateway g){
         return g.getEventById(eventID) != null;
     }
+
+    public boolean canCancelEvent(int eventID, Gateway gw) {
+        return isExistingEvent(eventID, gw);
+    }
+
+    public void cancelEvent(int eventID, Gateway gw) {
+        gw.deleteEvent(gw.getEventById(eventID));
+    }
 }
 

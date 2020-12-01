@@ -212,7 +212,7 @@ public class ConferenceSystem {
      * attendee, or input is invalid.
      */
     public boolean messageAttendee(String receiverID, String content){
-        ms.messageAttendee(receiverID, content, gw);
+        return ms.messageAttendee(receiverID, content, gw);
     }
 
     /**
@@ -242,7 +242,7 @@ public class ConferenceSystem {
      * message.
      */
     public boolean replyMessage(String messageIndex, String content){
-        ms.replyMessage(messageIndex, content, gw);
+        return ms.replyMessage(messageIndex, content, gw);
     }
 
     /**
@@ -375,6 +375,21 @@ public class ConferenceSystem {
         }
         catch(DateTimeParseException | NullPointerException ex){
             return false; // return false on invalid input
+        }
+    }
+
+    public boolean cancelEvent(String eventID){
+        try{
+            int eID = Integer.parseInt(eventID);
+            if (um.canCancelEvent(user, eID, gw) && em.canCancelEvent(eID, gw)){
+                um.cancelEvent(eID, gw);
+                em.cancelEvent(eID, gw);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
         }
     }
 
