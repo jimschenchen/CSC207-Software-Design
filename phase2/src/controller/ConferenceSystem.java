@@ -3,10 +3,7 @@ package controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import usecase.*;
 import gateway.Gateway;
 
@@ -22,6 +19,7 @@ public class ConferenceSystem {
     private Gateway gw = new Gateway();
     private int user;
     private MessagingSystem ms = new MessagingSystem();
+    private ViewingSystem vs = new ViewingSystem();
 //
 //    /**
 //    * @Description: Initialization of Gateway and Databse
@@ -86,6 +84,7 @@ public class ConferenceSystem {
             if (dbPassword.equals(password)){
                 this.user = um.getUserID(username, gw);
                 ms.setUser(this.user);
+                vs.setUser(this.user);
                 return um.getUserCategory(this.user, gw);
             }
         }
@@ -221,7 +220,7 @@ public class ConferenceSystem {
      * @return List of Strings representing the messages the user sent.
      */
     public List<String> readSentMessages(){
-        return mm.getSentMessageListByUserId(user, gw);
+        return ms.readSentMessages(gw);
     }
 
     /**
@@ -230,7 +229,7 @@ public class ConferenceSystem {
      * @return List of Strings representing the messages the user reveived.
      */
     public List<String> readReceivedMessages(){
-        return mm.getReceivedMessageListByUserId(user, gw);
+        return ms.readReceivedMessages(gw);
     }
 
     /**
@@ -399,12 +398,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewEvents(){
-        List<Integer> events = em.getEventList(gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewEvents(gw);
     }
 
     /**
@@ -413,12 +407,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewSignedUpEvents(){
-        List<Integer> events = um.getOrganizerOrAttendeeEventList(user, gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewSignedUpEvents(gw);
     }
 
     /**
@@ -427,12 +416,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewOrganizedEvents(){
-        List<Integer> events = um.getOrganizedEventList(user, gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewOrganizedEvents(gw);
     }
 
     /**
@@ -441,12 +425,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewSpeakingEvents(){
-        List<Integer> events = um.getSpeakerEventList(user, gw);
-        List<String> sEvents = new ArrayList<>();
-        for (Integer eventID : events){
-            sEvents.add(em.getStringOfEvent(eventID, gw));
-        }
-        return sEvents;
+        return vs.viewSpeakingEvents(gw);
     }
 
     /**
@@ -455,14 +434,7 @@ public class ConferenceSystem {
      * @return List of Strings of the events
      */
     public List<String> viewCanSignUpEvents(){
-        List<Integer> allEvents = em.getEventList(gw);
-        List<String> events = new ArrayList<>();
-        for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, gw) && em.canAddUserToEvent(user, eventID, gw)){
-                events.add(em.getStringOfEvent(eventID, gw));
-            }
-        }
-        return events;
+        return vs.viewCanSignUpEvents(gw);
     }
 
     /**
@@ -472,17 +444,7 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formated as follows: "UserName (userID)"
      */
     public List<String> viewAttendeesInSpeakingEvents(){
-        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, gw);
-        Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
-        List<String> sAllAttendeesInEvents = new ArrayList<>();
-        for (Integer eventID : allSpeakingEvents){
-            List<Integer> usersInEvent = em.getUserList(eventID, gw);
-            allAttendeesInEvents.addAll(usersInEvent);
-        }
-        for (Integer userID : allAttendeesInEvents){
-            sAllAttendeesInEvents.add(um.getUserString(userID, gw));
-        }
-        return sAllAttendeesInEvents;
+        return vs.viewAttendeesInSpeakingEvents(gw);
     }
 
     /**
@@ -492,12 +454,7 @@ public class ConferenceSystem {
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllAttendees(){
-        List<Integer> allAttendees = um.getListOfUsers(2, gw);
-        List<String> sAllAttendees = new ArrayList<>();
-        for (Integer userID : allAttendees){
-            sAllAttendees.add(um.getUserString(userID, gw));
-        }
-        return sAllAttendees;
+        return vs.viewAllAttendees(gw);
     }
 
     /**
@@ -507,12 +464,7 @@ public class ConferenceSystem {
      * Every speaker is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAllSpeakers(){
-        List<Integer> allSpeakers = um.getListOfUsers(0, gw);
-        List<String> sAllSpeakers = new ArrayList<>();
-        for (Integer userID : allSpeakers){
-            sAllSpeakers.add(um.getUserString(userID, gw));
-        }
-        return sAllSpeakers;
+        return vs.viewAllSpeakers(gw);
     }
 
     /**
@@ -522,11 +474,6 @@ public class ConferenceSystem {
      * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
      */
     public List<String> viewAllRooms(){
-        List<Room> allRooms = rm.getListOfRooms(gw);
-        List<String> sAllRooms = new ArrayList<>();
-        for (Room r: allRooms) {
-            sAllRooms.add(rm.getRoomString(r.getRid(), gw));
-        }
-        return sAllRooms;
+        return vs.viewAllRooms(gw);
     }
 }
