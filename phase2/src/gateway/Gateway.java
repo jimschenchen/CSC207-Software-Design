@@ -3,6 +3,7 @@ package gateway;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.*;
+import entity.event.*;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;

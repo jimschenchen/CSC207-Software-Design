@@ -10,7 +10,7 @@ public class MessageManager {
         /**
          * @Description: message all signed up users in an event
          */
-        for (int receiver_id : g.getEventById(eventId).getSingnedUserId()){
+        for (int receiver_id : g.getEventById(eventId).getSignedUpUserList()){
             Message m = new Message(content, senderId, receiver_id);
             g.addMessage(m);
         }
@@ -31,7 +31,7 @@ public class MessageManager {
         /**
          * @Description: judge whether receiver whose Id is receiverID participate Event which id is eventId
          */
-        return g.getEventById(eventId).getSingnedUserId().contains(receiverId);
+        return g.getEventById(eventId).getSignedUpUserList().contains(receiverId);
     }
 
     public void messageOneUser(int senderId, int receiverId, String content, Gateway g){

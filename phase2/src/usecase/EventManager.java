@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import entity.*;
+
+import entity.event.*;
+import entity.eventFactory.FactoryProducer;
 import gateway.Gateway;
 
 /**
@@ -13,7 +15,7 @@ import gateway.Gateway;
 public class EventManager {
 
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Judge whether the new event can be created
@@ -23,10 +25,11 @@ public class EventManager {
      * @param g the database
      * @return the boolean show whether the new event can be created
      */
-    public boolean canCreateEvent(int roomId, LocalDateTime start, Gateway g){
+    public boolean canCreateEvent(int roomId, LocalDateTime start, LocalDateTime end, Gateway g){
         List<Event> allEvent = g.getEventList();
         for (Event event : allEvent) {
-            if (roomId == event.getRoomId() && start.equals(event.getStartTime())) {
+            if (roomId == event.getRoomId() &&
+                    (event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start)))) {
                 return false;
             }
         }
@@ -42,8 +45,10 @@ public class EventManager {
      * @param g the database
      * @return the new event id
      */
-    public int createEvent(LocalDateTime start, int speakerId, String title, int roomId, Gateway g){
-        Event nEvent = new Event(start, g.getNextEventId(), speakerId, title, roomId);
+    public int createEvent(int type1, int type2, LocalDateTime start,
+                           LocalDateTime end, String title, int roomId, int capacity, Gateway g){
+        Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
+                g.getNextEventId(), title, roomId, capacity);
         g.addEvent(nEvent);
         return nEvent.getEventId();
     }
@@ -73,8 +78,8 @@ public class EventManager {
         }
         else {
             Event e = g.getEventById(eventId);
-            if (e.getSingnedUserId().contains(userid)
-                    | g.getRoomById(e.getRoomId()).getCapacity() <= e.getSingnedUserId().size()) {
+            if (e.getSignedUpUserList().contains(userid)
+                    | g.getRoomById(e.getRoomId()).getCapacity() <= e.getSignedUpUserList().size()) {
                 return false;
             }
             return true;
@@ -100,7 +105,7 @@ public class EventManager {
      */
     public boolean canRemoveUser(int userid, int eventId, Gateway g) {
         if (isExistingEvent(eventId, g)) {
-            return g.getEventById(eventId).getSingnedUserId().contains(userid);
+            return g.getEventById(eventId).getSignedUpUserList().contains(userid);
         }
         return false;
     }
@@ -124,7 +129,7 @@ public class EventManager {
      */
     public List<Integer> getUserList(int eventID, Gateway g){
         Event event = g.getEventById(eventID);
-        return event.getSingnedUserId();
+        return event.getSignedUpUserList();
     }
 
 

@@ -67,11 +67,15 @@ public abstract class  Event {
         isVipEvent = vipEvent;
     }
 
-    public ArrayList<Integer> getSignedUserList() {
+    public ArrayList<Integer> getSignedUpUserList() {
         return signedUserList;
     }
 
     public ArrayList<Integer> getWaitList() {
         return waitList;
     }
+
+    public void removeUser(int userId) {
+        signedUserList.remove(userId);
+    };
 }
