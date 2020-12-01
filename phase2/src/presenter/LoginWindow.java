@@ -1,7 +1,10 @@
+package presenter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import controller.*;
 
 public class LoginWindow extends JFrame {
     JLabel usernameLabel;
@@ -80,6 +83,13 @@ public class LoginWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int type = cs.login(usernameText.getText(), passwordText.getText());
                 //Need to make more window to implements the following
+            }
+        });
+
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SignUpWindow signUpWindow = new SignUpWindow();
             }
         });
 
