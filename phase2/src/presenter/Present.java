@@ -1,10 +1,7 @@
-import java.io.IOException;
+import javax.swing.*;
 
 public class Present {
-    public static void main(String[] args) throws IOException {
-        ViewModel model = new ViewModel();
-        Presenter p = new Presenter(model);
-        p.Introduction();
-        p.IsUserRegistered();
+    public static void main(String[] args) {
+        JFrame loginWindow = new LoginWindow();
     }
 }
