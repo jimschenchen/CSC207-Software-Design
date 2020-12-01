@@ -88,7 +88,7 @@ public class LoginWindow extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Call the Presenter to presenter
+                //Call the Presenter to present
             }
         });
 
