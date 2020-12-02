@@ -1,6 +1,6 @@
 package presenter;
 
-import javax.swing.*;
+import presenter.language.English;
 
 public class Present {
     public static void main(String[] args) {

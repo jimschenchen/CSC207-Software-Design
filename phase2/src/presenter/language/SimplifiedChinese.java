@@ -1,6 +1,8 @@
-package presenter;
+package presenter.language;
 
-public class SimplifiedChinese implements Language{
+import presenter.language.Language;
+
+public class SimplifiedChinese implements Language {
     @Override
     public String username(){
         return ("用户名：");
