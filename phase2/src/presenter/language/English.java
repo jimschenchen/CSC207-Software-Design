@@ -3,12 +3,12 @@ package presenter.language;
 public class English implements Language {
     @Override
     public String username(){
-        return ("         Username:");
+        return ("Username:");
     };
 
     @Override
     public String password(){
-        return ("         Password: ");
+        return ("Password: ");
     };
 
     @Override
