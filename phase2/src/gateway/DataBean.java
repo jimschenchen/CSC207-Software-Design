@@ -11,15 +11,15 @@ import java.util.List;
  * @author:
  * @create: 2020-11-26 18:45
  **/
-public class UserBean {
+public class DataBean {
 
-    private List<User> user = new ArrayList<>();
+    private List data = new ArrayList<>();
 
-    public UserBean(User u) {
-        this.user.add(u);
+    public DataBean(Object o) {
+        this.data.add(o);
     }
 
-    public User convertToUser () {
-        return user.get(0);
+    public Object convertToObject () {
+        return data.get(0);
     }
 }
