@@ -179,13 +179,13 @@ public class Gateway {
      * @Date: 2020-11-28
      */
     public void addUser(User user) {
-        UserBean userBean = new UserBean(user);
-        String serData = gson(User.class, new UserAdapter()).toJson(userBean);
+        DataBean dataBean = new DataBean(user);
+        String serData = gson(User.class, new GenericAdapter()).toJson(dataBean);
         addToHash(USER_HASH, user.getUserId(), serData);
     }
     public void updateUser(User user) {
-        UserBean userBean = new UserBean(user);
-        String serData = gson(User.class, new UserAdapter()).toJson(userBean);
+        DataBean dataBean = new DataBean(user);
+        String serData = gson(User.class, new GenericAdapter()).toJson(dataBean);
         updateToHash(USER_HASH, user.getUserId(), serData);
     }
     public void deleteUser(User user) {
@@ -200,8 +200,8 @@ public class Gateway {
      */
     public User getUserById(int id) {
         String serData = getByIdFromHash(USER_HASH, id);
-        UserBean userBean = gson(User.class, new UserAdapter()).fromJson(serData, UserBean.class);
-        return userBean.convertToUser();
+        DataBean dataBean = gson(User.class, new GenericAdapter()).fromJson(serData, DataBean.class);
+        return (User)dataBean.convertToObject();
     }
     /**
      * @Description: Get the Whole User List. *This is method may lag the performance.
@@ -213,11 +213,11 @@ public class Gateway {
     public List<User> getUserList() {
         List<String> dateList = new ArrayList<>(getAllFromHash(USER_HASH).values());
         List<User> userList = new ArrayList<>();
-        Gson gson = gson(User.class, new UserAdapter());
+        Gson gson = gson(User.class, new GenericAdapter());
         for (String serData : dateList) {
             try {
-                UserBean userBean = gson.fromJson(serData, UserBean.class);
-                userList.add(userBean.convertToUser());
+                DataBean dataBean = gson.fromJson(serData, DataBean.class);
+                userList.add((User)dataBean.convertToObject());
             } catch(Exception e) {
             }
         }
@@ -339,11 +339,13 @@ public class Gateway {
      * @Date: 2020-11-28
      */
     public void addEvent(Event event) {
-        String serData = gson().toJson(event);
+        DataBean dataBean = new DataBean(event);
+        String serData = gson(Event.class, new GenericAdapter()).toJson(dataBean);
         addToHash(EVENT_HASH, event.getEventId(), serData);
     }
     public void updateEvent(Event event) {
-        String serData = gson().toJson(event);
+        DataBean dataBean = new DataBean(event);
+        String serData = gson(Event.class, new GenericAdapter()).toJson(dataBean);
         updateToHash(EVENT_HASH, event.getEventId(), serData);
     }
     public void deleteEvent(Event event) {
@@ -360,10 +362,10 @@ public class Gateway {
     public List<Event> getEventList() {
         List<String> dateList = new ArrayList<>(getAllFromHash(EVENT_HASH).values());
         List<Event> eventList = new ArrayList<>();
-        Gson gson = gson();
+        Gson gson = gson(Event.class, new GenericAdapter());
         for (String serData : dateList) {
             try {
-                eventList.add(gson.fromJson(serData, Event.class));
+                eventList.add((Event)gson.fromJson(serData, DataBean.class).convertToObject());
             } catch(Exception e) {
             }
         }
@@ -378,7 +380,8 @@ public class Gateway {
      */
     public Event getEventById(int id) {
         String serData = getByIdFromHash(EVENT_HASH, id);
-        return gson().fromJson(serData, Event.class);
+        DataBean dataBean = gson(Event.class, new GenericAdapter()).fromJson(serData, DataBean.class);
+        return (Event)dataBean.convertToObject();
     }
 
 
@@ -641,12 +644,12 @@ public class Gateway {
     }
 
     private void testEvent () {
-        addEvent(new Event(LocalDateTime.now(), 998,0, "First Event", 0));
-        addEvent(new Event(LocalDateTime.now(), 999,125, "Second Event", 0));
-        assert (getEventById(998).getTitle().equals("First Event"));
-        assert (getEventList().get(999).getSpeakerId() == 125);
-        deleteFromHash(EVENT_HASH, 999);
-        deleteFromHash(EVENT_HASH, 998);
+//        addEvent(new (LocalDateTime.now(), 998,0, "First Event", 0));
+//        addEvent(new Event(LocalDateTime.now(), 999,125, "Second Event", 0));
+//        assert (getEventById(998).getTitle().equals("First Event"));
+//        assert (getEventList().get(999).getSpeakerId() == 125);
+//        deleteFromHash(EVENT_HASH, 999);
+//        deleteFromHash(EVENT_HASH, 998);
         System.out.print("**");
     }
 
