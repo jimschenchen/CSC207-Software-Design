@@ -9,4 +9,8 @@ public class Presenter {
         type = cs.login(username, password);
 
     }
+
+    public void menuItemClicked(String string){
+
+    }
 }
