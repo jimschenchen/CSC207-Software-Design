@@ -29,7 +29,7 @@ public class ConferenceSystem {
 //    public void init () throws IOException {
 //        shutDownHook();
 //        /** initial of database */
-//        gw.init();
+//        gw.init();\
 //    }
 //    /**
 //    * @Description: Hook for listening the Shutdown of program and save all the data before exist0
