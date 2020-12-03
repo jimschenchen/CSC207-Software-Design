@@ -183,11 +183,13 @@ public class Gateway {
         String serData = gson(User.class, new GenericAdapter()).toJson(dataBean);
         addToHash(USER_HASH, user.getUserId(), serData);
     }
+
     public void updateUser(User user) {
         DataBean dataBean = new DataBean(user);
         String serData = gson(User.class, new GenericAdapter()).toJson(dataBean);
         updateToHash(USER_HASH, user.getUserId(), serData);
     }
+
     public void deleteUser(User user) {
         deleteFromHash(USER_HASH, user.getUserId());
     }
