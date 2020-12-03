@@ -513,13 +513,18 @@ public class ConferenceSystem {
         return vs.viewSpeakingEvents(gw);
     }
 
-    /**
-     * Return a list of events that the current logged in attendee can sign up for.
-     *
-     * @return List of Strings of the events
-     */
-    public List<String> viewCanSignUpEvents(){
-        return vs.viewCanSignUpEvents(gw);
+
+    public List<String> viewCanSignUpEvents(int userId){
+        /**
+         * Return a list of events that the current logged in attendee can sign up for. VIP can sign all events, normal
+         * user can only sign up normal events
+         * @para userId is user id
+         * @return List of Strings of the events
+         */
+        if (gw.getUserById(userId) instanceof entity.VipUser){
+            return em.getEventList(gw);
+        }
+        return em.getNormalEventList(gw);
     }
 
     /**

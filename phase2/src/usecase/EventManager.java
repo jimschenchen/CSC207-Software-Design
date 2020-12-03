@@ -166,6 +166,17 @@ public class EventManager {
         return allEvents;
     }
 
+    public List<Integer> getNormalEventList(GatewayFacade g){
+        List<Integer> normalEvents = new ArrayList<>();
+        List<Event> events = g.getEventList();
+        for (Event event : events){
+            if(event.isVipEvent() == false) {
+                normalEvents.add(event.getEventId());
+            }
+        }
+        return normalEvents;
+    }
+
     public String getStringOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
