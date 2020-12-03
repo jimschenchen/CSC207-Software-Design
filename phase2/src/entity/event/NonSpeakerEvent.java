@@ -10,5 +10,7 @@ public abstract class NonSpeakerEvent extends Event{
         super(startTime, endTime, eventId, title, roomId, capacity);
     }
 
+    public void setSpeaker() {}
+
     public void getSpeakerId() {};
 }

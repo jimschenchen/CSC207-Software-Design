@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class  Event<T> {
+public abstract class  Event {
     private int eventId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
