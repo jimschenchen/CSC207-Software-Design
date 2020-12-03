@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -364,12 +363,14 @@ public class ConferenceSystem {
         try{
             int type3 = Integer.parseInt(type1);
             int type4 = Integer.parseInt(type2);
-            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getStartTimeFormatter());
-            LocalDateTime eTime = LocalDateTime.parse(endTime, em.getStartTimeFormatter());
+            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
+            LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
             int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
             int cap = Integer.parseInt(capacity);
-            if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime,gw) && um.isSpeakerBusy(sID,sTime, gw)){
+            if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
+                    um.isSpeakerBusy(sID,sTime, gw)){
+
                 int eventID = em.createEvent(type3, type4, sID, sTime, eTime, topic, rID, cap, gw);
                 um.addEventToOrganizedList(eventID, user, gw);
                 um.addEventToSpeaker(eventID, sID, gw);

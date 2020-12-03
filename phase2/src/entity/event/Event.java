@@ -24,7 +24,7 @@ public abstract class  Event {
         this.title = title;
         this.roomId = roomId;
         this.capacity = capacity;
-        this.duration.between(startTime,endTime);
+        duration = Duration.between(startTime,endTime);
     }
 
     public int getEventId() {
@@ -75,9 +75,15 @@ public abstract class  Event {
         return waitList;
     }
 
-    public void removeUser(int userId) {
+    public void addUserToEvent(int userId) {signedUserList.add(userId);}
+
+    public void removeUserFromEvent(int userId) {
         signedUserList.remove(userId);
     };
+
+    public void addUserToWaitList(int userId) {waitList.add(userId);}
+
+    public void removeUserFromWaitList(int userId) {waitList.remove(userId);}
 
     public abstract void setSpeaker();
 
