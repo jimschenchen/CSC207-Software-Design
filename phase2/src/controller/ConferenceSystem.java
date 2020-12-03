@@ -512,14 +512,14 @@ public class ConferenceSystem {
     }
 
 
-    public List<String> viewCanSignUpEvents(int userId){
+    public List<String> viewCanSignUpEvents(){
         /**
          * Return a list of events that the current logged in attendee can sign up for. VIP can sign all events, normal
          * user can only sign up normal events
          * @para userId is user id
          * @return List of Strings of the events
          */
-        vs.viewCanSignUpEvents(gw);
+        return vs.viewCanSignUpEvents(gw);
     }
 
     /**
