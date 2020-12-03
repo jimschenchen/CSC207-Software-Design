@@ -20,14 +20,19 @@ import java.util.Scanner;
  **/
 public class GatewayCli extends Gateway{
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+
     public static void main(String[] args) {
         GatewayFacade gatewayFacade = new GatewayFacade();
         Scanner scan = new Scanner(System.in);
         String input = "";
         GatewayCli gcli = new GatewayCli();
         while (!input.equals("0")) {
-            System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
-            System.out.println("Gateway: Welcome to Gateway CLI");
+            System.out.println(ANSI_CYAN + "---------- ---------- ---------- ---------- ---------- ----------");
+            System.out.println("Gateway: Welcome to Gateway CLI" + ANSI_GREEN );
             System.out.println("1. Display all data");
             System.out.println("2. Check gateway errors");
             System.out.println("3. Format Database");
@@ -55,7 +60,7 @@ public class GatewayCli extends Gateway{
     private void rmrf() {
         Jedis jedis = getJedis();
         Scanner scan = new Scanner(System.in);
-        System.out.println("Gateway: Warning! Are you sure want to FORMAT Database! (N/Y)");
+        System.out.println(ANSI_RED + "Gateway: Warning! Are you sure want to FORMAT Database! (N/Y)" + ANSI_RESET);
         String input = scan.nextLine();
         if (input.equals("Y")){
             System.out.println("Gateway: FORMATTING Database ...");
@@ -95,9 +100,8 @@ public class GatewayCli extends Gateway{
     public void printDataBase () {
         GatewayFacade gf = new GatewayFacade();
         Jedis jedis = getJedis();
-        System.out.println("DataBase: Displaying DATA:");
-        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
-        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
+        System.out.println(ANSI_CYAN + "DataBase: Displaying DATA:");
+        System.out.println("---------- ---------- ---------- ---------- ---------- ----------" + ANSI_GREEN);
         System.out.println("+ UserNextId: " + jedis.get(Config.NEXT_USER_ID));
         System.out.println("+ EventNextId: " + jedis.get(Config.NEXT_EVENT_ID));
         System.out.println("+ RoomNextId: " + jedis.get(Config.NEXT_ROOM_ID));
@@ -109,7 +113,7 @@ public class GatewayCli extends Gateway{
         gf.getRoomList().forEach((r) -> System.out.println("   - " + r.toString()));
         System.out.println("+ Message List");
         gf.getMessageList().forEach((m) -> System.out.println("    - " + m.toString()));
-        System.out.println("---------- ---------- ---------- ---------- ---------- ----------");
+
         jedis.close();
     }
 
