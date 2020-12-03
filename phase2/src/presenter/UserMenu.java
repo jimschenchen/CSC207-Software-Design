@@ -2,25 +2,33 @@ package presenter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class UserMenu extends JFrame{
+public class UserMenu<m1> extends JFrame implements IWindow{
+        private UserMenuPresenter _presenter;
+        private final JFrame mainFrame;
         private JButton button1, button2, button3;
+        private JMenuItem m4,m5,m6, m7, m8, m9;
         private static JPanel cards;
-        public static JFrame createMainWindow(){
+
+        public UserMenu() {
             //Creates and sets up the main window
-            JFrame mainFrame = new JFrame();
+            this.mainFrame = new JFrame();
             mainFrame.setPreferredSize(new Dimension(1000, 1000));
             mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mainFrame.setBackground(Color.white);
             mainFrame.setVisible(true);
-            return mainFrame;
-        }
-        public void createMenu(){
-            JFrame mainFrame = createMainWindow();
+            JPanel p = new JPanel();
+            JLabel lab1 = new JLabel("User Name", JLabel.LEFT);
+            p.setLayout(new FlowLayout());
+            p.add(lab1 = new JLabel("Welcome to the User menu!"));
+            mainFrame.getContentPane().add(p);
+            //createMenu
             JMenuBar mb = new JMenuBar();
             JMenu menu = new JMenu("UserMenu");
             JMenuItem m1 = new JMenuItem("Messenger");
-            JMenu mySchedule  = new JMenu("Schedule");
+            JMenu mySchedule = new JMenu("Schedule");
             menu.add(m1);
             mainFrame.setJMenuBar(mb);
             JMenu myProfile = new JMenu("My Profile");
@@ -39,6 +47,54 @@ public class UserMenu extends JFrame{
             myProfile.add(m5);
             menu.add(myProfile);
             mb.add(menu);
+            eventHandler handler = new eventHandler();
+            m4.addActionListener(handler);
+            m5.addActionListener(handler);
+            m6.addActionListener(handler);
+            m7.addActionListener(handler);
+            m8.addActionListener(handler);
+            m9.addActionListener(handler);
+        }
+
+
+
+    class eventHandler implements ActionListener{
+
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                int i = 0;
+                if (event.getSource() == m4){
+                    i = 4;
+                }
+                else if (event.getSource()== m5){
+                    i = 5;
+                }
+                else if (event.getSource() == m6){
+                   i = 6;
+                }
+                else if (event.getSource() == m7){
+                   i = 7;
+                }
+                else if (event.getSource() == m8){
+                   i = 8;
+                }
+                else if (event.getSource() == m9){
+                    i = 9;
+                }
+                _presenter.menuItemClicked(i);
+            }
+        }
+
+        @Override
+        public void update() {
+
+
+
+        }
+
+        public void panelReplaced(JPanel panel){
+            mainFrame.getContentPane().removeAll();
+            mainFrame.getContentPane().add(panel);
         }
 
 
