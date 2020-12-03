@@ -20,33 +20,33 @@ public class UserManager {
         }
         return false;
     }
-
-    public boolean canCreateVIP(String userName, GatewayFacade gw){
-        if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean canCreateSpeaker(String username, GatewayFacade g){
-        /**
-         * @Description: checks if username is unique
-         */
-        List<User> users = g.getUserList();
-        for (User user : users){
-            if (user.getUserName().equals(username)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean canCreateAttendee(String username, GatewayFacade g){
-        /**
-         * @Description: judge whether a username is available for a new Attendee account
-         */
-        return g.getUserByUserName(username) == null;
-    }
+// don't know why we need these code...
+//    public boolean canCreateVIP(String userName, GatewayFacade gw){
+//        if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public boolean canCreateSpeaker(String username, GatewayFacade g){
+//        /**
+//         * @Description: checks if username is unique
+//         */
+//        List<User> users = g.getUserList();
+//        for (User user : users){
+//            if (user.getUserName().equals(username)){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//
+//    public boolean canCreateAttendee(String username, GatewayFacade g){
+//        /**
+//         * @Description: judge whether a username is available for a new Attendee account
+//         */
+//        return g.getUserByUserName(username) == null;
+//    }
 
     public void createSpeaker(String password, String name, GatewayFacade g){
         /**
@@ -82,10 +82,7 @@ public class UserManager {
         if (s == null || event == null || event instanceof NonSpeakerEvent) {
             return false;
         }
-        else if (isSpeakerBusy(speakerId, event.getStartTime(), event.getEndTime(), g)){
-            return false;
-        }
-        return true;
+        else return !isSpeakerBusy(speakerId, event.getStartTime(), event.getEndTime(), g);
     }
 
     public void addEventToSpeaker(int eventId, int speakerId, GatewayFacade g){
@@ -113,21 +110,22 @@ public class UserManager {
          * @Description: judge whether a User is eligible to sign up an Event
          */
         Event e = g.getEventById(eventId);
-        if (!(e == null | isExistingSpeaker(userId, g) |
-                e.getCapacity() <= e.getSignedUpUserList().size() |
-                (!(g.getUserById(userId) instanceof VipUser) & e.isVipEvent()))) {
+        if (!(e == null | isExistingSpeaker(userId, g)
+                || (!(g.getUserById(userId) instanceof VipUser) & e.isVipEvent()))) {
             Attendee a = (Attendee) g.getUserById(userId);
-            for (int i = 0; i < a.getEventList().size(); i++) {
-                if (g.getEventById(a.getEventList().get(i)).getStartTime().isAfter(e.getEndTime())
-                        | g.getEventById(a.getEventList().get(i)).getEndTime().isBefore(e.getStartTime())) {
-                    return true;
+
+            for (int i = 0; i < a.getSignedUpEventList().size(); i++) {
+                if (g.getEventById(a.getSignedUpEventList().get(i)).getStartTime().isBefore(e.getEndTime())
+                        & g.getEventById(a.getSignedUpEventList().get(i)).getEndTime().isAfter(e.getStartTime())) {
+                    return false;
                 }
             }
+            return true;
         }
         return false;
     }
 
-    public void addEventToAttendeeOrOrganizer(int eventId, int userId, GatewayFacade g){
+    public void addEventToUser(int eventId, int userId, GatewayFacade g){
         /**
          * @Description: add an Event to Attendee or Organizer
          */
@@ -139,15 +137,24 @@ public class UserManager {
         }
     }
 
-    public void cancelEventToAttendeeOrOrganizer(int eventId, int userId, GatewayFacade g) {
+    public void cancelEventFromUser(int eventId, int userId, GatewayFacade g) {
         /**
          * @Description: cancel an Event for Attendee or Organizer
          */
-        if (!isExistingOrganizer(userId, g)) {
-            g.getAttendeeById(userId).cancelEvent(eventId);
-        } else {
-            g.getOrganizerById(userId).cancelEvent(eventId);
-        }
+        ((Attendee) g.getUserById(userId)).cancelEvent(eventId);
+    }
+
+    public void transferWaitingEventToSignedUp(int eventId, int userId, GatewayFacade g) {
+        ((Attendee) g.getUserById(userId)).signUpEvent(eventId);
+        ((Attendee) g.getUserById(userId)).removeWaitingEvent(eventId);
+    }
+
+    public void addEventToMyWaitList(int eventId, int userId, GatewayFacade g) {
+        ((Attendee) g.getUserById(userId)).addWaitingEvent(eventId);
+    }
+
+    public void cancelEventFromMyWaitList(int eventId, int userId, GatewayFacade g) {
+        ((Attendee) g.getUserById(userId)).cancelEvent(eventId);
     }
 
     /**
@@ -175,22 +182,24 @@ public class UserManager {
         return g.getUserById(userId).getUserName();
     }
 
-    public ArrayList<Integer> getOrganizerOrAttendeeEventList(int Id, GatewayFacade g){
+    public ArrayList<Integer> getUserSignedUpEvent(int userId, GatewayFacade g){
         /**
          * @Description: get Organizer or Attendee Event list
          */
-        if (isExistingOrganizer(Id, g)){
-            return g.getOrganizerById(Id).getEventList();
-        }else {
-            return g.getAttendeeById(Id).getEventList();
-        }
+            Attendee a = (Attendee) g.getUserById(userId);
+            return a.getSignedUpEventList();
+    }
+
+    public ArrayList<Integer> getUserWaitList(int userId, GatewayFacade g) {
+            Attendee a = (Attendee) g.getUserById(userId);
+            return a.getMyWaitList();
     }
 
     public List<Integer> getOrganizedEventList(int organizerID, GatewayFacade g){
         return g.getOrganizerById(organizerID).getCreatedEventList();
     }
 
-    public List<Integer> getSpeakerEventList(int speakerID, GatewayFacade g){
+    public List<Integer> getSpeakerGivingEventList(int speakerID, GatewayFacade g){
         /**
          * @Description: get Speaker Event list
          */
@@ -222,7 +231,7 @@ public class UserManager {
         else if (g.getOrganizerById(id) != null){
             return 1;
         }
-        else{
+        else {
             return 2;
         }
     }
@@ -295,19 +304,23 @@ public class UserManager {
         return g.getUserByUserName(username) != null;
     }
 
-    public boolean isExistingAttendee(int userID, GatewayFacade g){
+    public boolean isExistingAttendee(int userId, GatewayFacade g){
         /**
          * @Description: judge an Attendee is exist
          */
-        return g.getAttendeeById(userID) != null;
+        return g.getAttendeeById(userId) != null;
     }
 
-    public boolean isExistingOrganizer(int userID, GatewayFacade g){
+    public boolean isExistingOrganizer(int userId, GatewayFacade g){
         /**
          * @Description: judge an organizer is exist
          */
-        return g.getOrganizerById(userID) != null;
+        return g.getOrganizerById(userId) != null;
     }
+
+//    public boolean isExistingVipUser(int userId, GatewayFacade g) {
+//        return g.getVipUserById(userId) != null;
+//    }
 
     public boolean canCancelEvent(int userID, int eventID, GatewayFacade gw) {
         // only the organizer who organized the event can cancel the event
@@ -331,15 +344,16 @@ public class UserManager {
         }
     }
 
-    public Speaker CreateSpeaker(String password, String name, GatewayFacade gw) {
-        return new Speaker(gw.getNextUserId(), password, name);
-    }
-
-    public Attendee CreateAttendee(String password, String name, GatewayFacade gw) {
-        return new Attendee(gw.getNextUserId(), password, name);
-    }
-
-    public VipUser CreateVIP(String password, String name, GatewayFacade gw) {
-        return new VipUser(gw.getNextUserId(), password, name);
-    }
+// never used, why we need these??
+//    public Speaker CreateSpeaker(String password, String name, GatewayFacade gw) {
+//        return new Speaker(gw.getNextUserId(), password, name);
+//    }
+//
+//    public Attendee CreateAttendee(String password, String name, GatewayFacade gw) {
+//        return new Attendee(gw.getNextUserId(), password, name);
+//    }
+//
+//    public VipUser CreateVIP(String password, String name, GatewayFacade gw) {
+//        return new VipUser(gw.getNextUserId(), password, name);
+//    }
 }

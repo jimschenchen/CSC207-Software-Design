@@ -1,6 +1,5 @@
 package usecase;
 
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +10,6 @@ import com.sun.istack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
-import gateway.Gateway;
 import gateway.GatewayFacade;
 
 /**
@@ -125,14 +123,14 @@ public class EventManager {
 
     /**
      * Judge whether a user can be removed by an event
-     * @param userid the user id
+     * @param userId the user id
      * @param eventId the event id
      * @param g the database
      * @return the boolean whether a user can be removed by an event
      */
-    public boolean canRemoveUser(int userid, int eventId, GatewayFacade g) {
+    public boolean canRemoveSignedUpUser(int userId, int eventId, GatewayFacade g) {
         if (isExistingEvent(eventId, g)) {
-            return g.getEventById(eventId).getSignedUpUserList().contains(userid);
+            return g.getEventById(eventId).getSignedUpUserList().contains(userId);
         }
         return false;
     }
@@ -143,8 +141,16 @@ public class EventManager {
      * @param eventId the event id
      * @param g the database
      */
-    public void removeUser(int userId, int eventId, GatewayFacade g) {
+    public void removeSignedUpUser(int userId, int eventId, GatewayFacade g) {
         g.getEventById(eventId).removeUserFromEvent(userId);
+    }
+
+    public int add1stRankedWaitListUser(int eventId, GatewayFacade g) {
+        Event e = g.getEventById(eventId);
+        int userId = e.getWaitList().get(0);
+        e.addUserToEvent(userId);
+        e.removeUserFromWaitList(userId);
+        return userId;
     }
 
     /**
@@ -190,6 +196,7 @@ public class EventManager {
                 " with ID " + event.getEventId() +
                 " starts at " + event.getStartTime().format(formatter) +
                 " ends at " + event.getEndTime().format(formatter) +
+                " with duration " + event.getDuration().toString() +
                 " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum() +
                 " and its Vip Status is: " + event.isVipEvent();
     }
@@ -254,6 +261,42 @@ public class EventManager {
          * @return the type of event
          */
         return g.getEventById(eventId).isVipEvent();
+    }
+
+    public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
+        Event e = g.getEventById(eventId);
+        if (e == null || e.getSignedUpUserList().size() <= e.getCapacity()
+                || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))
+                || e.getWaitList().size() >= e.getCapacity()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void addUserToWaitList(int eventId, int userId, GatewayFacade g) {
+        Event event = g.getEventById(eventId);
+        if (!(g.getUserById(userId) instanceof VipUser)){
+            g.getEventById(eventId).addUserToWaitList(userId);
+        }
+        else {
+            for (int i = 0; i < event.getWaitList().size(); i++) {
+                if (!((g.getUserById(event.getWaitList().get(i))) instanceof VipUser)) {
+                    break;
+                }
+                g.getEventById(eventId).getWaitList().add(i, userId);
+            }
+        }
+    }
+
+    public boolean canRemoveWaitingUser(int eventId, int userId, GatewayFacade g) {
+        if (isExistingEvent(eventId, g)) {
+            return g.getEventById(eventId).getWaitList().contains(userId);
+        }
+        return false;
+    }
+
+    public void removeWaitingUser(int eventId, int userId, GatewayFacade g) {
+        g.getEventById(eventId).removeUserFromWaitList(userId);
     }
 }
 
