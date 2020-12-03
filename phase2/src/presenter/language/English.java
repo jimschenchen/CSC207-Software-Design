@@ -50,4 +50,19 @@ public class English implements Language {
     public String selectLanguage(){
         return("Select your language! ");
     }
+
+    @Override
+    public String fail() {
+        return ("Oops. It looks like something went wrong! Try again!");
+    }
+
+    @Override
+    public String messageTitle() {
+        return ("Message");
+    }
+
+    @Override
+    public String createAccountMessage() {
+        return ("Hey! You have created an account!");
+    }
 }

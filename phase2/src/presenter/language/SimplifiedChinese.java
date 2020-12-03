@@ -52,4 +52,18 @@ public class SimplifiedChinese implements Language {
     public String selectLanguage(){
         return("选择语言！ ");
     }
+
+    @Override
+    public String fail() {
+        return ("糟糕！ 好像有什么东西搞错了");
+    }
+
+    @Override
+    public String messageTitle() {
+        return ("消息");
+    }
+    @Override
+    public String createAccountMessage() {
+        return ("亲！你成功创建了一个账户呢！");
+    }
 }

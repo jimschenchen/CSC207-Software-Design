@@ -4,6 +4,8 @@ import presenter.language.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LanguageWindow extends JFrame {
     ButtonGroup buttonGroup;
@@ -44,12 +46,11 @@ public class LanguageWindow extends JFrame {
         russiaButton = new JRadioButton("Not Yet");
         russiaButton.setFont(defaultFont);
 
-        traditionalChineseButton = new JRadioButton("Not Yet");
+        traditionalChineseButton = new JRadioButton(new TraditionalChinese().language());
         traditionalChineseButton.setFont(defaultFont);
 
-        japaneseButton = new JRadioButton("Not Yet");
+        japaneseButton = new JRadioButton(new Japanese().language());
         japaneseButton.setFont(defaultFont);
-
 
         buttonGroup.add(englishButton);
         buttonGroup.add(simplifiedChineseButton);
@@ -77,14 +78,51 @@ public class LanguageWindow extends JFrame {
         languagePanel.add(backButton);
 
 
-
-
         setTitle(language.selectLanguage());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600, 500);
         setLocation(450, 200);
         setVisible(true);
 
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updates(1);
+            }
+        });
 
+
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updates(0);
+            }
+        });
+    }
+
+
+    private void setNewLanguage(){
+        Language newLanguage;
+        if (simplifiedChineseButton.isSelected() == true){
+            newLanguage = new SimplifiedChinese();
+        }else if (englishButton.isSelected() == true){
+            newLanguage = new English();
+        }else if(traditionalChineseButton.isSelected()){
+            newLanguage = new TraditionalChinese();
+        }else {
+            newLanguage = new Japanese();
+        }
+       LoginWindow loginWindow = new LoginWindow(newLanguage);
+        dispose();
+    }
+
+    public void updates(int action){
+        if (action == 0){
+            SignUpWindow signUpWindow = new SignUpWindow(language);
+            dispose();
+        }else if (action == 1){
+            setNewLanguage();
+        }
     }
 }

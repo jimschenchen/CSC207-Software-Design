@@ -12,5 +12,6 @@ public class SpeakerMenu extends UserMenu{
         this.menu.add(myTalks);
         //I don't know how to implement the handler for new items
         //Could you please help me?
+        // item.addlistener(new .....)
     }
 }
