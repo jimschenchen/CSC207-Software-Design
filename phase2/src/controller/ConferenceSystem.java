@@ -63,7 +63,7 @@ public class ConferenceSystem {
          * @param password Password of the new attendee account. Password should be at least 6 characters long.
          * @return Return true if the Attendee is created successfully, false otherwise.
          */
-        if(password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateAttendee(userName, gw)){
+        if(password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
             um.createAttendee(password.trim(), userName.trim(), gw);
             return true;
         }
@@ -78,7 +78,7 @@ public class ConferenceSystem {
          * @param password Password of the new VIP account. Password should be at least 6 characters long.
          * @return Return true if the VIP is created successfully, false otherwise.
          */
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateVIP(userName, gw)){
+        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
             um.createVIP(password.trim(), userName.trim(), gw);
             return true;
         }
@@ -116,7 +116,7 @@ public class ConferenceSystem {
          *          Return false when the password is invalid,
          *          or when the user name is not unique.
          */
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateSpeaker(userName, gw)){
+        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
             um.createSpeaker(password.trim(), userName.trim(), gw);
             return true;
         }
@@ -131,7 +131,7 @@ public class ConferenceSystem {
      * @return Return true if the account is created successfully, false otherwise.
      */
     public boolean signup(String username, String password){
-        if (um.canCreateAttendee(username, gw) && password.length() >= 6){
+        if (um.canCreateUser(username, gw) && password.length() >= 6){
             um.createAttendee(password, username, gw);
             return true;
         }
@@ -325,7 +325,7 @@ public class ConferenceSystem {
             int eid = Integer.parseInt(eventID);
             // check if the event exists, and user can sign up for event
             if (em.canAddUserToEvent(user, eid, gw) && um.canSignUpForEvent(eid, user, gw)){ //need confirm
-                um.addEventToAttendeeOrOrganizer(eid, user, gw);
+                um.addEventToUser(eid, user, gw);
                 em.addUserToEvent(user, eid, gw);
                 return true;
             }
@@ -338,19 +338,37 @@ public class ConferenceSystem {
         }
     }
 
+    public boolean signUpForEventWaitList(String eventId) {
+        try{
+            int eid = Integer.parseInt(eventId);
+            if (em.canAddUserToWaitList(eid, user,gw) & um.canSignUpForEvent(eid, user, gw)){
+                em.addUserToWaitList(user, eid, gw);
+                um.addEventToMyWaitList(eid, user, gw);
+                return true;
+            }
+            // return false when event doesn't exist or user cannot sign up for event
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            // return false when input is invalid
+            return false;
+        }
+    }
 
     /**
      * Allow current logged in attendee/organizer to cancel their enrollment in an event.
      *
-     * @param eventID ID of the event they want to deregister from.
+     * @param eventId ID of the event they want to deregister from.
      * @return Return True when the user has successful cancelled their enrollment in the event.
      */
-    public boolean cancelEnrollmentInEvent(String eventID){
+    public boolean cancelEnrollmentInEvent(String eventId){
         try{
-            int eid = Integer.parseInt(eventID);
-            if (em.canRemoveUser(this.user ,eid, gw)){
-                em.removeUser(this.user, eid, gw);
-                um.cancelEventToAttendeeOrOrganizer(eid, this.user, gw);
+            int eid = Integer.parseInt(eventId);
+            if (em.canRemoveSignedUpUser(user ,eid, gw)){
+                em.removeSignedUpUser(user, eid, gw);
+                um.cancelEventFromUser(eid, user, gw);
+                int userId = em.add1stRankedWaitListUser(eid, gw);
+                um.transferWaitingEventToSignedUp(eid, userId, gw);
                 return true;
             }
             return false;
@@ -358,9 +376,22 @@ public class ConferenceSystem {
         catch(NumberFormatException nfe){
             return false;
         }
-
     }
 
+    public boolean removeEventFromWaitList(String eventId) {
+        try{
+            int eid = Integer.parseInt(eventId);
+            if (em.canRemoveWaitingUser(user ,eid, gw)){
+                em.removeWaitingUser(user, eid, gw);
+                um.cancelEventFromMyWaitList(eid, user, gw);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
+    }
 
     /**
      * Set the speaker of an event.

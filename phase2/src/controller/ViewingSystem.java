@@ -49,7 +49,7 @@ class ViewingSystem {
      * @return List of Strings of the events
      */
     List<String> viewSignedUpEvents(GatewayFacade gw){
-        List<Integer> events = um.getOrganizerOrAttendeeEventList(user, gw);
+        List<Integer> events = um.getUserSignedUpEvent(user, gw);
         return getEventList(events, gw);
     }
 
@@ -69,7 +69,7 @@ class ViewingSystem {
      * @return List of Strings of the events
      */
     List<String> viewSpeakingEvents(GatewayFacade gw){
-        List<Integer> events = um.getSpeakerEventList(user, gw);
+        List<Integer> events = um.getSpeakerGivingEventList(user, gw);
         return getEventList(events, gw);
     }
 
@@ -98,7 +98,7 @@ class ViewingSystem {
      * Every attendee is represented by a string formated as follows: "UserName (userID)"
      */
     List<String> viewAttendeesInSpeakingEvents(GatewayFacade gw){
-        List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, gw);
+        List<Integer> allSpeakingEvents = um.getSpeakerGivingEventList(user, gw);
         Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
         List<String> sAllAttendeesInEvents = new ArrayList<>();
         for (Integer eventID : allSpeakingEvents){

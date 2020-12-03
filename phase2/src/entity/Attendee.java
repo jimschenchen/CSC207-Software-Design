@@ -9,6 +9,7 @@ import java.util.List;
 public class Attendee extends User implements java.io.Serializable{
 
     private ArrayList<Integer> signedUpEvent;
+    private ArrayList<Integer> myWaitList;
 
     /**
      * Constructor of a Attendee object.
@@ -20,6 +21,7 @@ public class Attendee extends User implements java.io.Serializable{
     public Attendee(int uid,String password, String name) {
         super(uid, password, name);
         this.signedUpEvent = new ArrayList<>();
+        this.myWaitList = new ArrayList<>();
     }
 
     /**
@@ -40,11 +42,23 @@ public class Attendee extends User implements java.io.Serializable{
             signedUpEvent.remove(eid);
     }
 
+    public ArrayList<Integer> getMyWaitList() {
+        return myWaitList;
+    }
+
+    public void addWaitingEvent(int eid) {
+        myWaitList.add(eid);
+    }
+
+    public void removeWaitingEvent (int eid) {
+        myWaitList.remove(eid);
+    }
+
     /**
      * A getter for list of signed up events' ids
      * @return the list of signed up events' ids
      */
-    public ArrayList<Integer> getEventList (){
+    public ArrayList<Integer> getSignedUpEventList(){
         return signedUpEvent;
     }
 
@@ -55,6 +69,7 @@ public class Attendee extends User implements java.io.Serializable{
                 ", username='" + super.getUserName() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
                 ", signed up event=" + signedUpEvent +
+                ", my waiting events=" + myWaitList +
                 '}';
     }
 }
