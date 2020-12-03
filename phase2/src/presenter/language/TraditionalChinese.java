@@ -1,4 +1,6 @@
-package presenter;
+package presenter.language;
+
+import presenter.language.Language;
 
 public class TraditionalChinese implements Language {
     @Override

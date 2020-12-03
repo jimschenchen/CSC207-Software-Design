@@ -1,11 +1,14 @@
 package presenter;
 
+import presenter.language.English;
+import presenter.language.Language;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//All the windows are the UI
-public class LoginWindow extends JFrame implements IWindow{
+
+public class LoginWindow extends JFrame  {
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;
@@ -15,6 +18,7 @@ public class LoginWindow extends JFrame implements IWindow{
     JButton signUpButton;
     JButton languageButton;
     Font defaultFont = new Font("Mononspace", 1, 25);
+    Font specialFont = new Font("Mononspace", 1, 20);
     Language language;
 
     public LoginWindow(){//The language is English By default
@@ -22,59 +26,50 @@ public class LoginWindow extends JFrame implements IWindow{
         init();
     }
 
-    public LoginWindow(Language inputLanguage){
-        language = inputLanguage;
+    public LoginWindow(Language language){
+        this.language = language;
         init();
     }
 
     private void init(){
-        setLayout(null);
+        JPanel loginPanel= new JPanel();
+        setContentPane(loginPanel);
+        loginPanel.setLayout(new GridLayout(4,2,0,50));
+
+
         usernameLabel = new JLabel(language.username());
-        usernameLabel.setBounds(50,20, 200, 80);
         usernameLabel.setFont(defaultFont);
-        add(usernameLabel);
+        loginPanel.add(usernameLabel);
 
         usernameText = new JTextField();
-        usernameText.setBounds(250, 20, 250,80);
         usernameText.setFont(defaultFont);
-        add(usernameText);
+        loginPanel.add(usernameText);
 
         passwordLabel = new JLabel(language.password());
-        passwordLabel.setBounds(50, 150, 200, 80);
         passwordLabel.setFont(defaultFont);
-        add(passwordLabel);
+        loginPanel.add(passwordLabel);
 
         passwordText = new JTextField();
-        passwordText.setBounds(250, 150, 250, 80);
         passwordText.setFont(defaultFont);
-        add(passwordText);
+        loginPanel.add(passwordText);
 
         signUpButton = new JButton(language.signUpAccount());
-        signUpButton.setBounds(50, 275, 350, 80);
-        signUpButton.setFont(defaultFont);
-        add(signUpButton);
+        signUpButton.setFont(specialFont);
+        loginPanel.add(signUpButton);
 
-        languageButton = new JButton();
-        languageButton.setBounds(500, 275, 100,80);
-        languageButton.setFont(defaultFont);
-        add(languageButton);
+        languageButton = new JButton(language.language());
+        languageButton.setFont(specialFont);
+        loginPanel.add(languageButton);
 
         okButton = new JButton(language.ok());
-        okButton.setBounds(100, 375, 100,75);
         okButton.setFont(defaultFont);
-        add(okButton);
+        loginPanel.add(okButton);
 
         exitButton = new JButton(language.exit());
-        exitButton.setBounds(300, 375, 100,75);
         exitButton.setFont(defaultFont);
-        add(exitButton);
+        loginPanel.add(exitButton);
 
-
-        setTitle(language.titleLogin());
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(600, 500);
-        setLocation(450,200);
-        setVisible(true);
+        loginPanel.setVisible(true);
 
 
 
@@ -82,13 +77,6 @@ public class LoginWindow extends JFrame implements IWindow{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
-            }
-        });
-
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Call the Presenter to present
             }
         });
 
@@ -100,8 +88,16 @@ public class LoginWindow extends JFrame implements IWindow{
             }
         });
 
+        setTitle(language.titleLogin());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(600, 500);
+        setLocation(450,200);
+        setVisible(true);
+
 
 
     }
+
+
 }
 

@@ -1,4 +1,4 @@
-package presenter;
+package presenter.language;
 
 public class Japanese implements Language {
     @Override

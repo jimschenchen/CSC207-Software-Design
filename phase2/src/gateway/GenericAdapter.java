@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
  * @reference: https://medium.com/@ezralazuardy/gson-custom-interface-adapter-3f3b863e063d
  * @create: 2020-11-27 11:09
  **/
-public class UserAdapter implements JsonSerializer, JsonDeserializer{
+public class GenericAdapter implements JsonSerializer, JsonDeserializer{
 
     private static final String CLASSNAME = "CLASSNAME";
     private static final String DATA = "DATA";

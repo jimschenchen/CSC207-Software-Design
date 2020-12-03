@@ -23,7 +23,6 @@ public abstract class MultiSpeakerEvent extends Event{
         speakerList.add(speakerId);
     }
 
-
     @Override
     public void setSpeaker(ArrayList<Integer> speakerList) {
         this.speakerList = speakerList;
