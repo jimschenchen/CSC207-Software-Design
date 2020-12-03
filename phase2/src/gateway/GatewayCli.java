@@ -2,10 +2,14 @@ package gateway;
 
 import entity.*;
 import entity.event.Event;
+import entity.event.Party;
+import entity.event.Talk;
 import redis.clients.jedis.Jedis;
+import usecase.EventManager;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -48,7 +52,6 @@ public class GatewayCli extends Gateway{
         }
     }
 
-
     private void rmrf() {
         Jedis jedis = getJedis();
         Scanner scan = new Scanner(System.in);
@@ -85,7 +88,7 @@ public class GatewayCli extends Gateway{
         testUser (gf);
         testEvent (gf);
         testRoom (gf);
-        testMessage();
+        testMessage(gf);
         System.out.println("\nGateway: All tests passed");
     }
     /** This method is used for test    */
@@ -125,37 +128,44 @@ public class GatewayCli extends Gateway{
     }
 
     private void testEvent (GatewayFacade gf) {
-//        gf.addEvent(new Event(LocalDateTime.now(), 998,0, "First Event", 0));
-//        gf.addEvent(new Event(LocalDateTime.now(), 999,125, "Second Event", 0));
-//        assert (gf.getEventById(998).getTitle().equals("First Event"));
-//        assert (gf.getEventList().get(999).getSpeakerId() == 125);
-//        gf.deleteFromHash(EVENT_HASH, 999);
-//        gf.deleteFromHash(EVENT_HASH, 998);
+        EventManager em = new EventManager();
+        LocalDateTime sTime = LocalDateTime.parse("2020-11-14 18:00", em.getTimeFormatter());
+        LocalDateTime eTime = LocalDateTime.parse("2020-11-14 20:00", em.getTimeFormatter());
+
+        Event e1 = new Party(sTime, eTime, 998, "test event", 250, 200);
+        Event e2 = new Talk(sTime, eTime, 999, "test event222", 255, 400);
+        gf.addEvent(e1);
+        gf.addEvent(e2);
+        assert (gf.getEventById(998).getTitle().equals("test event"));
+        assert (gf.getEventList().get(999).getCapacity() == 400);
+        gf.deleteEvent(e1);
+        gf.deleteEvent(e2);
         System.out.print("**");
     }
 
     private void testRoom (GatewayFacade gf) {
-        gf.addRoom(new Room("123313", 999));
+        Room r1 = new Room("123313", 999);
+        gf.addRoom(r1);
         assert (gf.getRoomById(999).getRoomNum().equals("123313"));
         assert (gf.getRoomByRoomNum("123313").getRid() == 999);
-//        deleteFromHash(ROOM_HASH, 999);
+        gf.deleteRoom(r1);
         System.out.print("**");
     }
 
-    private void testMessage () {
-//        boolean check = false;
-//        List<Message> messageList = getSentMessageListByUserId(999);
-//        for (Message message : messageList) {
-//            check = (message.getInfo().equals("Hello Message") || check);
-//        }
-//        if (!check) {
-//            Message m = new Message("Hello Message", 999, 998);
-//            addMessage(m);
-//        }
-//        messageList = getSentMessageListByUserId(999);
-//        check = false;
-//        for (Message message : messageList) {
-//            check = (message.getInfo().equals("Hello Message") || check);
-//        }
+    private void testMessage (GatewayFacade gf) {
+        boolean check = false;
+        List<Message> messageList = gf.getSentMessageListByUserId(999);
+        for (Message message : messageList) {
+            check = (message.getInfo().equals("Hello Message") || check);
+        }
+        if (!check) {
+            Message m = new Message("Hello Message", 999, 998);
+            gf.addMessage(m);
+        }
+        messageList = gf.getSentMessageListByUserId(999);
+        check = false;
+        for (Message message : messageList) {
+            check = (message.getInfo().equals("Hello Message") || check);
+        }
     }
 }
