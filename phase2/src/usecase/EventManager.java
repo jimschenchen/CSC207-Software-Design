@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.istack.internal.Nullable;
-import entity.*;
+import entity;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.Gateway;
+
+import static org.json.XMLTokener.entity;
 
 /**
  * The Event Manager class
@@ -231,12 +233,21 @@ public class EventManager {
      * @param eventID event id
      * @param g the database
      * @param type the type of event
+     * @return true if change success
      */
-    public void setEventVip(int eventId, Gateway g, Boolean type){
+    public Boolean changeEventVIP(int eventId, Boolean type, Gateway g){
         g.getEventById(eventId).setVipEvent(type);
+        return true;
     }
 
-    
-
+    public Boolean getEventVIP(int eventId, Gateway g){
+        /**
+         * return the event type, true means event is VIP, false means event is not VIP
+         * @param eventID event id
+         * @param g the database
+         * @return the type of event
+         */
+        return g.getEventById(eventId).isVipEvent();
+    }
 }
 

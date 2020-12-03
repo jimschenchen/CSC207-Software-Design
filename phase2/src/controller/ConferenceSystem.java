@@ -85,6 +85,26 @@ public class ConferenceSystem {
         return false;
     }
 
+    public boolean changeEventVIP(int eventId, Boolean type){
+        /**
+         * change type of a event
+         * @param eventId eventid of event
+         * @return Return true if change correctly, false otherwise.
+         */
+        if (em.getEventVIP(eventId, gw) != type){
+            return em.changeEventVIP(eventId, type, gw);
+        }
+        return false;
+    }
+
+    public Boolean getEventVIP(int eventId){
+        /**
+         * return the event type, true means event is VIP, false means event is not VIP
+         * @param eventID event id
+         * @return the type of event
+         */
+        return em.getEventVIP(eventId, gw);
+    }
 
     public boolean CreateSpeaker(String userName, String password){
         /**
