@@ -1,6 +1,6 @@
 package controller;
 
-import gateway.Gateway;
+import gateway.GatewayFacade;
 import usecase.EventManager;
 import usecase.RoomManager;
 import usecase.UserManager;
@@ -25,7 +25,7 @@ class ViewingSystem {
         this.user = userID;
     }
 
-    private List<String> getEventList(List<Integer> idList, Gateway gw){
+    private List<String> getEventList(List<Integer> idList, GatewayFacade gw){
         List<String> sEvents = new ArrayList<>();
         for (Integer id : idList){
             sEvents.add(em.getStringOfEvent(id, gw));
@@ -38,7 +38,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewEvents(Gateway gw){
+    List<String> viewEvents(GatewayFacade gw){
         List<Integer> events = em.getEventList(gw);
         return getEventList(events, gw);
     }
@@ -48,7 +48,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewSignedUpEvents(Gateway gw){
+    List<String> viewSignedUpEvents(GatewayFacade gw){
         List<Integer> events = um.getOrganizerOrAttendeeEventList(user, gw);
         return getEventList(events, gw);
     }
@@ -58,7 +58,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewOrganizedEvents(Gateway gw){
+    List<String> viewOrganizedEvents(GatewayFacade gw){
         List<Integer> events = um.getOrganizedEventList(user, gw);
         return getEventList(events, gw);
     }
@@ -68,7 +68,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewSpeakingEvents(Gateway gw){
+    List<String> viewSpeakingEvents(GatewayFacade gw){
         List<Integer> events = um.getSpeakerEventList(user, gw);
         return getEventList(events, gw);
     }
@@ -78,7 +78,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewCanSignUpEvents(Gateway gw){
+    List<String> viewCanSignUpEvents(GatewayFacade gw){
         List<Integer> allEvents = em.getEventList(gw);
         List<String> events = new ArrayList<>();
         for (Integer eventID : allEvents){
@@ -95,7 +95,7 @@ class ViewingSystem {
      * @return Return a list of Strings that represent all attendees of all the events the speaker is speaking for.
      * Every attendee is represented by a string formated as follows: "UserName (userID)"
      */
-    List<String> viewAttendeesInSpeakingEvents(Gateway gw){
+    List<String> viewAttendeesInSpeakingEvents(GatewayFacade gw){
         List<Integer> allSpeakingEvents = um.getSpeakerEventList(user, gw);
         Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
         List<String> sAllAttendeesInEvents = new ArrayList<>();
@@ -109,7 +109,7 @@ class ViewingSystem {
         return sAllAttendeesInEvents;
     }
 
-    private List<String> getUserList(List<Integer> idList, Gateway gw){
+    private List<String> getUserList(List<Integer> idList, GatewayFacade gw){
         List<String> sUser = new ArrayList<>();
         for (Integer id : idList){
             sUser.add(um.getUserString(id, gw));
@@ -123,7 +123,7 @@ class ViewingSystem {
      * @return Return a list of Strings that represent all attendees in the system.
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
-    List<String> viewAllAttendees(Gateway gw){
+    List<String> viewAllAttendees(GatewayFacade gw){
         List<Integer> allAttendees = um.getListOfUsers(2, gw);
         return getUserList(allAttendees, gw);
     }
@@ -134,12 +134,12 @@ class ViewingSystem {
      * @return Return a list of Strings that represent all speakers in the system.
      * Every speaker is represented by a string formatted as follows: "UserName (userID)"
      */
-    List<String> viewAllSpeakers(Gateway gw){
+    List<String> viewAllSpeakers(GatewayFacade gw){
         List<Integer> allSpeakers = um.getListOfUsers(0, gw);
         return getUserList(allSpeakers, gw);
     }
 
-    List<String> viewAllRooms(Gateway gw){
+    List<String> viewAllRooms(GatewayFacade gw){
         /**
          * View all rooms in the system.
          *

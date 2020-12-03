@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import usecase.*;
-import gateway.Gateway;
+import gateway.GatewayFacade;
 
 public class ConferenceSystem {
 
@@ -18,7 +18,7 @@ public class ConferenceSystem {
     private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
-    private Gateway gw = new Gateway();
+    private GatewayFacade gw = new GatewayFacade();
     private int user;
     private MessagingSystem ms = new MessagingSystem();
     private ViewingSystem vs = new ViewingSystem();

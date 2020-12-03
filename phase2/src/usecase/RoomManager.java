@@ -3,7 +3,7 @@ package usecase;
 import java.util.ArrayList;
 import java.util.List;
 import entity.Room;
-import gateway.Gateway;
+import gateway.GatewayFacade;
 
 /**
  * The Room Manager class
@@ -15,7 +15,7 @@ public class RoomManager {
      * @param g the database
      * @return the list of room id in the database
      */
-    public List<Room> getListOfRooms(Gateway g) {
+    public List<Room> getListOfRooms(GatewayFacade g) {
         return g.getRoomList();
     }
 
@@ -26,7 +26,7 @@ public class RoomManager {
      * @param g the database
      * @return the boolean shows that whether a room can be added to the database
      */
-    public boolean canAddRoom(String room_num, Gateway g) {
+    public boolean canAddRoom(String room_num, GatewayFacade g) {
         for (Room r : g.getRoomList()) {
             if (r.getRoomNum().equals(room_num)) {
                 return false;
@@ -41,7 +41,7 @@ public class RoomManager {
      * @param roomNumber the room number
      * @param g the database
      */
-    public void add_room(String roomNumber, Gateway g) {
+    public void add_room(String roomNumber, GatewayFacade g) {
         Room room = new Room(roomNumber, g.getNextRoomId());
         g.addRoom(room);
     }
@@ -53,11 +53,11 @@ public class RoomManager {
      * @param g the database
      * @return the room id
      */
-    public int getRoomIDbyRoomNumber(String roomNumber, Gateway g){
+    public int getRoomIDbyRoomNumber(String roomNumber, GatewayFacade g){
         return g.getRoomByRoomNum(roomNumber).getRid();
     }
 
-    public String getRoomString(int roomId, Gateway g){
+    public String getRoomString(int roomId, GatewayFacade g){
         /**
          * Get the room number by the room id
          * @param roomId the room id
@@ -68,7 +68,7 @@ public class RoomManager {
         return room.getRoomNum();
     }
 
-    public List<String> AllRooms(Gateway gw){
+    public List<String> AllRooms(GatewayFacade gw){
         /**
          * View all rooms in the system.
          *

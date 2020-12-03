@@ -2,7 +2,7 @@ package controller;
 
 import java.util.List;
 import usecase.*;
-import gateway.Gateway;
+import gateway.GatewayFacade;
 
 class MessagingSystem {
 
@@ -22,7 +22,7 @@ class MessagingSystem {
      * @param content The content of the message.
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
-    boolean messageAllAttendeesInEvent(String eventID, String content, Gateway gw){
+    boolean messageAllAttendeesInEvent(String eventID, String content, GatewayFacade gw){
         try{
             int eID = Integer.parseInt(eventID);
             if (em.isExistingEvent(eID, gw)){
@@ -42,7 +42,7 @@ class MessagingSystem {
      * @param content Content of the message
      * @return Return true if the message is sent successfully, else return false.
      */
-    boolean messageAllUsersInAllSpeakingEvents(String content, Gateway gw){
+    boolean messageAllUsersInAllSpeakingEvents(String content, GatewayFacade gw){
         if (um.isExistingSpeaker(user, gw)){
             mm.messageAllUsersInAllSpeakingEvents(user, content, gw);
             return true;
@@ -58,7 +58,7 @@ class MessagingSystem {
      * @param content Content of the message.
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
-    boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String content, Gateway gw){
+    boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String content, GatewayFacade gw){
         try{
             int eID = Integer.parseInt(eventID);
             int reID = Integer.parseInt(receiverID);
@@ -79,7 +79,7 @@ class MessagingSystem {
      * @param content Content of the message.
      * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
      */
-    boolean messageAllSpeakers(String content, Gateway gw){
+    boolean messageAllSpeakers(String content, GatewayFacade gw){
         if (mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
             mm.messageAllSpeakers(content, user, gw);
             return true;
@@ -95,7 +95,7 @@ class MessagingSystem {
      * @return Return true if the message is sent successfully. False if the input(ID) is invalid, or the user
      * is not allowed to message the speaker.
      */
-    boolean messageSpeaker(String receiverID, String content, Gateway gw){
+    boolean messageSpeaker(String receiverID, String content, GatewayFacade gw){
         try{
             int rID = Integer.parseInt(receiverID);
             if (mm.canMessageSpeaker(user, rID, gw)){
@@ -116,7 +116,7 @@ class MessagingSystem {
      * @return Return true if the messages are successfully sent. False if the logged in sender is not allowed to
      * perform this action.
      */
-    boolean messageAllAttendee(String content, Gateway gw){
+    boolean messageAllAttendee(String content, GatewayFacade gw){
         if(mm.canMessageAllSpeakersOrAllAttendee(user, gw)){
             mm.messageAllAttendees(user, content, gw);
             return true;
@@ -132,7 +132,7 @@ class MessagingSystem {
      * @return Return true if the message is sent successfully. False if the user is not allowed to message this
      * attendee, or input is invalid.
      */
-    boolean messageAttendee(String receiverID, String content, Gateway gw){
+    boolean messageAttendee(String receiverID, String content, GatewayFacade gw){
         try{
             int rID = Integer.parseInt(receiverID);
             if (mm.canMessageAttendee(user, rID, gw)){
@@ -154,7 +154,7 @@ class MessagingSystem {
      * @return Return true when the message is successfully sent, false if the user is not allowed to reply to the
      * message.
      */
-    boolean replyMessage(String messageIndex, String content, Gateway gw){
+    boolean replyMessage(String messageIndex, String content, GatewayFacade gw){
         try{
             int mIndex = Integer.parseInt(messageIndex);
             if (mm.canReplyMessage(user, mIndex, gw)){
@@ -173,7 +173,7 @@ class MessagingSystem {
      *
      * @return List of Strings representing the messages the user sent.
      */
-    List<String> readSentMessages(Gateway gw){
+    List<String> readSentMessages(GatewayFacade gw){
         return mm.getSentMessageListByUserId(user, gw);
     }
 
@@ -182,7 +182,7 @@ class MessagingSystem {
      *
      * @return List of Strings representing the messages the user reveived.
      */
-    List<String> readReceivedMessages(Gateway gw){
+    List<String> readReceivedMessages(GatewayFacade gw){
         return mm.getReceivedMessageListByUserId(user, gw);
     }
 
