@@ -98,7 +98,7 @@ public class ConferenceSystem {
         return false;
     }
 
-    public Boolean getStatusOfEvent(int eventId){
+    public Boolean getVipStatusOfEvent(int eventId){
         /**
          * return the event type, true means event is VIP, false means event is not VIP
          * @param eventID event id
