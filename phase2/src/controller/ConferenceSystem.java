@@ -56,7 +56,7 @@ public class ConferenceSystem {
 //        });
 //    }
 
-    public boolean CreateAttendee(String userName, String password){
+    public boolean createAttendee(String userName, String password){
         /**
          * create an attendee
          *
@@ -71,7 +71,7 @@ public class ConferenceSystem {
         return false;
     }
 
-    public boolean CreateVipUser(String userName, String password){
+    public boolean createVipUser(String userName, String password){
         /**
          * create a VIP
          *
@@ -107,7 +107,7 @@ public class ConferenceSystem {
         return em.getVipStatusOfEvent(eventId, gw);
     }
 
-    public boolean CreateSpeaker(String userName, String password){
+    public boolean createSpeaker(String userName, String password){
         /**
          * Creates a new speaker account into the system.
          *
