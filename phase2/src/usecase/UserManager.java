@@ -253,16 +253,25 @@ public class UserManager {
         return user.getUserName() + " (" + user.getUserId() + ")";
     }
 
-    public boolean isSpeakerBusy(int speakerId, LocalDateTime time, Gateway g) {
+    public boolean isSpeakerBusy(int speakerId, LocalDateTime start, LocalDateTime end, Gateway g) {
         /**
          * @Description: judge whether a speaker is speaking
          */
         for (int eid :g.getSpeakerById(speakerId).get_GivingEventList()) {
-            if (g.getEventById(eid).getStartTime().equals(time)) {
-                return false;
+            if (g.getEventById(eid).getEndTime().isBefore(start) | g.getEventById(eid).getStartTime().isAfter(end)) {
+                return true;
             }
         }
-        return true;
+        return false;
+    }
+
+    public boolean isSpeakerBusy(ArrayList<Integer> speakerId, LocalDateTime start, LocalDateTime end, Gateway g) {
+        for (int sid : speakerId) {
+            if (isSpeakerBusy(sid, start, end, g)) {
+                return true;
+            };
+        }
+        return false;
     }
 
     public boolean isExistingSpeaker(int userID, Gateway g){
@@ -270,6 +279,15 @@ public class UserManager {
          * @Description: judge a speaker is exist
          */
         return g.getSpeakerById(userID) != null;
+    }
+
+    public boolean isExistingSpeaker(ArrayList<Integer> speakerList, Gateway g) {
+        for (int i : speakerList) {
+            if (g.getSpeakerById(i) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean isExistingUser(String username, Gateway g){

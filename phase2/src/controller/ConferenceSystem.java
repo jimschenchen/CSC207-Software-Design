@@ -2,7 +2,10 @@ package controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+
 import usecase.*;
 import gateway.Gateway;
 
@@ -21,7 +24,7 @@ public class ConferenceSystem {
     private ViewingSystem vs = new ViewingSystem();
 //
 //    /**
-//    * @Description: Initialization of Gateway and Databse
+//    * @Description: Initialization of Gateway and Database
 //    * @Param: []
 //    * @return: void
 //    * @Date: 2020-11-14
@@ -273,7 +276,7 @@ public class ConferenceSystem {
     /**
      * Reads the incoming messages of the user currently logged in.
      *
-     * @return List of Strings representing the messages the user reveived.
+     * @return List of Strings representing the messages the user received.
      */
     public List<String> readReceivedMessages(){
         return ms.readReceivedMessages(gw);
@@ -390,29 +393,53 @@ public class ConferenceSystem {
      * @param roomNumber Room number of the location of this event.
      * @return Return true if successfully created a new event into the system, false otherwise.
      */
-    public boolean newEvent(String type1, String type2, String startTime, String endTime, String speakerID,
+    public boolean newEvent(String type01, String type02, String startTime, String endTime, String speakerID,
                             String topic, String roomNumber, String capacity){
         try{
-            int type3 = Integer.parseInt(type1);
-            int type4 = Integer.parseInt(type2);
+            int type1 = Integer.parseInt(type01);
+            int type2 = Integer.parseInt(type02);
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
             LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
-            int sID = Integer.parseInt(speakerID);
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
             int cap = Integer.parseInt(capacity);
-            if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-                    um.isSpeakerBusy(sID,sTime, gw)){
+            if (speakerID.contains(",")) {
+                ArrayList<Integer> sID = new ArrayList<>();
+                StringTokenizer token = new StringTokenizer(speakerID,",");
+                while (token.hasMoreElements()) {
+                    sID.add(Integer.parseInt(token.nextToken()));
+                    if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
+                            um.isSpeakerBusy(sID,sTime, eTime, gw)) {
 
-                int eventID = em.createEvent(type3, type4, sID, sTime, eTime, topic, rID, cap, gw);
-                um.addEventToOrganizedList(eventID, user, gw);
-                um.addEventToSpeaker(eventID, sID, gw);
-                return true;
+                        int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
+                        um.addEventToOrganizedList(eventID, user, gw);
+                        for (int speaker : sID){
+                            um.addEventToSpeaker(eventID, speaker, gw);}
+                        return true;
+                    }
+                }
             }
+            else {
+                int sID = Integer.parseInt(speakerID);
+                if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
+                        um.isSpeakerBusy(sID, sTime, eTime, gw)) {
+
+                    int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
+                    um.addEventToOrganizedList(eventID, user, gw);
+                    um.addEventToSpeaker(eventID, sID, gw);
+                    return true;
+                }
+            }
+
             return false; // return false when unsuccessful
         }
         catch(DateTimeParseException | NullPointerException ex){
             return false; // return false on invalid input
         }
+    }
+
+    private void newEventHelper1(int type1, int type2, LocalDateTime startTime, LocalDateTime endTime, int speakerID,
+                                String topic, int roomId, int capacity) {
+
     }
 
     public boolean cancelEvent(String eventID){
@@ -479,7 +506,7 @@ public class ConferenceSystem {
      * View all attendees who are registered in one of the current speaker's speaking events. Without duplicates.
      *
      * @return Return a list of Strings that represent all attendees of all the events the speaker is speaking for.
-     * Every attendee is represented by a string formated as follows: "UserName (userID)"
+     * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
     public List<String> viewAttendeesInSpeakingEvents(){
         return vs.viewAttendeesInSpeakingEvents(gw);
