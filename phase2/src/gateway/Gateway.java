@@ -7,6 +7,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * @program: group_0173
@@ -14,7 +15,7 @@ import java.lang.reflect.Type;
  * @author:
  * @create: 2020-12-03 17:56
  **/
-public abstract class Gateway {
+public abstract class Gateway<T> {
 
     private JedisPool jedisPool;
 
@@ -22,10 +23,24 @@ public abstract class Gateway {
     static final int DATABASE_PORT = Config.DATABASE_PORT;
     static final String DATABASE_PASSWORD = Config.DATABASE_PASSWORD;
 
+    private boolean genericEnable;
+    private Gson gson;
+    private Type type;
+
     /** Constructor */
-    public Gateway() {
+    public Gateway(Type type, boolean genericEnable) {
+        setAttributes(type, genericEnable);
         initJedisPool();
         ping();
+    }
+    private void setAttributes (Type type, boolean genericEnable) {
+        this.type = type;
+        this.genericEnable = genericEnable;
+        if (genericEnable) {
+            this.gson = buildGson(type, new GenericAdapter());
+        } else {
+            this.gson = buildGson();
+        }
     }
 
     /** Private Method - Jedis Pool */
@@ -65,15 +80,29 @@ public abstract class Gateway {
         }
     }
 
-    /** Public Methods - Gson */
-    public Gson buildGson () {
+    /** Private Methods - Gson Builder */
+    private Gson buildGson () {
         return new GsonBuilder().serializeNulls().create();
     }
-    public Gson buildGson (Type type, Object typeAdapter) {
+    private Gson buildGson (Type type, Object typeAdapter) {
         return new GsonBuilder().registerTypeAdapter(type, typeAdapter).serializeNulls().create();
     }
 
-    /** Abstract Methods - Gson */
-    public abstract Gson getGson ();
-
+    /** Public Methods - Gson */
+    public String serialize (T obj) {
+        if (genericEnable) {
+            DataBean dataBean = new DataBean(obj);
+            String serData = gson.toJson(dataBean);
+            return serData;
+        } else {
+            return gson.toJson(obj);
+        }
+    }
+    public T deserialize (String date) {
+        if (genericEnable) {
+            return (T)gson.fromJson(date, DataBean.class).convertToObject();
+        } else {
+            return (T)gson.fromJson(date, type);
+        }
+    }
 }

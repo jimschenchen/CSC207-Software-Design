@@ -21,51 +21,24 @@ import java.util.*;
  **/
 public class GatewayFacade {
 
-
+    private final HashGateway<User> userGateway = new HashGateway<>(Config.NEXT_USER_ID, Config.USER_HASH, User.class, true);
+    private final HashGateway<Event> eventGateway = new HashGateway<>(Config.NEXT_EVENT_ID, Config.EVENT_HASH, Event.class, true);
+    private final HashGateway<Room> roomGateway = new HashGateway<>(Config.NEXT_ROOM_ID, Config.ROOM_HASH, Room.class, false);
+    private final ListGateway<Message> messageGateway = new ListGateway<>(Config.MESSAGE_LIST, Message.class, false);
 
     /** Return the next user id and self increase by 1 */
     public int getNextUserId() {
-
+        return userGateway.getAndIncreaseNextId();
     }
 
     /** Return the next event id and self increase by 1 */
     public int getNextEventId() {
-
+        return eventGateway.getAndIncreaseNextId();
     }
 
     /** Return the next room id and self increase by 1 */
     public int getNextRoomId() {
-
-    }
-
-
-    // Helper Function
-    /** Helper Func, adding (id, value) to the <key>map */
-    private void addToHash (String key, int id, String value) {
-
-    }
-    private void updateToHash(String key, int id, String value) {
-
-    }
-
-    private Map<String, String> getAllFromHash(String key) {
-
-    }
-
-    private String getByIdFromHash (String key, int id) {
-
-    }
-
-    private void deleteFromHash(String key, int id) {
-
-    }
-
-    private void addToList (String key, String value) {
-
-    }
-
-    private List<String> getAllFromList (String key) {
-
+        return roomGateway.getAndIncreaseNextId();
     }
 
     // ===== User: Hash=====
@@ -74,38 +47,38 @@ public class GatewayFacade {
      * @Param: [user]
      * @return: void
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public void addUser(User user) {
-
+        userGateway.add(user.getUserId(), user);
     }
 
     public void updateUser(User user) {
-
+        userGateway.update(user.getUserId(), user);
     }
 
     public void deleteUser(User user) {
-
+        userGateway.delete(user.getUserId());
     }
     /**
      * @Description: Get user by given id.
      * @Param: [id]
      * @return: User
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public User getUserById(int id) {
-
+        return userGateway.get(id);
     }
     /**
      * @Description: Get the Whole User List. *This is method may lag the performance.
      * @Param: []
      * @return: java.util.List<User>
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public List<User> getUserList() {
-
+        return userGateway.getList();
     }
     /**
      * @Description: Get User by given username. *This is method may lag the performance. Then use `getUserById` instead.
@@ -115,9 +88,14 @@ public class GatewayFacade {
      * @Date: 2020-11-28
      */
     public User getUserByUserName(String username) {
-
+        ArrayList<User> userList = (ArrayList<User>) getUserList();
+        for (User u : userList) {
+            if (u.getUserName().equals(username)) {
+                return u;
+            }
+        }
+        return null;
     }
-
     /**
      * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
      * @Param: [id]
@@ -126,7 +104,11 @@ public class GatewayFacade {
      * @Date: 2020-11-12
      */
     public Attendee getAttendeeById(int id) {
-
+        User user = this.getUserById(id);
+        if (user.getClass().equals(Attendee.class)) {
+            return (Attendee)user;
+        }
+        return null;
     }
 
     /**
@@ -137,7 +119,11 @@ public class GatewayFacade {
      * @Date: 2020-11-13
      */
     public Attendee getAttendeeByUserName(String username) {
-
+        User user = this.getUserByUserName(username);
+        if (user.getClass().equals(Attendee.class)) {
+            return (Attendee)user;
+        }
+        return null;
     }
 
     /**
@@ -148,7 +134,11 @@ public class GatewayFacade {
      * @Date: 2020-11-12
      */
     public Speaker getSpeakerById(int id) {
-
+        User user = this.getUserById(id);
+        if (user.getClass().equals(Speaker.class)) {
+            return (Speaker)user;
+        }
+        return null;
     }
 
     /**
@@ -159,7 +149,11 @@ public class GatewayFacade {
      * @Date: 2020-11-13
      */
     public Speaker getSpeakerByUserName(String username) {
-
+        User user = this.getUserByUserName(username);
+        if (user.getClass().equals(Speaker.class)) {
+            return (Speaker)user;
+        }
+        return null;
     }
     /**
      * @Description:
@@ -169,7 +163,11 @@ public class GatewayFacade {
      * @Date: 2020-11-13
      */
     public Organizer getOrganizerByUserName(String username) {
-
+        User user = this.getUserByUserName(username);
+        if (user.getClass().equals(Organizer.class)) {
+            return (Organizer)user;
+        }
+        return null;
     }
 
     /**
@@ -180,8 +178,16 @@ public class GatewayFacade {
      * @Date: 2020-11-12
      */
     public Organizer getOrganizerById(int id) {
-
+        User user = this.getUserById(id);
+        if (user.getClass().equals(Organizer.class)) {
+            return (Organizer)user;
+        }
+        return null;
     }
+
+
+
+
 
 
     // ===== Event: Hash=====
@@ -190,16 +196,16 @@ public class GatewayFacade {
      * @Param: [event]
      * @return: void
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public void addEvent(Event event) {
-
+        eventGateway.add(event.getEventId(), event);
     }
     public void updateEvent(Event event) {
-
+        eventGateway.update(event.getEventId(), event);
     }
     public void deleteEvent(Event event) {
-
+        eventGateway.delete(event.getEventId());
     }
 
     /**
@@ -207,21 +213,22 @@ public class GatewayFacade {
      * @Param: []
      * @return: java.util.List<Event>
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public List<Event> getEventList() {
-
+        return eventGateway.getList();
     }
     /**
      * @Description: Get event by given id
      * @Param: [id]
      * @return: Event
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public Event getEventById(int id) {
-
+        return eventGateway.get(id);
     }
+
 
 
     // ===== Room: Hash=====
@@ -230,36 +237,36 @@ public class GatewayFacade {
      * @Param: [room]
      * @return: void
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public void addRoom(Room room) {
-
+        roomGateway.add(room.getRid(), room);
     }
     public void updateRoom(Room room) {
-
+        roomGateway.update(room.getRid(), room);
     }
     public void deleteRoom(Room room) {
-
+        roomGateway.delete(room.getRid());
     }
     /**
      * @Description: get list of rooms
      * @Param: []
      * @return: java.util.List<Room>
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public List<Room> getRoomList() {
-
+        return roomGateway.getList();
     }
     /**
      * @Description: get room by given id
      * @Param: [id]
      * @return: Room
      * @Author:
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     public Room getRoomById(int id) {
-
+        return roomGateway.get(id);
     }
     /**
      * @Description: get room by given roomNum
@@ -269,8 +276,16 @@ public class GatewayFacade {
      * @Date: 2020-11-28
      */
     public Room getRoomByRoomNum(String roomNum) {
-
+        ArrayList<Room> roomList = (ArrayList<Room>) getRoomList();
+        for (Room r : roomList) {
+            if (r.getRoomNum().equals(roomNum)) {
+                return r;
+            }
+        }
+        return null;
     }
+
+
 
 
     // ===== Message: List =====
@@ -279,20 +294,19 @@ public class GatewayFacade {
      * @Param: [message]
      * @return: void
      * @Author:
-     * @Date: 2020-11-12
+     * @Date: 2020-12-3
      */
     public void addMessage(Message message) {
-
-
+        messageGateway.add(message);
     }
     /**
      * @Description: get List of all messages
      * @Param: []
      * @return: java.util.List<Message>
-     * @Date: 2020-11-28
+     * @Date: 2020-12-3
      */
     private List<Message> getMessageList() {
-
+        return messageGateway.getList();
     }
     /**
      * @Description: Return the List of messages related to <userId>; Cannot add message
@@ -301,7 +315,14 @@ public class GatewayFacade {
      * @Date: 2020-11-11
      */
     public List<Message> getAllMessageListByUserId(int userId) {
-
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getReceiverId() == userId || m.getSenderId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
     }
     /**
      * @Description: Return the List of Sent messages related to <userId>; Cannot add message
@@ -311,7 +332,14 @@ public class GatewayFacade {
      * @Date: 2020-11-14
      */
     public List<Message> getSentMessageListByUserId(int userId) {
-
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getSenderId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
     }
     /**
      * @Description: Return the List of Received messages related to <userId>; Cannot add message
@@ -321,8 +349,16 @@ public class GatewayFacade {
      * @Date: 2020-11-14
      */
     public List<Message> getReceivedMessageListByUserId(int userId) {
-
+        ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
+        List<Message> ret = new ArrayList<>();
+        for (Message m : messageList) {
+            if (m.getReceiverId() == userId) {
+                ret.add(m);
+            }
+        }
+        return ret;
     }
+
 
 
 

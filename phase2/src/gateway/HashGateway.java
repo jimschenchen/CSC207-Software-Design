@@ -1,9 +1,11 @@
 package gateway;
 
 import com.google.gson.Gson;
+import entity.event.Event;
 import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,25 +16,15 @@ import java.util.Map;
  * @author:
  * @create: 2020-12-03 20:03
  **/
-public class HashGateway extends Gateway{
+public class HashGateway<T> extends Gateway<T>{
 
     private String hashKey;
     private String idKey;
-    private Gson gson;
-    private Type type;
-    //    private boolean genericEnable;
 
     public HashGateway(String idKey, String hashKey, Type type, boolean genericEnable) {
-        super();
+        super(type, genericEnable);
         this.idKey = idKey;
         this.hashKey = hashKey;
-//        this.type = type;
-//        this.genericEnable = genericEnable;
-        if (genericEnable) {
-            this.gson = buildGson(type, new GenericAdapter());
-        } else {
-            this.gson = buildGson();
-        }
     }
 
     /** ID methods */
@@ -64,10 +56,17 @@ public class HashGateway extends Gateway{
         return ret;
     }
 
-    /** Hash Methods */
-
     /** Helper Func, adding (id, value) to the <key>map */
-    private void addToHash (int id, String value) {
+    private Map<String, String> getAll () {
+        Jedis jedis = getJedis();
+        Map<String, String> map = jedis.hgetAll(this.hashKey);
+        closeJedis(jedis);
+        return map;
+    }
+
+    /** Hash Methods */
+    public void add (int id, T obj) {
+        String value = serialize(obj);
         Jedis jedis = getJedis();
         String type = jedis.type(this.hashKey);
         if (type.equals("hash")) {
@@ -80,53 +79,29 @@ public class HashGateway extends Gateway{
         }
         closeJedis(jedis);
     }
-    private void updateToHash(int id, String value) {
-        addToHash(id, value);
+    public void update (int id, T obj) {
+        add(id, obj);
     }
-
-    private Map<String, String> getAllFromHash() {
-        Jedis jedis = getJedis();
-        Map<String, String> map = jedis.hgetAll(this.hashKey);
-        closeJedis(jedis);
-        return map;
-    }
-
-    private String getByIdFromHash (int id) {
+    public T get (int id) {
         Jedis jedis = getJedis();
         String value = jedis.hget(this.hashKey, String.valueOf(id));
         closeJedis(jedis);
-        return value;
+        return deserialize(value);
     }
-
-    private void deleteFromHash(int id) {
+    public void delete (int id) {
         Jedis jedis = getJedis();
         jedis.hdel(this.hashKey, String.valueOf(id));
         closeJedis(jedis);
     }
-
-
-
-//
-//    private void addToList (String key, String value) {
-//        Jedis jedis = getJedis();
-//        String type = jedis.type(key);
-//        if (!type.equals("list")) {
-//            jedis.del(key);
-//        }
-//        jedis.lpush(key, value);
-//        closeJedis(jedis);
-//    }
-//
-//    private List<String> getAllFromList (String key) {
-//        Jedis jedis = getJedis();
-//        List<String> list = jedis.lrange(key,0, -1);
-//        closeJedis(jedis);
-//        return list;
-//    }
-
-
-    @Override
-    public Gson getGson() {
-        return this.gson;
+    public List<T> getList() {
+        List<String> dateList = new ArrayList<>(getAll().values());
+        List<T> list = new ArrayList<>();
+        for (String data : dateList) {
+            try {
+                list.add((T)deserialize(data));
+            } catch(Exception e) {
+            }
+        }
+        return list;
     }
 }
