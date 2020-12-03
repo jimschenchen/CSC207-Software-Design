@@ -113,19 +113,18 @@ public class UserManager {
          * @Description: judge whether a User is eligible to sign up an Event
          */
         Event e = g.getEventById(eventId);
-        if (e == null | isExistingSpeaker(userId, g) |
-                g.getRoomById(e.getRoomId()).getCapacity() <= e.getSignedUpUserList().size()) {
-            return false;
-        }
-        else {
+        if (!(e == null | isExistingSpeaker(userId, g) |
+                e.getCapacity() <= e.getSignedUpUserList().size() |
+                (g.getUserById(userId) instanceof VipUser != e.isVipEvent()))) {
             Attendee a = (Attendee) g.getUserById(userId);
-            for (int i = 0; i <  a.getEventList().size(); i++) {
-                if (g.getEventById(a.getEventList().get(i)).getStartTime().equals(e.getStartTime())){
-                    return false;
+            for (int i = 0; i < a.getEventList().size(); i++) {
+                if (g.getEventById(a.getEventList().get(i)).getStartTime().isAfter(e.getEndTime())
+                        | g.getEventById(a.getEventList().get(i)).getEndTime().isBefore(e.getStartTime())) {
+                    return true;
                 }
             }
-            return true;
         }
+        return false;
     }
 
     public void addEventToAttendeeOrOrganizer(int eventId, int userId, GatewayFacade g){
