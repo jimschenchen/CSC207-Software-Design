@@ -10,19 +10,22 @@ import gateway.Gateway;
 
 public class UserManager {
 
-    public boolean canCreateUser(String username, Gateway g){
+    public boolean canCreateUser(String userName, Gateway gw){
         /**
          * @Description: checks if username is unique
          */
-        return g.getUserByUserName(username) == null;
+        if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
+            return true;
+        }
+        return false;
     }
 
-//    public void createUser(String password, String name, Gateway g){
-//        /**
-//         * @Description: create a Speaker account
-//         */
-//        User u = new User(g.getNextUserId(), password, name);
-//        g.addUser(u);
+//    public boolean CanCreateUser(int id, String userName, String password){
+//        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)
+//                && um.isExistingOrganizer(id, gw)){
+//            return true;
+//        }
+//        return false;
 //    }
 
     public boolean canCreateSpeaker(String username, Gateway g){
