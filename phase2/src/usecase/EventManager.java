@@ -72,16 +72,16 @@ public class EventManager {
         return nEvent.getEventId();
     }
 
-    /**
-     * Set a new speaker to the exist event
-     * @param speakerId the new speaker id
-     * @param eventId the event id
-     * @param g the database
-     */
-    public void setSpeaker(int speakerId, int eventId, GatewayFacade g){
-
-        g.getEventById(eventId).setSpeaker(speakerId);
-    }
+//    /**
+//     * Set a new speaker to the exist event
+//     * @param speakerId the new speaker id
+//     * @param eventId the event id
+//     * @param g the database
+//     */
+//    public void setSpeaker(int speakerId, int eventId, GatewayFacade g){
+//
+//        g.getEventById(eventId).setSpeaker(speakerId);
+//    }
 
     /**
      * Judge whether a user can sign up to an event
