@@ -11,4 +11,7 @@ public interface Language {
     public String titleSignUp();
     public String language();
     public String selectLanguage();
+    public String fail();
+    public String messageTitle();
+    public String createAccountMessage();
 }

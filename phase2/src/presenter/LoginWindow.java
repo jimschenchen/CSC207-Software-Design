@@ -1,5 +1,6 @@
 package presenter;
 
+import presenter.factory.JOptionPaneFactory;
 import presenter.language.English;
 import presenter.language.Language;
 
@@ -20,14 +21,19 @@ public class LoginWindow extends JFrame  {
     Font defaultFont = new Font("Mononspace", 1, 25);
     Font specialFont = new Font("Mononspace", 1, 20);
     Language language;
+    Presenter presenter = new Presenter();
+    JOptionPaneFactory wf;
+
 
     public LoginWindow(){//The language is English By default
         language = new English();
+        wf = new JOptionPaneFactory(language);
         init();
     }
 
     public LoginWindow(Language language){
         this.language = language;
+        wf = new JOptionPaneFactory(language);
         init();
     }
 
@@ -71,20 +77,34 @@ public class LoginWindow extends JFrame  {
 
         loginPanel.setVisible(true);
 
-
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameText.getText();
+                String password = passwordText.getText();
+                int type = presenter.signIn(username, password);
+                updates(type);
+            }
+        });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                updates(4);
             }
         });
 
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignUpWindow signUpWindow = new SignUpWindow(language);
-                dispose();
+                updates(3);
+            }
+        });
+
+        languageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updates(5);
             }
         });
 
@@ -93,9 +113,26 @@ public class LoginWindow extends JFrame  {
         setSize(600, 500);
         setLocation(450,200);
         setVisible(true);
+    }
 
-
-
+    public void updates(int action) {
+        if (action == -1){
+            wf.errorMessage();
+        }else if (action == 0){
+            // open the speaker window
+        }else if (action == 1){
+            // open the organizer window
+        }else if (action == 2){
+            // open the attendee window
+        }else if (action == 3){
+            SignUpWindow signUpWindow = new SignUpWindow(language);
+            dispose();
+        }else  if (action == 4){
+            System.exit(0);
+        }else if(action == 5){
+            LanguageWindow languageWindow = new LanguageWindow(language);
+            dispose();
+        }
     }
 
 

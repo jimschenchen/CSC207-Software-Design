@@ -1,6 +1,6 @@
 package presenter;
 
-import presenter.language.English;
+import presenter.factory.JOptionPaneFactory;
 import presenter.language.Language;
 
 import javax.swing.*;
@@ -17,9 +17,12 @@ public class SignUpWindow extends JFrame {
     JButton backButton;
     Font defaultFont = new Font("Mononspace", 1, 25);
     Language language;
+    JOptionPaneFactory windowFactory;
+    Presenter presenter = new Presenter();
 
     public SignUpWindow(Language language) {
         this.language = language;
+        windowFactory = new JOptionPaneFactory(language);
         init();
     }
 
@@ -58,14 +61,44 @@ public class SignUpWindow extends JFrame {
         setLocation(450,200);
         setVisible(true);
 
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updates(1);
+            }
+        });
+
+
 
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginWindow loginWindow = new LoginWindow();
-                dispose();
+               updates(0);
             }
         });
     }
+
+    private void signUp(){
+        String username = usernameText.getText();
+        String password = passwordText.getText();
+        Boolean bool = presenter.signup(username, password);
+        if (bool){
+            windowFactory.createAccountMessage();
+        }else{
+            windowFactory.errorMessage();
+        }
+    }
+
+    public void updates(int action){
+        if(action == 0){ //back to the login page
+            LoginWindow loginWindow = new LoginWindow();
+            dispose();
+        }else if(action == 1){
+            signUp();
+
+        }
+    }
+
+
 }

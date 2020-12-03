@@ -52,4 +52,19 @@ public class TraditionalChinese implements Language {
     public String selectLanguage() {
         return "請選擇語言";
     }
+
+    @Override
+    public String fail() {
+        return null;
+    }
+
+    @Override
+    public String messageTitle() {
+        return null;
+    }
+
+    @Override
+    public String createAccountMessage() {
+        return null;
+    }
 }

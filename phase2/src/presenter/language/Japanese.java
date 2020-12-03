@@ -50,4 +50,19 @@ public class Japanese implements Language {
     public String selectLanguage() {
         return "言語を選ぶ";
     }
+
+    @Override
+    public String fail() {
+        return null;
+    }
+
+    @Override
+    public String messageTitle() {
+        return null;
+    }
+
+    @Override
+    public String createAccountMessage() {
+        return null;
+    }
 }
