@@ -38,8 +38,14 @@ public class Speaker extends User implements java.io.Serializable{
     public void removeGivingEvent (int eid) {
         givingEventList.remove((Object) eid);}
 
+
     public ArrayList<Integer> get_GivingEventList(){
         return givingEventList;
+    }
+
+    @Override
+    public int getUserId() {
+        return super.getUserId();
     }
 
     @Override

@@ -90,4 +90,6 @@ public abstract class  Event {
     public abstract void setSpeaker(ArrayList<Integer> speakerList);
 
     public abstract void setSpeaker(int speakerId);
+
+    public abstract int getSpeakerId();
 }

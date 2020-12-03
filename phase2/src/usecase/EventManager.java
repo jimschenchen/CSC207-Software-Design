@@ -6,12 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.istack.internal.Nullable;
+//import com.sun.sunistack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.Gateway;
 import jdk.nashorn.internal.objects.annotations.Optimistic;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Event Manager class
@@ -111,7 +112,7 @@ public class EventManager {
      * @param g the database
      */
     public void addUserToEvent(int userId, int eventId, Gateway g){
-        g.getEventById(eventId).addUser(userId);
+        g.getEventById(eventId).addUserToEvent(userId);
     }
 
     /**
@@ -135,7 +136,8 @@ public class EventManager {
      * @param g the database
      */
     public void removeUser(int userId, int eventId, Gateway g) {
-        g.getEventById(eventId).removeUser(userId);
+        g.getEventById(eventId).removeUserFromEvent(userId);
+
     }
 
     /**
@@ -169,7 +171,7 @@ public class EventManager {
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
                 " with ID " + event.getEventId() +
-                " by " + g.getSpeakerById(event()).getUserName() +
+                " by " + g.getSpeakerById(eventID).getUserName() +
                 " starts at " + event.getStartTime().format(formatter) +
                 " ends at " + event.getEndTime().format(formatter) +
                 " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum();
