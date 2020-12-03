@@ -10,7 +10,7 @@ import gateway.Gateway;
 
 public class UserManager {
 
-    public boolean canCreateUser(String userName, Gateway gw){
+    public boolean canCreateUser(String userName, GatewayFacade gw){
         /**
          * @Description: checks if username is unique
          */
@@ -20,14 +20,14 @@ public class UserManager {
         return false;
     }
 
-    public boolean canCreateVIP(String userName, Gateway gw){
+    public boolean canCreateVIP(String userName, GatewayFacade gw){
         if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
             return true;
         }
         return false;
     }
 
-    public boolean canCreateSpeaker(String username, Gateway g){
+    public boolean canCreateSpeaker(String username, GatewayFacade g){
         /**
          * @Description: checks if username is unique
          */
@@ -40,14 +40,14 @@ public class UserManager {
         return true;
     }
 
-    public boolean canCreateAttendee(String username, Gateway g){
+    public boolean canCreateAttendee(String username, GatewayFacade g){
         /**
          * @Description: judge whether a username is available for a new Attendee account
          */
         return g.getUserByUserName(username) == null;
     }
 
-    public void createSpeaker(String password, String name, Gateway g){
+    public void createSpeaker(String password, String name, GatewayFacade g){
         /**
          * @Description: create a Speaker account
          */
@@ -56,7 +56,7 @@ public class UserManager {
     }
 
 
-    public void createAttendee(String password, String name ,Gateway g) {
+    public void createAttendee(String password, String name ,GatewayFacade g) {
         /**
          * @Description: create a Attendee account
          */
@@ -64,7 +64,7 @@ public class UserManager {
         g.addUser(a);
     }
 
-    public void createVIP(String password, String name ,Gateway g){
+    public void createVIP(String password, String name ,GatewayFacade g){
         /**
          * @Description: create a VIP account
          */
@@ -72,7 +72,7 @@ public class UserManager {
         g.addUser(vip);
     }
 
-    public boolean canAddEventToSpeaker(int eventID, int speakerId, Gateway g){
+    public boolean canAddEventToSpeaker(int eventID, int speakerId, GatewayFacade g){
         /**
          * @Description: judge whether a Event is conflict with Events which a Speaker participate
          */
@@ -87,7 +87,7 @@ public class UserManager {
         return true;
     }
 
-    public void addEventToSpeaker(int eventId, int speakerId, Gateway g){
+    public void addEventToSpeaker(int eventId, int speakerId, GatewayFacade g){
         /**
          * @Description: add a Event to a Speaker
          */
@@ -99,7 +99,7 @@ public class UserManager {
 
     }
 
-    private void removeOneSpeakerEventFromSpeaker(int eventId, Gateway g) {
+    private void removeOneSpeakerEventFromSpeaker(int eventId, GatewayFacade g) {
         /**
          * @Description: remove a Event to a Speaker
          */
@@ -107,7 +107,7 @@ public class UserManager {
         g.getSpeakerById(e.getSpeakerId()).removeGivingEvent(eventId);
     }
 
-    public boolean canSignUpForEvent(int eventId, int userId, Gateway g) {
+    public boolean canSignUpForEvent(int eventId, int userId, GatewayFacade g) {
         /**
          * @Description: judge whether a User is eligible to sign up an Event
          */
