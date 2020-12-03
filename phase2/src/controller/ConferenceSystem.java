@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import entity.VipUser;
 import usecase.*;
 import gateway.GatewayFacade;
 
@@ -370,13 +369,29 @@ public class ConferenceSystem {
      * @param eventID The event's ID
      * @return Return True when the speaker is assigned to the event successfully, false otherwise.
      */
-    public boolean setSpeakerForEvent(String speakerID, String eventID){
+    public boolean changeSpeakerForOneSpeakerEvent(String speakerID, String eventID){
         try{
             int sID = Integer.parseInt(speakerID);
             int eID = Integer.parseInt(eventID);
-            if(um.canAddEventToSpeaker(eID, sID, gw)){
+            if(um.canAddEventToSpeaker(eID, sID, gw) & gw.getOneSpeakerEventById(eID) != null){
                 um.addEventToSpeaker(eID, sID, gw);
-                em.setSpeaker(sID, eID, gw);
+                em.setSpeakerToOneSpeakerEvent(sID, eID, gw);
+                return true;
+            }
+            return false; // return false when cannot add event to speaker
+        }
+        catch(NumberFormatException nfe){
+            return false; // return false on invalid input
+        }
+    }
+
+    public boolean addSpeakerToMultiSpeakerEvent(String speakerId, String eventId) {
+        try{
+            int sID = Integer.parseInt(speakerId);
+            int eID = Integer.parseInt(eventId);
+            if(um.canAddEventToSpeaker(eID, sID, gw) & gw.getMultiSpeakerEventById(eID) != null){
+                um.addEventToSpeaker(eID, sID, gw);
+                em.addSpeakerToMultiSpeakerEvent(sID, eID, gw);
                 return true;
             }
             return false; // return false when cannot add event to speaker

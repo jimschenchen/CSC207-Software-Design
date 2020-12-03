@@ -1,5 +1,6 @@
 package usecase;
 
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import com.sun.istack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
+import gateway.Gateway;
 import gateway.GatewayFacade;
 
 /**
@@ -78,9 +80,12 @@ public class EventManager {
      * @param eventId the event id
      * @param g the database
      */
-    public void setSpeaker(int speakerId, int eventId, GatewayFacade g){
+    public void setSpeakerToOneSpeakerEvent(int speakerId, int eventId, GatewayFacade g){
+        g.getOneSpeakerEventById(eventId).setSpeaker(speakerId);
+    }
 
-        g.getEventById(eventId).setSpeaker(speakerId);
+    public void addSpeakerToMultiSpeakerEvent(int speakerId, int eventId, GatewayFacade g) {
+        g.getMultiSpeakerEventById(eventId).addNewSpeaker(speakerId);
     }
 
     /**
@@ -140,7 +145,6 @@ public class EventManager {
      */
     public void removeUser(int userId, int eventId, GatewayFacade g) {
         g.getEventById(eventId).removeUserFromEvent(userId);
-
     }
 
     /**
@@ -154,7 +158,6 @@ public class EventManager {
         Event event = g.getEventById(eventID);
         return event.getSignedUpUserList();
     }
-
 
     /**
      * A getter for ids of all events in the database
@@ -170,16 +173,16 @@ public class EventManager {
         return allEvents;
     }
 
-    public List<Integer> getNormalEventList(GatewayFacade g){
-        List<Integer> normalEvents = new ArrayList<>();
-        List<Event> events = g.getEventList();
-        for (Event event : events){
-            if(event.isVipEvent() == false) {
-                normalEvents.add(event.getEventId());
-            }
-        }
-        return normalEvents;
-    }
+//    public List<Integer> getNormalEventList(GatewayFacade g){
+//        List<Integer> normalEvents = new ArrayList<>();
+//        List<Event> events = g.getEventList();
+//        for (Event event : events){
+//            if(event.isVipEvent() == false) {
+//                normalEvents.add(event.getEventId());
+//            }
+//        }
+//        return normalEvents;
+//    }
 
     public String getStringOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
