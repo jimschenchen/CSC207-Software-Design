@@ -80,14 +80,23 @@ class ViewingSystem {
      */
     List<String> viewCanSignUpEvents(GatewayFacade gw){
         List<Integer> allEvents = em.getEventList(gw);
-        List<String> events = new ArrayList<>();
+        List<String> all_events = new ArrayList<>();
+        List<String> VIP_events = new ArrayList<>();
         for (Integer eventID : allEvents){
             if (um.canSignUpForEvent(eventID, this.user, gw) && em.canAddUserToEvent(user, eventID, gw)){
-                events.add(em.getStringOfEvent(eventID, gw));
+                all_events.add(em.getStringOfEvent(eventID, gw));
+                if (gw.getUserById(user).getclass().equal(VipUser)){
+                    VIP_events.add(em.getStringOfEvent(eventID, gw));
+                }
             }
         }
-        return events;
+        if (gw.getUserById(user).getclass().equal(VipUser)){
+            return VIP_events;
+        }
+        return all_events;
     }
+
+
 
     /**
      * View all attendees who are registered in one of the current speaker's speaking events. Without duplicates.
