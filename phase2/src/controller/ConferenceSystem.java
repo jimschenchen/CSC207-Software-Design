@@ -488,7 +488,6 @@ public class ConferenceSystem {
 
     /**
      * Return a list of events that the current logged in user has signed up for.
-     *
      * @return List of Strings of the events
      */
     public List<String> viewSignedUpEvents(){
@@ -497,7 +496,6 @@ public class ConferenceSystem {
 
     /**
      * Return a list of events that the current logged in organizer has organized
-     *
      * @return List of Strings of the events
      */
     public List<String> viewOrganizedEvents(){
@@ -506,7 +504,6 @@ public class ConferenceSystem {
 
     /**
      * Return a list of events that the current Speaker is going to speak for.
-     *
      * @return List of Strings of the events
      */
     public List<String> viewSpeakingEvents(){
@@ -521,7 +518,7 @@ public class ConferenceSystem {
          * @para userId is user id
          * @return List of Strings of the events
          */
-        if (gw.getUserById(userId) instanceof entity.VipUser){
+        if (gw.getUserById(userId).getClass().equals(VipUser.class)){
             return em.getEventList(gw);
         }
         return em.getNormalEventList(gw);
