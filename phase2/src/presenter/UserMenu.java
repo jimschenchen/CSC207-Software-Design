@@ -89,6 +89,7 @@ public class UserMenu<m1> extends JFrame implements IWindow{
         public void update() {
 
 
+
         }
 
         public void panelReplaced(JPanel panel){

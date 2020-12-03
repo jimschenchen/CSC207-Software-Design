@@ -9,6 +9,7 @@ public class UserMenuPresenter extends Presenter{
     public UserMenuPresenter(IWindow userMenu){
         this.userMenu = userMenu;
     }
+
     public void menuItemClicked(int i){
         if (i == 4){
             userMenu.update();
