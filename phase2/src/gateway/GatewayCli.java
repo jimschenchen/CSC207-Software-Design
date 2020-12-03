@@ -84,7 +84,7 @@ public class GatewayCli extends Gateway{
         GatewayFacade gf = new GatewayFacade();
         testUser (gf);
         testEvent (gf);
-        testRoom ();
+        testRoom (gf);
         testMessage();
         System.out.println("\nGateway: All tests passed");
     }
@@ -134,12 +134,12 @@ public class GatewayCli extends Gateway{
         System.out.print("**");
     }
 
-    private void testRoom () {
-//        addRoom(new Room("123313", 999));
-//        assert (getRoomById(999).getRoomNum().equals("123313"));
-//        assert (getRoomByRoomNum("123313").getRid() == 999);
+    private void testRoom (GatewayFacade gf) {
+        gf.addRoom(new Room("123313", 999));
+        assert (gf.getRoomById(999).getRoomNum().equals("123313"));
+        assert (gf.getRoomByRoomNum("123313").getRid() == 999);
 //        deleteFromHash(ROOM_HASH, 999);
-//        System.out.print("**");
+        System.out.print("**");
     }
 
     private void testMessage () {
