@@ -1,4 +1,4 @@
-package gateway;
+package gateway.bean;
 
 import entity.User;
 
@@ -11,12 +11,12 @@ import java.util.List;
  * @author:
  * @create: 2020-11-26 18:45
  **/
-public class DataBean {
+public class UserBean {
 
-    private List data = new ArrayList<>();
+    private List<User> data = new ArrayList<>();
 
-    public DataBean(Object o) {
-        this.data.add(o);
+    public UserBean(User u) {
+        this.data.add(u);
     }
 
     public Object convertToObject () {
