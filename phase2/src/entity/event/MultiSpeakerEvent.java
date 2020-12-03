@@ -15,22 +15,15 @@ public abstract class MultiSpeakerEvent extends Event{
         return speakerList;
     }
 
-    public void setSpeakerList(ArrayList<Integer> speakerList) {
-        this.speakerList = speakerList;
-    }
-
     public void addNewSpeaker(int speakerId) {
         speakerList.add(speakerId);
     }
 
-    @Override
     public void setSpeaker(ArrayList<Integer> speakerList) {
         this.speakerList = speakerList;
     }
 
-    @Override
-    public void setSpeaker() {}
-
-    @Override
-    public void setSpeaker(int speakerId) {}
+    public ArrayList<Integer> getSpeakerId(){
+        return speakerList;
+    }
 }

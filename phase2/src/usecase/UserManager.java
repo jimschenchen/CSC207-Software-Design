@@ -78,34 +78,32 @@ public class UserManager {
          */
         Speaker s = g.getSpeakerById(speakerId);
         Event event = g.getEventById(eventID);
-        if (s == null || event == null) {
+        if (s == null || event == null || event instanceof NonSpeakerEvent) {
             return false;
         }
-        else {
-            ArrayList<Integer> events = s.get_GivingEventList();
-            for (Integer integer : events) {
-                if (g.getEventById(integer).getStartTime().equals(event.getStartTime())) {
-                    return false;
-                }
-            }
-            return true;
+        else if (isSpeakerBusy(speakerId, event.getStartTime(), event.getEndTime(), g)){
+            return false;
         }
+        return true;
     }
 
     public void addEventToSpeaker(int eventId, int speakerId, Gateway g){
         /**
          * @Description: add a Event to a Speaker
          */
-        removeEventFromSpeaker(eventId,g);
+        Event event = g.getEventById(eventId);
+        if (event instanceof OneSpeakerEvent){
+            removeOneSpeakerEventFromSpeaker(eventId, g);
+        }
         g.getSpeakerById(speakerId).addGivingEvent(eventId);
 
     }
 
-    private void removeEventFromSpeaker(int eventId, Gateway g) {
+    private void removeOneSpeakerEventFromSpeaker(int eventId, Gateway g) {
         /**
          * @Description: remove a Event to a Speaker
          */
-        Event e = g.getEventById(eventId);
+        OneSpeakerEvent e =  g.getOneSpeakerEventById(eventId);
         g.getSpeakerById(e.getSpeakerId()).removeGivingEvent(eventId);
     }
 

@@ -54,6 +54,12 @@ public class EventManager {
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
         g.addEvent(nEvent);
+        if (type1 == 0) {
+            g.getNonSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+        }
+        else {
+            g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+        }
         return nEvent.getEventId();
     }
 
@@ -61,8 +67,8 @@ public class EventManager {
                            LocalDateTime end, String title, int roomId, int capacity, Gateway g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
-        nEvent.setSpeaker(speakerList);
         g.addEvent(nEvent);
+        g.getMultiSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerList);
         return nEvent.getEventId();
     }
 
@@ -73,8 +79,8 @@ public class EventManager {
      * @param g the database
      */
     public void setSpeaker(int speakerId, int eventId, Gateway g){
-        g.getEventById(eventId).setSpeaker(speakerId);
 
+        g.getEventById(eventId).setSpeaker(speakerId);
     }
 
     /**
