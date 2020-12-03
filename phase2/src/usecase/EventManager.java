@@ -10,8 +10,7 @@ import java.util.List;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
-import gateway.Gateway;
-import jdk.nashorn.internal.objects.annotations.Optimistic;
+import gateway.GatewayFacade;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -30,7 +29,7 @@ public class EventManager {
      * @param g the database
      * @return the boolean show whether the new event can be created
      */
-    public boolean canCreateEvent(int roomId, LocalDateTime start, LocalDateTime end, int capacity, Gateway g){
+    public boolean canCreateEvent(int roomId, LocalDateTime start, LocalDateTime end, int capacity, GatewayFacade g){
         List<Event> allEvent = g.getEventList();
         for (Event event : allEvent) {
             if (roomId == event.getRoomId() &&
@@ -52,7 +51,7 @@ public class EventManager {
      * @return the new event id
      */
     public int createEvent(int type1, int type2, @Nullable int speakerId, LocalDateTime start,
-                           LocalDateTime end, String title, int roomId, int capacity, Gateway g){
+                           LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
         nEvent.setSpeaker(speakerId);
@@ -61,7 +60,7 @@ public class EventManager {
     }
 
     public int createEvent(int type1, int type2, ArrayList<Integer> speakerList, LocalDateTime start,
-                           LocalDateTime end, String title, int roomId, int capacity, Gateway g){
+                           LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
         nEvent.setSpeaker(speakerList);
@@ -75,7 +74,7 @@ public class EventManager {
      * @param eventId the event id
      * @param g the database
      */
-    public void setSpeaker(int speakerId, int eventId, Gateway g){
+    public void setSpeaker(int speakerId, int eventId, GatewayFacade g){
         g.getEventById(eventId).setSpeaker(speakerId);
 
     }
@@ -88,7 +87,7 @@ public class EventManager {
      * @param g the database
      * @return the boolean shows whether a user can sign up to an event
      */
-    public boolean canAddUserToEvent(int userId, int eventId, Gateway g) {
+    public boolean canAddUserToEvent(int userId, int eventId, GatewayFacade g) {
         Event e = g.getEventById(eventId);
         if (!isExistingEvent(eventId, g)) {
             return false;
@@ -111,7 +110,7 @@ public class EventManager {
      * @param eventId the event id
      * @param g the database
      */
-    public void addUserToEvent(int userId, int eventId, Gateway g){
+    public void addUserToEvent(int userId, int eventId, GatewayFacade g){
         g.getEventById(eventId).addUserToEvent(userId);
     }
 
@@ -122,7 +121,7 @@ public class EventManager {
      * @param g the database
      * @return the boolean whether a user can be removed by an event
      */
-    public boolean canRemoveUser(int userid, int eventId, Gateway g) {
+    public boolean canRemoveUser(int userid, int eventId, GatewayFacade g) {
         if (isExistingEvent(eventId, g)) {
             return g.getEventById(eventId).getSignedUpUserList().contains(userid);
         }
@@ -135,7 +134,7 @@ public class EventManager {
      * @param eventId the event id
      * @param g the database
      */
-    public void removeUser(int userId, int eventId, Gateway g) {
+    public void removeUser(int userId, int eventId, GatewayFacade g) {
         g.getEventById(eventId).removeUserFromEvent(userId);
 
     }
@@ -147,7 +146,7 @@ public class EventManager {
      * @param g the database
      * @return all signed up user of and event
      */
-    public List<Integer> getUserList(int eventID, Gateway g){
+    public List<Integer> getUserList(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         return event.getSignedUpUserList();
     }
@@ -158,7 +157,7 @@ public class EventManager {
      * @param g the database
      * @return the list of ids of all events in the database
      */
-    public List<Integer> getEventList(Gateway g){
+    public List<Integer> getEventList(GatewayFacade g){
         List<Integer> allEvents = new ArrayList<>();
         List<Event> events = g.getEventList();
         for (Event event : events){
@@ -167,7 +166,7 @@ public class EventManager {
         return allEvents;
     }
 
-    public String getStringOfEvent(int eventID, Gateway g){
+    public String getStringOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
                 " with ID " + event.getEventId() +
@@ -192,18 +191,18 @@ public class EventManager {
      * @param g the database
      * @return the boolean shows whether the event is in the database
      */
-    public boolean isExistingEvent(int eventID, Gateway g){
+    public boolean isExistingEvent(int eventID, GatewayFacade g){
         return g.getEventById(eventID) != null;
     }
 
-    public boolean canCancelEvent(int eventID, Gateway gw) {
+    public boolean canCancelEvent(int eventID, GatewayFacade gw) {
         return isExistingEvent(eventID, gw);
     }
 
-    public void cancelEvent(int eventID, Gateway gw) {
+    public void cancelEvent(int eventID, GatewayFacade gw) {
         gw.deleteEvent(gw.getEventById(eventID));
     }
 
-    public Duration getEventDuration(int eventId, Gateway g) {return g.getEventById(eventId).getDuration();}
+    public Duration getEventDuration(int eventId, GatewayFacade g) {return g.getEventById(eventId).getDuration();}
 }
 
