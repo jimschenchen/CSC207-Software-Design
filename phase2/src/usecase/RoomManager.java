@@ -1,5 +1,6 @@
 package usecase;
 
+import java.util.ArrayList;
 import java.util.List;
 import entity.Room;
 import gateway.Gateway;
@@ -56,14 +57,29 @@ public class RoomManager {
         return g.getRoomByRoomNum(roomNumber).getRid();
     }
 
-    /**
-     * Get the room number by the room id
-     * @param roomId the room id
-     * @param g the database
-     * @return the room number
-     */
     public String getRoomString(int roomId, Gateway g){
+        /**
+         * Get the room number by the room id
+         * @param roomId the room id
+         * @param g the database
+         * @return the room number
+         */
         Room room = g.getRoomById(roomId);
         return room.getRoomNum();
+    }
+
+    public List<String> AllRooms(Gateway gw){
+        /**
+         * View all rooms in the system.
+         *
+         * @return Return a list of strings that represent all rooms in the system.
+         * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
+         */
+        List<Room> allRooms = getListOfRooms(gw);
+        List<String> sAllRooms = new ArrayList<>();
+        for (Room r: allRooms) {
+            sAllRooms.add(getRoomString(r.getRid(), gw));
+        }
+        return sAllRooms;
     }
 }

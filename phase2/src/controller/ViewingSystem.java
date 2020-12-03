@@ -139,18 +139,13 @@ class ViewingSystem {
         return getUserList(allSpeakers, gw);
     }
 
-    /**
-     * View all rooms in the system.
-     *
-     * @return Return a list of strings that represent all rooms in the system.
-     * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
-     */
     List<String> viewAllRooms(Gateway gw){
-        List<Room> allRooms = rm.getListOfRooms(gw);
-        List<String> sAllRooms = new ArrayList<>();
-        for (Room r: allRooms) {
-            sAllRooms.add(rm.getRoomString(r.getRid(), gw));
-        }
-        return sAllRooms;
+        /**
+         * View all rooms in the system.
+         *
+         * @return Return a list of strings that represent all rooms in the system.
+         * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
+         */
+        return rm.AllRooms(gw);
     }
 }

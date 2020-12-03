@@ -20,13 +20,12 @@ public class UserManager {
         return false;
     }
 
-//    public boolean CanCreateUser(int id, String userName, String password){
-//        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)
-//                && um.isExistingOrganizer(id, gw)){
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean canCreateVIP(String userName, Gateway gw){
+        if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
+            return true;
+        }
+        return false;
+    }
 
     public boolean canCreateSpeaker(String username, Gateway g){
         /**
@@ -41,6 +40,13 @@ public class UserManager {
         return true;
     }
 
+    public boolean canCreateAttendee(String username, Gateway g){
+        /**
+         * @Description: judge whether a username is available for a new Attendee account
+         */
+        return g.getUserByUserName(username) == null;
+    }
+
     public void createSpeaker(String password, String name, Gateway g){
         /**
          * @Description: create a Speaker account
@@ -49,12 +55,6 @@ public class UserManager {
         g.addUser(s);
     }
 
-    public boolean canCreateAttendee(String username, Gateway g){
-        /**
-         * @Description: judge whether a username is available for a new Attendee account
-         */
-        return g.getUserByUserName(username) == null;
-    }
 
     public void createAttendee(String password, String name ,Gateway g) {
         /**
@@ -62,6 +62,14 @@ public class UserManager {
          */
         Attendee a = new Attendee(g.getNextUserId(), password, name);
         g.addUser(a);
+    }
+
+    public void createVIP(String password, String name ,Gateway g){
+        /**
+         * @Description: create a VIP account
+         */
+        VipUser vip = new VipUser(g.getNextEventId(), password, name);
+        g.addUser(vip);
     }
 
     public boolean canAddEventToSpeaker(int eventID, int speakerId, Gateway g){
