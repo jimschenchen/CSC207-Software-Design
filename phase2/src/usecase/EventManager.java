@@ -185,7 +185,6 @@ public class EventManager {
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
                 " with ID " + event.getEventId() +
-                " by " + g.getSpeakerById(eventID).getUserName() +
                 " starts at " + event.getStartTime().format(formatter) +
                 " ends at " + event.getEndTime().format(formatter) +
                 " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum();

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import entity.VipUser;
 import usecase.*;
 import gateway.GatewayFacade;
 
@@ -70,7 +71,7 @@ public class ConferenceSystem {
         return false;
     }
 
-    public boolean CreateVIP(String userName, String password){
+    public boolean CreateVipUser(String userName, String password){
         /**
          * create a VIP
          *
@@ -85,7 +86,7 @@ public class ConferenceSystem {
         return false;
     }
 
-    public boolean changeEventVIP(int eventId, Boolean type){
+    public boolean changeVipStatusOfEvent(int eventId, Boolean type){
         /**
          * change type of a event
          * @param eventId eventid of event
@@ -97,7 +98,7 @@ public class ConferenceSystem {
         return false;
     }
 
-    public Boolean getEventVIP(int eventId){
+    public Boolean getStatusOfEvent(int eventId){
         /**
          * return the event type, true means event is VIP, false means event is not VIP
          * @param eventID event id

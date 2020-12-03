@@ -10,8 +10,8 @@ public class MessageManager {
         /**
          * @Description: message all signed up users in an event
          */
-        for (int receiver_id : g.getEventById(eventId).getSignedUpUserList()){
-            Message m = new Message(content, senderId, receiver_id);
+        for (int receiverId : g.getEventById(eventId).getSignedUpUserList()){
+            Message m = new Message(content, senderId, receiverId);
             g.addMessage(m);
         }
     }
