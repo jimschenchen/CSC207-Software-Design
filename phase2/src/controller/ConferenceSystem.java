@@ -91,8 +91,8 @@ public class ConferenceSystem {
          * @param eventId eventid of event
          * @return Return true if change correctly, false otherwise.
          */
-        if (em.getEventVIP(eventId, gw) != type){
-            return em.changeEventVIP(eventId, type, gw);
+        if (em.getVipStatusOfEvent(eventId, gw) != type){
+            return em.changeVipStatusOfEvent(eventId, type, gw);
         }
         return false;
     }
@@ -103,7 +103,7 @@ public class ConferenceSystem {
          * @param eventID event id
          * @return the type of event
          */
-        return em.getEventVIP(eventId, gw);
+        return em.getVipStatusOfEvent(eventId, gw);
     }
 
     public boolean CreateSpeaker(String userName, String password){

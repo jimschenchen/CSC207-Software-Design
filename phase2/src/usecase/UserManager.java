@@ -6,6 +6,7 @@ import java.util.List;
 import entity.*;
 import entity.event.*;
 import gateway.Gateway;
+import gateway.GatewayFacade;
 
 
 public class UserManager {
