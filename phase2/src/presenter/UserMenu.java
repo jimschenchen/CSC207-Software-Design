@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserMenu<m1> extends JFrame implements IWindow{
+public class UserMenu extends JFrame implements IWindow{
         private UserMenuPresenter _presenter;
         private final JFrame mainFrame;
         private JButton button1, button2, button3;
@@ -85,17 +85,24 @@ public class UserMenu<m1> extends JFrame implements IWindow{
             }
         }
 
-        @Override
-        public void update() {
-
-
-
-        }
-
         public void panelReplaced(JPanel panel){
-            mainFrame.getContentPane().removeAll();
-            mainFrame.getContentPane().add(panel);
+             mainFrame.getContentPane().removeAll();
+             mainFrame.getContentPane().add(panel);
+    }
+
+        @Override
+        public void update(String type) {
+           PanelFactory factory = new PanelFactory();
+           JPanel panel = factory.getPanel("type");
+           panelReplaced(panel);
+
+
+
+
+
         }
+
+
 
 
 
