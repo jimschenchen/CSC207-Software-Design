@@ -518,10 +518,7 @@ public class ConferenceSystem {
          * @para userId is user id
          * @return List of Strings of the events
          */
-        if (gw.getUserById(userId).getClass().equals(VipUser.class)){
-            return em.getEventList(gw);
-        }
-        return em.getNormalEventList(gw);
+        vs.viewCanSignUpEvents(gw);
     }
 
     /**
