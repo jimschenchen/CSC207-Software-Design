@@ -71,7 +71,6 @@ public class EventManager {
      */
     public void setSpeaker(int speakerId, int eventId, Gateway g){
         g.getEventById(eventId).setSpeakerId(speakerId);
-
     }
 
     /**

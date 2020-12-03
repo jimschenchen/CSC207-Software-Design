@@ -24,7 +24,7 @@ public abstract class  Event {
         this.title = title;
         this.roomId = roomId;
         this.capacity = capacity;
-        this.duration.between(startTime,endTime);
+        Duration.between(startTime,endTime);
     }
 
     public int getEventId() {
