@@ -83,7 +83,7 @@ class ViewingSystem {
         List<String> all_events = new ArrayList<>();
         List<String> VIP_events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, this.user, gw) && em.canAddUserToEvent(user, eventID, gw)){
+            if (canSignUpForEvent(eventID, user, gw)){
                 all_events.add(em.getStringOfEvent(eventID, gw));
                 if (em.getVipStatusOfEvent(eventID, gw)){
                     VIP_events.add(em.getStringOfEvent(eventID, gw));
