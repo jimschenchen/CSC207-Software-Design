@@ -52,6 +52,38 @@ public class ConferenceSystem {
 //        });
 //    }
 
+    public boolean CreateAttendee(String userName, String password){
+        /**
+         * create an attendee
+         *
+         * @param username User name of the new attendee. username should be unique.
+         * @param password Password of the new attendee account. Password should be at least 6 characters long.
+         * @return Return true if the Attendee is created successfully, false otherwise.
+         */
+        if(um.canCreateAttendee(userName, gw)){
+            um.createAttendee(password, userName, gw);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Creates a new speaker account into the system.
+     *
+     * @param userName User name of the new speaker.
+     * @param password Password of the new speaker account.
+     * @return Return true when the account is created successfully.
+     *          Return false when the password is invalid,
+     *          or when the user name is not unique.
+     */
+    public boolean CreateSpeaker(String userName, String password){
+        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateSpeaker(userName, gw)){
+            um.createSpeaker(password.trim(), userName.trim(), gw);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Sign up a new attendee to the system.
      *
@@ -290,22 +322,6 @@ public class ConferenceSystem {
 
     }
 
-    /**
-     * Creates a new speaker account into the system.
-     *
-     * @param userName User name of the new speaker.
-     * @param password Password of the new speaker account.
-     * @return Return true when the account is created successfully.
-     *          Return false when the password is invalid,
-     *          or when the user name is not unique.
-     */
-    public boolean addNewSpeaker(String userName, String password){
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateSpeaker(userName, gw)){
-            um.createSpeaker(password.trim(), userName.trim(), gw);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Set the speaker of an event.
