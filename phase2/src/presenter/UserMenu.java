@@ -105,17 +105,5 @@ public class UserMenu extends JFrame implements IWindow{
            JPanel panel = factory.getPanel("type");
            panelReplaced(panel);
 
-
-
-
-
         }
-
-
-
-
-
-
-
-
 }
