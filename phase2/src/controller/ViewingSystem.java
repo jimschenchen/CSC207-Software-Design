@@ -85,7 +85,7 @@ class ViewingSystem {
         for (Integer eventID : allEvents){
             if (um.canSignUpForEvent(eventID, this.user, gw) && em.canAddUserToEvent(user, eventID, gw)){
                 all_events.add(em.getStringOfEvent(eventID, gw));
-                if (gw.getUserById(user).getclass().equal(VipUser)){
+                if (em.getVipStatusOfEvent(eventID, gw)){
                     VIP_events.add(em.getStringOfEvent(eventID, gw));
                 }
             }
