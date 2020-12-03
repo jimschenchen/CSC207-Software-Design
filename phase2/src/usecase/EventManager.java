@@ -187,7 +187,8 @@ public class EventManager {
                 " with ID " + event.getEventId() +
                 " starts at " + event.getStartTime().format(formatter) +
                 " ends at " + event.getEndTime().format(formatter) +
-                " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum();
+                " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum() +
+                " and its Vip Status is: " + event.isVipEvent();
     }
 
     /**

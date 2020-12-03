@@ -115,7 +115,7 @@ public class UserManager {
         Event e = g.getEventById(eventId);
         if (!(e == null | isExistingSpeaker(userId, g) |
                 e.getCapacity() <= e.getSignedUpUserList().size() |
-                (g.getUserById(userId) instanceof VipUser != e.isVipEvent()))) {
+                (!(g.getUserById(userId) instanceof VipUser) & e.isVipEvent()))) {
             Attendee a = (Attendee) g.getUserById(userId);
             for (int i = 0; i < a.getEventList().size(); i++) {
                 if (g.getEventById(a.getEventList().get(i)).getStartTime().isAfter(e.getEndTime())
