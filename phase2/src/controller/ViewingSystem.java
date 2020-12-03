@@ -78,12 +78,14 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewCanSignUpEvents(GatewayFacade gw){
+    List<String> viewCanSignUpEvents(GatewayFacade gw) {
         List<Integer> allEvents = em.getEventList(gw);
         List<String> all_events = new ArrayList<>();
-        for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, user, gw)){
+        for (Integer eventID : allEvents) {
+            if (um.canSignUpForEvent(eventID, user, gw)) {
                 all_events.add(em.getStringOfEvent(eventID, gw));
+            }
+        }
         return all_events;
     }
 
