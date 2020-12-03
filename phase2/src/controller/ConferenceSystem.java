@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import entity.VipUser;
 import usecase.*;
 import gateway.GatewayFacade;
 
@@ -70,7 +71,7 @@ public class ConferenceSystem {
         return false;
     }
 
-    public boolean CreateVIP(String userName, String password){
+    public boolean CreateVipUser(String userName, String password){
         /**
          * create a VIP
          *
@@ -85,6 +86,26 @@ public class ConferenceSystem {
         return false;
     }
 
+    public boolean changeVipStatusOfEvent(int eventId, Boolean type){
+        /**
+         * change type of a event
+         * @param eventId eventid of event
+         * @return Return true if change correctly, false otherwise.
+         */
+        if (em.getVipStatusOfEvent(eventId, gw) != type){
+            return em.changeVipStatusOfEvent(eventId, type, gw);
+        }
+        return false;
+    }
+
+    public Boolean getStatusOfEvent(int eventId){
+        /**
+         * return the event type, true means event is VIP, false means event is not VIP
+         * @param eventID event id
+         * @return the type of event
+         */
+        return em.getVipStatusOfEvent(eventId, gw);
+    }
 
     public boolean CreateSpeaker(String userName, String password){
         /**
@@ -468,7 +489,6 @@ public class ConferenceSystem {
 
     /**
      * Return a list of events that the current logged in user has signed up for.
-     *
      * @return List of Strings of the events
      */
     public List<String> viewSignedUpEvents(){
@@ -477,7 +497,6 @@ public class ConferenceSystem {
 
     /**
      * Return a list of events that the current logged in organizer has organized
-     *
      * @return List of Strings of the events
      */
     public List<String> viewOrganizedEvents(){
@@ -486,20 +505,21 @@ public class ConferenceSystem {
 
     /**
      * Return a list of events that the current Speaker is going to speak for.
-     *
      * @return List of Strings of the events
      */
     public List<String> viewSpeakingEvents(){
         return vs.viewSpeakingEvents(gw);
     }
 
-    /**
-     * Return a list of events that the current logged in attendee can sign up for.
-     *
-     * @return List of Strings of the events
-     */
-    public List<String> viewCanSignUpEvents(){
-        return vs.viewCanSignUpEvents(gw);
+
+    public List<String> viewCanSignUpEvents(int userId){
+        /**
+         * Return a list of events that the current logged in attendee can sign up for. VIP can sign all events, normal
+         * user can only sign up normal events
+         * @para userId is user id
+         * @return List of Strings of the events
+         */
+        vs.viewCanSignUpEvents(gw);
     }
 
     /**

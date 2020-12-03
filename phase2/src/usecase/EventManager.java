@@ -6,12 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.sun.sunistack.internal.Nullable;
+import com.sun.istack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * The Event Manager class
@@ -54,8 +53,13 @@ public class EventManager {
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
-        nEvent.setSpeaker(speakerId);
         g.addEvent(nEvent);
+        if (type1 == 0) {
+            g.getNonSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+        }
+        else {
+            g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+        }
         return nEvent.getEventId();
     }
 
@@ -63,8 +67,8 @@ public class EventManager {
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
-        nEvent.setSpeaker(speakerList);
         g.addEvent(nEvent);
+        g.getMultiSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerList);
         return nEvent.getEventId();
     }
 
@@ -75,8 +79,8 @@ public class EventManager {
      * @param g the database
      */
     public void setSpeaker(int speakerId, int eventId, GatewayFacade g){
-        g.getEventById(eventId).setSpeaker(speakerId);
 
+        g.getEventById(eventId).setSpeaker(speakerId);
     }
 
     /**
@@ -166,11 +170,21 @@ public class EventManager {
         return allEvents;
     }
 
+    public List<Integer> getNormalEventList(GatewayFacade g){
+        List<Integer> normalEvents = new ArrayList<>();
+        List<Event> events = g.getEventList();
+        for (Event event : events){
+            if(event.isVipEvent() == false) {
+                normalEvents.add(event.getEventId());
+            }
+        }
+        return normalEvents;
+    }
+
     public String getStringOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
                 " with ID " + event.getEventId() +
-                " by " + g.getSpeakerById(eventID).getUserName() +
                 " starts at " + event.getStartTime().format(formatter) +
                 " ends at " + event.getEndTime().format(formatter) +
                 " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum();
@@ -204,5 +218,38 @@ public class EventManager {
     }
 
     public Duration getEventDuration(int eventId, GatewayFacade g) {return g.getEventById(eventId).getDuration();}
+
+    public boolean canChangeEventCapacity(int newCapacity,int eventId ,GatewayFacade g) {
+        if (newCapacity > g.getRoomById(g.getEventById(eventId).getRoomId()).getCapacity() |
+                newCapacity < g.getEventById(eventId).getSignedUpUserList().size()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void changeEventCapacity(int newCapacity, int eventId, GatewayFacade g) {
+        g.getEventById(eventId).setCapacity(newCapacity);
+    }
+
+
+    public boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade g){
+        /**
+         * change type of a event
+         * @param eventId eventid of event
+         * @param type type of event
+         * @return Return true if change correctly, false otherwise.
+         */
+        g.getEventById(eventId).setVipEvent(type);
+        return true;
+    }
+
+    public Boolean getVipStatusOfEvent(int eventId, GatewayFacade g){
+        /**
+         * return the event type, true means event is VIP, false means event is not VIP
+         * @param eventID event id
+         * @return the type of event
+         */
+        return g.getEventById(eventId).isVipEvent();
+    }
 }
 
