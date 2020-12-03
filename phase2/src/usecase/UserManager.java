@@ -10,6 +10,20 @@ import gateway.Gateway;
 
 public class UserManager {
 
+    public boolean canCreateUser(String username, Gateway g){
+        /**
+         * @Description: checks if username is unique
+         */
+        return g.getUserByUserName(username) == null;
+    }
+
+//    public void createUser(String password, String name, Gateway g){
+//        /**
+//         * @Description: create a Speaker account
+//         */
+//        User u = new User(g.getNextUserId(), password, name);
+//        g.addUser(u);
+//    }
 
     public boolean canCreateSpeaker(String username, Gateway g){
         /**
@@ -288,5 +302,17 @@ public class UserManager {
             Attendee user = (Attendee) gw.getUserById(userID);
             user.cancelEvent(eventID);
         }
+    }
+
+    public Speaker CreateSpeaker(String password, String name, Gateway gw) {
+        return new Speaker(gw.getNextUserId(), password, name);
+    }
+
+    public Attendee CreateAttendee(String password, String name, Gateway gw) {
+        return new Attendee(gw.getNextUserId(), password, name);
+    }
+
+    public VipUser CreateVIP(String password, String name, Gateway gw) {
+        return new VipUser(gw.getNextUserId(), password, name);
     }
 }

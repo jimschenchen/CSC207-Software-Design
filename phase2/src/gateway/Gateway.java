@@ -137,23 +137,27 @@ public class Gateway {
     private void updateToHash(String key, int id, String value) {
         addToHash(key, id, value);
     }
+
     private Map<String, String> getAllFromHash(String key) {
         Jedis jedis = getJedis();
         Map<String, String> map = jedis.hgetAll(key);
         closeJedis(jedis);
         return map;
     }
+
     private String getByIdFromHash (String key, int id) {
         Jedis jedis = getJedis();
         String value = jedis.hget(key, String.valueOf(id));
         closeJedis(jedis);
         return value;
     }
+
     private void deleteFromHash(String key, int id) {
         Jedis jedis = getJedis();
         jedis.hdel(key, String.valueOf(id));
         closeJedis(jedis);
     }
+
     private void addToList (String key, String value) {
         Jedis jedis = getJedis();
         String type = jedis.type(key);
@@ -163,6 +167,7 @@ public class Gateway {
         jedis.lpush(key, value);
         closeJedis(jedis);
     }
+
     private List<String> getAllFromList (String key) {
         Jedis jedis = getJedis();
         List<String> list = jedis.lrange(key,0, -1);
