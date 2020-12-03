@@ -215,5 +215,25 @@ public class EventManager {
     }
 
     public Duration getEventDuration(int eventId, GatewayFacade g) {return g.getEventById(eventId).getDuration();}
+
+    public boolean changeEventVIP(int eventId, Boolean type, GatewayFacade g){
+        /**
+         * change type of a event
+         * @param eventId eventid of event
+         * @param type type of event
+         * @return Return true if change correctly, false otherwise.
+         */
+        g.getEventById(eventId).setVipEvent(type);
+        return true;
+    }
+
+    public Boolean getEventVIP(int eventId, GatewayFacade g){
+        /**
+         * return the event type, true means event is VIP, false means event is not VIP
+         * @param eventID event id
+         * @return the type of event
+         */
+        return g.getEventById(eventId).isVipEvent();
+    }
 }
 
