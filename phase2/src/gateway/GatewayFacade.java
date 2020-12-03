@@ -230,6 +230,31 @@ public class GatewayFacade {
     }
 
 
+    public MultiSpeakerEvent getMultiSpeakerEventById(int id) {
+        Event event = getEventById(id);
+        if (event instanceof MultiSpeakerEvent) {
+            return (MultiSpeakerEvent)event;
+        }
+        return null;
+    }
+
+    public NonSpeakerEvent getNonSpeakerEventById(int id) {
+        Event event = getEventById(id);
+        if (event instanceof NonSpeakerEvent) {
+            return (NonSpeakerEvent)event;
+        }
+        return null;
+    }
+
+    public OneSpeakerEvent getOneSpeakerEventById(int id) {
+        Event event = getEventById(id);
+        if (event instanceof OneSpeakerEvent) {
+            return (OneSpeakerEvent)event;
+        }
+        return null;
+    }
+
+
 
     // ===== Room: Hash=====
     /**
@@ -284,8 +309,6 @@ public class GatewayFacade {
         }
         return null;
     }
-
-
 
 
     // ===== Message: List =====
