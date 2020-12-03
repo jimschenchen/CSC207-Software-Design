@@ -4,12 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.EventHandler;
 
-public class UserMenu<m1> extends JFrame implements IWindow{
+public class UserMenu extends JFrame implements IWindow{
         private UserMenuPresenter _presenter;
-        private final JFrame mainFrame;
+        final JFrame mainFrame;
         private JButton button1, button2, button3;
-        private JMenuItem m4,m5,m6, m7, m8, m9;
+        private JMenu myProfile;
+    JMenu mySchedule;
+    JMenu menu;
+        private JMenuItem m4;
+    private JMenuItem m5;
+    JMenuItem m6;
+    private JMenuItem m7;
+    private JMenuItem m8;
+    private JMenuItem m9;
         private static JPanel cards;
 
         public UserMenu() {
@@ -26,12 +35,12 @@ public class UserMenu<m1> extends JFrame implements IWindow{
             mainFrame.getContentPane().add(p);
             //createMenu
             JMenuBar mb = new JMenuBar();
-            JMenu menu = new JMenu("UserMenu");
+            this.menu = new JMenu("UserMenu");
             JMenuItem m1 = new JMenuItem("Messenger");
-            JMenu mySchedule = new JMenu("Schedule");
+            this.mySchedule = new JMenu("Schedule");
             menu.add(m1);
             mainFrame.setJMenuBar(mb);
-            JMenu myProfile = new JMenu("My Profile");
+            this.myProfile = new JMenu("My Profile");
             JMenuItem m4 = new JMenuItem("Change Password");
             JMenuItem m5 = new JMenuItem("SignOut");
             JMenuItem m6 = new JMenuItem("Events");
@@ -85,17 +94,24 @@ public class UserMenu<m1> extends JFrame implements IWindow{
             }
         }
 
-        @Override
-        public void update() {
-
-
-
-        }
-
         public void panelReplaced(JPanel panel){
-            mainFrame.getContentPane().removeAll();
-            mainFrame.getContentPane().add(panel);
+             mainFrame.getContentPane().removeAll();
+             mainFrame.getContentPane().add(panel);
+    }
+
+        @Override
+        public void update(String type) {
+           PanelFactory factory = new PanelFactory();
+           JPanel panel = factory.getPanel("type");
+           panelReplaced(panel);
+
+
+
+
+
         }
+
+
 
 
 

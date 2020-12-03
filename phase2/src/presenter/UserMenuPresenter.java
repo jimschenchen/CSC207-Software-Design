@@ -12,7 +12,11 @@ public class UserMenuPresenter extends Presenter{
 
     public void menuItemClicked(int i){
         if (i == 4){
-            userMenu.update();
+            String type = "passwordField";
+            userMenu.update(type);
+            cs.resetPassword();
         }
+
+
     }
 }
