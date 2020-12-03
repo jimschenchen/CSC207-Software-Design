@@ -18,15 +18,7 @@ public abstract class OneSpeakerEvent extends Event{
         this.speakerId = speakerId;
     }
 
-
-    @Override
     public void setSpeaker(int speakerId) {
         this.speakerId = speakerId;
     }
-
-    @Override
-    public void setSpeaker() {}
-
-    @Override
-    public void setSpeaker(ArrayList<Integer> speakerList) {}
 }

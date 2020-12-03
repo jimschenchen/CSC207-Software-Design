@@ -1,10 +1,12 @@
 package entity.event;
 
+import com.sun.istack.internal.Nullable;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class  Event {
+public abstract class  Event<T> {
     private int eventId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -85,11 +87,4 @@ public abstract class  Event {
 
     public void removeUserFromWaitList(int userId) {waitList.remove(userId);}
 
-    public abstract void setSpeaker();
-
-    public abstract void setSpeaker(ArrayList<Integer> speakerList);
-
-    public abstract void setSpeaker(int speakerId);
-
-    public abstract int getSpeakerId();
 }
