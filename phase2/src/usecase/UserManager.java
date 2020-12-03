@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import entity.*;
+import entity.event.*;
 import gateway.Gateway;
 
 
@@ -89,7 +90,7 @@ public class UserManager {
          */
         Event e = g.getEventById(eventId);
         if (e == null | isExistingSpeaker(userId, g) |
-                g.getRoomById(e.getRoomId()).getCapacity() <= e.getSingnedUserId().size()) {
+                g.getRoomById(e.getRoomId()).getCapacity() <= e.getSignedUpUserList().size()) {
             return false;
         }
         else {
@@ -282,7 +283,7 @@ public class UserManager {
 
     public void cancelEvent(int eventID, Gateway gw) {
         Event event = gw.getEventById(eventID);
-        List<Integer> userList = event.getSingnedUserId();
+        List<Integer> userList = event.getSignedUpUserList();
         for (Integer userID : userList){
             Attendee user = (Attendee) gw.getUserById(userID);
             user.cancelEvent(eventID);

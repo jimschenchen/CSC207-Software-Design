@@ -1,6 +1,7 @@
 package entity.event;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public abstract class OneSpeakerEvent extends Event{
     private int speakerId;
@@ -22,4 +23,10 @@ public abstract class OneSpeakerEvent extends Event{
     public void setSpeaker(int speakerId) {
         this.speakerId = speakerId;
     }
+
+    @Override
+    public void setSpeaker() {}
+
+    @Override
+    public void setSpeaker(ArrayList<Integer> speakerList) {}
 }

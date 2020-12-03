@@ -1,13 +1,17 @@
 package usecase;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.istack.internal.Nullable;
+import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.Gateway;
+import jdk.nashorn.internal.objects.annotations.Optimistic;
 
 /**
  * The Event Manager class
@@ -25,11 +29,12 @@ public class EventManager {
      * @param g the database
      * @return the boolean show whether the new event can be created
      */
-    public boolean canCreateEvent(int roomId, LocalDateTime start, LocalDateTime end, Gateway g){
+    public boolean canCreateEvent(int roomId, LocalDateTime start, LocalDateTime end, int capacity, Gateway g){
         List<Event> allEvent = g.getEventList();
         for (Event event : allEvent) {
             if (roomId == event.getRoomId() &&
-                    (event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start)))) {
+                    (event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start))) &
+                            capacity > g.getRoomById(roomId).getCapacity()) {
                 return false;
             }
         }
@@ -45,7 +50,7 @@ public class EventManager {
      * @param g the database
      * @return the new event id
      */
-    public int createEvent(int type1, int type2, int speakerId, LocalDateTime start,
+    public int createEvent(int type1, int type2, @Nullable int speakerId, LocalDateTime start,
                            LocalDateTime end, String title, int roomId, int capacity, Gateway g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
@@ -70,26 +75,29 @@ public class EventManager {
      * @param g the database
      */
     public void setSpeaker(int speakerId, int eventId, Gateway g){
-        g.getEventById(eventId).setSpeakerId(speakerId);
+        g.getEventById(eventId).setSpeaker(speakerId);
 
     }
 
     /**
      * Judge whether a user can sign up to an event
      *
-     * @param userid the userid
+     * @param userId the userid
      * @param eventId the event id
      * @param g the database
      * @return the boolean shows whether a user can sign up to an event
      */
-    public boolean canAddUserToEvent(int userid, int eventId, Gateway g) {
+    public boolean canAddUserToEvent(int userId, int eventId, Gateway g) {
+        Event e = g.getEventById(eventId);
         if (!isExistingEvent(eventId, g)) {
             return false;
         }
+        else if (! (g.getUserById(userId) instanceof VipUser) & e.isVipEvent()) {
+            return false;
+        }
         else {
-            Event e = g.getEventById(eventId);
-            if (e.getSignedUpUserList().contains(userid)
-                    | g.getRoomById(e.getRoomId()).getCapacity() <= e.getSignedUpUserList().size()) {
+            if (e.getSignedUpUserList().contains(userId)
+                    | e.getCapacity() >= e.getSignedUpUserList().size()) {
                 return false;
             }
             return true;
@@ -161,8 +169,9 @@ public class EventManager {
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
                 " with ID " + event.getEventId() +
-                " by " + g.getSpeakerById(event.getSpeakerId()).getUserName() +
-                " starts at " + event.getStartTime().format(getStartTimeFormatter()) +
+                " by " + g.getSpeakerById(event()).getUserName() +
+                " starts at " + event.getStartTime().format(formatter) +
+                " ends at " + event.getEndTime().format(formatter) +
                 " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum();
     }
 
@@ -171,7 +180,7 @@ public class EventManager {
      *
      * @return the event start time format
      */
-    public DateTimeFormatter getStartTimeFormatter(){
+    public DateTimeFormatter getTimeFormatter(){
         return this.formatter;
     }
 
@@ -192,5 +201,7 @@ public class EventManager {
     public void cancelEvent(int eventID, Gateway gw) {
         gw.deleteEvent(gw.getEventById(eventID));
     }
+
+    public Duration getEventDuration(int eventId, Gateway g) {return g.getEventById(eventId).getDuration();}
 }
 
