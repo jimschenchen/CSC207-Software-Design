@@ -12,7 +12,7 @@ public class UserMenu extends JFrame implements IWindow{
         private JButton button1, button2, button3;
         private JMenu myProfile;
     JMenu mySchedule;
-    private JMenu menu;
+    JMenu menu;
         private JMenuItem m4;
     private JMenuItem m5;
     JMenuItem m6;
