@@ -81,18 +81,9 @@ class ViewingSystem {
     List<String> viewCanSignUpEvents(GatewayFacade gw){
         List<Integer> allEvents = em.getEventList(gw);
         List<String> all_events = new ArrayList<>();
-        List<String> VIP_events = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (canSignUpForEvent(eventID, user, gw)){
+            if (um.canSignUpForEvent(eventID, user, gw)){
                 all_events.add(em.getStringOfEvent(eventID, gw));
-                if (em.getVipStatusOfEvent(eventID, gw)){
-                    VIP_events.add(em.getStringOfEvent(eventID, gw));
-                }
-            }
-        }
-        if (gw.getUserById(user).getclass().equal(VipUser)){
-            return VIP_events;
-        }
         return all_events;
     }
 
