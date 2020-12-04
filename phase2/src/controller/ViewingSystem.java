@@ -80,13 +80,25 @@ class ViewingSystem {
      */
     List<String> viewCanSignUpEvents(GatewayFacade gw) {
         List<Integer> allEvents = em.getEventList(gw);
-        List<String> all_events = new ArrayList<>();
+        List<String> allEventsInfo = new ArrayList<>();
         for (Integer eventID : allEvents) {
             if (um.canSignUpForEvent(eventID, user, gw)) {
-                all_events.add(em.getStringOfEvent(eventID, gw));
+                allEventsInfo.add(em.getStringOfEvent(eventID, gw));
             }
         }
-        return all_events;
+        return allEventsInfo;
+    }
+
+    // when use this method, you need to restrict the type of user to be attendee type...
+    List<String> viewMyWaitList(GatewayFacade gw) {
+        List<Integer> myWaitList = um.getUserWaitList(user, gw);
+        List<String> myWaitingEventsInfo = new ArrayList<>();
+        for (Integer eventId: myWaitList) {
+            int rank = um.getUserRankInWaitList(user, eventId, gw);
+            String eventInfo = em.getStringOfEvent(eventId, gw);
+            myWaitingEventsInfo.add(eventInfo + "\n you rank in wait list is " + rank);
+        }
+        return myWaitingEventsInfo;
     }
 
 
