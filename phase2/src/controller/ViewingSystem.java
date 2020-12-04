@@ -1,29 +1,17 @@
 package controller;
 
 import gateway.GatewayFacade;
-import usecase.EventManager;
-import usecase.RoomManager;
-import usecase.UserManager;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-class ViewingSystem {
+class ViewingSystem extends subSystem{
 
     /**
      * Viewing System which allows users to view users, events and rooms in the Conference.
      */
-
-    private EventManager em = new EventManager();
-    private UserManager um = new UserManager();
-    private RoomManager rm = new RoomManager();
-    private int user;
-
-    void setUser(int userID){
-        this.user = userID;
-    }
 
     private List<List<String>> getEventList(List<Integer> idList, GatewayFacade gw){
         List<List<String>> allEvents = new ArrayList<>();

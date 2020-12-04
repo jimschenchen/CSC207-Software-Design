@@ -1,17 +1,7 @@
 package controller;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 
-import entity.Speaker;
-import gateway.Gateway;
-import org.jetbrains.annotations.Nullable;
 import usecase.*;
 import gateway.GatewayFacade;
 
@@ -20,8 +10,6 @@ public class ConferenceSystem {
     /**
      * The ConferenceSystem Class.
      */
-    private EventManager em = new EventManager();
-    private MessageManager mm = new MessageManager();
     private RoomManager rm = new RoomManager();
     private UserManager um = new UserManager();
     private GatewayFacade gw = new GatewayFacade();
@@ -29,6 +17,7 @@ public class ConferenceSystem {
     private MessagingSystem ms = new MessagingSystem();
     private ViewingSystem vs = new ViewingSystem();
     private EventManagementSystem ems = new EventManagementSystem();
+    private EventEnrollmentSystem ees = new EventEnrollmentSystem();
 //
 //    /**
 //    * @Description: Initialization of Gateway and Database
@@ -112,15 +101,6 @@ public class ConferenceSystem {
         return false;
     }
 
-    public boolean changeVipStatusOfEvent(int eventId, boolean type){
-        /**
-         * change type of a event
-         * @param eventId eventid of event
-         * @return Return true if change correctly, false otherwise.
-         */
-        return ems.changeVipStatusOfEvent(eventId, type, gw);
-    }
-
     /**
      * Sign up a new attendee to the system.
      *
@@ -153,6 +133,8 @@ public class ConferenceSystem {
                 this.user = um.getUserID(username, gw);
                 ms.setUser(this.user);
                 vs.setUser(this.user);
+                ems.setUser(this.user);
+                ees.setUser(this.user);
                 return um.getUserCategory(this.user, gw);
             }
         }
@@ -202,6 +184,25 @@ public class ConferenceSystem {
     public String getUserNameByID(String userID){
         int uID = Integer.parseInt(userID);
         return um.getUserName(uID, gw);
+    }
+
+    /**
+     * Creates a new room into the system.
+     *
+     * @param roomNumber Room number of the new room.
+     * @return Return true when successfully added a new room, false otherwise.
+     */
+    public boolean addNewRoom(String roomNumber){
+        try{
+            if (rm.canAddRoom(roomNumber, gw)){
+                rm.add_room(roomNumber, gw);
+                return true;
+            }
+            return false;
+        }
+        catch(NumberFormatException nfe){
+            return false;
+        }
     }
 
     /**
@@ -319,38 +320,11 @@ public class ConferenceSystem {
      * @return Return True if user is successfully signed up for the event, false otherwise.
      */
     public boolean signUpForEvent(String eventID) {
-        try{
-            int eid = Integer.parseInt(eventID);
-            // check if the event exists, and user can sign up for event
-            if (em.canAddUserToEvent(user, eid, gw) && um.canSignUpForEvent(eid, user, gw)){ //need confirm
-                um.addEventToUser(eid, user, gw);
-                em.addUserToEvent(user, eid, gw);
-                return true;
-            }
-            // return false when event doesn't exist or user cannot sign up for event
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            // return false when input is invalid
-            return false;
-        }
+        return ees.signUpForEvent(eventID, gw);
     }
 
     public boolean signUpForEventWaitList(String eventId) {
-        try{
-            int eid = Integer.parseInt(eventId);
-            if (em.canAddUserToWaitList(eid, user,gw) & um.canSignUpForEvent(eid, user, gw)){
-                em.addUserToWaitList(user, eid, gw);
-                um.addEventToMyWaitList(eid, user, gw);
-                return true;
-            }
-            // return false when event doesn't exist or user cannot sign up for event
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            // return false when input is invalid
-            return false;
-        }
+        return ees.signUpForEventWaitList(eventId, gw);
     }
 
     /**
@@ -360,38 +334,11 @@ public class ConferenceSystem {
      * @return Return True when the user has successful cancelled their enrollment in the event.
      */
     public boolean cancelEnrollmentInEvent(String eventId){
-        try{
-            int eid = Integer.parseInt(eventId);
-            if (em.canRemoveSignedUpUser(user ,eid, gw)){
-                em.removeSignedUpUser(user, eid, gw);
-                um.cancelEventFromUser(eid, user, gw);
-                int userId = em.add1stRankedWaitListUser(eid, gw);
-                um.transferWaitingEventToSignedUp(eid, userId, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
-        catch(IndexOutOfBoundsException ioob){ // return true when waitlist is empty
-            return true;
-        }
+        return ees.cancelEnrollmentInEvent(eventId, gw);
     }
 
     public boolean removeEventFromWaitList(String eventId) {
-        try{
-            int eid = Integer.parseInt(eventId);
-            if (em.canRemoveWaitingUser(user ,eid, gw)){
-                em.removeWaitingUser(user, eid, gw);
-                um.cancelEventFromMyWaitList(eid, user, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ees.removeEventFromWaitList(eventId, gw);
     }
 
     /**
@@ -402,65 +349,22 @@ public class ConferenceSystem {
      * @return Return True when the speaker is assigned to the event successfully, false otherwise.
      */
     public boolean changeSpeakerForOneSpeakerEvent(String speakerID, String eventID){
-        try{
-            int sID = Integer.parseInt(speakerID);
-            int eID = Integer.parseInt(eventID);
-            if(um.canAddEventToSpeaker(eID, sID, gw) & gw.getOneSpeakerEventById(eID) != null){
-                um.addEventToSpeaker(eID, sID, gw);
-                em.setSpeakerToOneSpeakerEvent(sID, eID, gw);
-                return true;
-            }
-            return false; // return false when cannot add event to speaker
-        }
-        catch(NumberFormatException nfe){
-            return false; // return false on invalid input
-        }
+        return ems.changeSpeakerForOneSpeakerEvent(speakerID, eventID, gw);
     }
 
     public boolean addSpeakerToMultiSpeakerEvent(String speakerId, String eventId) {
-        try{
-            int sID = Integer.parseInt(speakerId);
-            int eID = Integer.parseInt(eventId);
-            if(um.canAddEventToSpeaker(eID, sID, gw) & gw.getMultiSpeakerEventById(eID) != null){
-                um.addEventToSpeaker(eID, sID, gw);
-                em.addSpeakerToMultiSpeakerEvent(sID, eID, gw);
-                return true;
-            }
-            return false; // return false when cannot add event to speaker
-        }
-        catch(NumberFormatException nfe){
-            return false; // return false on invalid input
-        }
+        return ems.addSpeakerToMultiSpeakerEvent(speakerId, eventId, gw);
     }
 
-    /**
-     * Creates a new room into the system.
-     *
-     * @param roomNumber Room number of the new room.
-     * @return Return true when successfully added a new room, false otherwise.
-     */
-    public boolean addNewRoom(String roomNumber){
-        try{
-            if (rm.canAddRoom(roomNumber, gw)){
-                rm.add_room(roomNumber, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
-    }
-
-    /**
-     * Creates a new event into the system.
-     *
-     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH". Example: "2020-11-14 18"
-     * @param speakerID ID of speaker giving the event.
-     * @param topic Topic/title of the event.
-     * @param roomNumber Room number of the location of this event.
-     * @return Return true if successfully created a new event into the system, false otherwise.
-     */
+//    /**
+//     * Creates a new event into the system.
+//     *
+//     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH". Example: "2020-11-14 18"
+//     * @param speakerID ID of speaker giving the event.
+//     * @param topic Topic/title of the event.
+//     * @param roomNumber Room number of the location of this event.
+//     * @return Return true if successfully created a new event into the system, false otherwise.
+//     */
 //    public boolean newEvent(String type01, String type02, String startTime, String endTime, @Nullable String speakerID,
 //                            String topic, String roomNumber, String capacity){
 //        try{
@@ -509,130 +413,24 @@ public class ConferenceSystem {
     // if more than one speaker, pass "id1,id2"
     public boolean newEvent(int type, String startTime, String endTime, String speakerID,
                             String topic, String roomNumber, String capacity){
-        try{
-            List<Integer> types = determineEventTypes(type);
-            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
-            LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
-            int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
-            int cap = Integer.parseInt(capacity);
-            if (!(speakerID.length() == 0)){
-                if (speakerID.contains(",")) { // have more than 1 speaker
-                    ArrayList<Integer> sID = new ArrayList<>();
-                    StringTokenizer token = new StringTokenizer(speakerID,",");
-                    while (token.hasMoreElements()){
-                        sID.add(Integer.parseInt(token.nextToken()));
-                    }
-                    return newEventMoreThan1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID, cap, gw);
-                }
-                else{ // only have 1 speaker
-                    int sID = Integer.parseInt(speakerID);
-                    return newEvent1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID, cap, gw);
-                }
-            }
-            else{ // no speaker
-                return newEventNoSpeaker(types.get(0), types.get(1), sTime, eTime, topic, rID, cap, gw);
-                }
-            }
-        catch(NumberFormatException | DateTimeParseException e){
-            return false;
-        }
+        return ems.newEvent(type, startTime, endTime, speakerID, topic, roomNumber, capacity, gw);
     }
-
-    // 0: party, 1: talk, 2: panel discussion
-    private List<Integer> determineEventTypes(int pType){
-        List<Integer> types = new ArrayList<>();
-        switch (pType){
-            case 0: types.add(0);
-                    types.add(0);
-                    break;
-            case 1: types.add(1);
-                    types.add(0);
-                    break;
-            case 2: types.add(2);
-                    types.add(0);
-                    break;
-        }
-        return types;
-    }
-
-    private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
-                                   GatewayFacade gw){
-        return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-                um.isSpeakerBusy(sID, sTime, eTime, gw);
-    }
-
-    private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
-                                 LocalDateTime eTime, String topic, int rID, int cap, GatewayFacade gw){
-        if (type1 != 1){
-            return false;
-        }
-        if (canCreateEvent(sID, rID, sTime, eTime, cap, gw)) {
-            int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
-            um.addEventToOrganizedList(eventID, user, gw);
-            um.addEventToSpeaker(eventID, sID, gw);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean newEventMoreThan1Speaker(int type1, int type2, ArrayList<Integer> sID, LocalDateTime sTime,
-                                             LocalDateTime eTIme, String topic, int rID, int cap, GatewayFacade gw){
-        if (type1 != 2){
-            return false;
-        }
-        for (int speakerID : sID){
-            if (!canCreateEvent(speakerID, rID, sTime, eTIme, cap, gw)){
-                return false;
-            }
-        }
-        int eventID = em.createEvent(type1, type2, sID, sTime, eTIme, topic, rID, cap, gw);
-        um.addEventToOrganizedList(eventID, user, gw);
-        for (int speakerID : sID){
-            um.addEventToSpeaker(eventID, speakerID, gw);
-        }
-        return true;
-    }
-
-    private boolean newEventNoSpeaker(int type1, int type2, LocalDateTime sTime, LocalDateTime eTime,
-                                      String topic, int rID, int cap, GatewayFacade gw){
-        if (type1 != 0 || !em.canCreateEvent(rID, sTime, eTime, cap, gw)){
-            return false;
-        }
-        int eventID = em.createEvent(type1, type2, sTime, eTime, topic, rID, cap, gw);
-        um.addEventToOrganizedList(eventID, user, gw);
-        return true;
-    }
-
-
 
     public boolean cancelEvent(String eventID){
-        try{
-            int eID = Integer.parseInt(eventID);
-            if (um.canCancelEvent(user, eID, gw) && em.canCancelEvent(eID, gw)){
-                um.cancelEvent(eID, gw);
-                em.cancelEvent(eID, gw);
-                return true;
-            }
-            return false;
-        }
-        catch(NumberFormatException nfe){
-            return false;
-        }
+        return ems.cancelEvent(eventID, gw);
     }
 
     public boolean changeEventCapacity(String eventId, String capacity) {
-        try {
-            int cap = Integer.parseInt(capacity);
-            int eid = Integer.parseInt(eventId);
-            if (em.canChangeEventCapacity(eid, cap, gw)) {
-                em.changeEventCapacity(eid, cap, gw);
-                return true;
-            }
-            return false;
-        }
-        catch (NumberFormatException nfe) {
-            return false;
-        }
+        return ems.changeEventCapacity(eventId, capacity, gw);
+    }
+
+    /**
+     * change type of a event
+     * @param eventId eventid of event
+     * @return Return true if change correctly, false otherwise.
+     */
+    public boolean changeVipStatusOfEvent(int eventId, boolean type){
+        return ems.changeVipStatusOfEvent(eventId, type, gw);
     }
 
     /**
