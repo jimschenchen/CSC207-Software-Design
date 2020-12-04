@@ -373,14 +373,14 @@ public class GatewayFacade {
     }
 
 
+    /**
+     * @Description: Return the List of Sent messages related to <userId>; Cannot add message
+     * @Param: [userId]
+     * @return: java.util.List<Message>
+     * @Author:
+     * @Date: 2020-11-14
+     */
     public List<Message> getSentMessageListByUserId(int userId) {
-        /**
-         * @Description: Return the List of Sent messages related to <userId>; Cannot add message
-         * @Param: [userId]
-         * @return: java.util.List<Message>
-         * @Author:
-         * @Date: 2020-11-14
-         */
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
         List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {
@@ -391,14 +391,15 @@ public class GatewayFacade {
         return ret;
     }
 
+
+    /**
+     * @Description: Return the List of Received messages related to <userId>; Cannot add message
+     * @Param: [userId]
+     * @return: java.util.List<Message>
+     * @Author:
+     * @Date: 2020-11-14
+     */
     public List<Message> getReceivedMessageListByUserId(int userId) {
-        /**
-         * @Description: Return the List of Received messages related to <userId>; Cannot add message
-         * @Param: [userId]
-         * @return: java.util.List<Message>
-         * @Author:
-         * @Date: 2020-11-14
-         */
         ArrayList<Message> messageList = (ArrayList<Message>) getMessageList();
         List<Message> ret = new ArrayList<>();
         for (Message m : messageList) {

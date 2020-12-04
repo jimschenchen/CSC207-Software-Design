@@ -136,6 +136,7 @@ public class EventManager {
         g.getEventById(eventId).addUserToEvent(userId);
     }
 
+
     /**
      * Judge whether a user can be removed by an event
      * @param userId the user id
@@ -150,6 +151,7 @@ public class EventManager {
         return false;
     }
 
+
     /**
      * Remove the user from an event
      * @param userId the user id
@@ -160,6 +162,12 @@ public class EventManager {
         g.getEventById(eventId).removeUserFromEvent(userId);
     }
 
+
+    /**
+     * @param eventId the id of the event
+     * @param g the gateway
+     * @Description: add the first ranked waitlist user
+     */
     public int add1stRankedWaitListUser(int eventId, GatewayFacade g) {
         Event e = g.getEventById(eventId);
         int userId = e.getWaitList().get(0);
@@ -205,6 +213,9 @@ public class EventManager {
 //        return normalEvents;
 //    }
 
+    /**
+     * @Description: to string
+     */
     public String getStringOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         return "The event " + event.getTitle() +
@@ -293,30 +304,25 @@ public class EventManager {
      * @return the boolean shows a user is VIP
      */
     public boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade g){
-        /**
-         * change type of a event
-         * @param eventId eventid of event
-         * @param type type of event
-         * @return Return true if change correctly, false otherwise.
-         */
         g.getEventById(eventId).setVipEvent(type);
         return true;
     }
 
+    /**
+     * return the event type, true means event is VIP, false means event is not VIP
+     * @param eventId event id
+     * @return the type of event
+     */
     public Boolean getVipStatusOfEvent(int eventId, GatewayFacade g){
-        /**
-         * return the event type, true means event is VIP, false means event is not VIP
-         * @param eventID event id
-         * @return the type of event
-         */
         return g.getEventById(eventId).isVipEvent();
     }
 
+
+    /**
+     *
+     * @Description check if a user can be added to the waitlist
+     */
     public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description check if a user can be added to the waitlist
-         */
         Event e = g.getEventById(eventId);
         if (e == null || e.getSignedUpUserList().size() <= e.getCapacity()
                 || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))
@@ -326,11 +332,12 @@ public class EventManager {
         return true;
     }
 
+
+    /**
+     *
+     * @Description add users to the wait list
+     */
     public void addUserToWaitList(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description add users to the wait list
-         */
         Event event = g.getEventById(eventId);
         if (!(g.getUserById(userId) instanceof VipUser)){
             g.getEventById(eventId).addUserToWaitList(userId);
@@ -345,22 +352,24 @@ public class EventManager {
         }
     }
 
+
+    /**
+     *
+     * @Description check if the waiting users can be removed.
+     */
     public boolean canRemoveWaitingUser(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description check if the waiting users can be removed.
-         */
         if (isExistingEvent(eventId, g)) {
             return g.getEventById(eventId).getWaitList().contains(userId);
         }
         return false;
     }
 
+
+    /**
+     *
+     * @Description remove the waiting users
+     */
     public void removeWaitingUser(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description remove the waiting users
-         */
         g.getEventById(eventId).removeUserFromWaitList(userId);
     }
 }
