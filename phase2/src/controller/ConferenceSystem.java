@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import gateway.Gateway;
+import org.jetbrains.annotations.Nullable;
 import usecase.*;
 import gateway.GatewayFacade;
 
@@ -463,7 +464,7 @@ public class ConferenceSystem {
      * @param roomNumber Room number of the location of this event.
      * @return Return true if successfully created a new event into the system, false otherwise.
      */
-    public boolean newEvent(String type01, String type02, String startTime, String endTime, String speakerID,
+    public boolean newEvent(String type01, String type02, String startTime, String endTime, @Nullable String speakerID,
                             String topic, String roomNumber, String capacity){
         try{
             int type1 = Integer.parseInt(type01);
