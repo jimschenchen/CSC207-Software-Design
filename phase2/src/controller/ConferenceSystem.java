@@ -547,7 +547,7 @@ public class ConferenceSystem {
      *
      * @return List of Strings of the events
      */
-    public List<String> viewEvents(){
+    public List<List<String>> viewEvents(){
         return vs.viewEvents(gw);
     }
 
@@ -555,7 +555,7 @@ public class ConferenceSystem {
      * Return a list of events that the current logged in user has signed up for.
      * @return List of Strings of the events
      */
-    public List<String> viewSignedUpEvents(){
+    public List<List<String>> viewSignedUpEvents(){
         return vs.viewSignedUpEvents(gw);
     }
 
@@ -563,7 +563,7 @@ public class ConferenceSystem {
      * Return a list of events that the current logged in organizer has organized
      * @return List of Strings of the events
      */
-    public List<String> viewOrganizedEvents(){
+    public List<List<String>> viewOrganizedEvents(){
         return vs.viewOrganizedEvents(gw);
     }
 
@@ -571,22 +571,31 @@ public class ConferenceSystem {
      * Return a list of events that the current Speaker is going to speak for.
      * @return List of Strings of the events
      */
-    public List<String> viewSpeakingEvents(){
+    public List<List<String>> viewSpeakingEvents(){
         return vs.viewSpeakingEvents(gw);
     }
 
 
-    public List<String> viewCanSignUpEvents(){
+    public List<List<String>> viewCanSignUpEvents(){
         /**
          * Return a list of events that the current logged in attendee can sign up for. VIP can sign all events, normal
-         * user can only sign up normal events
+         * user can only sign up normal events.
+         * These events are events that the user do not need to wait in the waitlist.
          * @para userId is user id
-         * @return List of Strings of the events
+         * @return List of List of Strings of the events
          */
         return vs.viewCanSignUpEvents(gw);
     }
 
-    public List<String> viewMyWaitList(){
+    /**
+     * Return a list of events' info that the current logged in user can waitlist for.
+     * @return List of List of Strings of the events' info
+     */
+    public List<List<String>> viewCanWaitlistEvents(){
+        return vs.viewCanWaitlistEvents(gw);
+    }
+
+    public List<List<String>> viewMyWaitList(){
         return vs.viewMyWaitList(gw);
     }
 

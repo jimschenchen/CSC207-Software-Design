@@ -25,12 +25,12 @@ class ViewingSystem {
         this.user = userID;
     }
 
-    private List<String> getEventList(List<Integer> idList, GatewayFacade gw){
-        List<String> sEvents = new ArrayList<>();
+    private List<List<String>> getEventList(List<Integer> idList, GatewayFacade gw){
+        List<List<String>> allEvents = new ArrayList<>();
         for (Integer id : idList){
-            sEvents.add(em.getStringOfEvent(id, gw));
+            allEvents.add(em.getInfoOfEvent(id, gw));
         }
-        return sEvents;
+        return allEvents;
     }
 
     /**
@@ -38,7 +38,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewEvents(GatewayFacade gw){
+    List<List<String>> viewEvents(GatewayFacade gw){
         List<Integer> events = em.getEventList(gw);
         return getEventList(events, gw);
     }
@@ -48,7 +48,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewSignedUpEvents(GatewayFacade gw){
+    List<List<String>> viewSignedUpEvents(GatewayFacade gw){
         List<Integer> events = um.getUserSignedUpEvent(user, gw);
         return getEventList(events, gw);
     }
@@ -58,7 +58,7 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewOrganizedEvents(GatewayFacade gw){
+    List<List<String>> viewOrganizedEvents(GatewayFacade gw){
         List<Integer> events = um.getOrganizedEventList(user, gw);
         return getEventList(events, gw);
     }
@@ -68,35 +68,53 @@ class ViewingSystem {
      *
      * @return List of Strings of the events
      */
-    List<String> viewSpeakingEvents(GatewayFacade gw){
+    List<List<String>> viewSpeakingEvents(GatewayFacade gw){
         List<Integer> events = um.getSpeakerGivingEventList(user, gw);
         return getEventList(events, gw);
     }
 
     /**
-     * Return a list of events that the current logged in attendee can sign up for.
+     * Return a list of events that the current logged in user can sign up for. These events are events that users
+     * do not have to be on a waitlist.
      *
      * @return List of Strings of the events
      */
-    List<String> viewCanSignUpEvents(GatewayFacade gw) {
+    List<List<String>> viewCanSignUpEvents(GatewayFacade gw) {
         List<Integer> allEvents = em.getEventList(gw);
-        List<String> allEventsInfo = new ArrayList<>();
+        List<List<String>> allEventsInfo = new ArrayList<>();
         for (Integer eventID : allEvents) {
-            if (um.canSignUpForEvent(eventID, user, gw)) {
-                allEventsInfo.add(em.getStringOfEvent(eventID, gw));
+            if (um.canSignUpForEvent(eventID, user, gw) && em.canAddUserToEvent(user, eventID, gw)) {
+                allEventsInfo.add(em.getInfoOfEvent(eventID, gw));
+            }
+        }
+        return allEventsInfo;
+    }
+
+    // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistLength]
+    List<List<String>> viewCanWaitlistEvents(GatewayFacade gw){
+        List<Integer> allEvents = em.getEventList(gw);
+        List<List<String>> allEventsInfo = new ArrayList<>();
+        for (Integer eventID : allEvents){
+            if (um.canSignUpForEvent(eventID, user, gw) && em.canAddUserToWaitList(user, eventID, gw)
+                    && !em.canAddUserToEvent(user, eventID, gw)){
+                List<String> info = em.getInfoOfEvent(eventID, gw);
+                info.add(String.valueOf(em.getWaitlistLength(eventID, gw)));
+                allEventsInfo.add(info);
             }
         }
         return allEventsInfo;
     }
 
     // when use this method, you need to restrict the type of user to be attendee type...
-    List<String> viewMyWaitList(GatewayFacade gw) {
+    // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistRank]
+    List<List<String>> viewMyWaitList(GatewayFacade gw) {
         List<Integer> myWaitList = um.getUserWaitList(user, gw);
-        List<String> myWaitingEventsInfo = new ArrayList<>();
+        List<List<String>> myWaitingEventsInfo = new ArrayList<>();
         for (Integer eventId: myWaitList) {
             int rank = um.getUserRankInWaitList(user, eventId, gw);
-            String eventInfo = em.getStringOfEvent(eventId, gw);
-            myWaitingEventsInfo.add(eventInfo + "\n you rank in wait list is " + rank);
+            List<String> eventInfo = em.getInfoOfEvent(eventId, gw);
+            eventInfo.add(String.valueOf(rank));
+            myWaitingEventsInfo.add(eventInfo);
         }
         return myWaitingEventsInfo;
     }

@@ -207,17 +207,20 @@ public class UserManager {
 
     public int getUserCategory(int id, GatewayFacade g){
         /**
-         * @Description: judge the User category, 0 means speaker, 1 means organizer, 2 means attendee
+         * @Description: judge the User category, 0 means speaker, 1 means organizer, 2 means attendee, 3 means VIP
          */
         if (isExistingSpeaker(id, g)){
             // return 0 when id is a speaker
             return 0;
         }
-        else if (g.getOrganizerById(id) != null){
+        else if (isExistingOrganizer(id, g){
             return 1;
         }
-        else {
+        if (isExistingAttendee(id, g)) {
             return 2;
+        }
+        else{
+            return 3;
         }
     }
 

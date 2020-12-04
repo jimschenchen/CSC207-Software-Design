@@ -196,15 +196,34 @@ public class EventManager {
 //        return normalEvents;
 //    }
 
-    public String getStringOfEvent(int eventID, GatewayFacade g){
+    // modified getStringOfEvent
+    // return list of string in format [title, eventID, startTime, endTime, duration, room, VIPstatus]
+    // VIP status: if is VIP event, "VIP", if not VIP event, it is an empty string
+    public List<String> getInfoOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
-        return "The event " + event.getTitle() +
-                " with ID " + event.getEventId() +
-                " starts at " + event.getStartTime().format(formatter) +
-                " ends at " + event.getEndTime().format(formatter) +
-                " with duration " + event.getDuration().toString() +
-                " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum() +
-                " and its Vip Status is: " + event.isVipEvent();
+        List<String> eventInfo = new ArrayList<String>(){
+            {
+                add(event.getTitle());
+                add(String.valueOf(event.getEventId()));
+                add(event.getStartTime().format(formatter));
+                add(event.getEndTime().format(formatter));
+                add(event.getDuration().toString());
+                add(g.getRoomById(event.getRoomId()).getRoomNum());
+            }
+        };
+        if (event.isVipEvent()){
+            eventInfo.add("VIP");
+        }
+        eventInfo.add("");
+        return eventInfo;
+
+//        return "The event " + event.getTitle() +
+//                " with ID " + event.getEventId() +
+//                " starts at " + event.getStartTime().format(formatter) +
+//                " ends at " + event.getEndTime().format(formatter) +
+//                " with duration " + event.getDuration().toString() +
+//                " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum() +
+//                " and its Vip Status is: " + event.isVipEvent();
     }
 
     /**
@@ -353,6 +372,10 @@ public class EventManager {
          * @Description remove the waiting users
          */
         g.getEventById(eventId).removeUserFromWaitList(userId);
+    }
+
+    public int getWaitlistLength(int eventID, GatewayFacade gw){
+        return gw.getEventById(eventID).getWaitList().size();
     }
 }
 
