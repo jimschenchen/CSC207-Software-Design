@@ -1,12 +1,14 @@
 package usecase;
 
+import entity.*;
+import entity.event.Event;
+import entity.event.NonSpeakerEvent;
+import entity.event.OneSpeakerEvent;
+import gateway.GatewayFacade;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import entity.*;
-import entity.event.*;
-import gateway.Gateway;
-import gateway.GatewayFacade;
 
 
 public class UserManager {
@@ -15,7 +17,7 @@ public class UserManager {
      * @Description: checks if username is unique
      */
     public boolean canCreateUser(String userName, GatewayFacade gw){
-        if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
+        if (userName.length() > 0 && !isExistingUser(userName, gw)){
             return true;
         }
         return false;
@@ -224,7 +226,7 @@ public class UserManager {
 
 
     /**
-     * @Description: judge the User category, 0 means speaker, 1 means organizer, 2 means attendee, 3 means VIP
+     * @Description: judge the User category, 0 means speaker, 1 means organizer, 2 means attendee/VIP
      */
     public int getUserCategory(int id, GatewayFacade g){
         if (isExistingSpeaker(id, g)){
@@ -234,11 +236,8 @@ public class UserManager {
         else if (isExistingOrganizer(id, g)){
             return 1;
         }
-        if (isExistingAttendee(id, g)) {
-            return 2;
-        }
         else{
-            return 3;
+            return 2;
         }
     }
 

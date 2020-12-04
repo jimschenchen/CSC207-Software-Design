@@ -56,24 +56,27 @@ public class ConferenceSystem {
 //        });
 //    }
 
+    private boolean checkValidPassword(String password){
+        return password.length() >= 6;
+    }
+
     public boolean createAttendee(String userName, String password){
         /**
-         * create an attendee
+         * create an attendee by logged in user. Only organizers can perform this action.
          *
          * @param username User name of the new attendee. username should be unique.
          * @param password Password of the new attendee account. Password should be at least 6 characters long.
          * @return Return true if the Attendee is created successfully, false otherwise.
          */
-        if(password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
-            um.createAttendee(password.trim(), userName.trim(), gw);
-            return true;
+        if (um.isExistingOrganizer(user, gw)){
+            return signup(userName, password);
         }
         return false;
     }
 
     public boolean createSpeaker(String userName, String password){
         /**
-         * Creates a new speaker account into the system.
+         * Creates a new speaker account into the system. This action can only be performed by an organizer.
          *
          * @param userName User name of the new speaker.
          * @param password Password of the new speaker account.
@@ -81,7 +84,7 @@ public class ConferenceSystem {
          *          Return false when the password is invalid,
          *          or when the user name is not unique.
          */
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
+        if (checkValidPassword(password) && um.canCreateUser(userName, gw) && um.isExistingOrganizer(user, gw)){
             um.createSpeaker(password.trim(), userName.trim(), gw);
             return true;
         }
@@ -90,13 +93,13 @@ public class ConferenceSystem {
 
     public boolean createVipUser(String userName, String password){
         /**
-         * create a VIP
+         * create a VIP. This action can only be performed by an organizer.
          *
          * @param username User name of the new VIP. username should be unique.
          * @param password Password of the new VIP account. Password should be at least 6 characters long.
          * @return Return true if the VIP is created successfully, false otherwise.
          */
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
+        if (checkValidPassword(password) && um.canCreateUser(userName, gw) && um.isExistingOrganizer(user, gw)){
             um.createVIP(password.trim(), userName.trim(), gw);
             return true;
         }
@@ -110,7 +113,7 @@ public class ConferenceSystem {
          * @param eventId eventid of event
          * @return Return true if change correctly, false otherwise.
          */
-        if (em.getVipStatusOfEvent(eventId, gw) != type){
+        if (em.getVipStatusOfEvent(eventId, gw) != type && um.isExistingOrganizer(user, gw)){
             return em.changeVipStatusOfEvent(eventId, type, gw);
         }
         return false;
@@ -134,7 +137,7 @@ public class ConferenceSystem {
      * @return Return true if the account is created successfully, false otherwise.
      */
     public boolean signup(String username, String password){
-        if (um.canCreateUser(username, gw) && password.length() >= 6){
+        if (um.canCreateUser(username, gw) && checkValidPassword(password)){
             um.createAttendee(password, username, gw);
             return true;
         }
@@ -149,7 +152,7 @@ public class ConferenceSystem {
      * @return Returns -1 when login fails. When the login is successful,
      *         returns 0 when the user is a Speaker;
      *         returns 1 when the user is an Organizer;
-     *         returns 2 when the user is an Attendee.
+     *         returns 2 when the user is an Attendee/VIP.
      */
     public int login(String username, String password){
         if (um.isExistingUser(username, gw)){
@@ -378,6 +381,9 @@ public class ConferenceSystem {
         }
         catch(NumberFormatException nfe){
             return false;
+        }
+        catch(IndexOutOfBoundsException ioob){ // return true when waitlist is empty
+            return true;
         }
     }
 
