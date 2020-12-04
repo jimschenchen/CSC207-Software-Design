@@ -2,12 +2,14 @@ package usecase;
 
 import entity.*;
 import entity.event.Event;
+import entity.event.MultiSpeakerEvent;
 import entity.event.NonSpeakerEvent;
 import entity.event.OneSpeakerEvent;
 import gateway.GatewayFacade;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -268,9 +270,15 @@ public class UserManager {
     /**
      * @Description: get User name and id
      */
-    public String getUserString(int userID, GatewayFacade g){
+    public List<String> getUserInfo(int userID, GatewayFacade g){
         User user = g.getUserById(userID);
-        return user.getUserName() + " (" + user.getUserId() + ")";
+        List<String> info = new ArrayList<String>(){
+            {
+                add(String.valueOf(user.getUserId()));
+                add(user.getUserName());
+            }
+        };
+        return info;
     }
 
 
@@ -372,11 +380,40 @@ public class UserManager {
      * @Description cancel an event.
      */
     public void cancelEvent(int eventID, GatewayFacade gw) {
-        Event event = gw.getEventById(eventID);
+//        Event event = gw.getEventById(eventID);
+//        List<Integer> userList = event.getSignedUpUserList();
+//        for (Integer userID : userList){
+//            Attendee user = (Attendee) gw.getUserById(userID);
+//            user.cancelEvent(eventID);
+//        }
+        if (gw.getMultiSpeakerEventById(eventID) != null){
+            MultiSpeakerEvent event = gw.getMultiSpeakerEventById(eventID);
+            cancelEventFromSignedUsers(eventID, event, gw);
+            List<Integer> speakerList = event.getSpeakerList();
+            for (Integer speakerID : speakerList){
+                Speaker speaker = gw.getSpeakerById(speakerID);
+                speaker.removeGivingEvent(eventID);
+            }
+        }
+        else if(gw.getOneSpeakerEventById(eventID) != null){
+            OneSpeakerEvent event = gw.getOneSpeakerEventById(eventID);
+            cancelEventFromSignedUsers(eventID, event, gw);
+            removeOneSpeakerEventFromSpeaker(eventID, gw);
+        }
+        else{
+            NonSpeakerEvent event = gw.getNonSpeakerEventById(eventID);
+            cancelEventFromSignedUsers(eventID, event, gw);
+        }
+    }
+
+    private void cancelEventFromSignedUsers(int eventID, Event event, GatewayFacade gw){
         List<Integer> userList = event.getSignedUpUserList();
         for (Integer userID : userList){
-            Attendee user = (Attendee) gw.getUserById(userID);
-            user.cancelEvent(eventID);
+            cancelEventFromUser(eventID, userID, gw);
         }
+    }
+
+    public boolean canChangeEventCapacity(int user, GatewayFacade gw) {
+        return isExistingOrganizer(user, gw);
     }
 }

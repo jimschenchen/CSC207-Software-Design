@@ -438,6 +438,7 @@ public class ConferenceSystem {
      *
      * @return List of Strings of the events
      */
+    // format [title, eventID, startTime, endTime, duration, room, VIPstatus]
     public List<List<String>> viewEvents(){
         return vs.viewEvents(gw);
     }
@@ -446,6 +447,7 @@ public class ConferenceSystem {
      * Return a list of events that the current logged in user has signed up for.
      * @return List of Strings of the events
      */
+    // format [title, eventID, startTime, endTime, duration, room, VIPstatus]
     public List<List<String>> viewSignedUpEvents(){
         return vs.viewSignedUpEvents(gw);
     }
@@ -454,6 +456,7 @@ public class ConferenceSystem {
      * Return a list of events that the current logged in organizer has organized
      * @return List of Strings of the events
      */
+    // format [title, eventID, startTime, endTime, duration, room, VIPstatus]
     public List<List<String>> viewOrganizedEvents(){
         return vs.viewOrganizedEvents(gw);
     }
@@ -462,11 +465,12 @@ public class ConferenceSystem {
      * Return a list of events that the current Speaker is going to speak for.
      * @return List of Strings of the events
      */
+    // format [title, eventID, startTime, endTime, duration, room, VIPstatus]
     public List<List<String>> viewSpeakingEvents(){
         return vs.viewSpeakingEvents(gw);
     }
 
-
+    // format [title, eventID, startTime, endTime, duration, room, VIPstatus]
     public List<List<String>> viewCanSignUpEvents(){
         /**
          * Return a list of events that the current logged in attendee can sign up for. VIP can sign all events, normal
@@ -482,41 +486,29 @@ public class ConferenceSystem {
      * Return a list of events' info that the current logged in user can waitlist for.
      * @return List of List of Strings of the events' info
      */
+    // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistLength]
     public List<List<String>> viewCanWaitlistEvents(){
         return vs.viewCanWaitlistEvents(gw);
     }
 
+    // when use this method, you need to restrict the type of user to be attendee type...
+    // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistRank]
     public List<List<String>> viewMyWaitList(){
         return vs.viewMyWaitList(gw);
     }
 
-    /**
-     * View all attendees who are registered in one of the current speaker's speaking events. Without duplicates.
-     *
-     * @return Return a list of Strings that represent all attendees of all the events the speaker is speaking for.
-     * Every attendee is represented by a string formatted as follows: "UserName (userID)"
-     */
-    public List<String> viewAttendeesInSpeakingEvents(){
+    // format: [ID, username]
+    public List<List<String>> viewAttendeesInSpeakingEvents(){
         return vs.viewAttendeesInSpeakingEvents(gw);
     }
 
-    /**
-     * View all attendees in the system.
-     *
-     * @return Return a list of Strings that represent all attendees in the system.
-     * Every attendee is represented by a string formatted as follows: "UserName (userID)"
-     */
-    public List<String> viewAllAttendees(){
+    // format: [ID, username]
+    public List<List<String>> viewAllAttendees(){
         return vs.viewAllAttendees(gw);
     }
 
-    /**
-     * View all speakers in the system.
-     *
-     * @return Return a list of Strings that represent all speakers in the system.
-     * Every speaker is represented by a string formatted as follows: "UserName (userID)"
-     */
-    public List<String> viewAllSpeakers(){
+    //format: [ID, username]
+    public List<List<String>> viewAllSpeakers(){
         return vs.viewAllSpeakers(gw);
     }
 

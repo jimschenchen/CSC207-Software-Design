@@ -187,7 +187,7 @@ class EventManagementSystem extends subSystem{
         try {
             int cap = Integer.parseInt(capacity);
             int eid = Integer.parseInt(eventId);
-            if (em.canChangeEventCapacity(eid, cap, gw)) {
+            if (em.canChangeEventCapacity(eid, cap, gw) && um.canChangeEventCapacity(user, gw)) {
                 em.changeEventCapacity(eid, cap, gw);
                 return true;
             }

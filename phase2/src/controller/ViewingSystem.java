@@ -115,24 +115,24 @@ class ViewingSystem extends subSystem{
      * @return Return a list of Strings that represent all attendees of all the events the speaker is speaking for.
      * Every attendee is represented by a string formated as follows: "UserName (userID)"
      */
-    List<String> viewAttendeesInSpeakingEvents(GatewayFacade gw){
+    List<List<String>> viewAttendeesInSpeakingEvents(GatewayFacade gw){
         List<Integer> allSpeakingEvents = um.getSpeakerGivingEventList(user, gw);
         Set<Integer> allAttendeesInEvents = new LinkedHashSet<>();
-        List<String> sAllAttendeesInEvents = new ArrayList<>();
+        List<List<String>> sAllAttendeesInEvents = new ArrayList<>();
         for (Integer eventID : allSpeakingEvents){
             List<Integer> usersInEvent = em.getUserList(eventID, gw);
             allAttendeesInEvents.addAll(usersInEvent);
         }
         for (Integer userID : allAttendeesInEvents){
-            sAllAttendeesInEvents.add(um.getUserString(userID, gw));
+            sAllAttendeesInEvents.add(um.getUserInfo(userID, gw));
         }
         return sAllAttendeesInEvents;
     }
 
-    private List<String> getUserList(List<Integer> idList, GatewayFacade gw){
-        List<String> sUser = new ArrayList<>();
+    private List<List<String>> getUserList(List<Integer> idList, GatewayFacade gw){
+        List<List<String>> sUser = new ArrayList<>();
         for (Integer id : idList){
-            sUser.add(um.getUserString(id, gw));
+            sUser.add(um.getUserInfo(id, gw));
         }
         return sUser;
     }
@@ -143,7 +143,7 @@ class ViewingSystem extends subSystem{
      * @return Return a list of Strings that represent all attendees in the system.
      * Every attendee is represented by a string formatted as follows: "UserName (userID)"
      */
-    List<String> viewAllAttendees(GatewayFacade gw){
+    List<List<String>> viewAllAttendees(GatewayFacade gw){
         List<Integer> allAttendees = um.getListOfUsers(2, gw);
         return getUserList(allAttendees, gw);
     }
@@ -154,7 +154,7 @@ class ViewingSystem extends subSystem{
      * @return Return a list of Strings that represent all speakers in the system.
      * Every speaker is represented by a string formatted as follows: "UserName (userID)"
      */
-    List<String> viewAllSpeakers(GatewayFacade gw){
+    List<List<String>> viewAllSpeakers(GatewayFacade gw){
         List<Integer> allSpeakers = um.getListOfUsers(0, gw);
         return getUserList(allSpeakers, gw);
     }
