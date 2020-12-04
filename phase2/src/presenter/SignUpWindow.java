@@ -92,7 +92,7 @@ public class SignUpWindow extends JFrame {
 
     public void updates(int action){
         if(action == 0){ //back to the login page
-            LoginWindow loginWindow = new LoginWindow();
+            LoginWindow loginWindow = new LoginWindow(language);
             dispose();
         }else if(action == 1){
             signUp();
