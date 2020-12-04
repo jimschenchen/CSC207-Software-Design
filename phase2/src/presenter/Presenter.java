@@ -6,14 +6,18 @@ public class Presenter {
     private int type;
     ConferenceSystem cs = new ConferenceSystem();
 
-    public int signIn( String username, String password){
+    public void signIn( String username, String password, IWindow window){
         type = cs.login(username, password);
-        return type;
+        window.update(String.valueOf(type));
     }
 
-    public Boolean signup(String username, String password){
+    public void signup(String username, String password, IWindow window){
         Boolean bool = cs.signup(username, password);
-        return bool;
+        if (bool){
+            window.update("CreateAccount");
+        }else{
+            window.update("Error");
+        }
     }
 
     public void menuItemClicked(String string){
