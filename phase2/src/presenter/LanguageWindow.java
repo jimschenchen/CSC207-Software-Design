@@ -119,7 +119,7 @@ public class LanguageWindow extends JFrame {
 
     public void updates(int action){
         if (action == 0){
-            SignUpWindow signUpWindow = new SignUpWindow(language);
+            LoginWindow loginWindow = new LoginWindow(language);
             dispose();
         }else if (action == 1){
             setNewLanguage();
