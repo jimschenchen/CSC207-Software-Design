@@ -22,8 +22,20 @@ public class MessengerPresenter {
     }
 
     void MessageOneAttendee(String content, String userID){
+        GatewayFacade gw = new GatewayFacade();
+        boolean success = msgSystem.messageAttendee(content, userID, gw);
+        msgWindow.messageSuccess(success);
+        //They are not public. How do I get access to them?
+    }
 
+    void SeeReceivedMessages(){
+        GatewayFacade gw = new GatewayFacade();
+        msgSystem.readReceivedMessages(gw);
+    }
 
+    void SeeSentMessages(){
+        GatewayFacade gw = new GatewayFacade();
+        msgSystem.readSentMessages(gw);
     }
 
 

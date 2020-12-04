@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-class MessengerWindow extends JFrame implements ActionListener, FocusListener, KeyListener, IMessage {
+class MessengerWindow extends JFrame implements ActionListener, FocusListener, IMessage {
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
     JButton send = new JButton("Send");
@@ -49,8 +49,6 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
         msgSend.setWrapStyleWord(true);
 
         msgSend.setText("Write Message here");
-        msgSend.addFocusListener(this);
-        msgSend.addKeyListener(this);
 
         pane1 = new JScrollPane(msgSend);
         pane1.setBounds(0, 200, 400, 200);
@@ -103,44 +101,35 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
                 String username = JOptionPane.showInputDialog("Enter the username of the attendee");
                 _msgPresenter.MessageOneAttendee(message, username);
             }
+            msgSend.setText("Write new message");
         }
         if (src == logOut){
             System.exit(0);
         }
         if (src == organizer){
             OranizerMessenger org = new OrganizerMessenger();
+            dispose();
         }
         if (src == speaker){
             SpeakerMessengger spkr = new SpeakerMessenger();
+            dispose();
         }
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-
-
-
+        if(e.getSource() == msgRec){
+            _msgPresenter.SeeReceivedMessages();
+        }
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-
+        if (e.getSource() == msgRec){
+            _msgPresenter.SeeSentMessages();
+        }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 
     public void messageSuccess(boolean success){
         if (success){
