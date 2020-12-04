@@ -14,7 +14,7 @@ public class UserMenuPresenter extends Presenter{
         if (i == 4){
             String type = "passwordField";
             userMenu.update(type);
-            cs.resetPassword();
+            //cs.resetPassword();
         }
         if (i == 5){
 
