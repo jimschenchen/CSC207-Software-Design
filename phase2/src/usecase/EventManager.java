@@ -10,6 +10,7 @@ import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -218,6 +219,7 @@ public class EventManager {
         Event event = g.getEventById(eventID);
         List<String> eventInfo = new ArrayList<String>(){
             {
+                add(event.getClass().getName());
                 add(event.getTitle());
                 add(String.valueOf(event.getEventId()));
                 add(event.getStartTime().format(formatter));
@@ -227,7 +229,10 @@ public class EventManager {
             }
         };
         if (event.isVipEvent()){
-            eventInfo.add("VIP");
+            eventInfo.add("VIP event");
+        }
+        else {
+            eventInfo.add("not VIP event");
         }
         eventInfo.add("");
         return eventInfo;
