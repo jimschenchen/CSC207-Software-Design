@@ -113,7 +113,7 @@ public class LanguageWindow extends JFrame {
         }else {
             newLanguage = new Japanese();
         }
-       LoginWindow loginWindow = new LoginWindow(newLanguage);
+        LoginWindow loginWindow = new LoginWindow(newLanguage);
         dispose();
     }
 
