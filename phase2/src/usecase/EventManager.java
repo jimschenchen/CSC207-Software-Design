@@ -10,6 +10,7 @@ import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -49,17 +50,20 @@ public class EventManager {
      * @param g the database
      * @return the new event id
      */
-    public int createEvent(int type1, int type2, @Nullable int speakerId, LocalDateTime start,
+    public int createEvent(int type1, int type2, int speakerId, LocalDateTime start,
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
         g.addEvent(nEvent);
-        if (type1 == 0) {
-            g.getNonSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
-        }
-        else {
-            g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
-        }
+        g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+        return nEvent.getEventId();
+    }
+
+    public int createEvent(int type1, int type2, LocalDateTime start, LocalDateTime end, String title,
+                           int roomID, int capacity, GatewayFacade gw){
+        Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end, gw.getNextEventId(),
+                title, roomID, capacity);
+        gw.addEvent(nEvent);
         return nEvent.getEventId();
     }
 
@@ -72,7 +76,7 @@ public class EventManager {
      * @param g the database
      * @return the new event id
      */
-    public int createEvent(int type1, int type2, ArrayList<Integer> speakerList, LocalDateTime start,
+    public int createEvent(int type1, int type2, @NotNull ArrayList<Integer> speakerList, LocalDateTime start,
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
@@ -213,7 +217,7 @@ public class EventManager {
 
     // modified getStringOfEvent
     // return list of string in format [title, eventID, startTime, endTime, duration, room, VIPstatus]
-    // VIP status: if is VIP event, "VIP", if not VIP event, it is an empty string
+    // VIP status: Yes for VIP events, NO for non-VIP events
     public List<String> getInfoOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         List<String> eventInfo = new ArrayList<String>(){
@@ -227,9 +231,9 @@ public class EventManager {
             }
         };
         if (event.isVipEvent()){
-            eventInfo.add("VIP");
+            eventInfo.add("Yes");
         }
-        eventInfo.add("");
+        eventInfo.add("No");
         return eventInfo;
 
 //        return "The event " + event.getTitle() +

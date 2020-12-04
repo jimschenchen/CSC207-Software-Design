@@ -1,11 +1,16 @@
 package controller;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import entity.Speaker;
+import gateway.Gateway;
 import org.jetbrains.annotations.Nullable;
 import usecase.*;
 import gateway.GatewayFacade;
@@ -23,6 +28,7 @@ public class ConferenceSystem {
     private int user;
     private MessagingSystem ms = new MessagingSystem();
     private ViewingSystem vs = new ViewingSystem();
+    private EventManagementSystem ems = new EventManagementSystem();
 //
 //    /**
 //    * @Description: Initialization of Gateway and Database
@@ -106,28 +112,14 @@ public class ConferenceSystem {
         return false;
     }
 
-
-    public boolean changeVipStatusOfEvent(int eventId, Boolean type){
+    public boolean changeVipStatusOfEvent(int eventId, boolean type){
         /**
          * change type of a event
          * @param eventId eventid of event
          * @return Return true if change correctly, false otherwise.
          */
-        if (em.getVipStatusOfEvent(eventId, gw) != type && um.isExistingOrganizer(user, gw)){
-            return em.changeVipStatusOfEvent(eventId, type, gw);
-        }
-        return false;
+        return ems.changeVipStatusOfEvent(eventId, type, gw);
     }
-
-    public Boolean getVipStatusOfEvent(int eventId){
-        /**
-         * return the event type, true means event is VIP, false means event is not VIP
-         * @param eventID event id
-         * @return the type of event
-         */
-        return em.getVipStatusOfEvent(eventId, gw);
-    }
-
 
     /**
      * Sign up a new attendee to the system.
@@ -469,54 +461,149 @@ public class ConferenceSystem {
      * @param roomNumber Room number of the location of this event.
      * @return Return true if successfully created a new event into the system, false otherwise.
      */
-    public boolean newEvent(String type01, String type02, String startTime, String endTime, @Nullable String speakerID,
+//    public boolean newEvent(String type01, String type02, String startTime, String endTime, @Nullable String speakerID,
+//                            String topic, String roomNumber, String capacity){
+//        try{
+//            int type1 = Integer.parseInt(type01);
+//            int type2 = Integer.parseInt(type02);
+//            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
+//            LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
+//            int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
+//            int cap = Integer.parseInt(capacity);
+//            if (speakerID.contains(",")) {
+//                ArrayList<Integer> sID = new ArrayList<>();
+//                StringTokenizer token = new StringTokenizer(speakerID,",");
+//                while (token.hasMoreElements()) {
+//                    sID.add(Integer.parseInt(token.nextToken()));
+//                    if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
+//                            um.isSpeakerBusy(sID,sTime, eTime, gw)) {
+//
+//                        int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
+//                        um.addEventToOrganizedList(eventID, user, gw);
+//                        for (int speaker : sID){
+//                            um.addEventToSpeaker(eventID, speaker, gw);}
+//                        return true;
+//                    }
+//                }
+//            }
+//            else {
+//                int sID = Integer.parseInt(speakerID);
+//                if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
+//                        um.isSpeakerBusy(sID, sTime, eTime, gw)) {
+//
+//                    int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
+//                    um.addEventToOrganizedList(eventID, user, gw);
+//                    um.addEventToSpeaker(eventID, sID, gw);
+//                    return true;
+//                }
+//            }
+//
+//            return false; // return false when unsuccessful
+//        }
+//        catch(DateTimeParseException | NullPointerException ex){
+//            return false; // return false on invalid input
+//        }
+//    }
+
+    // if no speaker, pass in empty string
+    // if more than one speaker, pass "id1,id2"
+    public boolean newEvent(int type, String startTime, String endTime, String speakerID,
                             String topic, String roomNumber, String capacity){
         try{
-            int type1 = Integer.parseInt(type01);
-            int type2 = Integer.parseInt(type02);
+            List<Integer> types = determineEventTypes(type);
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
             LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
             int cap = Integer.parseInt(capacity);
-            if (speakerID.contains(",")) {
-                ArrayList<Integer> sID = new ArrayList<>();
-                StringTokenizer token = new StringTokenizer(speakerID,",");
-                while (token.hasMoreElements()) {
-                    sID.add(Integer.parseInt(token.nextToken()));
-                    if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-                            um.isSpeakerBusy(sID,sTime, eTime, gw)) {
-
-                        int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
-                        um.addEventToOrganizedList(eventID, user, gw);
-                        for (int speaker : sID){
-                            um.addEventToSpeaker(eventID, speaker, gw);}
-                        return true;
+            if (!(speakerID.length() == 0)){
+                if (speakerID.contains(",")) { // have more than 1 speaker
+                    ArrayList<Integer> sID = new ArrayList<>();
+                    StringTokenizer token = new StringTokenizer(speakerID,",");
+                    while (token.hasMoreElements()){
+                        sID.add(Integer.parseInt(token.nextToken()));
                     }
+                    return newEventMoreThan1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID, cap, gw);
+                }
+                else{ // only have 1 speaker
+                    int sID = Integer.parseInt(speakerID);
+                    return newEvent1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID, cap, gw);
                 }
             }
-            else {
-                int sID = Integer.parseInt(speakerID);
-                if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-                        um.isSpeakerBusy(sID, sTime, eTime, gw)) {
-
-                    int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
-                    um.addEventToOrganizedList(eventID, user, gw);
-                    um.addEventToSpeaker(eventID, sID, gw);
-                    return true;
+            else{ // no speaker
+                return newEventNoSpeaker(types.get(0), types.get(1), sTime, eTime, topic, rID, cap, gw);
                 }
             }
-
-            return false; // return false when unsuccessful
-        }
-        catch(DateTimeParseException | NullPointerException ex){
-            return false; // return false on invalid input
+        catch(NumberFormatException | DateTimeParseException e){
+            return false;
         }
     }
 
-    private void newEventHelper1(int type1, int type2, LocalDateTime startTime, LocalDateTime endTime, int speakerID,
-                                String topic, int roomId, int capacity) {
-
+    // 0: party, 1: talk, 2: panel discussion
+    private List<Integer> determineEventTypes(int pType){
+        List<Integer> types = new ArrayList<>();
+        switch (pType){
+            case 0: types.add(0);
+                    types.add(0);
+                    break;
+            case 1: types.add(1);
+                    types.add(0);
+                    break;
+            case 2: types.add(2);
+                    types.add(0);
+                    break;
+        }
+        return types;
     }
+
+    private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
+                                   GatewayFacade gw){
+        return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
+                um.isSpeakerBusy(sID, sTime, eTime, gw);
+    }
+
+    private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
+                                 LocalDateTime eTime, String topic, int rID, int cap, GatewayFacade gw){
+        if (type1 != 1){
+            return false;
+        }
+        if (canCreateEvent(sID, rID, sTime, eTime, cap, gw)) {
+            int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
+            um.addEventToOrganizedList(eventID, user, gw);
+            um.addEventToSpeaker(eventID, sID, gw);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean newEventMoreThan1Speaker(int type1, int type2, ArrayList<Integer> sID, LocalDateTime sTime,
+                                             LocalDateTime eTIme, String topic, int rID, int cap, GatewayFacade gw){
+        if (type1 != 2){
+            return false;
+        }
+        for (int speakerID : sID){
+            if (!canCreateEvent(speakerID, rID, sTime, eTIme, cap, gw)){
+                return false;
+            }
+        }
+        int eventID = em.createEvent(type1, type2, sID, sTime, eTIme, topic, rID, cap, gw);
+        um.addEventToOrganizedList(eventID, user, gw);
+        for (int speakerID : sID){
+            um.addEventToSpeaker(eventID, speakerID, gw);
+        }
+        return true;
+    }
+
+    private boolean newEventNoSpeaker(int type1, int type2, LocalDateTime sTime, LocalDateTime eTime,
+                                      String topic, int rID, int cap, GatewayFacade gw){
+        if (type1 != 0 || !em.canCreateEvent(rID, sTime, eTime, cap, gw)){
+            return false;
+        }
+        int eventID = em.createEvent(type1, type2, sTime, eTime, topic, rID, cap, gw);
+        um.addEventToOrganizedList(eventID, user, gw);
+        return true;
+    }
+
+
 
     public boolean cancelEvent(String eventID){
         try{
