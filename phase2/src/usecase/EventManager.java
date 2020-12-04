@@ -217,11 +217,12 @@ public class EventManager {
 
     // modified getStringOfEvent
     // return list of string in format [title, eventID, startTime, endTime, duration, room, VIPstatus]
-    // VIP status: Yes for VIP events, NO for non-VIP events
+    // VIP status: "VIP event" for VIP events, "not VIP event" for non-VIP events
     public List<String> getInfoOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         List<String> eventInfo = new ArrayList<String>(){
             {
+                add(event.getClass().getName());
                 add(event.getTitle());
                 add(String.valueOf(event.getEventId()));
                 add(event.getStartTime().format(formatter));
@@ -231,9 +232,11 @@ public class EventManager {
             }
         };
         if (event.isVipEvent()){
-            eventInfo.add("Yes");
+            eventInfo.add("VIP event");
         }
-        eventInfo.add("No");
+        else {
+            eventInfo.add("not VIP event");
+        }
         return eventInfo;
 
 //        return "The event " + event.getTitle() +
