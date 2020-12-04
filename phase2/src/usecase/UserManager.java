@@ -231,7 +231,7 @@ public class UserManager {
             // return 0 when id is a speaker
             return 0;
         }
-        else if (isExistingOrganizer(id, g){
+        else if (isExistingOrganizer(id, g)){
             return 1;
         }
         if (isExistingAttendee(id, g)) {

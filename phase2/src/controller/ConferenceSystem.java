@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import gateway.Gateway;
 import org.jetbrains.annotations.Nullable;
 import usecase.*;
 import gateway.GatewayFacade;
