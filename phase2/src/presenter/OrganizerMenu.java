@@ -3,6 +3,7 @@ package presenter;
 import entity.Organizer;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
 
@@ -27,8 +28,35 @@ public class OrganizerMenu extends UserMenu{
        optionSpeaker.add(createSpeaker);
        optionSpeaker.add(assignSpeaker);
        eventHandler handler2 = new eventHandler();
-       //I don't know how to implement the handler for new items
-        //Could you please help me?
+       createEvent.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             _presenter.menuItemClicked(10);;
+          }
+       });
+       orgEvents.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             _presenter.menuItemClicked(11);;
+          }
+       });
+       myEvents.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             _presenter.menuItemClicked(12);;
+          }
+       });
+       createSpeaker.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             _presenter.menuItemClicked(12);;
+          }
+       });
+       assignSpeaker.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             _presenter.menuItemClicked(13);;
+          }
+       });
     }
-
 }
