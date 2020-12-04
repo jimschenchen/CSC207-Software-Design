@@ -6,11 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.istack.internal.Nullable;
+//import com.sun.istack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Event Manager class
