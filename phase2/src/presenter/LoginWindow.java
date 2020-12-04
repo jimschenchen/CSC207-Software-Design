@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginWindow extends JFrame  {
+public class LoginWindow extends JFrame implements IWindow {
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;
@@ -23,6 +23,7 @@ public class LoginWindow extends JFrame  {
     Language language;
     Presenter presenter = new Presenter();
     JOptionPaneFactory wf;
+    IWindow window = this;
 
 
     public LoginWindow(){//The language is English By default
@@ -82,29 +83,28 @@ public class LoginWindow extends JFrame  {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameText.getText();
                 String password = passwordText.getText();
-                int type = presenter.signIn(username, password);
-                updates(type);
+                presenter.signIn(username, password, window );
             }
         });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updates(4);
+                update("Exit");
             }
         });
 
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updates(3);
+                update("SignUp");
             }
         });
 
         languageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updates(5);
+                update("Language");
             }
         });
 
@@ -115,21 +115,21 @@ public class LoginWindow extends JFrame  {
         setVisible(true);
     }
 
-    public void updates(int action) {
-        if (action == -1){
+    public void update(String action) {
+        if (action == "Error"){
             wf.errorMessage();
-        }else if (action == 0){
+        }else if (action == "Speaker"){
             // open the speaker window
-        }else if (action == 1){
+        }else if (action == "Organizer"){
             // open the organizer window
-        }else if (action == 2){
+        }else if (action == "Attendee"){
             // open the attendee window
-        }else if (action == 3){
+        }else if (action == "SignUp"){
             SignUpWindow signUpWindow = new SignUpWindow(language);
             dispose();
-        }else  if (action == 4){
+        }else  if (action == "Exit"){
             System.exit(0);
-        }else if(action == 5){
+        }else if(action == "Language"){
             LanguageWindow languageWindow = new LanguageWindow(language);
             dispose();
         }

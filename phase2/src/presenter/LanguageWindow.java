@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LanguageWindow extends JFrame {
+public class LanguageWindow extends JFrame implements IWindow{
     ButtonGroup buttonGroup;
     JRadioButton simplifiedChineseButton;
     JRadioButton englishButton;
@@ -87,7 +87,7 @@ public class LanguageWindow extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updates(1);
+                update("OK");
             }
         });
 
@@ -96,7 +96,7 @@ public class LanguageWindow extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updates(0);
+                update("Back");
             }
         });
     }
@@ -117,11 +117,11 @@ public class LanguageWindow extends JFrame {
         dispose();
     }
 
-    public void updates(int action){
-        if (action == 0){
-            SignUpWindow signUpWindow = new SignUpWindow(language);
+    public void update(String action){
+        if (action == "OK"){
+            LoginWindow loginWindow = new LoginWindow(language);
             dispose();
-        }else if (action == 1){
+        }else if (action == "Back"){
             setNewLanguage();
         }
     }

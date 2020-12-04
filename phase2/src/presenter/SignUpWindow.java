@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpWindow extends JFrame {
+public class SignUpWindow extends JFrame implements IWindow{
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;
@@ -19,6 +19,7 @@ public class SignUpWindow extends JFrame {
     Language language;
     JOptionPaneFactory windowFactory;
     Presenter presenter = new Presenter();
+    IWindow window = this;
 
     public SignUpWindow(Language language) {
         this.language = language;
@@ -64,7 +65,7 @@ public class SignUpWindow extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updates(1);
+                update("OK");
             }
         });
 
@@ -74,7 +75,7 @@ public class SignUpWindow extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               updates(0);
+               update("Back");
             }
         });
     }
@@ -82,21 +83,17 @@ public class SignUpWindow extends JFrame {
     private void signUp(){
         String username = usernameText.getText();
         String password = passwordText.getText();
-        Boolean bool = presenter.signup(username, password);
-        if (bool){
-            windowFactory.createAccountMessage();
-        }else{
-            windowFactory.errorMessage();
-        }
+        presenter.signup(username, password, window);
     }
 
-    public void updates(int action){
-        if(action == 0){ //back to the login page
+    public void update(String action){
+        if(action == "Back"){ //back to the login page
             LoginWindow loginWindow = new LoginWindow(language);
             dispose();
-        }else if(action == 1){
-            signUp();
-
+        }else if(action == "CreateAccount"){
+            windowFactory.createAccountMessage();
+        }else if (action == "Error"){
+            windowFactory.errorMessage();
         }
     }
 
