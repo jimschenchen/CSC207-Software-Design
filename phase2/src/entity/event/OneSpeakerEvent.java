@@ -10,14 +10,26 @@ public abstract class OneSpeakerEvent extends Event{
         super(startTime, endTime, eventId, title, roomId, capacity);
     }
 
+    /**
+     *
+     * @return the speaker id
+     */
     public int getSpeakerId() {
         return speakerId;
     }
 
+    /**
+     *
+     * @Description: set the speaker id
+     */
     public void setSpeakerId(int speakerId) {
         this.speakerId = speakerId;
     }
 
+    /**
+     *
+     * @Description: set the speaker
+     */
     public void setSpeaker(int speakerId) {
         this.speakerId = speakerId;
     }
