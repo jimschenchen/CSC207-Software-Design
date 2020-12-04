@@ -57,24 +57,26 @@ public class RoomManager {
         return g.getRoomByRoomNum(roomNumber).getRid();
     }
 
+
+    /**
+     * Get the room number by the room id
+     * @param roomId the room id
+     * @param g the database
+     * @return the room number
+     */
     public String getRoomString(int roomId, GatewayFacade g){
-        /**
-         * Get the room number by the room id
-         * @param roomId the room id
-         * @param g the database
-         * @return the room number
-         */
         Room room = g.getRoomById(roomId);
         return room.getRoomNum();
     }
 
+
+    /**
+     * View all rooms in the system.
+     *
+     * @return Return a list of strings that represent all rooms in the system.
+     * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
+     */
     public List<String> AllRooms(GatewayFacade gw){
-        /**
-         * View all rooms in the system.
-         *
-         * @return Return a list of strings that represent all rooms in the system.
-         * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
-         */
         List<Room> allRooms = getListOfRooms(gw);
         List<String> sAllRooms = new ArrayList<>();
         for (Room r: allRooms) {

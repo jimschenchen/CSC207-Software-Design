@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.istack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Event Manager class
@@ -63,6 +63,15 @@ public class EventManager {
         return nEvent.getEventId();
     }
 
+    /**
+     * Create a new event
+     * @param start the start time
+     * @param speakerList a list of speaker id of this event
+     * @param title the title of this event
+     * @param roomId the room id where this event will take place
+     * @param g the database
+     * @return the new event id
+     */
     public int createEvent(int type1, int type2, ArrayList<Integer> speakerList, LocalDateTime start,
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
@@ -151,6 +160,12 @@ public class EventManager {
         g.getEventById(eventId).removeUserFromEvent(userId);
     }
 
+
+    /**
+     * @param eventId the id of the event
+     * @param g the gateway
+     * @Description: add the first ranked waitlist user
+     */
     public int add1stRankedWaitListUser(int eventId, GatewayFacade g) {
         Event e = g.getEventById(eventId);
         int userId = e.getWaitList().get(0);
@@ -303,30 +318,25 @@ public class EventManager {
      * @return the boolean shows a user is VIP
      */
     public boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade g){
-        /**
-         * change type of a event
-         * @param eventId eventid of event
-         * @param type type of event
-         * @return Return true if change correctly, false otherwise.
-         */
         g.getEventById(eventId).setVipEvent(type);
         return true;
     }
 
+    /**
+     * return the event type, true means event is VIP, false means event is not VIP
+     * @param eventId event id
+     * @return the type of event
+     */
     public Boolean getVipStatusOfEvent(int eventId, GatewayFacade g){
-        /**
-         * return the event type, true means event is VIP, false means event is not VIP
-         * @param eventID event id
-         * @return the type of event
-         */
         return g.getEventById(eventId).isVipEvent();
     }
 
+
+    /**
+     *
+     * @Description check if a user can be added to the waitlist
+     */
     public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description check if a user can be added to the waitlist
-         */
         Event e = g.getEventById(eventId);
         if (e == null || e.getSignedUpUserList().size() <= e.getCapacity()
                 || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))
@@ -336,11 +346,12 @@ public class EventManager {
         return true;
     }
 
+
+    /**
+     *
+     * @Description add users to the wait list
+     */
     public void addUserToWaitList(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description add users to the wait list
-         */
         Event event = g.getEventById(eventId);
         if (!(g.getUserById(userId) instanceof VipUser)){
             g.getEventById(eventId).addUserToWaitList(userId);
@@ -355,22 +366,24 @@ public class EventManager {
         }
     }
 
+
+    /**
+     *
+     * @Description check if the waiting users can be removed.
+     */
     public boolean canRemoveWaitingUser(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description check if the waiting users can be removed.
-         */
         if (isExistingEvent(eventId, g)) {
             return g.getEventById(eventId).getWaitList().contains(userId);
         }
         return false;
     }
 
+
+    /**
+     *
+     * @Description remove the waiting users
+     */
     public void removeWaitingUser(int eventId, int userId, GatewayFacade g) {
-        /**
-         *
-         * @Description remove the waiting users
-         */
         g.getEventById(eventId).removeUserFromWaitList(userId);
     }
 

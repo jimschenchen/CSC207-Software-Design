@@ -60,6 +60,7 @@ public class GatewayFacade {
     public void deleteUser(User user) {
         userGateway.delete(user.getUserId());
     }
+
     /**
      * @Description: Get user by given id.
      * @Param: [id]
@@ -70,6 +71,7 @@ public class GatewayFacade {
     public User getUserById(int id) {
         return userGateway.get(id);
     }
+
     /**
      * @Description: Get the Whole User List. *This is method may lag the performance.
      * @Param: []
@@ -80,6 +82,7 @@ public class GatewayFacade {
     public List<User> getUserList() {
         return userGateway.getList();
     }
+
     /**
      * @Description: Get User by given username. *This is method may lag the performance. Then use `getUserById` instead.
      * @Param: [username]
@@ -96,6 +99,7 @@ public class GatewayFacade {
         }
         return null;
     }
+
     /**
      * @Description: Return Attendee by given <id>, if the user does not exist or is not Attendee, return null
      * @Param: [id]
@@ -155,6 +159,7 @@ public class GatewayFacade {
         }
         return null;
     }
+
     /**
      * @Description:
      * @Param: [username]
@@ -187,9 +192,6 @@ public class GatewayFacade {
 
 
 
-
-
-
     // ===== Event: Hash=====
     /**
      * @Description: Add event to event list
@@ -218,6 +220,8 @@ public class GatewayFacade {
     public List<Event> getEventList() {
         return eventGateway.getList();
     }
+
+
     /**
      * @Description: Get event by given id
      * @Param: [id]
@@ -229,7 +233,10 @@ public class GatewayFacade {
         return eventGateway.get(id);
     }
 
-
+    /**
+     * @param: id the id of the event
+     * @return: return the multi-speakers of the event by id
+     */
     public MultiSpeakerEvent getMultiSpeakerEventById(int id) {
         Event event = getEventById(id);
         if (event instanceof MultiSpeakerEvent) {
@@ -238,6 +245,10 @@ public class GatewayFacade {
         return null;
     }
 
+    /**
+     * @param: id the id of the event
+     * @return: return the non speaker of the event by id
+     */
     public NonSpeakerEvent getNonSpeakerEventById(int id) {
         Event event = getEventById(id);
         if (event instanceof NonSpeakerEvent) {
@@ -246,6 +257,10 @@ public class GatewayFacade {
         return null;
     }
 
+    /**
+     * @param: id the id of the event
+     * @return: return the speakersof the event by id
+     */
     public OneSpeakerEvent getOneSpeakerEventById(int id) {
         Event event = getEventById(id);
         if (event instanceof OneSpeakerEvent) {
@@ -273,6 +288,7 @@ public class GatewayFacade {
     public void deleteRoom(Room room) {
         roomGateway.delete(room.getRid());
     }
+
     /**
      * @Description: get list of rooms
      * @Param: []
@@ -283,6 +299,8 @@ public class GatewayFacade {
     public List<Room> getRoomList() {
         return roomGateway.getList();
     }
+
+
     /**
      * @Description: get room by given id
      * @Param: [id]
@@ -293,6 +311,8 @@ public class GatewayFacade {
     public Room getRoomById(int id) {
         return roomGateway.get(id);
     }
+
+
     /**
      * @Description: get room by given roomNum
      * @Param: [roomNum]
@@ -322,6 +342,8 @@ public class GatewayFacade {
     public void addMessage(Message message) {
         messageGateway.add(message);
     }
+
+
     /**
      * @Description: get List of all messages
      * @Param: []
@@ -331,6 +353,8 @@ public class GatewayFacade {
     public List<Message> getMessageList() {
         return messageGateway.getList();
     }
+
+
     /**
      * @Description: Return the List of messages related to <userId>; Cannot add message
      * @Param: [userId]
@@ -347,6 +371,8 @@ public class GatewayFacade {
         }
         return ret;
     }
+
+
     /**
      * @Description: Return the List of Sent messages related to <userId>; Cannot add message
      * @Param: [userId]
@@ -364,6 +390,8 @@ public class GatewayFacade {
         }
         return ret;
     }
+
+
     /**
      * @Description: Return the List of Received messages related to <userId>; Cannot add message
      * @Param: [userId]
