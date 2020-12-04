@@ -96,6 +96,8 @@ public class PanelFactory {
                     presenter.signUpEvent(event.get(1));
                 }
             });
+            panel.add(buttonArray[i]);
+            i++;
         }
         return panel;
     }
