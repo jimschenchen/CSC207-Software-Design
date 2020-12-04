@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.beans.EventHandler;
 
 public class UserMenu extends JFrame implements IWindow{
-        private UserMenuPresenter _presenter;
+        UserMenuPresenter _presenter;
         final JFrame mainFrame;
         private JButton button1, button2, button3;
         private JMenu myProfile;
