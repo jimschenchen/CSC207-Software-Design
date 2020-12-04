@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import gateway.Gateway;
 import usecase.*;
 import gateway.GatewayFacade;
 
@@ -524,6 +525,21 @@ public class ConferenceSystem {
         }
     }
 
+    public boolean changeEventCapacity(String eventId, String capacity) {
+        try {
+            int cap = Integer.parseInt(capacity);
+            int eid = Integer.parseInt(eventId);
+            if (em.canChangeEventCapacity(eid, cap, gw)) {
+                em.changeEventCapacity(eid, cap, gw);
+                return true;
+            }
+            return false;
+        }
+        catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     /**
      * Return all events that are currently scheduled.
      *
@@ -566,6 +582,10 @@ public class ConferenceSystem {
          * @return List of Strings of the events
          */
         return vs.viewCanSignUpEvents(gw);
+    }
+
+    public List<String> viewMyWaitList(){
+        return vs.viewMyWaitList(gw);
     }
 
     /**

@@ -6,12 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.sun.istack.internal.Nullable;
+import com.sun.istack.internal.Nullable;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * The Event Manager class
@@ -231,7 +230,7 @@ public class EventManager {
 
     public Duration getEventDuration(int eventId, GatewayFacade g) {return g.getEventById(eventId).getDuration();}
 
-    public boolean canChangeEventCapacity(int newCapacity,int eventId ,GatewayFacade g) {
+    public boolean canChangeEventCapacity(int eventId,int newCapacity ,GatewayFacade g) {
         if (newCapacity > g.getRoomById(g.getEventById(eventId).getRoomId()).getCapacity() |
                 newCapacity < g.getEventById(eventId).getSignedUpUserList().size()) {
             return false;
@@ -239,7 +238,7 @@ public class EventManager {
         return true;
     }
 
-    public void changeEventCapacity(int newCapacity, int eventId, GatewayFacade g) {
+    public void changeEventCapacity(int eventId, int newCapacity, GatewayFacade g) {
         g.getEventById(eventId).setCapacity(newCapacity);
     }
 

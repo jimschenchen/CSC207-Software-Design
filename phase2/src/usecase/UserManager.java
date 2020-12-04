@@ -252,6 +252,10 @@ public class UserManager {
         return neededUsers;
     }
 
+    public int getUserRankInWaitList(int userId, int eventId, GatewayFacade g) {
+        return g.getEventById(eventId).getWaitList().indexOf(userId);
+    }
+
     public String getUserString(int userID, GatewayFacade g){
         /**
          * @Description: get User name and id
