@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 class MessengerWindow extends JFrame implements ActionListener, FocusListener, KeyListener {
-    public JFrame messengerFrame = new JFrame();
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
     JButton send = new JButton("Send");
