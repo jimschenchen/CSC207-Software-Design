@@ -1,19 +1,9 @@
 package controller;
 
 import java.util.List;
-import usecase.*;
 import gateway.GatewayFacade;
 
-class MessagingSystem {
-
-    private EventManager em = new EventManager();
-    private MessageManager mm = new MessageManager();
-    private UserManager um = new UserManager();
-    private int user;
-
-    void setUser(int userID){
-        this.user = userID;
-    }
+class MessagingSystem extends subSystem {
 
     /**
      * Allow user to message all attendees in an event.
