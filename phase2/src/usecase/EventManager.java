@@ -82,6 +82,12 @@ public class EventManager {
         g.getOneSpeakerEventById(eventId).setSpeaker(speakerId);
     }
 
+    /**
+     * Set a new speaker and add it to multiple speaker Event.
+     * @param speakerId the new speaker id
+     * @param eventId the event id
+     * @param g the database
+     */
     public void addSpeakerToMultiSpeakerEvent(int speakerId, int eventId, GatewayFacade g) {
         g.getMultiSpeakerEventById(eventId).addNewSpeaker(speakerId);
     }
@@ -220,16 +226,39 @@ public class EventManager {
         return g.getEventById(eventID) != null;
     }
 
+    /**
+     * Determine whether we can cancel an event or not
+     * @param eventID event id
+     * @param gw the database
+     * @return the boolean shows whether the event has been canceled.
+     */
     public boolean canCancelEvent(int eventID, GatewayFacade gw) {
         return isExistingEvent(eventID, gw);
     }
 
+    /**
+     * cancel the event
+     * @param eventID event id
+     * @param gw the database
+     */
     public void cancelEvent(int eventID, GatewayFacade gw) {
         gw.deleteEvent(gw.getEventById(eventID));
     }
 
+    /**
+     *
+     * @param eventId event id
+     * @param g the database
+     * @return the event duration
+     */
     public Duration getEventDuration(int eventId, GatewayFacade g) {return g.getEventById(eventId).getDuration();}
 
+    /**
+     * Judge whether we can change the capacity of an Event
+     * @param eventId event id
+     * @param g the database
+     * @return the boolean shows whether the capacity of a certain event can be changed or not
+     */
     public boolean canChangeEventCapacity(int eventId,int newCapacity ,GatewayFacade g) {
         if (newCapacity > g.getRoomById(g.getEventById(eventId).getRoomId()).getCapacity() |
                 newCapacity < g.getEventById(eventId).getSignedUpUserList().size()) {
@@ -238,11 +267,22 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * change the capacity of the event
+     * @param eventId event id
+     * @param g the database
+     */
     public void changeEventCapacity(int eventId, int newCapacity, GatewayFacade g) {
         g.getEventById(eventId).setCapacity(newCapacity);
     }
 
-
+    /**
+     * change a user to VIP
+     * @param eventId event id
+     * @param type user type
+     * @param g the database
+     * @return the boolean shows a user is VIP
+     */
     public boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade g){
         /**
          * change type of a event
@@ -264,6 +304,10 @@ public class EventManager {
     }
 
     public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
+        /**
+         *
+         * @Description check if a user can be added to the waitlist
+         */
         Event e = g.getEventById(eventId);
         if (e == null || e.getSignedUpUserList().size() <= e.getCapacity()
                 || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))
@@ -274,6 +318,10 @@ public class EventManager {
     }
 
     public void addUserToWaitList(int eventId, int userId, GatewayFacade g) {
+        /**
+         *
+         * @Description add users to the wait list
+         */
         Event event = g.getEventById(eventId);
         if (!(g.getUserById(userId) instanceof VipUser)){
             g.getEventById(eventId).addUserToWaitList(userId);
@@ -289,6 +337,10 @@ public class EventManager {
     }
 
     public boolean canRemoveWaitingUser(int eventId, int userId, GatewayFacade g) {
+        /**
+         *
+         * @Description check if the waiting users can be removed.
+         */
         if (isExistingEvent(eventId, g)) {
             return g.getEventById(eventId).getWaitList().contains(userId);
         }
@@ -296,6 +348,10 @@ public class EventManager {
     }
 
     public void removeWaitingUser(int eventId, int userId, GatewayFacade g) {
+        /**
+         *
+         * @Description remove the waiting users
+         */
         g.getEventById(eventId).removeUserFromWaitList(userId);
     }
 }

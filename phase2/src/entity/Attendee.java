@@ -42,14 +42,28 @@ public class Attendee extends User implements java.io.Serializable{
             signedUpEvent.remove(eid);
     }
 
+    /**
+     * return the wairlist
+     *
+     */
     public ArrayList<Integer> getMyWaitList() {
         return myWaitList;
     }
 
+    /**
+     * add a waiting event.
+     *
+     * @param eid event id
+     */
     public void addWaitingEvent(int eid) {
         myWaitList.add(eid);
     }
 
+    /**
+     * remove an event.
+     *
+     * @param eid event id
+     */
     public void removeWaitingEvent (int eid) {
         myWaitList.remove(eid);
     }

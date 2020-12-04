@@ -191,11 +191,23 @@ public class UserManager {
     }
 
     public ArrayList<Integer> getUserWaitList(int userId, GatewayFacade g) {
+        /**
+         *
+         * @param userId event id
+         * @param g the database
+         * @Description get the waitlist of the user.
+         */
             Attendee a = (Attendee) g.getUserById(userId);
             return a.getMyWaitList();
     }
 
     public List<Integer> getOrganizedEventList(int organizerID, GatewayFacade g){
+        /**
+         *
+         * @param userId event id
+         * @param g the database
+         * @Description get the event list of the organizer.
+         */
         return g.getOrganizerById(organizerID).getCreatedEventList();
     }
 
@@ -277,6 +289,10 @@ public class UserManager {
     }
 
     public boolean isSpeakerBusy(ArrayList<Integer> speakerId, LocalDateTime start, LocalDateTime end, GatewayFacade g) {
+        /**
+         *
+         * @Description check if a speaker is busy or not.
+         */
         for (int sid : speakerId) {
             if (isSpeakerBusy(sid, start, end, g)) {
                 return true;
@@ -293,6 +309,10 @@ public class UserManager {
     }
 
     public boolean isExistingSpeaker(ArrayList<Integer> speakerList, GatewayFacade g) {
+        /**
+         *
+         * @Description check if a speaker exists
+         */
         for (int i : speakerList) {
             if (g.getSpeakerById(i) == null) {
                 return false;
@@ -327,6 +347,10 @@ public class UserManager {
 //    }
 
     public boolean canCancelEvent(int userID, int eventID, GatewayFacade gw) {
+        /**
+         *
+         * @Description check if an event can be canceled
+         */
         // only the organizer who organized the event can cancel the event
         try{
             Organizer user = gw.getOrganizerById(userID);
@@ -340,6 +364,10 @@ public class UserManager {
     }
 
     public void cancelEvent(int eventID, GatewayFacade gw) {
+        /**
+         *
+         * @Description cancel an event.
+         */
         Event event = gw.getEventById(eventID);
         List<Integer> userList = event.getSignedUpUserList();
         for (Integer userID : userList){
