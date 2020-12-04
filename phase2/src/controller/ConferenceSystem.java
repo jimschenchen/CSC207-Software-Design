@@ -71,6 +71,23 @@ public class ConferenceSystem {
         return false;
     }
 
+    public boolean createSpeaker(String userName, String password){
+        /**
+         * Creates a new speaker account into the system.
+         *
+         * @param userName User name of the new speaker.
+         * @param password Password of the new speaker account.
+         * @return Return true when the account is created successfully.
+         *          Return false when the password is invalid,
+         *          or when the user name is not unique.
+         */
+        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
+            um.createSpeaker(password.trim(), userName.trim(), gw);
+            return true;
+        }
+        return false;
+    }
+
     public boolean createVipUser(String userName, String password){
         /**
          * create a VIP
@@ -85,6 +102,7 @@ public class ConferenceSystem {
         }
         return false;
     }
+
 
     public boolean changeVipStatusOfEvent(int eventId, Boolean type){
         /**
@@ -107,22 +125,6 @@ public class ConferenceSystem {
         return em.getVipStatusOfEvent(eventId, gw);
     }
 
-    public boolean createSpeaker(String userName, String password){
-        /**
-         * Creates a new speaker account into the system.
-         *
-         * @param userName User name of the new speaker.
-         * @param password Password of the new speaker account.
-         * @return Return true when the account is created successfully.
-         *          Return false when the password is invalid,
-         *          or when the user name is not unique.
-         */
-        if (password.trim().length() >=6 && userName.trim().length() > 0 && um.canCreateUser(userName, gw)){
-            um.createSpeaker(password.trim(), userName.trim(), gw);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Sign up a new attendee to the system.

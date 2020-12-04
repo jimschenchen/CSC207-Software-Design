@@ -20,33 +20,6 @@ public class UserManager {
         }
         return false;
     }
-// don't know why we need these code...
-//    public boolean canCreateVIP(String userName, GatewayFacade gw){
-//        if (userName.trim().length() > 0 && gw.getUserByUserName(userName) == null){
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean canCreateSpeaker(String username, GatewayFacade g){
-//        /**
-//         * @Description: checks if username is unique
-//         */
-//        List<User> users = g.getUserList();
-//        for (User user : users){
-//            if (user.getUserName().equals(username)){
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//
-//    public boolean canCreateAttendee(String username, GatewayFacade g){
-//        /**
-//         * @Description: judge whether a username is available for a new Attendee account
-//         */
-//        return g.getUserByUserName(username) == null;
-//    }
 
     public void createSpeaker(String password, String name, GatewayFacade g){
         /**
@@ -375,17 +348,4 @@ public class UserManager {
             user.cancelEvent(eventID);
         }
     }
-
-// never used, why we need these??
-//    public Speaker CreateSpeaker(String password, String name, GatewayFacade gw) {
-//        return new Speaker(gw.getNextUserId(), password, name);
-//    }
-//
-//    public Attendee CreateAttendee(String password, String name, GatewayFacade gw) {
-//        return new Attendee(gw.getNextUserId(), password, name);
-//    }
-//
-//    public VipUser CreateVIP(String password, String name, GatewayFacade gw) {
-//        return new VipUser(gw.getNextUserId(), password, name);
-//    }
 }

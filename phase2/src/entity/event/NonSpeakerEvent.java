@@ -13,6 +13,10 @@ public abstract class NonSpeakerEvent extends Event{
         super(startTime, endTime, eventId, title, roomId, capacity);
     }
 
+    /**
+     *
+     * @Description: Set the speaker id
+     */
     public void setSpeaker(@Nullable int speakerId) {}
 
     public void getSpeakerId() {};

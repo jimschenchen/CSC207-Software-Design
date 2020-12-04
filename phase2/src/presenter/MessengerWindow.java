@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 class MessengerWindow extends JFrame implements ActionListener, FocusListener, KeyListener {
-    public JFrame messengerFrame = new JFrame();
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
     JButton send = new JButton("Send");
@@ -16,6 +15,9 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
     JMenu options = new JMenu("Options");
     JMenuItem organizer = new JMenuItem("Organizer Options");
     JMenuItem speaker = new JMenuItem("Speaker Options");
+    JMenu messageOptions = new JMenu("Messenger Options");
+    JMenuItem viewMessages = new JMenuItem("View My Messages");
+    //do we have any other functionality I should include?
 
 
     public MessengerWindow(){
@@ -69,6 +71,10 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
 
         setJMenuBar(bar);
         setVisible(true);
+        messageOptions.add(viewMessages);
+        viewMessages.addActionListener(this);
+        bar.add(messageOptions);
+
     }
 
     @Override
