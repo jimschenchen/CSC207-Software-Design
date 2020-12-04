@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class MessengerWindow extends JFrame implements ActionListener, FocusListener, KeyListener {
+import static javax.swing.JOptionPane.showMessageDialog;
+
+class MessengerWindow extends JFrame implements ActionListener, FocusListener, KeyListener, IMessage {
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
     JButton send = new JButton("Send");
@@ -17,7 +19,7 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
     JMenuItem speaker = new JMenuItem("Speaker Options");
     JMenu messageOptions = new JMenu("Messenger Options");
     JMenuItem viewMessages = new JMenuItem("View My Messages");
-    //do we have any other functionality I should include?
+    MessengerPresenter _msgPresenter = new MessengerPresenter();
 
 
     public MessengerWindow(){
@@ -28,8 +30,8 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
         setLayout(null);
 
         msgRec.setEditable(false);
-        msgRec.setBackground(Color.BLACK);
-        msgRec.setForeground(Color.WHITE);
+        msgRec.setBackground(Color.WHITE);
+        msgRec.setForeground(Color.DARK_GRAY);
         msgRec.addFocusListener(this);
         msgRec.setText("");
 
@@ -41,8 +43,8 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
         pane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(pane2);
 
-        msgSend.setBackground(Color.DARK_GRAY);
-        msgSend.setForeground(Color.WHITE);
+        msgSend.setBackground(Color.WHITE);
+        msgSend.setForeground(Color.DARK_GRAY);
         msgSend.setLineWrap(true);
         msgSend.setWrapStyleWord(true);
 
@@ -70,20 +72,53 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
         speaker.addActionListener(this);
 
         setJMenuBar(bar);
-        setVisible(true);
         messageOptions.add(viewMessages);
         viewMessages.addActionListener(this);
         bar.add(messageOptions);
+        setVisible(true);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
 
+        if (src == send){
+            String message = msgSend.getText();
+            Object[] options = {"All attendees",
+                    "One attendee"};
+            int optionPane = JOptionPane.showOptionDialog(this,
+                    "Who do you want to send this message to?",
+                    "MessageInformation",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[1]);
+            if (optionPane == JOptionPane.YES_OPTION){
+                String id = JOptionPane.showInputDialog("Enter the id of the event");
+                _msgPresenter.MessageAllAttendees(message, id);
+            }
+            if (optionPane == JOptionPane.NO_OPTION){
+                String username = JOptionPane.showInputDialog("Enter the username of the attendee");
+                _msgPresenter.MessageOneAttendee(message, username);
+            }
+        }
+        if (src == logOut){
+            System.exit(0);
+        }
+        if (src == organizer){
+            OranizerMessenger org = new OrganizerMessenger();
+        }
+        if (src == speaker){
+            SpeakerMessengger spkr = new SpeakerMessenger();
+        }
     }
 
     @Override
     public void focusGained(FocusEvent e) {
+
+
 
     }
 
@@ -105,5 +140,15 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, K
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void messageSuccess(boolean success){
+        if (success){
+            showMessageDialog(null, "Your message was sent successfully!");
+
+        }
+        else{
+            showMessageDialog(null, "Oops, something went wrong!");
+        }
     }
 }

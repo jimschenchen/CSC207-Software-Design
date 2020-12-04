@@ -138,5 +138,6 @@ public class PanelFactory {
         }
         return panel;
     }
+    }
 }
 
