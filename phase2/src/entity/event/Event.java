@@ -29,62 +29,130 @@ public abstract class  Event {
         duration = Duration.between(startTime,endTime);
     }
 
+    /**
+     *
+     * @return the event id
+     */
     public int getEventId() {
         return eventId;
     }
 
+    /**
+     *
+     * @return the starting time of an event
+     */
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
+    /**
+     *
+     * @return the ending time of an event
+     */
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
+    /**
+     *
+     * @return the duration of an event
+     */
     public Duration getDuration() {
         return duration;
     }
 
+    /**
+     *
+     * @return the title of an event
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return the room id of an event
+     */
     public int getRoomId() {
         return roomId;
     }
 
+    /**
+     *
+     * @return the capacity of an event
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * @param capacity capacity of an event
+     * @Description: set the capacity of an event
+     */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
+    /**
+     *
+     * @Description: check if an event is VIP or not
+     */
     public boolean isVipEvent() {
         return isVipEvent;
     }
 
+    /**
+     *
+     * @Description: set an event to VIP
+     */
     public void setVipEvent(boolean vipEvent) {
         isVipEvent = vipEvent;
     }
 
+    /**
+     *
+     * @return the signed up user list
+     */
     public ArrayList<Integer> getSignedUpUserList() {
         return signedUserList;
     }
 
+    /**
+     *
+     * @return the waiting list
+     */
     public ArrayList<Integer> getWaitList() {
         return waitList;
     }
 
+    /**
+     *
+     * @param userId the id of the user
+     * @Description: add the user to event
+     */
     public void addUserToEvent(int userId) {signedUserList.add(userId);}
 
+    /**
+     *
+     * @param userId the id of the user
+     * @Description: remove the user from the event
+     */
     public void removeUserFromEvent(int userId) {
         signedUserList.remove(userId);
     };
 
+    /**
+     *
+     * @param userId the id of the user
+     * @Description: add the user to waiting list
+     */
     public void addUserToWaitList(int userId) {waitList.add(userId);}
 
+    /**
+     *
+     * @param userId the id of the user
+     * @Description: remove the user from waiting list.
+     */
     public void removeUserFromWaitList(int userId) {waitList.remove(userId);}
 
 }
