@@ -37,6 +37,23 @@ public class MessengerPresenter {
         GatewayFacade gw = new GatewayFacade();
         msgSystem.readSentMessages(gw);
     }
+    void MessageAllSpeakers(String content){
+        GatewayFacade gw = new GatewayFacade();
+        boolean success = msgSystem.messageAllSpeakers();
+        msgWindow.messageSuccess(success);
+    }
+
+    void MessageOneSpeaker(String content, String speakerID){
+        GatewayFacade gw = new GatewayFacade();
+        boolean success = msgSystem.messageSpeaker(speakerID, content, gw);
+        msgWindow.messageSuccess(success);
+    }
+
+    void MessageAllAttendeesOfSpeakerEvent(String content){
+        GatewayFacade gw = new GatewayFacade();
+        boolean success = msgSystem.messageAllUsersInAllSpeakingEvents(content);
+        msgWindow.messageSuccess(success);
+    }
 
 
 

@@ -107,11 +107,13 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
             System.exit(0);
         }
         if (src == organizer){
-            OranizerMessenger org = new OrganizerMessenger();
+            //Here we need to check if user is an Organizer through presenter
+            OrganizerMessenger org = new OrganizerMessenger();
             dispose();
         }
         if (src == speaker){
-            SpeakerMessengger spkr = new SpeakerMessenger();
+            //Here we need to check if user is a speaker through presenter
+            SpeakerMessenger spkr = new SpeakerMessenger();
             dispose();
         }
     }
