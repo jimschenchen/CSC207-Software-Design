@@ -70,7 +70,44 @@ public class PanelFactory {
         return viewEventPanel;
     }
 
+    public JPanel signUpWaitlistEvent(List<List<String>> events){
+        // This method includes both viewing and signing up
+        GridLayout layout = new GridLayout(events.size()+1,8, 10,5);
+        JPanel panel = new JPanel(layout);
+        panel.add(new JLabel("Title"));
+        panel.add(new JLabel("Start Time: "));
+        panel.add(new JLabel("End time: "));
+        panel.add(new JLabel("Duration "));
+        panel.add(new JLabel("Location "));
+        panel.add(new JLabel("VIP Status: "));
+        panel.add(new JLabel("Waiting list: "));
+        panel.add(new JLabel("Sign Up?"));
+        JButton[] buttonArray = new JButton[events.size()];
+        int i = 0;
+        for (List<String> event: events){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
+            buttonArray[i] = new JButton("Yes!");
+            buttonArray[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    presenter.signUpEvent(event.get(1)); // the presenter will be added later
+                }
+            });
+            panel.add(buttonArray[i]);
+            i++;
+        }
+        return panel;
+    }
+
+
     public JPanel signUpEvent(List<List<String>> events){
+        // This method includes both viewing and signing up. Why? Because I am lazy.
         GridLayout layout = new GridLayout(events.size()+1,7, 10,5);
         JPanel panel = new JPanel(layout);
         panel.add(new JLabel("Title"));
@@ -93,7 +130,7 @@ public class PanelFactory {
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.signUpEvent(event.get(1));
+                    presenter.signUpEvent(event.get(1)); //the presenter will be added later
                 }
             });
             panel.add(buttonArray[i]);
