@@ -50,22 +50,67 @@ public class JOptionPaneFactory {
     }
 
     public void succeedWaitEvent(){
-        JOptionPane.showMessageDialog(null, "You have signed up for the waiting list of this event!",
+        JOptionPane.showMessageDialog(null, "You have signed up for the waiting" +
+                        " list of this event!",
                 "Successful", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void failWaitEvent(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot sign up for the waiting list of this event",
+        JOptionPane.showMessageDialog(null, "It seems that you cannot sign up for " +
+                        "the waiting list of this event",
                 "Failed", JOptionPane.WARNING_MESSAGE);
     }
 
-    public void succeededChangeEvent(){
+    public void succeedChangeEvent(){
         JOptionPane.showMessageDialog(null, "You have changed the setting of this event!",
                 "Successful", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void failChangeEvent(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot change the setting  of this event",
+        JOptionPane.showMessageDialog(null, "It seems that you cannot change the setting  " +
+                        "of this event",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+    public void succeedCreateUser(){
+        JOptionPane.showMessageDialog(null, "You have created a user!",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public  void failCreateUser(){
+        JOptionPane.showMessageDialog(null, "You fail to create a user!",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void succeedCreateEvent(){
+        JOptionPane.showMessageDialog(null, "You have created an event!",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void failCreateEvent(){
+        JOptionPane.showMessageDialog(null, "You fail to create an event!",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void succeedCancelEnrollment(){
+        JOptionPane.showMessageDialog(null, "Whoops! You have cancel the enrollment from the " +
+                        "event successfully!",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void failCancelEnrollment(){
+        JOptionPane.showMessageDialog(null, "You fail to cancel the enrollment!",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void succeedRemoveWait(){
+        JOptionPane.showMessageDialog(null, "Whoops! You have given up the waiting list " +
+                        "spot for the event successfully",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void failRemoveWait(){
+        JOptionPane.showMessageDialog(null, "It seems that we cannot remove you from " +
+                        "the waiting list of the event!",
                 "Failed", JOptionPane.WARNING_MESSAGE);
     }
 

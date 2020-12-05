@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class PanelFactory {
+public class PanelFactory implements IUpdate{
     //Produces the Panel depending on the specified type
     //Add Panel type whenever needed
     private Object JPanel;
+    private PanelPresenter presenter;
+
 
     public JPanel getPanel(String string) {
         JPanel panel = new JPanel();
@@ -239,9 +241,12 @@ public class PanelFactory {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.createEvent(typeSelected.getSelectedItem(), startTime.getText(), endTime.getText(),
-                        idHelper(checkArray, idArray), roomNumberSelected.getSelectedItem(), topicEntered.getText(),
-                        roomNumberSelected.getSelectedItem(),VIPStatusSelected.getSelectedItem());
+                presenter.createEvent((String) typeSelected.getSelectedItem(), startTime.getText(),
+                        endTime.getText(),
+                        idHelper(checkArray, idArray),(String) roomNumberSelected.getSelectedItem(),
+                        topicEntered.getText(),
+                       capacityEntered.getText(),
+                        (String) VIPStatusSelected.getSelectedItem());
             }
         });
         JButton resetButton = new JButton("Reset");
@@ -276,7 +281,7 @@ public class PanelFactory {
         return speakersSelected;
     }
 
-    public JPanel createUserPanel(){
+    public JPanel createUser(){
         JPanel panel = new JPanel(new GridLayout(4,2));
         JLabel userType = new JLabel("User Type: ");
         panel.add(userType);
@@ -294,7 +299,7 @@ public class PanelFactory {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.createUser(userTypeSelected.getSelectedItem(), usernameEntered.getText(),
+                presenter.createUser((String) userTypeSelected.getSelectedItem(), usernameEntered.getText(),
                         passwordEntered.getText());
             }
         });
@@ -335,7 +340,7 @@ public class PanelFactory {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.cancelEnrollmentEvent(event.get(1));
+                    presenter.cancelEnrollment(event.get(1));
                 }
             });
             i++;
@@ -369,7 +374,7 @@ public class PanelFactory {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.removeEventFromWaitList(event.get(1));
+                    presenter.removeWait(event.get(1));
                 }
             });
             i++;
@@ -439,12 +444,14 @@ public class PanelFactory {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.changeEvent(changeItemSelected.getSelectedItem(), eventEntered.getText(),newSettingEntered.getText());
+                presenter.changeEvent((String) changeItemSelected.getSelectedItem(), eventEntered.getText(),
+                        newSettingEntered.getText());
             }
         });
         return panel;
     }
 
+    public void update(String action){}
 
 
 
