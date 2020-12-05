@@ -169,7 +169,7 @@ public class PanelFactory {
         System.out.println(speakers.size());
         System.out.println(numCheck);
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(8 + numCheck ,2,10,5));
+        panel.setLayout(new GridLayout(9 + numCheck ,2,10,5));
 
         JLabel type = new JLabel("Event Type: ");
         panel.add(type);
@@ -202,6 +202,11 @@ public class PanelFactory {
         panel.add(capacity);
         panel.add(capacityEntered);
 
+        JLabel VIPStatus = new JLabel("VIP status: ");
+        panel.add(VIPStatus);
+        JComboBox VIPStatusSelected = new JComboBox(new String[]{"Yes", "No"});
+        panel.add(VIPStatusSelected);
+
 
 
         JLabel askSpeaker = new JLabel("Select Speaker: ");
@@ -232,7 +237,7 @@ public class PanelFactory {
             public void actionPerformed(ActionEvent e) {
                 presenter.createEvent(typeSelected.getSelectedItem(), startTime.getText(), endTime.getText(),
                         idHelper(checkArray, idArray), roomNumberSelected.getSelectedItem(), topicEntered.getText(),
-                        roomNumberSelected.getSelectedItem());
+                        roomNumberSelected.getSelectedItem(),VIPStatusSelected.getSelectedItem());
             }
         });
         JButton resetButton = new JButton("Reset");
@@ -301,6 +306,74 @@ public class PanelFactory {
         panel.add(resetButton);
         return panel;
     }
+
+    public JPanel alreadySignedUpEvents(List<List<String>> events){
+        JPanel panel = new JPanel(new GridLayout(events.size()+1, 8, 10,5));
+        panel.add(new JLabel("Title"));
+        panel.add(new JLabel("ID"));
+        panel.add(new JLabel("Start at:"));
+        panel.add(new JLabel("End at"));
+        panel.add(new JLabel("Duration: "));
+        panel.add(new JLabel("Location: "));
+        panel.add(new JLabel("VIP Status: "));
+        panel.add(new JLabel("Cancel"));
+        JButton[] cancelButtons = new JButton[events.size()];
+        int i = 0;
+        for (List<String> event: events){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            cancelButtons[i] = new JButton("Really??!");
+            cancelButtons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    presenter.cancelEnrollmentEvent(event.get(1));
+                }
+            });
+            i++;
+        }
+        return panel;
+    }
+
+    public JPanel alreadyWaitlistedSignedUpEvents(List<List<String>> events){
+        JPanel panel = new JPanel(new GridLayout(events.size()+1, 9, 10,5));
+        panel.add(new JLabel("Title"));
+        panel.add(new JLabel("ID"));
+        panel.add(new JLabel("Start at:"));
+        panel.add(new JLabel("End at"));
+        panel.add(new JLabel("Duration: "));
+        panel.add(new JLabel("Location: "));
+        panel.add(new JLabel("VIP Status: "));
+        panel.add(new JLabel("My Rank: "));
+        panel.add(new JLabel("Cancel"));
+        JButton[] cancelButtons = new JButton[events.size()];
+        int i = 0;
+        for (List<String> event: events){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
+            cancelButtons[i] = new JButton("Really??!");
+            cancelButtons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    presenter.removeEventFromWaitList(event.get(1));
+                }
+            });
+            i++;
+        }
+        return panel;
+    }
+
+
 
 
 
