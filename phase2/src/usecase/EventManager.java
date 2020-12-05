@@ -176,6 +176,7 @@ public class EventManager {
         int userId = e.getWaitList().get(0);
         e.addUserToEvent(userId);
         e.removeUserFromWaitList(userId);
+        g.updateEvent(e);
         return userId;
     }
 
@@ -317,14 +318,13 @@ public class EventManager {
     public List<Integer> changeEventCapacity(int eventId, int newCapacity, GatewayFacade g) {
         Event event = g.getEventById(eventId);
         event.setCapacity(newCapacity);
+        g.updateEvent(event);
         List<Integer> offWaitlistUsers = new ArrayList<>();
-        while (event.getCapacity() > event.getSignedUpUserList().size() && event.getWaitList().size() != 0){
-            int userID = event.getWaitList().get(0);
-            event.addUserToEvent(userID);
-            event.removeUserFromWaitList(userID);
+        while (newCapacity > g.getEventById(eventId).getSignedUpUserList().size() &&
+                g.getEventById(eventId).getWaitList().size() != 0){
+            int userID = add1stRankedWaitListUser(eventId, g);
             offWaitlistUsers.add(userID);
         }
-        g.updateEvent(event);
         return offWaitlistUsers;
     }
 
@@ -371,16 +371,17 @@ public class EventManager {
     public void addUserToWaitList(int eventId, int userId, GatewayFacade g) {
         Event event = g.getEventById(eventId);
         if (!(g.getUserById(userId) instanceof VipUser)){
-            g.getEventById(eventId).addUserToWaitList(userId);
+            event.addUserToWaitList(userId);
         }
         else {
             for (int i = 0; i < event.getWaitList().size(); i++) {
                 if (!((g.getUserById(event.getWaitList().get(i))) instanceof VipUser)) {
-                    g.getEventById(eventId).getWaitList().add(i, userId);
+                    event.getWaitList().add(i, userId);
                     break;
                 }
             }
         }
+        g.updateEvent(event);
     }
 
 
@@ -401,7 +402,9 @@ public class EventManager {
      * @Description remove the waiting users
      */
     public void removeWaitingUser(int eventId, int userId, GatewayFacade g) {
-        g.getEventById(eventId).removeUserFromWaitList(userId);
+        Event event = g.getEventById(eventId);
+        event.removeUserFromWaitList(userId);
+        g.updateEvent(event);
     }
 
     public int getWaitlistLength(int eventID, GatewayFacade gw){

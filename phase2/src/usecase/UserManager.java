@@ -154,14 +154,18 @@ public class UserManager {
      * @Description: add the event to the wait list
      */
     public void addEventToMyWaitList(int eventId, int userId, GatewayFacade g) {
-        ((Attendee) g.getUserById(userId)).addWaitingEvent(eventId);
+        Attendee attendee = (Attendee) g.getUserById(userId);
+        attendee.addWaitingEvent(eventId);
+        g.updateUser(attendee);
     }
 
     /**
      * @Description: cancel event from the waitlist
      */
     public void cancelEventFromMyWaitList(int eventId, int userId, GatewayFacade g) {
-        ((Attendee) g.getUserById(userId)).cancelEvent(eventId);
+        Attendee attendee = (Attendee) g.getUserById(userId);
+        attendee.cancelEvent(eventId);
+        g.updateUser(attendee);
     }
 
     /**
