@@ -271,7 +271,7 @@ public class PanelFactory {
         JPanel panel = new JPanel(new GridLayout(4,2));
         JLabel userType = new JLabel("User Type: ");
         panel.add(userType);
-        JComboBox userTypeSelected = new JComboBox(new String[]{"Speaker", "Organizer", "Attendee"});
+        JComboBox userTypeSelected = new JComboBox(new String[]{"Speaker", "Organizer", "Attendee", "VIP"});
         panel.add(userTypeSelected);
         JLabel username = new JLabel("User Name: ");
         panel.add(username);
