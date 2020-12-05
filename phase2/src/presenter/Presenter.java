@@ -14,9 +14,9 @@ public class Presenter {
     public void signup(String username, String password, IWindow window){
         Boolean bool = cs.signup(username, password);
         if (bool){
-            window.update("CreateAccount");
+            window.update("createAccount");
         }else{
-            window.update("Error");
+            window.update("error");
         }
     }
 
