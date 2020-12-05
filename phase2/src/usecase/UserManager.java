@@ -91,7 +91,9 @@ public class UserManager {
      */
     private void removeOneSpeakerEventFromSpeaker(int eventId, GatewayFacade g) {
         OneSpeakerEvent e =  g.getOneSpeakerEventById(eventId);
-        g.getSpeakerById(e.getSpeakerId()).removeGivingEvent(eventId);
+        Speaker speaker = g.getSpeakerById(e.getSpeakerId());
+        speaker.removeGivingEvent(eventId);
+        g.updateUser(speaker);
     }
 
 
@@ -131,7 +133,9 @@ public class UserManager {
      * @Description: cancel an Event for Attendee or Organizer
      */
     public void cancelEventFromUser(int eventId, int userId, GatewayFacade g) {
-        ((Attendee) g.getUserById(userId)).cancelEvent(eventId);
+        Attendee attendee = (Attendee) g.getUserById(userId);
+        attendee.cancelEvent(eventId);
+        g.updateUser(attendee);
     }
 
     /**
@@ -154,14 +158,18 @@ public class UserManager {
      * @Description: add the event to the wait list
      */
     public void addEventToMyWaitList(int eventId, int userId, GatewayFacade g) {
-        ((Attendee) g.getUserById(userId)).addWaitingEvent(eventId);
+        Attendee attendee = (Attendee) g.getUserById(userId);
+        attendee.addWaitingEvent(eventId);
+        g.updateUser(attendee);
     }
 
     /**
      * @Description: cancel event from the waitlist
      */
     public void cancelEventFromMyWaitList(int eventId, int userId, GatewayFacade g) {
-        ((Attendee) g.getUserById(userId)).cancelEvent(eventId);
+        Attendee attendee = (Attendee) g.getUserById(userId);
+        attendee.cancelEvent(eventId);
+        g.updateUser(attendee);
     }
 
     /**
@@ -410,6 +418,7 @@ public class UserManager {
             for (Integer speakerID : speakerList){
                 Speaker speaker = gw.getSpeakerById(speakerID);
                 speaker.removeGivingEvent(eventID);
+                gw.updateUser(speaker);
             }
         }
         else if(gw.getOneSpeakerEventById(eventID) != null){

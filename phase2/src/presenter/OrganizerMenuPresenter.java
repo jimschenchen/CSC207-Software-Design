@@ -17,8 +17,8 @@ public class OrganizerMenuPresenter extends Presenter {
         this.language = language;
     }
 
-    public void addRoom(String roomNum) {
-        boolean success = cs.addNewRoom(roomNum);
+    public void addRoom(String roomNum, String capacity) {
+        boolean success = cs.addNewRoom(roomNum, capacity);
         if (success) {
             new JOptionPaneFactory(language).succeedAddRoom();}
         else {
