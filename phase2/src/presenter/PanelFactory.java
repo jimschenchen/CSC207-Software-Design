@@ -412,7 +412,36 @@ public class PanelFactory {
         }
         return panel;
     }
+
+    public JPanel changeEvent(){
+        JPanel panel = new JPanel(new GridLayout(3,2,10,10));
+        JLabel changeItem = new JLabel("You are changing: ");
+        panel.add(changeItem);
+        JComboBox changeItemSelected = new JComboBox(new String[]{"Speaker", "Capacity", "VIP Status"});
+        panel.add(changeItemSelected);
+        JLabel newSetting = new JLabel("New: ");
+        panel.add(newSetting);
+        JTextField newSettingEntered = new JTextField();
+        panel.add(newSettingEntered);
+        JButton resetButton = new JButton("Reset");
+        JButton okButton = new JButton("OK");
+        panel.add(okButton);
+        panel.add(resetButton);
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newSettingEntered.setText("");
+            }
+        });
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.changeEvent(changeItemSelected.getSelectedItem(), newSettingEntered.getText());
+            }
+        });
+        return panel;
     }
+
 
 
 
