@@ -1,18 +1,16 @@
 package usecase;
 
+import entity.VipUser;
+import entity.event.Event;
+import entity.eventFactory.FactoryProducer;
+import gateway.GatewayFacade;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import entity.*;
-import entity.event.*;
-import entity.eventFactory.FactoryProducer;
-import gateway.Gateway;
-import gateway.GatewayFacade;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * The Event Manager class
@@ -54,11 +52,17 @@ public class EventManager {
      */
     public int createEvent(int type1, int type2, int speakerId, LocalDateTime start,
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
-        Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
-                g.getNextEventId(), title, roomId, capacity);
-        g.addEvent(nEvent);
-        g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
-        return nEvent.getEventId();
+        try{
+            Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
+                    g.getNextEventId(), title, roomId, capacity);
+            g.addEvent(nEvent);
+            g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+            return nEvent.getEventId();
+        }
+        catch (NullPointerException npe){
+            return -1;
+        }
+
     }
 
     public int createEvent(int type1, int type2, LocalDateTime start, LocalDateTime end, String title,
@@ -244,6 +248,9 @@ public class EventManager {
 
     }
 
+    // no speaker = "No Speaker"
+    // 1 speaker = "speakername"
+    // 2 or more speaker = "speakername1, speakername2..."
     public String getStringOfSpeakerOfEvent(int eventID, GatewayFacade gw){
         int type = determineEventType(eventID, gw);
         String sSpeaker = null;
@@ -372,14 +379,16 @@ public class EventManager {
     }
 
     /**
-     * change a user to VIP
+     * change a event to VIP, and remove all non-vip users
      * @param eventId event id
-     * @param type user type
+     * @param type event type
      * @param g the database
-     * @return the boolean shows a user is VIP
+     * @return
      */
     public boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade g){
-        g.getEventById(eventId).setVipEvent(type);
+        Event event = g.getEventById(eventId);
+        event.setVipEvent(type);
+
         return true;
     }
 

@@ -10,16 +10,23 @@ import java.util.StringTokenizer;
 
 class EventManagementSystem extends subSystem{
 
-    boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade gw){
+    boolean changeVipStatusOfEvent(String eventId, boolean type, GatewayFacade gw){
         /**
          * change type of a event
          * @param eventId eventid of event
          * @return Return true if change correctly, false otherwise.
          */
-        if (em.getVipStatusOfEvent(eventId, gw) != type && um.isExistingOrganizer(user, gw)){
-            return em.changeVipStatusOfEvent(eventId, type, gw);
+        try{
+            int eID = Integer.parseInt(eventId);
+            if (em.getVipStatusOfEvent(eID, gw) != type && um.isExistingOrganizer(user, gw)){
+                return em.changeVipStatusOfEvent(eID, type, gw);
+            }
+            return false;
         }
-        return false;
+        catch (NumberFormatException nfe){
+            return false;
+        }
+
     }
 
     boolean getVipStatusOfEvent(int eventId, GatewayFacade gw){
@@ -93,7 +100,7 @@ class EventManagementSystem extends subSystem{
     // if no speaker, pass in empty string
     // if more than one speaker, pass "id1,id2"
     boolean newEvent(int type, String startTime, String endTime, String speakerID,
-                            String topic, String roomNumber, String capacity, GatewayFacade gw){
+                            String topic, String roomNumber, String capacity, boolean vipStatus, GatewayFacade gw){
         try{
             List<Integer> types = determineEventTypes(type);
             LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
@@ -107,15 +114,17 @@ class EventManagementSystem extends subSystem{
                     while (token.hasMoreElements()){
                         sID.add(Integer.parseInt(token.nextToken()));
                     }
-                    return newEventMoreThan1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID, cap, gw);
+                    return newEventMoreThan1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic,
+                            rID, cap, vipStatus, gw);
                 }
                 else{ // only have 1 speaker
                     int sID = Integer.parseInt(speakerID);
-                    return newEvent1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID, cap, gw);
+                    return newEvent1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID,
+                            cap, vipStatus, gw);
                 }
             }
             else{ // no speaker
-                return newEventNoSpeaker(types.get(0), types.get(1), sTime, eTime, topic, rID, cap, gw);
+                return newEventNoSpeaker(types.get(0), types.get(1), sTime, eTime, topic, rID, cap, vipStatus, gw);
             }
         }
         catch(NumberFormatException | DateTimeParseException e){
@@ -147,7 +156,8 @@ class EventManagementSystem extends subSystem{
     }
 
     private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
-                                     LocalDateTime eTime, String topic, int rID, int cap, GatewayFacade gw){
+                                     LocalDateTime eTime, String topic, int rID, int cap,
+                                     boolean vipStatus, GatewayFacade gw){
         if (type1 != 1){
             return false;
         }
@@ -155,13 +165,15 @@ class EventManagementSystem extends subSystem{
             int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
             um.addEventToOrganizedList(eventID, user, gw);
             um.addEventToSpeaker(eventID, sID, gw);
+            em.changeVipStatusOfEvent(eventID, vipStatus, gw);
             return true;
         }
         return false;
     }
 
     private boolean newEventMoreThan1Speaker(int type1, int type2, ArrayList<Integer> sID, LocalDateTime sTime,
-                                             LocalDateTime eTIme, String topic, int rID, int cap, GatewayFacade gw){
+                                             LocalDateTime eTIme, String topic, int rID, int cap,
+                                             boolean vipStatus, GatewayFacade gw){
         if (type1 != 2){
             return false;
         }
@@ -171,6 +183,7 @@ class EventManagementSystem extends subSystem{
             }
         }
         int eventID = em.createEvent(type1, type2, sID, sTime, eTIme, topic, rID, cap, gw);
+        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
         um.addEventToOrganizedList(eventID, user, gw);
         for (int speakerID : sID){
             um.addEventToSpeaker(eventID, speakerID, gw);
@@ -179,12 +192,13 @@ class EventManagementSystem extends subSystem{
     }
 
     private boolean newEventNoSpeaker(int type1, int type2, LocalDateTime sTime, LocalDateTime eTime,
-                                      String topic, int rID, int cap, GatewayFacade gw){
+                                      String topic, int rID, int cap, boolean vipStatus, GatewayFacade gw){
         if (type1 != 0 || !em.canCreateEvent(rID, sTime, eTime, cap, gw)){
             return false;
         }
         int eventID = em.createEvent(type1, type2, sTime, eTime, topic, rID, cap, gw);
         um.addEventToOrganizedList(eventID, user, gw);
+        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
         return true;
     }
 

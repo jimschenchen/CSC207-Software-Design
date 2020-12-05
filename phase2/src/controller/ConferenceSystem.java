@@ -420,8 +420,8 @@ public class ConferenceSystem {
     // if no speaker, pass in empty string
     // if more than one speaker, pass "id1,id2"
     public boolean newEvent(int type, String startTime, String endTime, String speakerID,
-                            String topic, String roomNumber, String capacity){
-        return ems.newEvent(type, startTime, endTime, speakerID, topic, roomNumber, capacity, gw);
+                            String topic, String roomNumber, String capacity, boolean vipStatus){
+        return ems.newEvent(type, startTime, endTime, speakerID, topic, roomNumber, capacity, vipStatus, gw);
     }
 
     public boolean cancelEvent(String eventID){
@@ -437,7 +437,9 @@ public class ConferenceSystem {
      * @param eventId eventid of event
      * @return Return true if change correctly, false otherwise.
      */
-    public boolean changeVipStatusOfEvent(int eventId, boolean type){
+    // type = true if want to change to vip
+    // type = false if want to change to non-vip
+    public boolean changeVipStatusOfEvent(String eventId, boolean type){
         return ems.changeVipStatusOfEvent(eventId, type, gw);
     }
 

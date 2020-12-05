@@ -142,7 +142,7 @@ public class UserManager {
      * @Description: transfer the Waiting Event To SignedUp
      */
     public void transferWaitingEventToSignedUp(int eventId, int userId, GatewayFacade g) {
-        Attendee attendee = (Attendee) g.getUserById(userId));
+        Attendee attendee = (Attendee) g.getUserById(userId);
         attendee.signUpEvent(eventId);
         attendee.removeWaitingEvent(eventId);
         g.updateUser(attendee);
@@ -297,13 +297,12 @@ public class UserManager {
      */
     public List<String> getUserInfo(int userID, GatewayFacade g){
         User user = g.getUserById(userID);
-        List<String> info = new ArrayList<String>(){
+        return new ArrayList<String>(){
             {
                 add(String.valueOf(user.getUserId()));
                 add(user.getUserName());
             }
         };
-        return info;
     }
 
 
@@ -346,7 +345,7 @@ public class UserManager {
      *
      * @Description check if a speaker exists
      */
-    public boolean isExistingSpeaker(ArrayList<Integer> speakerList, GatewayFacade g) {
+    public boolean isExistingSpeaker(List<Integer> speakerList, GatewayFacade g) {
         for (int i : speakerList) {
             if (g.getSpeakerById(i) == null) {
                 return false;
