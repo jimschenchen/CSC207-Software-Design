@@ -415,6 +415,8 @@ public class PanelFactory {
 
     public JPanel changeEvent(){
         JPanel panel = new JPanel(new GridLayout(3,2,10,10));
+        JLabel eventID = new JLabel("Event ID: ");
+        JTextField eventEntered = new JTextField();
         JLabel changeItem = new JLabel("You are changing: ");
         panel.add(changeItem);
         JComboBox changeItemSelected = new JComboBox(new String[]{"Speaker", "Capacity", "VIP Status"});
@@ -431,12 +433,13 @@ public class PanelFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 newSettingEntered.setText("");
+                eventEntered.setText("");
             }
         });
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.changeEvent(changeItemSelected.getSelectedItem(), newSettingEntered.getText());
+                presenter.changeEvent(changeItemSelected.getSelectedItem(), eventEntered.getText(),newSettingEntered.getText());
             }
         });
         return panel;
