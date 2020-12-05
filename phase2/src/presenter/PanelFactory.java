@@ -211,9 +211,11 @@ public class PanelFactory {
 
 
         JCheckBox[] checkArray = new JCheckBox[speakers.size()];
+        String[] idArray = new String[speakers.size()];
         int i = 0;
         for(List<String> speaker : speakers){
-            checkArray[i] = new JCheckBox(speaker.get(1));
+            checkArray[i] = new JCheckBox(speaker.get(0) + " "+ speaker.get(1));
+            idArray[i] = speaker.get(0);
             panel.add(checkArray[i]);
             i++;
         }
@@ -225,10 +227,31 @@ public class PanelFactory {
         JButton okButton = new JButton("OK");
         panel.add(okButton);
 
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.createEvent(typeSelected.getSelectedItem(), startTime.getText(), endTime.getText(),
+                        idHelper(checkArray, idArray), roomNumberSelected.getSelectedItem(), topicEntered.getText(),
+                        roomNumberSelected.getSelectedItem());
+            }
+        });
+
         JButton resetButton = new JButton("Reset");
         panel.add(resetButton);
 
         return panel;
+    }
+
+    private String idHelper(JCheckBox[] checkArray, String[] idArray){
+        String speakersSelected = "";
+        int ii = 0;
+        for (JCheckBox cb : checkArray){
+            if (cb.isSelected()){
+                speakersSelected = speakersSelected + idArray[ii] + ",";
+            }
+            ii++;
+        }
+        return speakersSelected;
     }
 
 }
