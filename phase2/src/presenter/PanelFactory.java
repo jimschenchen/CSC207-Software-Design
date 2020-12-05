@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class PanelFactory {
     //Produces the Panel depending on the specified type
@@ -159,6 +160,75 @@ public class PanelFactory {
 
         }});
         return addRoomPanel;
+    }
+
+    public JPanel createEvent(List<String> rooms, List<List<String>> speakers){
+        int length = speakers.size();
+        float lengthF = length;
+        int numCheck = new Double(Math.ceil(lengthF/2)).intValue();
+        System.out.println(speakers.size());
+        System.out.println(numCheck);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(8 + numCheck ,2,10,5));
+
+        JLabel type = new JLabel("Event Type: ");
+        panel.add(type);
+        JComboBox typeSelected = new JComboBox(new String[]{"Party", "Talk", "Panel Discussion"});
+        typeSelected.setSize(300,100);
+        panel.add(typeSelected);
+
+        JLabel start = new JLabel("Start: ");
+        panel.add(start);
+        JTextField startTime = new JTextField("YYYY-MM-DD HH:mm");
+        panel.add(startTime);
+
+        JLabel end = new JLabel("End: ");
+        panel.add(end);
+        JTextField endTime = new JTextField("YYYY-MM-DD HH:mm");
+        panel.add(endTime);
+
+        JLabel topic =  new JLabel("Topic: ");
+        JTextField topicEntered = new JTextField();
+        panel.add(topic);
+        panel.add(topicEntered);
+
+        JLabel roomNumber = new JLabel("Room Number: ");
+        panel.add(roomNumber);
+        JComboBox roomNumberSelected = new JComboBox((Vector) rooms);
+        panel.add(roomNumberSelected);
+
+        JLabel capacity = new JLabel("Capacity: ");
+        JTextField capacityEntered = new JTextField();
+        panel.add(capacity);
+        panel.add(capacityEntered);
+
+
+
+        JLabel askSpeaker = new JLabel("Select Speaker: ");
+        panel.add(askSpeaker);
+        Panel empty1 = new Panel();
+        panel.add(empty1);
+
+
+        JCheckBox[] checkArray = new JCheckBox[speakers.size()];
+        int i = 0;
+        for(List<String> speaker : speakers){
+            checkArray[i] = new JCheckBox(speaker.get(1));
+            panel.add(checkArray[i]);
+            i++;
+        }
+        if (speakers.size() % 2 == 1){
+            Panel empty2 = new Panel();
+            panel.add(empty2);
+        }
+
+        JButton okButton = new JButton("OK");
+        panel.add(okButton);
+
+        JButton resetButton = new JButton("Reset");
+        panel.add(resetButton);
+
+        return panel;
     }
 
 }
