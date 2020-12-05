@@ -210,10 +210,11 @@ public class ConferenceSystem {
      * @param roomNumber Room number of the new room.
      * @return Return true when successfully added a new room, false otherwise.
      */
-    public boolean addNewRoom(String roomNumber){
+    public boolean addNewRoom(String roomNumber, String capacity){
         try{
+            int cap = Integer.parseInt(capacity);
             if (rm.canAddRoom(roomNumber, gw)){
-                rm.add_room(roomNumber, gw);
+                rm.add_room(roomNumber, cap, gw);
                 return true;
             }
             return false;

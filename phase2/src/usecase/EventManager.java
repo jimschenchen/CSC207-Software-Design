@@ -9,6 +9,7 @@ import java.util.List;
 import entity.*;
 import entity.event.*;
 import entity.eventFactory.FactoryProducer;
+import gateway.Gateway;
 import gateway.GatewayFacade;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -241,13 +242,14 @@ public class EventManager {
         }
         return eventInfo;
 
-//        return "The event " + event.getTitle() +
-//                " with ID " + event.getEventId() +
-//                " starts at " + event.getStartTime().format(formatter) +
-//                " ends at " + event.getEndTime().format(formatter) +
-//                " with duration " + event.getDuration().toString() +
-//                " takes place in " + g.getRoomById(event.getRoomId()).getRoomNum() +
-//                " and its Vip Status is: " + event.isVipEvent();
+    }
+
+    public String getSpeakerOfEvent(int eventID, GatewayFacade gw){
+
+    }
+
+    private int determineEventType(int eventID, GatewayFacade gw){
+
     }
 
     /**

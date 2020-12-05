@@ -14,8 +14,8 @@ public class Room implements java.io.Serializable {
      * @param roomNum the room number
      * @param rid the room id
      */
-    public Room(String roomNum, int rid){
-        this.capacity = 2;
+    public Room(String roomNum, int rid, int capacity){
+        this.capacity = capacity;
         this.roomNum = roomNum;
         this.rid = rid;
     }

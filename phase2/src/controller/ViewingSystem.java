@@ -21,6 +21,15 @@ class ViewingSystem extends subSystem{
         return allEvents;
     }
 
+    private List<List<String>> getEventList(int 0, List<Integer> idList, GatewayFacade gw){
+        List<List<String>> allEvents = new ArrayList<>();
+        for (Integer id : idList){
+            List<String> info = em.getInfoOfEvent(id, gw);
+            info.add()
+        }
+        return allEvents;
+    }
+
     /**
      * Return all events that are currently scheduled.
      *
