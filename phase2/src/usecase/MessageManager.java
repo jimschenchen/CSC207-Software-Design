@@ -116,30 +116,40 @@ public class MessageManager {
                 " Content: " + message.getInfo();
     }
 
-
-    /**
-     * @Description: get all Messages which received by a User whose id is userID
-     */
-    public List<String> getReceivedMessageListByUserId(int userID, GatewayFacade g){
+    public List<List<String>> getReceivedMessageListByUserId(int userID, GatewayFacade g){
         List<Message> messages = g.getReceivedMessageListByUserId(userID);
-        List<String> sMessages = new ArrayList<>();
+        List<List<String>> allMessageInfo = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(getStringOfReceivedMessage(message, g));
+            List<String> messageInfo = new ArrayList<String>(){
+                {
+                    add(String.valueOf(message.getSenderId()));
+                    add(message.getTitle());
+                    add(message.getInfo());
+                }
+            };
+            allMessageInfo.add(messageInfo);
         }
-        return sMessages;
+        return allMessageInfo;
     }
 
 
     /**
      * @Description: get all Messages which send by a User whose id is userID
      */
-    public List<String> getSentMessageListByUserId(int userID, GatewayFacade g) {
+    public List<List<String>> getSentMessageListByUserId(int userID, GatewayFacade g) {
         List<Message> messages = g.getSentMessageListByUserId(userID);
-        List<String> sMessages = new ArrayList<>();
+        List<List<String>> allMessageInfo = new ArrayList<>();
         for (Message message : messages){
-            sMessages.add(getStringOfSentMessage(message, g));
+            List<String> messageInfo = new ArrayList<String>(){
+                {
+                    add(String.valueOf(message.getReceiverId()));
+                    add(message.getTitle());
+                    add(message.getInfo());
+                }
+            };
+            allMessageInfo.add(messageInfo);
         }
-        return sMessages;
+        return allMessageInfo;
     }
 
 

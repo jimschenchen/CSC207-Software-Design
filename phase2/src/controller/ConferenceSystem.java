@@ -307,7 +307,8 @@ public class ConferenceSystem {
      *
      * @return List of Strings representing the messages the user sent.
      */
-    public List<String> readSentMessages(){
+    // format [receivername, title, content]
+    public List<List<String>> readSentMessages(){
         return ms.readSentMessages(gw);
     }
 
@@ -316,7 +317,8 @@ public class ConferenceSystem {
      *
      * @return List of Strings representing the messages the user received.
      */
-    public List<String> readReceivedMessages(){
+    // format [sendername, title, content]
+    public List<List<String>> readReceivedMessages(){
         return ms.readReceivedMessages(gw);
     }
 

@@ -163,7 +163,7 @@ public class MessagingSystem extends subSystem {
      *
      * @return List of Strings representing the messages the user sent.
      */
-    List<String> readSentMessages(GatewayFacade gw){
+    List<List<String>> readSentMessages(GatewayFacade gw){
         return mm.getSentMessageListByUserId(user, gw);
     }
 
@@ -172,7 +172,7 @@ public class MessagingSystem extends subSystem {
      *
      * @return List of Strings representing the messages the user reveived.
      */
-    List<String> readReceivedMessages(GatewayFacade gw){
+    List<List<String>> readReceivedMessages(GatewayFacade gw){
         return mm.getReceivedMessageListByUserId(user, gw);
     }
 
