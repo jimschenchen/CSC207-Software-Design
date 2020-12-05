@@ -19,5 +19,15 @@ public class JOptionPaneFactory {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void succeedAddRoom(){
+        JOptionPane.showMessageDialog(null, "New Room has been created successfully!",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void failAddRoom(){
+        JOptionPane.showMessageDialog(null, "The room already exists or your input is valid",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+
 
 }
