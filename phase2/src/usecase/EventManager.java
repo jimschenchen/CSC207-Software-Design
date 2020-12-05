@@ -38,7 +38,8 @@ public class EventManager {
                 return false;
             }
         }
-        return true;
+        LocalDateTime today = LocalDateTime.now();
+        return start.isBefore(end) && today.isBefore(start);
     }
 
     /**
@@ -227,7 +228,7 @@ public class EventManager {
                 add(String.valueOf(event.getEventId()));
                 add(event.getStartTime().format(formatter));
                 add(event.getEndTime().format(formatter));
-                add(event.getDuration().toString());
+                add(String.valueOf(event.getDuration().toHours()));
                 add(g.getRoomById(event.getRoomId()).getRoomNum());
             }
         };
@@ -309,12 +310,22 @@ public class EventManager {
     }
 
     /**
-     * change the capacity of the event
+     * change the capacity of the event and add waitlist users to signed up list.
      * @param eventId event id
      * @param g the database
      */
-    public void changeEventCapacity(int eventId, int newCapacity, GatewayFacade g) {
-        g.getEventById(eventId).setCapacity(newCapacity);
+    public List<Integer> changeEventCapacity(int eventId, int newCapacity, GatewayFacade g) {
+        Event event = g.getEventById(eventId);
+        event.setCapacity(newCapacity);
+        List<Integer> offWaitlistUsers = new ArrayList<>();
+        while (event.getCapacity() > event.getSignedUpUserList().size() && event.getWaitList().size() != 0){
+            int userID = event.getWaitList().get(0);
+            event.addUserToEvent(userID);
+            event.removeUserFromWaitList(userID);
+            offWaitlistUsers.add(userID);
+        }
+        g.updateEvent(event);
+        return offWaitlistUsers;
     }
 
     /**
@@ -346,8 +357,7 @@ public class EventManager {
     public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
         Event e = g.getEventById(eventId);
         if (e == null || e.getSignedUpUserList().size() <= e.getCapacity()
-                || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))
-                || e.getWaitList().size() >= e.getCapacity()) {
+                || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))) {
             return false;
         }
         return true;
@@ -366,9 +376,9 @@ public class EventManager {
         else {
             for (int i = 0; i < event.getWaitList().size(); i++) {
                 if (!((g.getUserById(event.getWaitList().get(i))) instanceof VipUser)) {
+                    g.getEventById(eventId).getWaitList().add(i, userId);
                     break;
                 }
-                g.getEventById(eventId).getWaitList().add(i, userId);
             }
         }
     }

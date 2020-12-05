@@ -55,7 +55,7 @@ public class UserManager {
      * @Description: create a VIP account
      */
     public void createVIP(String password, String name ,GatewayFacade g){
-        VipUser vip = new VipUser(g.getNextEventId(), password, name);
+        VipUser vip = new VipUser(g.getNextUserId(), password, name);
         g.addUser(vip);
     }
 
@@ -138,8 +138,16 @@ public class UserManager {
      * @Description: transfer the Waiting Event To SignedUp
      */
     public void transferWaitingEventToSignedUp(int eventId, int userId, GatewayFacade g) {
-        ((Attendee) g.getUserById(userId)).signUpEvent(eventId);
-        ((Attendee) g.getUserById(userId)).removeWaitingEvent(eventId);
+        Attendee attendee = (Attendee) g.getUserById(userId));
+        attendee.signUpEvent(eventId);
+        attendee.removeWaitingEvent(eventId);
+        g.updateUser(attendee);
+    }
+
+    public void transferWaitingEventToSignedUp(int eid, List<Integer> offWaitlistUsers, GatewayFacade gw) {
+        for (int userID : offWaitlistUsers){
+            transferWaitingEventToSignedUp(eid, userID, gw);
+        }
     }
 
     /**
@@ -242,7 +250,6 @@ public class UserManager {
      */
     public int getUserCategory(int id, GatewayFacade g){
         if (isExistingSpeaker(id, g)){
-            // return 0 when id is a speaker
             return 0;
         }
         else if (isExistingOrganizer(id, g)){
@@ -273,7 +280,7 @@ public class UserManager {
      * @return the rank of the user from the wait list
      */
     public int getUserRankInWaitList(int userId, int eventId, GatewayFacade g) {
-        return g.getEventById(eventId).getWaitList().indexOf(userId);
+        return g.getEventById(eventId).getWaitList().indexOf(userId) + 1;
     }
 
 
