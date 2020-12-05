@@ -49,7 +49,9 @@ public class PanelFactory {
                 }
             });
         }
-        return (javax.swing.JPanel) JPanel;
+        if (string.equals("Panel")){
+            return panel;
+        return panel;
     }
 
 

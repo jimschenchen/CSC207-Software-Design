@@ -120,15 +120,14 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
 
     @Override
     public void focusGained(FocusEvent e) {
-        if(e.getSource() == msgRec){
-            _msgPresenter.SeeReceivedMessages();
-        }
+
     }
 
     @Override
     public void focusLost(FocusEvent e) {
         if (e.getSource() == msgRec){
-            _msgPresenter.SeeSentMessages();
+            String[] data = _msgPresenter.SeeSentMessages().toArray(new String[0]);
+            msgRec.add(new JList(data));
         }
     }
 
