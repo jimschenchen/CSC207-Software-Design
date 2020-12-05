@@ -28,6 +28,12 @@ class EventEnrollmentSystem extends subSystem{
         }
     }
 
+    /**
+     * Signup for event wait list
+     *
+     * @param eventId ID of the event they want to deregister from.
+     * @return Return True when the user has successful signuped for event wait list
+     */
     boolean signUpForEventWaitList(String eventId, GatewayFacade gw) {
         try{
             int eid = Integer.parseInt(eventId);
@@ -71,6 +77,12 @@ class EventEnrollmentSystem extends subSystem{
         }
     }
 
+    /**
+     * Remove the event from the waitlist
+     *
+     * @param eventId ID of the event they want to deregister from.
+     * @return Return True when the the event has been removed from the wait list
+     */
     boolean removeEventFromWaitList(String eventId, GatewayFacade gw) {
         try{
             int eid = Integer.parseInt(eventId);

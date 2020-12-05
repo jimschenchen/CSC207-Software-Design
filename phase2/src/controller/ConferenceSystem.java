@@ -50,35 +50,41 @@ public class ConferenceSystem {
 //            }
 //        });
 //    }
-
+    /**
+     * check if the password is valid
+     *
+     * @param password Password of the new attendee account. Password should be at least 6 characters long.
+     * @return Return true if the password is valid
+     */
     private boolean checkValidPassword(String password){
         return password.length() >= 6;
     }
 
+
+    /**
+     * create an attendee by logged in user. Only organizers can perform this action.
+     *
+     * @param userName User name of the new attendee. username should be unique.
+     * @param password Password of the new attendee account. Password should be at least 6 characters long.
+     * @return Return true if the Attendee is created successfully, false otherwise.
+     */
     public boolean createAttendee(String userName, String password){
-        /**
-         * create an attendee by logged in user. Only organizers can perform this action.
-         *
-         * @param username User name of the new attendee. username should be unique.
-         * @param password Password of the new attendee account. Password should be at least 6 characters long.
-         * @return Return true if the Attendee is created successfully, false otherwise.
-         */
         if (um.isExistingOrganizer(user, gw)){
             return signup(userName, password);
         }
         return false;
     }
 
+    /**
+     * Creates a new speaker account into the system. This action can only be performed by an organizer.
+     *
+     * @param userName User name of the new speaker.
+     * @param password Password of the new speaker account.
+     * @return Return true when the account is created successfully.
+     *          Return false when the password is invalid,
+     *          or when the user name is not unique.
+     */
     public boolean createSpeaker(String userName, String password){
-        /**
-         * Creates a new speaker account into the system. This action can only be performed by an organizer.
-         *
-         * @param userName User name of the new speaker.
-         * @param password Password of the new speaker account.
-         * @return Return true when the account is created successfully.
-         *          Return false when the password is invalid,
-         *          or when the user name is not unique.
-         */
         if (checkValidPassword(password) && um.canCreateUser(userName, gw) && um.isExistingOrganizer(user, gw)){
             um.createSpeaker(password.trim(), userName.trim(), gw);
             return true;
@@ -86,16 +92,16 @@ public class ConferenceSystem {
         return false;
     }
 
+    /**
+     * Creates a new organizer account into the system. This action can only be performed by an organizer.
+     *
+     * @param userName User name of the new speaker.
+     * @param password Password of the new speaker account.
+     * @return Return true when the account is created successfully.
+     *          Return false when the password is invalid,
+     *          or when the user name is not unique.
+     */
     public boolean createOrganizer(String userName, String password){
-        /**
-         * Creates a new organizer account into the system. This action can only be performed by an organizer.
-         *
-         * @param userName User name of the new speaker.
-         * @param password Password of the new speaker account.
-         * @return Return true when the account is created successfully.
-         *          Return false when the password is invalid,
-         *          or when the user name is not unique.
-         */
         if (checkValidPassword(password) && um.canCreateUser(userName, gw) && um.isExistingOrganizer(user, gw)){
             um.createOrganizer(password.trim(), userName.trim(), gw);
             return true;
@@ -103,15 +109,14 @@ public class ConferenceSystem {
         return false;
     }
 
-
+    /**
+     * create a VIP. This action can only be performed by an organizer.
+     *
+     * @param username User name of the new VIP. username should be unique.
+     * @param password Password of the new VIP account. Password should be at least 6 characters long.
+     * @return Return true if the VIP is created successfully, false otherwise.
+     */
     public boolean createVipUser(String userName, String password){
-        /**
-         * create a VIP. This action can only be performed by an organizer.
-         *
-         * @param username User name of the new VIP. username should be unique.
-         * @param password Password of the new VIP account. Password should be at least 6 characters long.
-         * @return Return true if the VIP is created successfully, false otherwise.
-         */
         if (checkValidPassword(password) && um.canCreateUser(userName, gw) && um.isExistingOrganizer(user, gw)){
             um.createVIP(password.trim(), userName.trim(), gw);
             return true;

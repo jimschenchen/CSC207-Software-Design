@@ -10,12 +10,12 @@ import java.util.StringTokenizer;
 
 class EventManagementSystem extends subSystem{
 
+    /**
+     * change type of a event
+     * @param eventId eventid of event
+     * @return Return true if change correctly, false otherwise.
+     */
     boolean changeVipStatusOfEvent(String eventId, boolean type, GatewayFacade gw){
-        /**
-         * change type of a event
-         * @param eventId eventid of event
-         * @return Return true if change correctly, false otherwise.
-         */
         try{
             int eID = Integer.parseInt(eventId);
             if (em.getVipStatusOfEvent(eID, gw) != type && um.isExistingOrganizer(user, gw)){
@@ -34,15 +34,21 @@ class EventManagementSystem extends subSystem{
 
     }
 
+    /**
+     * return the event type, true means event is VIP, false means event is not VIP
+     * @param eventId event id
+     * @return the type of event
+     */
     boolean getVipStatusOfEvent(int eventId, GatewayFacade gw){
-        /**
-         * return the event type, true means event is VIP, false means event is not VIP
-         * @param eventID event id
-         * @return the type of event
-         */
         return em.getVipStatusOfEvent(eventId, gw);
     }
 
+    /**
+     * Modify the Speaker for event
+     * @param eventID event id
+     * @param speakerID speaker ID
+     * @return True if we modify the speaker for event
+     */
     boolean modifySpeakerForEvent(String speakerID, String eventID, GatewayFacade gw){
         try{
             int eID = Integer.parseInt(eventID);
@@ -86,6 +92,14 @@ class EventManagementSystem extends subSystem{
         }
     }
 
+    /**
+     * Add Speaker to Multiple Speaker Event
+     *
+     * @param speakerId New Speaker's ID
+     * @param eventId The event's ID
+     * @param gw GatewayFacade
+     * @return Return True when the speaker is assigned to the event successfully, false otherwise.
+     */
     private boolean addSpeakerToMultiSpeakerEvent(String speakerId, String eventId, GatewayFacade gw) {
         try{
             int sID = Integer.parseInt(speakerId);
@@ -104,6 +118,19 @@ class EventManagementSystem extends subSystem{
 
     // if no speaker, pass in empty string
     // if more than one speaker, pass "id1,id2"
+    /**
+     * Add Speaker to Multiple Speaker Event
+     *
+     * @param startTime Start time
+     * @param endTime end time
+     * @param speakerID Speaker Id
+     * @param topic The topic of the event
+     * @param roomNumber Room number
+     * @param capacity Room Capacity
+     * @param vipStatus VIP Status
+     * @param gw GatewayFacade
+     * @return Return True when the speaker is assigned to the event successfully, false otherwise.
+     */
     boolean newEvent(int type, String startTime, String endTime, String speakerID,
                             String topic, String roomNumber, String capacity, boolean vipStatus, GatewayFacade gw){
         try{
@@ -138,6 +165,12 @@ class EventManagementSystem extends subSystem{
     }
 
     // 0: party, 1: talk, 2: panel discussion
+    /**
+     * Determine the type of the event
+     *
+     * @param pType GatewayFacade
+     * @return Return the correct type of the event
+     */
     private List<Integer> determineEventTypes(int pType){
         List<Integer> types = new ArrayList<>();
         switch (pType){
@@ -154,12 +187,37 @@ class EventManagementSystem extends subSystem{
         return types;
     }
 
+    /**
+     * Create Event
+     *
+     * @param sID User Id
+     * @param rID room ID
+     * @param sTime Starting Time
+     * @param eTime Ending time
+     * @param cap capacity
+     * @param gw GatewayFacade
+     * @return Return the correct type of the event
+     */
     private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
                                    GatewayFacade gw){
         return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
                 um.isSpeakerBusy(sID, sTime, eTime, gw);
     }
 
+
+    /**
+     * Create Event
+     *
+     * @param type1 User Id
+     * @param type2 room ID
+     * @param sID Speaker ID
+     * @param sTime starting time
+     * @param eTime ending time
+     * @param cap Capacity
+     * @param topic The topic of the event
+     * @param rID Room id
+     * @return Return the correct type of the event
+     */
     private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
                                      LocalDateTime eTime, String topic, int rID, int cap,
                                      boolean vipStatus, GatewayFacade gw){
