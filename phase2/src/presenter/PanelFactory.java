@@ -235,8 +235,21 @@ public class PanelFactory {
                         roomNumberSelected.getSelectedItem());
             }
         });
-
         JButton resetButton = new JButton("Reset");
+
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startTime.setText("YYYY-MM-DD HH:mm");
+                endTime.setText("YYYY-MM-DD HH:mm");
+                topicEntered.setText("");
+                capacityEntered.setText("");
+                for (JCheckBox cb : checkArray){
+                    cb.setSelected(false);
+                }
+            }
+        });
+
         panel.add(resetButton);
 
         return panel;
