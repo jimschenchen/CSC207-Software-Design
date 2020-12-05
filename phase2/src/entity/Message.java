@@ -7,6 +7,7 @@ public class Message implements java.io.Serializable {
     private String content;
     private int senderId;
     private int receiverId;
+    private String title;
 
     /**
      * Constructor of a message object.
@@ -19,6 +20,21 @@ public class Message implements java.io.Serializable {
         this.content = information;
         this.senderId = senderId;
         this.receiverId = receiverId;
+    }
+
+    public String getTitle() {
+        /**
+         * A getter for the title
+         *
+         * @return the content of this message
+         */
+        return title;
+    }
+    public void setTitle(String title) {
+        /**
+         * A setter for the title
+         */
+        this.title = title;
     }
 
     /**
