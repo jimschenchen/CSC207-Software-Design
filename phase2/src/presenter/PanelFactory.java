@@ -169,7 +169,7 @@ public class PanelFactory {
         System.out.println(speakers.size());
         System.out.println(numCheck);
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(8 + numCheck ,2,10,5));
+        panel.setLayout(new GridLayout(9 + numCheck ,2,10,5));
 
         JLabel type = new JLabel("Event Type: ");
         panel.add(type);
@@ -202,6 +202,11 @@ public class PanelFactory {
         panel.add(capacity);
         panel.add(capacityEntered);
 
+        JLabel VIPStatus = new JLabel("VIP status: ");
+        panel.add(VIPStatus);
+        JComboBox VIPStatusSelected = new JComboBox(new String[]{"Yes", "No"});
+        panel.add(VIPStatusSelected);
+
 
 
         JLabel askSpeaker = new JLabel("Select Speaker: ");
@@ -232,7 +237,7 @@ public class PanelFactory {
             public void actionPerformed(ActionEvent e) {
                 presenter.createEvent(typeSelected.getSelectedItem(), startTime.getText(), endTime.getText(),
                         idHelper(checkArray, idArray), roomNumberSelected.getSelectedItem(), topicEntered.getText(),
-                        roomNumberSelected.getSelectedItem());
+                        roomNumberSelected.getSelectedItem(),VIPStatusSelected.getSelectedItem());
             }
         });
         JButton resetButton = new JButton("Reset");
