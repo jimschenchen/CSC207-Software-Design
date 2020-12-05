@@ -166,17 +166,10 @@ class EventManagementSystem extends subSystem{
 
     // 0: party, 1: talk, 2: panel discussion
     /**
-     * Add Speaker to Multiple Speaker Event
+     * Determine the type of the event
      *
-     * @param startTime Start time
-     * @param endTime end time
-     * @param speakerID Speaker Id
-     * @param topic The topic of the event
-     * @param roomNumber Room number
-     * @param capacity Room Capacity
-     * @param vipStatus VIP Status
      * @param pType GatewayFacade
-     * @return Return True when the speaker is assigned to the event successfully, false otherwise.
+     * @return Return the correct type of the event
      */
     private List<Integer> determineEventTypes(int pType){
         List<Integer> types = new ArrayList<>();
@@ -194,12 +187,37 @@ class EventManagementSystem extends subSystem{
         return types;
     }
 
+    /**
+     * Create Event
+     *
+     * @param sID User Id
+     * @param rID room ID
+     * @param sTime Starting Time
+     * @param eTime Ending time
+     * @param cap capacity
+     * @param gw GatewayFacade
+     * @return Return the correct type of the event
+     */
     private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
                                    GatewayFacade gw){
         return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
                 um.isSpeakerBusy(sID, sTime, eTime, gw);
     }
 
+
+    /**
+     * Create Event
+     *
+     * @param type1 User Id
+     * @param type2 room ID
+     * @param sID Speaker ID
+     * @param sTime starting time
+     * @param eTime ending time
+     * @param cap Capacity
+     * @param topic The topic of the event
+     * @param rID Room id
+     * @return Return the correct type of the event
+     */
     private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
                                      LocalDateTime eTime, String topic, int rID, int cap,
                                      boolean vipStatus, GatewayFacade gw){
