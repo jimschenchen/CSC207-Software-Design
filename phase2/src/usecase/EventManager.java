@@ -1,5 +1,6 @@
 package usecase;
 
+import entity.Attendee;
 import entity.VipUser;
 import entity.event.Event;
 import entity.eventFactory.FactoryProducer;
@@ -379,17 +380,35 @@ public class EventManager {
     }
 
     /**
-     * change a event to VIP, and remove all non-vip users
+     * change VIP status of event
      * @param eventId event id
-     * @param type event type
+     * @param vipStatus VIP status
      * @param g the database
      * @return
      */
-    public boolean changeVipStatusOfEvent(int eventId, Boolean type, GatewayFacade g){
+    public void changeVipStatusOfEvent(int eventId, boolean vipStatus, GatewayFacade g){
         Event event = g.getEventById(eventId);
-        event.setVipEvent(type);
+        event.setVipEvent(vipStatus);
+        g.updateEvent(event);
+    }
 
-        return true;
+    public List<Integer> dropNonVipFromVipEvent(int eventId, GatewayFacade gw) {
+        List<Integer> signedUsers = gw.getEventById(eventId).getSignedUpUserList();
+        List<Integer> waitingUsers = gw.getEventById(eventId).getWaitList();
+        List<Integer> droppedUsers = new ArrayList<>();
+        for (int userID : signedUsers){
+            if(canRemoveSignedUpUser(userID, eventId, gw)){
+                removeSignedUpUser(userID, eventId, gw);
+                droppedUsers.add(userID);
+            }
+        }
+        for (int userID : waitingUsers){
+            if (canRemoveWaitingUser(eventId, userID, gw)){
+                removeWaitingUser(eventId, userID, gw);
+                droppedUsers.add(userID);
+            }
+        }
+        return droppedUsers;
     }
 
     /**

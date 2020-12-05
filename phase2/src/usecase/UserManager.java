@@ -181,6 +181,7 @@ public class UserManager {
     public void addEventToOrganizedList(int eventID, int organizerID, GatewayFacade g){
         Organizer organizer = g.getOrganizerById(organizerID);
         organizer.AddCreatedEvent(eventID);
+        g.updateUser(organizer);
     }
 
     /**
@@ -440,5 +441,17 @@ public class UserManager {
 
     public boolean canChangeEventCapacity(int user, GatewayFacade gw) {
         return isExistingOrganizer(user, gw);
+    }
+
+    public void dropNonVipEventFromNonVIP(List<Integer> droppedUsers, int eventId, GatewayFacade gw) {
+        for (int userID : droppedUsers){
+            Attendee attendee = (Attendee) gw.getUserById(userID);
+            if (attendee.getSignedUpEventList().contains(eventId)){
+                cancelEventFromMyWaitList(eventId, userID, gw);
+            }
+            else{
+                cancelEventFromUser(eventId, userID, gw);
+            }
+        }
     }
 }
