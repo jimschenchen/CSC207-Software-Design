@@ -34,6 +34,11 @@ public class UserManager {
     }
 
     public void createOrganizer(String password, String name, GatewayFacade g){
+        /**
+         * @Description: create a organizer account
+         * @para password of organizer account
+         * @para name of organizer account
+         */
         Organizer o = new Organizer(g.getNextUserId(), password, name);
         g.addUser(o);
     }
