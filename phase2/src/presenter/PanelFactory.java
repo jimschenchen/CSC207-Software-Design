@@ -61,6 +61,7 @@ public class PanelFactory implements IUpdate{
         }
         return panel;
     }
+    //I will move all the following methods to the method above by calling it at the end
 
 
 
@@ -107,7 +108,7 @@ public class PanelFactory implements IUpdate{
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.signUpEvent(event.get(1)); // the presenter will be added later
+                    presenter.waitEvent(event.get(1)); // the presenter will be added later
                 }
             });
             panel.add(buttonArray[i]);
