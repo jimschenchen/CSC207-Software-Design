@@ -21,11 +21,12 @@ class ViewingSystem extends subSystem{
         return allEvents;
     }
 
-    private List<List<String>> getEventList(int 0, List<Integer> idList, GatewayFacade gw){
+    private List<List<String>> getOrganizedEventList(List<Integer> idList, GatewayFacade gw){
         List<List<String>> allEvents = new ArrayList<>();
         for (Integer id : idList){
             List<String> info = em.getInfoOfEvent(id, gw);
-            info.add()
+            info.add(em.getStringOfSpeakerOfEvent(id, gw));
+            info.add(String.valueOf(em.getCapacity(id, gw)));
         }
         return allEvents;
     }
@@ -57,7 +58,7 @@ class ViewingSystem extends subSystem{
      */
     List<List<String>> viewOrganizedEvents(GatewayFacade gw){
         List<Integer> events = um.getOrganizedEventList(user, gw);
-        return getEventList(events, gw);
+        return getOrganizedEventList(events, gw);
     }
 
     /**
@@ -175,6 +176,6 @@ class ViewingSystem extends subSystem{
          * @return Return a list of strings that represent all rooms in the system.
          * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
          */
-        return rm.AllRooms(gw);
+        return rm.allRooms(gw);
     }
 }

@@ -464,7 +464,7 @@ public class ConferenceSystem {
      * Return a list of events that the current logged in organizer has organized
      * @return List of Strings of the events
      */
-    // format [title, eventID, startTime, endTime, duration, room, VIPstatus]
+    // format [title, eventID, startTime, endTime, duration, room, VIPstatus, speaker(s), capacity]
     public List<List<String>> viewOrganizedEvents(){
         return vs.viewOrganizedEvents(gw);
     }
