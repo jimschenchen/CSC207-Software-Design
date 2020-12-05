@@ -1,5 +1,7 @@
 package presenter;
 
+import presenter.factory.JOptionPaneFactory;
+import presenter.language.Language;
 import sun.tools.jps.Jps;
 
 import javax.swing.*;
@@ -17,6 +19,8 @@ public class PanelFactory implements IUpdate{
     //Produces the Panel depending on the specified type
     //Add Panel type whenever needed
     private Object JPanel;
+    private Language language;
+    private JOptionPaneFactory optionPaneFactory;
     private PanelPresenter presenter;
 
 
@@ -451,7 +455,9 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public void update(String action){}
+    public void update(String action){
+       optionPaneFactory.get(action);
+    }
 
 
 

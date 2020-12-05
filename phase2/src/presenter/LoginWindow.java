@@ -116,8 +116,8 @@ public class LoginWindow extends JFrame implements IWindow {
     }
 
     public void update(String action) {
-        if (action == "Error"){
-            wf.errorMessage();
+        if (action == "error"){
+            wf.get("error");
         }else if (action == "Speaker"){
             // open the speaker window
         }else if (action == "Organizer"){

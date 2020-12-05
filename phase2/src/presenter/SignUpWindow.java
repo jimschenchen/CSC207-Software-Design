@@ -90,10 +90,10 @@ public class SignUpWindow extends JFrame implements IWindow{
         if(action == "Back"){ //back to the login page
             LoginWindow loginWindow = new LoginWindow(language);
             dispose();
-        }else if(action == "CreateAccount"){
-            windowFactory.createAccountMessage();
-        }else if (action == "Error"){
-            windowFactory.errorMessage();
+        }else if(action == "createAccount"){
+            windowFactory.get("createAccount");
+        }else if (action == "error"){
+            windowFactory.get("error");
         }
     }
 
