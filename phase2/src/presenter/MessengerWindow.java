@@ -1,15 +1,22 @@
 package presenter;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-class MessengerWindow extends JFrame implements ActionListener, FocusListener, IMessage {
+class MessengerWindow extends JFrame implements ActionListener, IMessage {
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
     JButton send = new JButton("Send");
+    JButton rcv = new JButton("Received Messages");
+    JButton snd = new JButton("Sent Messages");
     JScrollPane pane2, pane1;
     JMenu messenger = new JMenu("Messenger");
     JMenuItem logOut = new JMenuItem("Close");
@@ -32,7 +39,6 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
         msgRec.setEditable(false);
         msgRec.setBackground(Color.WHITE);
         msgRec.setForeground(Color.DARK_GRAY);
-        msgRec.addFocusListener(this);
         msgRec.setText("");
 
         msgRec.setWrapStyleWord(true);
@@ -73,6 +79,12 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
         messageOptions.add(viewMessages);
         viewMessages.addActionListener(this);
         bar.add(messageOptions);
+        rcv.setSize(200, 200);
+        msgRec.setLayout(new FlowLayout());
+        msgRec.add(rcv);
+        msgRec.add(snd);
+        rcv.addActionListener(this);
+        snd.addActionListener(this);
         setVisible(true);
 
     }
@@ -80,6 +92,7 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
+        String title = JOptionPane.showInputDialog("Enter the title of your message");
 
         if (src == send){
             String message = msgSend.getText();
@@ -95,11 +108,11 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
                     options[1]);
             if (optionPane == JOptionPane.YES_OPTION){
                 String id = JOptionPane.showInputDialog("Enter the id of the event");
-                _msgPresenter.MessageAllAttendees(message, id);
+                _msgPresenter.messageAllAttendees(title, message, id);
             }
             if (optionPane == JOptionPane.NO_OPTION){
                 String username = JOptionPane.showInputDialog("Enter the username of the attendee");
-                _msgPresenter.MessageOneAttendee(message, username);
+                _msgPresenter.messageOneAttendee(title, message, username);
             }
             msgSend.setText("Write new message");
         }
@@ -116,20 +129,62 @@ class MessengerWindow extends JFrame implements ActionListener, FocusListener, I
             SpeakerMessenger spkr = new SpeakerMessenger();
             dispose();
         }
-    }
+        if (src == rcv) {
+            JFrame frame = new JFrame();
+            List<List<String>> listOfLists = _msgPresenter.readReceivedMessages();
+            DefaultListModel listModel = new DefaultListModel();
+            for (List lst : listOfLists) {
+                String element = (String) lst.get(0);
+                listModel.addElement(element);
+            }
 
-    @Override
-    public void focusGained(FocusEvent e) {
+            JList list = new JList(listModel);
+            list.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int ind = listOfLists.indexOf(list.getSelectedValue());
+                    Object[] replyOrClose = {"Reply",
+                            "Close"};
+                    int optionPane = JOptionPane.showOptionDialog(new JFrame(),
+                            listOfLists.get(ind+1),
+                            "Received Email",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            replyOrClose,
+                            replyOrClose[1]);
+                    if (optionPane == JOptionPane.YES_OPTION){
+                        String content = JOptionPane.showInputDialog("Write your message here");
+                        String title = JOptionPane.showInputDialog("Choose the title");
+                        _msgPresenter.replyTo(content, title);
+                    }
+                }
 
-    }
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        if (e.getSource() == msgRec){
-            String[] data = _msgPresenter.SeeSentMessages().toArray(new String[0]);
-            msgRec.add(new JList(data));
+            });
+            frame.add(list);
+            frame.pack();
+            frame.setSize(300, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        }
+        if (src == snd){
+            JFrame frame = new JFrame();
+            List<List<String>> listOfLists = _msgPresenter.readSentMessages();
+            DefaultListModel listModel = new DefaultListModel();
+            for (List lst : listOfLists) {
+                String element = (String) lst.get(0);
+                listModel.addElement(element);
+            }
+            JList list = new JList(listModel);
+            frame.add(list);
+            frame.pack();
+            frame.setSize(300, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
         }
     }
+
+
 
 
     public void messageSuccess(boolean success){
