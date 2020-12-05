@@ -68,6 +68,15 @@ public class EventManager {
 
     }
 
+    /**
+     * Create a new event
+     * @param start starting time
+     * @param end ending time
+     * @param title the title of this event
+     * @param roomID room id
+     * @param capacity capacity
+     * @return the new event id
+     */
     public int createEvent(int type1, int type2, LocalDateTime start, LocalDateTime end, String title,
                            int roomID, int capacity, GatewayFacade gw){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end, gw.getNextEventId(),
