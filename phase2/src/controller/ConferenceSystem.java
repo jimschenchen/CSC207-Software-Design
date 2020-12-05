@@ -230,8 +230,8 @@ public class ConferenceSystem {
      * @param content The content of the message.
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
-    public boolean messageAllAttendeesInEvent(String eventID, String content){
-        return ms.messageAllAttendeesInEvent(eventID, content, gw);
+    public boolean messageAllAttendeesInEvent(String eventID, String title, String content){
+        return ms.messageAllAttendeesInEvent(eventID, title, content, gw);
     }
 
     /**
@@ -240,8 +240,8 @@ public class ConferenceSystem {
      * @param content Content of the message
      * @return Return true if the message is sent successfully, else return false.
      */
-    public boolean messageAllUsersInAllSpeakingEvents(String content){
-        return ms.messageAllUsersInAllSpeakingEvents(content, gw);
+    public boolean messageAllUsersInAllSpeakingEvents(String title, String content){
+        return ms.messageAllUsersInAllSpeakingEvents(title, content, gw);
     }
 
     /**
@@ -252,8 +252,8 @@ public class ConferenceSystem {
      * @param content Content of the message.
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
-    public boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String content){
-        return ms.messageOneSpecificUserInEvent(eventID, receiverID, content, gw);
+    public boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String title, String content){
+        return ms.messageOneSpecificUserInEvent(eventID, receiverID, title, content, gw);
     }
 
     /**
@@ -262,8 +262,8 @@ public class ConferenceSystem {
      * @param content Content of the message.
      * @return Return true if messages are sent successfully. False if the logged in user is not an organizer.
      */
-    public boolean messageAllSpeakers(String content){
-        return ms.messageAllSpeakers(content, gw);
+    public boolean messageAllSpeakers(String title, String content){
+        return ms.messageAllSpeakers(title, content, gw);
     }
 
     /**
@@ -274,8 +274,8 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully. False if the input(ID) is invalid, or the user
      * is not allowed to message the speaker.
      */
-    public boolean messageSpeaker(String receiverID, String content){
-        return ms.messageSpeaker(receiverID, content, gw);
+    public boolean messageSpeaker(String receiverID, String title, String content){
+        return ms.messageSpeaker(receiverID, title, content, gw);
     }
 
     /**
@@ -285,8 +285,8 @@ public class ConferenceSystem {
      * @return Return true if the messages are successfully sent. False if the logged in sender is not allowed to
      * perform this action.
      */
-    public boolean messageAllAttendee(String content){
-        return ms.messageAllAttendee(content, gw);
+    public boolean messageAllAttendee(String title, String content){
+        return ms.messageAllAttendee(title, content, gw);
     }
 
     /**
@@ -297,8 +297,8 @@ public class ConferenceSystem {
      * @return Return true if the message is sent successfully. False if the user is not allowed to message this
      * attendee, or input is invalid.
      */
-    public boolean messageAttendee(String receiverID, String content){
-        return ms.messageAttendee(receiverID, content, gw);
+    public boolean messageAttendee(String receiverID, String title, String content){
+        return ms.messageAttendee(receiverID, title, content, gw);
     }
 
     /**
@@ -327,8 +327,8 @@ public class ConferenceSystem {
      * @return Return true when the message is successfully sent, false if the user is not allowed to reply to the
      * message.
      */
-    public boolean replyMessage(String messageIndex, String content){
-        return ms.replyMessage(messageIndex, content, gw);
+    public boolean replyMessage(String messageIndex, String title, String content){
+        return ms.replyMessage(messageIndex, title, content, gw);
     }
 
     /**
