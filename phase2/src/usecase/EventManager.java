@@ -3,6 +3,8 @@ package usecase;
 import entity.Attendee;
 import entity.VipUser;
 import entity.event.Event;
+import entity.event.MultiSpeakerEvent;
+import entity.event.OneSpeakerEvent;
 import entity.eventFactory.FactoryProducer;
 import gateway.GatewayFacade;
 import org.jetbrains.annotations.NotNull;
@@ -99,7 +101,9 @@ public class EventManager {
      * @param g the database
      */
     public void setSpeakerToOneSpeakerEvent(int speakerId, int eventId, GatewayFacade g){
-        g.getOneSpeakerEventById(eventId).setSpeaker(speakerId);
+        OneSpeakerEvent event = g.getOneSpeakerEventById(eventId);
+        event.setSpeaker(speakerId);
+        g.updateEvent(event);
     }
 
     /**
@@ -109,7 +113,9 @@ public class EventManager {
      * @param g the database
      */
     public void addSpeakerToMultiSpeakerEvent(int speakerId, int eventId, GatewayFacade g) {
-        g.getMultiSpeakerEventById(eventId).addNewSpeaker(speakerId);
+        MultiSpeakerEvent event = g.getMultiSpeakerEventById(eventId);
+        event.addNewSpeaker(speakerId);
+        g.updateEvent(event);
     }
 
     /**
@@ -144,7 +150,9 @@ public class EventManager {
      * @param g the database
      */
     public void addUserToEvent(int userId, int eventId, GatewayFacade g){
-        g.getEventById(eventId).addUserToEvent(userId);
+        Event event = g.getEventById(eventId);
+        event.addUserToEvent(userId);
+        g.updateEvent(event);
     }
 
     /**
@@ -168,7 +176,9 @@ public class EventManager {
      * @param g the database
      */
     public void removeSignedUpUser(int userId, int eventId, GatewayFacade g) {
-        g.getEventById(eventId).removeUserFromEvent(userId);
+        Event event = g.getEventById(eventId);
+        event.removeUserFromEvent(userId);
+        g.updateEvent(event);
     }
 
 

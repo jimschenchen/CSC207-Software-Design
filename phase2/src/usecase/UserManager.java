@@ -81,8 +81,9 @@ public class UserManager {
         if (event instanceof OneSpeakerEvent){
             removeOneSpeakerEventFromSpeaker(eventId, g);
         }
-        g.getSpeakerById(speakerId).addGivingEvent(eventId);
-
+        Speaker speaker = g.getSpeakerById(speakerId);
+        speaker.addGivingEvent(eventId);
+        g.updateUser(speaker);
     }
 
 
@@ -122,10 +123,14 @@ public class UserManager {
      */
     public void addEventToUser(int eventId, int userId, GatewayFacade g){
         if (!isExistingAttendee(userId, g)){
-            g.getOrganizerById(userId).signUpEvent(eventId);
+            Organizer organizer = g.getOrganizerById(userId);
+            organizer.signUpEvent(eventId);
+            g.updateUser(organizer);
         }
         else{
-            g.getAttendeeById(userId).signUpEvent(eventId);
+            Attendee attendee = g.getAttendeeById(userId);
+            attendee.signUpEvent(eventId);
+            g.updateUser(attendee);
         }
     }
 
@@ -148,8 +153,9 @@ public class UserManager {
         g.updateUser(attendee);
     }
 
-    public void transferWaitingEventToSignedUp(int eid, List<Integer> offWaitlistUsers, GatewayFacade gw) {
-        for (int userID : offWaitlistUsers){
+    // used by ems.changeEventCapacity
+    public void transferWaitingEventToSignedUp(int eid, List<Integer> users, GatewayFacade gw) {
+        for (int userID : users){
             transferWaitingEventToSignedUp(eid, userID, gw);
         }
     }
@@ -188,7 +194,9 @@ public class UserManager {
      * @Description: set password for an User
      */
     public void setPassword(int userId,String password, GatewayFacade g) {
-        g.getUserById(userId).setPassword(password);
+        User user = g.getUserById(userId);
+        user.setPassword(password);
+        g.updateUser(user);
     }
 
     /**
