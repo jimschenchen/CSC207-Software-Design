@@ -360,19 +360,8 @@ public class ConferenceSystem {
         return ees.removeEventFromWaitList(eventId, gw);
     }
 
-    /**
-     * Set the speaker of an event.
-     *
-     * @param speakerID New Speaker's ID
-     * @param eventID The event's ID
-     * @return Return True when the speaker is assigned to the event successfully, false otherwise.
-     */
-    public boolean changeSpeakerForOneSpeakerEvent(String speakerID, String eventID){
-        return ems.changeSpeakerForOneSpeakerEvent(speakerID, eventID, gw);
-    }
-
-    public boolean addSpeakerToMultiSpeakerEvent(String speakerId, String eventId) {
-        return ems.addSpeakerToMultiSpeakerEvent(speakerId, eventId, gw);
+    public boolean modifySpeakerForEvent(String speakerID, String eventID){
+        return ems.modifySpeakerForEvent(speakerID, eventID, gw);
     }
 
 //    /**

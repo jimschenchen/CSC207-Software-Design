@@ -244,12 +244,39 @@ public class EventManager {
 
     }
 
-    public String getSpeakerOfEvent(int eventID, GatewayFacade gw){
+    public String getStringOfSpeakerOfEvent(int eventID, GatewayFacade gw){
+        int type = determineEventType(eventID, gw);
+        switch (type){
+            case 0:
+                return "No Speaker";
+                break;
+            case 1:
+                int speakerID = gw.getOneSpeakerEventById(eventID).getSpeakerId();
+                return gw.getUserById(speakerID).getUserName();
+                break;
+            case 2:
+                List<Integer> ids = gw.getMultiSpeakerEventById(eventID).getSpeakerId();
+                List<String> speakers = new ArrayList<>();
+                for (int id : ids){
+                    String name = gw.getUserById(id).getUserName();
+                    speakers.add(name);
+                }
+                break;
 
+        }
     }
 
-    private int determineEventType(int eventID, GatewayFacade gw){
-
+    // 0: no speaker event, 1: 1speaker event, 2: multi speaker event
+    public int determineEventType(int eventID, GatewayFacade gw){
+        if (gw.getOneSpeakerEventById(eventID) != null){
+            return 1;
+        }
+        else if (gw.getMultiSpeakerEventById(eventID) != null){
+            return 2;
+        }
+        else{
+            return 0;
+        }
     }
 
     /**

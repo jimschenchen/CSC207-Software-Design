@@ -31,6 +31,26 @@ class EventManagementSystem extends subSystem{
         return em.getVipStatusOfEvent(eventId, gw);
     }
 
+    boolean modifySpeakerForEvent(String speakerID, String eventID, GatewayFacade gw){
+        try{
+            int eID = Integer.parseInt(eventID);
+            int type = em.determineEventType(eID, gw);
+            boolean flag = false;
+            switch(type){
+                case 1:
+                    flag = changeSpeakerForOneSpeakerEvent(speakerID, eventID, gw);
+                    break;
+                case 2:
+                    flag = addSpeakerToMultiSpeakerEvent(speakerID, eventID, gw);
+                    break;
+            }
+            return flag;
+        }
+        catch (NumberFormatException nfe){
+            return false;
+        }
+    }
+
     /**
      * Set the speaker of an event.
      *
@@ -38,7 +58,7 @@ class EventManagementSystem extends subSystem{
      * @param eventID The event's ID
      * @return Return True when the speaker is assigned to the event successfully, false otherwise.
      */
-    boolean changeSpeakerForOneSpeakerEvent(String speakerID, String eventID, GatewayFacade gw){
+    private boolean changeSpeakerForOneSpeakerEvent(String speakerID, String eventID, GatewayFacade gw){
         try{
             int sID = Integer.parseInt(speakerID);
             int eID = Integer.parseInt(eventID);
@@ -54,7 +74,7 @@ class EventManagementSystem extends subSystem{
         }
     }
 
-    boolean addSpeakerToMultiSpeakerEvent(String speakerId, String eventId, GatewayFacade gw) {
+    private boolean addSpeakerToMultiSpeakerEvent(String speakerId, String eventId, GatewayFacade gw) {
         try{
             int sID = Integer.parseInt(speakerId);
             int eID = Integer.parseInt(eventId);
@@ -108,14 +128,14 @@ class EventManagementSystem extends subSystem{
         List<Integer> types = new ArrayList<>();
         switch (pType){
             case 0: types.add(0);
-                types.add(0);
-                break;
+                    types.add(0);
+                    break;
             case 1: types.add(1);
-                types.add(0);
-                break;
+                    types.add(0);
+                    break;
             case 2: types.add(2);
-                types.add(0);
-                break;
+                    types.add(0);
+                    break;
         }
         return types;
     }
