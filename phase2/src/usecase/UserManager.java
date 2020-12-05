@@ -33,6 +33,11 @@ public class UserManager {
         g.addUser(s);
     }
 
+    public void createOrganizer(String password, String name, GatewayFacade g){
+        Organizer o = new Organizer(g.getNextUserId(), password, name);
+        g.addUser(o);
+    }
+
     /**
      * @Description: create a Attendee account
      */

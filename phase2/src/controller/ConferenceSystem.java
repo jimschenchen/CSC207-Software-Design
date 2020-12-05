@@ -86,6 +86,24 @@ public class ConferenceSystem {
         return false;
     }
 
+    public boolean createOrganizer(String userName, String password){
+        /**
+         * Creates a new organizer account into the system. This action can only be performed by an organizer.
+         *
+         * @param userName User name of the new speaker.
+         * @param password Password of the new speaker account.
+         * @return Return true when the account is created successfully.
+         *          Return false when the password is invalid,
+         *          or when the user name is not unique.
+         */
+        if (checkValidPassword(password) && um.canCreateUser(userName, gw) && um.isExistingOrganizer(user, gw)){
+            um.createOrganizer(password.trim(), userName.trim(), gw);
+            return true;
+        }
+        return false;
+    }
+
+
     public boolean createVipUser(String userName, String password){
         /**
          * create a VIP. This action can only be performed by an organizer.
