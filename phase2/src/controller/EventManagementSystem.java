@@ -206,17 +206,15 @@ class EventManagementSystem extends subSystem{
 
 
     /**
-     * Create Event
+     * Create Event for Speaker
      *
-     * @param type1 User Id
-     * @param type2 room ID
      * @param sID Speaker ID
      * @param sTime starting time
      * @param eTime ending time
      * @param cap Capacity
      * @param topic The topic of the event
      * @param rID Room id
-     * @return Return the correct type of the event
+     * @return true if we successfully created the new event for speaker
      */
     private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
                                      LocalDateTime eTime, String topic, int rID, int cap,
@@ -234,6 +232,17 @@ class EventManagementSystem extends subSystem{
         return false;
     }
 
+    /**
+     * Create Event for multiple Speakers
+     *
+     * @param sID a List of Speaker ID
+     * @param sTime starting time
+     * @param eTIme ending time
+     * @param topic The topic of the event
+     * @param rID room id
+     * @param cap Capacity
+     * @return true if we successfully created the new event for multiple speaker
+     */
     private boolean newEventMoreThan1Speaker(int type1, int type2, ArrayList<Integer> sID, LocalDateTime sTime,
                                              LocalDateTime eTIme, String topic, int rID, int cap,
                                              boolean vipStatus, GatewayFacade gw){
@@ -254,6 +263,17 @@ class EventManagementSystem extends subSystem{
         return true;
     }
 
+    /**
+     * Create Event for no Speakers
+     *
+     * @param vipStatus VIP Status
+     * @param sTime starting time
+     * @param eTime ending time
+     * @param topic The topic of the event
+     * @param rID room id
+     * @param cap Capacity
+     * @return true if we successfully created the new event for no speaker
+     */
     private boolean newEventNoSpeaker(int type1, int type2, LocalDateTime sTime, LocalDateTime eTime,
                                       String topic, int rID, int cap, boolean vipStatus, GatewayFacade gw){
         if (type1 != 0 || !em.canCreateEvent(rID, sTime, eTime, cap, gw)){
@@ -265,6 +285,12 @@ class EventManagementSystem extends subSystem{
         return true;
     }
 
+    /**
+     * Cancle Event
+     *
+     * @param eventID Event ID
+     * @return true if we successfully canceled an event
+     */
     boolean cancelEvent(String eventID, GatewayFacade gw){
         try{
             int eID = Integer.parseInt(eventID);
@@ -280,6 +306,13 @@ class EventManagementSystem extends subSystem{
         }
     }
 
+    /**
+     * Change the capacity of an event
+     *
+     * @param eventId Event ID
+     * @param capacity Capacity
+     * @return true if we successfully changed that capacity of an event
+     */
     boolean changeEventCapacity(String eventId, String capacity, GatewayFacade gw) {
         try {
             int cap = Integer.parseInt(capacity);

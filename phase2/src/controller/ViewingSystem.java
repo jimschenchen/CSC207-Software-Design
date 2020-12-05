@@ -10,9 +10,9 @@ import java.util.Set;
 class ViewingSystem extends subSystem{
 
     /**
+     * @param idList the event id list
      * Viewing System which allows users to view users, events and rooms in the Conference.
      */
-
     private List<List<String>> getEventList(List<Integer> idList, GatewayFacade gw){
         List<List<String>> allEvents = new ArrayList<>();
         for (Integer id : idList){
@@ -21,6 +21,11 @@ class ViewingSystem extends subSystem{
         return allEvents;
     }
 
+    /**
+     *
+     * @param idList the event id list
+     * @return all the organized event list
+     */
     private List<List<String>> getOrganizedEventList(List<Integer> idList, GatewayFacade gw){
         List<List<String>> allEvents = new ArrayList<>();
         for (Integer id : idList){
@@ -89,6 +94,13 @@ class ViewingSystem extends subSystem{
     }
 
     // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistLength]
+    /**
+     * View all the events that are waitlistable
+     *
+     * @param gw GatewayFacade
+     * @return all the events that can be added to the waitlist
+     *
+     */
     List<List<String>> viewCanWaitlistEvents(GatewayFacade gw){
         List<Integer> allEvents = em.getEventList(gw);
         List<List<String>> allEventsInfo = new ArrayList<>();
@@ -105,6 +117,13 @@ class ViewingSystem extends subSystem{
 
     // when use this method, you need to restrict the type of user to be attendee type...
     // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistRank]
+    /**
+     * View the waitlist
+     *
+     * @param gw GatewayFacade
+     * @return all the users that are in the waitlist
+     *
+     */
     List<List<String>> viewMyWaitList(GatewayFacade gw) {
         List<Integer> myWaitList = um.getUserWaitList(user, gw);
         List<List<String>> myWaitingEventsInfo = new ArrayList<>();
@@ -139,6 +158,13 @@ class ViewingSystem extends subSystem{
         return sAllAttendeesInEvents;
     }
 
+    /**
+     * View all rooms in the system.
+     *
+     * @param idList the list User id
+     * @return Return the user lists
+     *
+     */
     private List<List<String>> getUserList(List<Integer> idList, GatewayFacade gw){
         List<List<String>> sUser = new ArrayList<>();
         for (Integer id : idList){
@@ -169,13 +195,13 @@ class ViewingSystem extends subSystem{
         return getUserList(allSpeakers, gw);
     }
 
+    /**
+     * View all rooms in the system.
+     *
+     * @return Return a list of strings that represent all rooms in the system.
+     * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
+     */
     List<String> viewAllRooms(GatewayFacade gw){
-        /**
-         * View all rooms in the system.
-         *
-         * @return Return a list of strings that represent all rooms in the system.
-         * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
-         */
         return rm.allRooms(gw);
     }
 }
