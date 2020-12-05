@@ -214,7 +214,7 @@ public class ConferenceSystem {
         try{
             int cap = Integer.parseInt(capacity);
             if (rm.canAddRoom(roomNumber, gw)){
-                rm.add_room(roomNumber, cap, gw);
+                rm.addRoom(roomNumber, cap, gw);
                 return true;
             }
             return false;

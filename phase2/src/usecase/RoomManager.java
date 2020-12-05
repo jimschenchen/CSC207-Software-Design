@@ -41,7 +41,7 @@ public class RoomManager {
      * @param roomNumber the room number
      * @param g the database
      */
-    public void add_room(String roomNumber, int capacity, GatewayFacade g) {
+    public void addRoom(String roomNumber, int capacity, GatewayFacade g) {
         Room room = new Room(roomNumber, g.getNextRoomId(), capacity);
         g.addRoom(room);
     }

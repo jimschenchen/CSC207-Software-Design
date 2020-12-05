@@ -147,16 +147,20 @@ public class PanelFactory {
     public JPanel AddRoomPanel(String roomNub) {
         JPanel addRoomPanel = new JPanel();
         JLabel addRoom = new JLabel("Enter a new room number you want to add:");
+        JLabel roomCapacity = new JLabel("Enter a capacity for this room:");
         JButton btn = new JButton("Create");;
         JTextField jtxt=new JTextField(10);
-        addRoomPanel.setLayout(new GridLayout(3,1));
+        JTextField cap = new JTextField(5);
+        addRoomPanel.setLayout(new GridLayout(5,1));
         addRoomPanel.add(addRoom);
         addRoomPanel.add(jtxt);
+        addRoomPanel.add(roomCapacity);
+        addRoomPanel.add(cap);
         addRoomPanel.add(btn);
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.addRoom(jtxt.getText());
+                presenter.addRoom(jtxt.getText(), cap.getText());
 
         }});
         return addRoomPanel;
