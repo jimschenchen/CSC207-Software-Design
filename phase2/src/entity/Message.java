@@ -16,10 +16,11 @@ public class Message implements java.io.Serializable {
      * @param senderId the sender id
      * @param receiverId the receiver id
      */
-    public Message(String information, int senderId, int receiverId){
+    public Message(String title, String information, int senderId, int receiverId){
         this.content = information;
         this.senderId = senderId;
         this.receiverId = receiverId;
+        this.title = title;
     }
 
     public String getTitle() {
@@ -29,12 +30,6 @@ public class Message implements java.io.Serializable {
          * @return the content of this message
          */
         return title;
-    }
-    public void setTitle(String title) {
-        /**
-         * A setter for the title
-         */
-        this.title = title;
     }
 
     /**
