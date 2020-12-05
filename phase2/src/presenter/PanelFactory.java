@@ -373,6 +373,43 @@ public class PanelFactory {
         return panel;
     }
 
+    public JPanel organizedEvents(List<List<String>> events){
+        JPanel panel = new JPanel(new GridLayout(events.size()+1, 10, 10,5));
+        panel.add(new JLabel("Title"));
+        panel.add(new JLabel("ID"));
+        panel.add(new JLabel("Start:"));
+        panel.add(new JLabel("End"));
+        panel.add(new JLabel("Duration: "));
+        panel.add(new JLabel("Location: "));
+        panel.add(new JLabel("VIP Status: "));
+        panel.add(new JLabel("Capacity: "));
+        panel.add(new JLabel("Speakers"));
+        panel.add(new JLabel("Cancel"));
+        JButton[] cancelButtons = new JButton[events.size()];
+        int i = 0;
+        for (List<String> event: events){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
+            panel.add(new JLabel(event.get(8)));
+            cancelButtons[i] = new JButton("Really??!");
+            cancelButtons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    presenter.cancelEvent(event.get(1));
+                }
+            });
+            i++;
+        }
+        return panel;
+    }
+    }
+
 
 
 
