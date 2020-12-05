@@ -101,7 +101,7 @@ class ViewingSystem extends subSystem{
      * @return all the events that can be added to the waitlist
      *
      */
-    List<List<String>> viewCanWaitlistEvents(GatewayFacade gw){
+    List<List<String>> viewCanWaitListEvents(GatewayFacade gw){
         List<Integer> allEvents = em.getEventList(gw);
         List<List<String>> allEventsInfo = new ArrayList<>();
         for (Integer eventID : allEvents){

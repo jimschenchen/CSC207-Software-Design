@@ -82,7 +82,7 @@ public class PanelFactory implements IUpdate{
         return viewEventPanel;
     }
 
-    public JPanel signUpWaitlistEvent(List<List<String>> events){
+    public JPanel signUpWaitListEvent(List<List<String>> events){
         // This method includes both viewing and signing up
         GridLayout layout = new GridLayout(events.size()+1,8, 10,5);
         JPanel panel = new JPanel(layout);
@@ -453,6 +453,31 @@ public class PanelFactory implements IUpdate{
                         newSettingEntered.getText());
             }
         });
+        return panel;
+    }
+
+    public JPanel viewSpeakingEvent(List<List<String>> givingEvent) {
+        JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 8, 10,5));
+        panel.add(new JLabel("Title"));
+        panel.add(new JLabel("ID"));
+        panel.add(new JLabel("Start:"));
+        panel.add(new JLabel("End"));
+        panel.add(new JLabel("Duration: "));
+        panel.add(new JLabel("Location: "));
+        panel.add(new JLabel("VIP Status: "));
+        panel.add(new JLabel("Capacity: "));
+        panel.add(new JLabel("Speakers(including yourself)"));
+        for (List<String> event: givingEvent){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
+            panel.add(new JLabel(event.get(8)));
+        }
         return panel;
     }
 

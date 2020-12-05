@@ -505,7 +505,7 @@ public class ConferenceSystem {
      */
     // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistLength]
     public List<List<String>> viewCanWaitlistEvents(){
-        return vs.viewCanWaitlistEvents(gw);
+        return vs.viewCanWaitListEvents(gw);
     }
 
     // when use this method, you need to restrict the type of user to be attendee type...
