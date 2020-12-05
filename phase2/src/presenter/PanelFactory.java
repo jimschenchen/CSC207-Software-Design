@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class PanelFactory {
     //Produces the Panel depending on the specified type
@@ -35,7 +36,7 @@ public class PanelFactory {
                 }
             });
         }
-        if (string.equals("textField")){
+        if (string.equals("textField")) {
             JTextField txt = new JPasswordField();
             txt.setFont(new Font("Tahoma", Font.PLAIN, 34));
             txt.setBounds(373, 35, 609, 67);
@@ -49,10 +50,12 @@ public class PanelFactory {
                 }
             });
         }
-        if (string.equals("Panel")){
+        if (string.equals("Panel")) {
             return panel;
+        }
         return panel;
     }
+
 
 
     public JPanel viewEventPanel(ArrayList<ArrayList<String>> allEventList) {
@@ -140,6 +143,153 @@ public class PanelFactory {
         }
         return panel;
     }
+
+    public JPanel AddRoomPanel(String roomNub) {
+        JPanel addRoomPanel = new JPanel();
+        JLabel addRoom = new JLabel("Enter a new room number you want to add:");
+        JButton btn = new JButton("Create");;
+        JTextField jtxt=new JTextField(10);
+        addRoomPanel.setLayout(new GridLayout(3,1));
+        addRoomPanel.add(addRoom);
+        addRoomPanel.add(jtxt);
+        addRoomPanel.add(btn);
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.addRoom(jtxt.getText());
+
+        }});
+        return addRoomPanel;
     }
+
+    public JPanel createEvent(List<String> rooms, List<List<String>> speakers){
+        int length = speakers.size();
+        float lengthF = length;
+        int numCheck = new Double(Math.ceil(lengthF/2)).intValue();
+        System.out.println(speakers.size());
+        System.out.println(numCheck);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(8 + numCheck ,2,10,5));
+
+        JLabel type = new JLabel("Event Type: ");
+        panel.add(type);
+        JComboBox typeSelected = new JComboBox(new String[]{"Party", "Talk", "Panel Discussion"});
+        typeSelected.setSize(300,100);
+        panel.add(typeSelected);
+
+        JLabel start = new JLabel("Start: ");
+        panel.add(start);
+        JTextField startTime = new JTextField("YYYY-MM-DD HH:mm");
+        panel.add(startTime);
+
+        JLabel end = new JLabel("End: ");
+        panel.add(end);
+        JTextField endTime = new JTextField("YYYY-MM-DD HH:mm");
+        panel.add(endTime);
+
+        JLabel topic =  new JLabel("Topic: ");
+        JTextField topicEntered = new JTextField();
+        panel.add(topic);
+        panel.add(topicEntered);
+
+        JLabel roomNumber = new JLabel("Room Number: ");
+        panel.add(roomNumber);
+        JComboBox roomNumberSelected = new JComboBox((Vector) rooms);
+        panel.add(roomNumberSelected);
+
+        JLabel capacity = new JLabel("Capacity: ");
+        JTextField capacityEntered = new JTextField();
+        panel.add(capacity);
+        panel.add(capacityEntered);
+
+
+
+        JLabel askSpeaker = new JLabel("Select Speaker: ");
+        panel.add(askSpeaker);
+        Panel empty1 = new Panel();
+        panel.add(empty1);
+
+
+        JCheckBox[] checkArray = new JCheckBox[speakers.size()];
+        String[] idArray = new String[speakers.size()];
+        int i = 0;
+        for(List<String> speaker : speakers){
+            checkArray[i] = new JCheckBox(speaker.get(0) + " "+ speaker.get(1));
+            idArray[i] = speaker.get(0);
+            panel.add(checkArray[i]);
+            i++;
+        }
+        if (speakers.size() % 2 == 1){
+            Panel empty2 = new Panel();
+            panel.add(empty2);
+        }
+
+        JButton okButton = new JButton("OK");
+        panel.add(okButton);
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.createEvent(typeSelected.getSelectedItem(), startTime.getText(), endTime.getText(),
+                        idHelper(checkArray, idArray), roomNumberSelected.getSelectedItem(), topicEntered.getText(),
+                        roomNumberSelected.getSelectedItem());
+            }
+        });
+
+        JButton resetButton = new JButton("Reset");
+        panel.add(resetButton);
+
+        return panel;
+    }
+
+    private String idHelper(JCheckBox[] checkArray, String[] idArray){
+        String speakersSelected = "";
+        int ii = 0;
+        for (JCheckBox cb : checkArray){
+            if (cb.isSelected()){
+                speakersSelected = speakersSelected + idArray[ii] + ",";
+            }
+            ii++;
+        }
+        return speakersSelected;
+    }
+
+    public JPanel createUserPanel(){
+        JPanel panel = new JPanel(new GridLayout(4,2));
+        JLabel userType = new JLabel("User Type: ");
+        panel.add(userType);
+        JComboBox userTypeSelected = new JComboBox(new String[]{"Speaker", "Organizer", "Attendee"});
+        panel.add(userTypeSelected);
+        JLabel username = new JLabel("User Name: ");
+        panel.add(username);
+        JTextField usernameEntered = new JTextField();
+        panel.add(usernameEntered);
+        JLabel password = new JLabel("Password: ");
+        panel.add(password);
+        JTextField passwordEntered = new JTextField();
+        panel.add(passwordEntered);
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.createUser(userTypeSelected.getSelectedItem(), usernameEntered.getText(),
+                        passwordEntered.getText());
+            }
+        });
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usernameEntered.setText("");
+                passwordEntered.setText("");
+            }
+        });
+        panel.add(okButton);
+        panel.add(resetButton);
+        return panel;
+    }
+
+
+
 }
 

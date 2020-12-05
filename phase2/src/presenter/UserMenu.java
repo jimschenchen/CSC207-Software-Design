@@ -102,7 +102,7 @@ public class UserMenu extends JFrame implements IWindow{
         @Override
         public void update(String type) {
            PanelFactory factory = new PanelFactory();
-           JPanel panel = factory.getPanel("type");
+           JPanel panel = factory.getPanel(type);
            panelReplaced(panel);
 
         }
