@@ -35,7 +35,7 @@ public class PanelFactory {
                 }
             });
         }
-        if (string.equals("textField")){
+        if (string.equals("textField")) {
             JTextField txt = new JPasswordField();
             txt.setFont(new Font("Tahoma", Font.PLAIN, 34));
             txt.setBounds(373, 35, 609, 67);
@@ -49,11 +49,11 @@ public class PanelFactory {
                 }
             });
         }
-        if (string.equals("Panel")){
+        if (string.equals("Panel")) {
             return panel;
-        return panel;
+            return panel;
+        }
     }
-
 
     public JPanel viewEventPanel(ArrayList<ArrayList<String>> allEventList) {
         JPanel viewEventPanel = new JPanel();
@@ -141,5 +141,5 @@ public class PanelFactory {
         return panel;
     }
     }
-}
+
 
