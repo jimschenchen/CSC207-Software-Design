@@ -254,5 +254,42 @@ public class PanelFactory {
         return speakersSelected;
     }
 
+    public JPanel createUserPanel(){
+        JPanel panel = new JPanel(new GridLayout(4,2));
+        JLabel userType = new JLabel("User Type: ");
+        panel.add(userType);
+        JComboBox userTypeSelected = new JComboBox(new String[]{"Speaker", "Organizer", "Attendee"});
+        panel.add(userTypeSelected);
+        JLabel username = new JLabel("User Name: ");
+        panel.add(username);
+        JTextField usernameEntered = new JTextField();
+        panel.add(usernameEntered);
+        JLabel password = new JLabel("Password: ");
+        panel.add(password);
+        JTextField passwordEntered = new JTextField();
+        panel.add(passwordEntered);
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.createUser(userTypeSelected.getSelectedItem(), usernameEntered.getText(),
+                        passwordEntered.getText());
+            }
+        });
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usernameEntered.setText("");
+                passwordEntered.setText("");
+            }
+        });
+        panel.add(okButton);
+        panel.add(resetButton);
+        return panel;
+    }
+
+
+
 }
 
