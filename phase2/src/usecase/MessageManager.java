@@ -9,9 +9,9 @@ public class MessageManager {
     /**
      * @Description: message all signed up users in an event
      */
-    public void messageAllUsers(int eventId, int senderId, String content, GatewayFacade g){
+    public void messageAllUsers(int eventId, int senderId, String title, String content, GatewayFacade g){
         for (int receiverId : g.getEventById(eventId).getSignedUpUserList()){
-            Message m = new Message(content, senderId, receiverId);
+            Message m = new Message(title, content, senderId, receiverId);
             g.addMessage(m);
         }
     }
@@ -19,11 +19,11 @@ public class MessageManager {
     /**
      * @Description: message all signed up users in multiple speaking events
      */
-    public void messageAllUsersInAllSpeakingEvents(int speakerID, String content, GatewayFacade g){
+    public void messageAllUsersInAllSpeakingEvents(int speakerID, String title, String content, GatewayFacade g){
         Speaker speaker = g.getSpeakerById(speakerID);
         List<Integer> speakingEvents = speaker.get_GivingEventList();
         for (int eventID : speakingEvents){
-            messageAllUsers(eventID, speakerID, content, g);
+            messageAllUsers(eventID, speakerID, title, content, g);
         }
     }
 
@@ -37,8 +37,8 @@ public class MessageManager {
     /**
      * @Description: send message to one user whose id is receiverId
      */
-    public void messageOneUser(int senderId, int receiverId, String content, GatewayFacade g){
-        Message m = new Message(content, senderId, receiverId);
+    public void messageOneUser(int senderId, int receiverId, String title, String content, GatewayFacade g){
+        Message m = new Message(title, content, senderId, receiverId);
         g.addMessage(m);
     }
 
@@ -75,11 +75,11 @@ public class MessageManager {
     /**
      * @Description: message all Speaker
      */
-    public void messageAllSpeakers(String content, int senderId, GatewayFacade g) {
+    public void messageAllSpeakers(String title, String content, int senderId, GatewayFacade g) {
         List<User> users = g.getUserList();
         for (User user : users){
             if (user instanceof Speaker){
-                messageOneUser(senderId, user.getUserId(), content, g);
+                messageOneUser(senderId, user.getUserId(), title, content, g);
             }
         }
     }
@@ -87,11 +87,11 @@ public class MessageManager {
     /**
      * @Description: message all Attendee
      */
-    public void messageAllAttendees(int senderId, String content, GatewayFacade g){
+    public void messageAllAttendees(int senderId, String title, String content, GatewayFacade g){
         List<User> users = g.getUserList();
         for (User user : users){
             if (user instanceof Attendee & !(user instanceof Organizer)){
-                messageOneUser(senderId, user.getUserId(), content, g);
+                messageOneUser(senderId, user.getUserId(), title, content, g);
             }
         }
     }
@@ -156,9 +156,9 @@ public class MessageManager {
     /**
      * @Description: reply a message which id is positionOfMessage
      */
-    public void replyMessage(String content, int currentUserId, int positionOfMessage, GatewayFacade g) {
+    public void replyMessage(String title, String content, int currentUserId, int positionOfMessage, GatewayFacade g) {
         Message m = g.getReceivedMessageListByUserId(currentUserId).get(positionOfMessage);
-        Message reply = new Message(content, m.getReceiverId(), m.getSenderId());
+        Message reply = new Message(title, content, m.getReceiverId(), m.getSenderId());
         g.addMessage(reply);
     }
 
