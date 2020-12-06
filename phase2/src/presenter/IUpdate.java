@@ -6,5 +6,9 @@ package presenter;
  * view.
  */
 public interface IUpdate {
+    /**
+     * update UI
+     * @param action the action(instruction) about how to update
+     */
     public void update(String action);
 }
