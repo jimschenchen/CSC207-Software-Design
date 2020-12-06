@@ -1,5 +1,6 @@
 package gateway;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import entity.*;
 import entity.event.Event;
 import entity.event.Party;
@@ -36,6 +37,7 @@ public class GatewayCli extends Gateway{
             System.out.println("1. Display all data");
             System.out.println("2. Check gateway errors");
             System.out.println("3. Format Database");
+            System.out.println("4. Create new Organizer");
             System.out.println("0. Exit");
             input = scan.nextLine();
             switch (input) {
@@ -48,6 +50,8 @@ public class GatewayCli extends Gateway{
                 case "3":
                     gcli.rmrf();
                     break;
+                case "4":
+                    gcli.createOrganizer(gatewayFacade);
                 case "0":
                     System.out.println("Gateway: CLI exit");
                     break;
@@ -57,6 +61,19 @@ public class GatewayCli extends Gateway{
         }
     }
 
+    /** Create a new organizer*/
+    private void createOrganizer(GatewayFacade gatewayFacade) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("User Name:");
+        String username = scan.nextLine();
+        System.out.println("Password:");
+        String password = scan.nextLine();
+        Organizer o = new Organizer(gatewayFacade.getNextUserId(), password, username);
+        gatewayFacade.addUser(o);
+        System.out.println(ANSI_RED + "Organizer" + o.getUserName() + "has been created" + ANSI_RESET);
+    }
+
+    /** Format Database*/
     private void rmrf() {
         Jedis jedis = getJedis();
         Scanner scan = new Scanner(System.in);
@@ -86,16 +103,7 @@ public class GatewayCli extends Gateway{
         closeJedis(jedis);
     }
 
-    /** Enable '-ea' in VM option in config before testing*/
-    private void testCases () {
-        System.out.println("Gateway: Testing...");
-        GatewayFacade gf = new GatewayFacade();
-        testUser (gf);
-        testEvent (gf);
-        testRoom (gf);
-        testMessage(gf);
-        System.out.println("\nGateway: All tests passed");
-    }
+
     /** This method is used for test    */
     public void printDataBase () {
         GatewayFacade gf = new GatewayFacade();
@@ -115,6 +123,17 @@ public class GatewayCli extends Gateway{
         gf.getMessageList().forEach((m) -> System.out.println("    - " + m.toString()));
 
         jedis.close();
+    }
+
+    /** Enable '-ea' in VM option in config before testing*/
+    private void testCases () {
+        System.out.println("Gateway: Testing...");
+        GatewayFacade gf = new GatewayFacade();
+        testUser (gf);
+        testEvent (gf);
+        testRoom (gf);
+        testMessage(gf);
+        System.out.println("\nGateway: All tests passed");
     }
 
     private void testUser (GatewayFacade gf) {
