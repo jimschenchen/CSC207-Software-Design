@@ -283,22 +283,16 @@ public class EventManager {
                 sSpeaker = gw.getUserById(speakerID).getUserName();
                 break;
             case 2:
-                List<Integer> ids = gw.getMultiSpeakerEventById(eventID).getSpeakerId();
-                List<String> speakers = new ArrayList<>();
+                List<Integer> ids = gw.getMultiSpeakerEventById(eventID).getSpeakerId() != null ? gw.getMultiSpeakerEventById(eventID).getSpeakerId() : new ArrayList<>();
                 StringBuilder sbSpeakers = new StringBuilder();
                 for (int id : ids){
-                    String name = gw.getUserById(id).getUserName();
-                    speakers.add(name);
+                    if (gw.getUserById(id) != null) {
+                        String name = gw.getUserById(id).getUserName();
+                        sbSpeakers.append(name);
+                    }
                 }
-                int i = 0;
-                while (i < speakers.size() - 1){
-                    sbSpeakers.append(speakers.get(i)).append(", ");
-                    i += 1;
-                }
-                sbSpeakers.append(speakers.get(speakers.size() - 1));
                 sSpeaker = sbSpeakers.toString();
                 break;
-
         }
         return sSpeaker;
     }
