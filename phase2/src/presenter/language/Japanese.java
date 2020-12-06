@@ -1,6 +1,10 @@
 package presenter.language;
 
 public class Japanese implements Language {
+
+    private final String fail = "失敗しました。もう一度確認してください。";
+    private final String permission = "権限がないかもしれません。";
+
     @Override
     public String username() {
         return "ユーザー名";
@@ -63,126 +67,126 @@ public class Japanese implements Language {
 
     @Override
     public String createAccountMessage() {
-        return "";
+        return "アカウントを作成しました";
     }
 
     @Override
     public String succeedAddRoomMessage() {
-        return null;
+        return "新しい会場を作成しました";
     }
 
     @Override
     public String successful() {
-        return null;
+        return "成功しました";
     }
 
     @Override
     public String failed() {
-        return null;
+        return "失敗しました";
     }
 
     @Override
     public String failAddRoomMessage() {
-        return null;
+        return "新しい会場の作成を" + fail;
     }
 
     @Override
     public String succeedCancelEventMessage() {
-        return null;
+        return "新しいイベントを作りました。";
     }
 
     @Override
     public String failCancelEventMessage() {
-        return null;
+        return "新しいイベントを作りません。もう一度確認してください。";
     }
 
     @Override
     public String succeedSignUpEventMessage() {
-        return null;
+        return "イベントの申し込みを受け付きました。";
     }
 
     @Override
     public String failSignUpEvent() {
-        return null;
+        return "イベントの申し込みを" + fail;
     }
 
     @Override
     public String succeedWaitEvent() {
-        return null;
+        return "ウェイトリストの申し込みを受け付きました。";
     }
 
     @Override
     public String failWaitEventMessage() {
-        return null;
+        return "ウェイトリストの申し込みを" + fail;
     }
 
     @Override
     public String succeedChangeEventMessage() {
-        return null;
+        return "イベント情報を変更しました。";
     }
 
     @Override
     public String failChangeEventMessage() {
-        return null;
+        return "イベント情報変更を" + fail + permission;
     }
 
     @Override
     public String succeedCreateUserMessage() {
-        return null;
+        return "新しいユーザーを作りました。";
     }
 
     @Override
     public String failCreateUserMessage() {
-        return null;
+        return fail + permission;
     }
 
     @Override
     public String succeedCreateEventMessage() {
-        return null;
+        return "新しいイベントを作りました。";
     }
 
     @Override
     public String failCreateEventMessage() {
-        return null;
+        return "新しいイベントの作成するのは" + fail;
     }
 
     @Override
     public String succeedCancelEnrollmentMessage() {
-        return null;
+        return "イベントを辞めました。";
     }
 
     @Override
     public String failCancelEnrollmentMessage() {
-        return null;
+        return "イベントを辞めるのは" + fail;
     }
 
     @Override
     public String succeedRemoveWaitMessage() {
-        return null;
+        return "ウェイトリストをキャンセルしました。";
     }
 
     @Override
     public String failRemoveWaitMessage() {
-        return null;
+        return "ウェイトリストをキャンセルする事を" + fail;
     }
 
     @Override
     public String succeedResetPasswordMessage() {
-        return null;
+        return "パスワードをリセットしました。";
     }
 
     @Override
     public String failResetPasswordMessage() {
-        return null;
+        return "パスワードをリセットのは" + fail;
     }
 
     @Override
     public String succeedCreateAccountMessage() {
-        return null;
+        return "アカウントを作りました。";
     }
 
     @Override
     public String failCreateAccount() {
-        return null;
+        return fail;
     }
 }
