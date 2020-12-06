@@ -1,6 +1,5 @@
 package gateway;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import entity.*;
 import entity.event.Event;
 import entity.event.Party;
@@ -8,15 +7,13 @@ import entity.event.Talk;
 import redis.clients.jedis.Jedis;
 import usecase.EventManager;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * @program: group_0173
- * @description:
- * @author:
+ * @description: GatewayCli is an external Command line interface of Gateway in the purpose of debugging, displaying database and operating database.
  * @create: 2020-12-03 22:18
  **/
 public class GatewayCli extends Gateway{
@@ -103,7 +100,6 @@ public class GatewayCli extends Gateway{
         closeJedis(jedis);
     }
 
-
     /** This method is used for test    */
     public void printDataBase () {
         GatewayFacade gf = new GatewayFacade();
@@ -125,8 +121,9 @@ public class GatewayCli extends Gateway{
         jedis.close();
     }
 
-    /** Enable '-ea' in VM option in config before testing*/
+    /** Enable '-ea' in VM option in config before testing */
     private void testCases () {
+        System.out.println(ANSI_RED + "Please Enable '-ea' in VM option in configuration before testing" + ANSI_RESET);
         System.out.println("Gateway: Testing...");
         GatewayFacade gf = new GatewayFacade();
         testUser (gf);
@@ -136,6 +133,7 @@ public class GatewayCli extends Gateway{
         System.out.println("\nGateway: All tests passed");
     }
 
+    /** All test case */
     private void testUser (GatewayFacade gf) {
         User u1 = new Attendee(998, "114514", "testJIMA");
         User u2 = new Organizer(999, "234234", "testJim2");
