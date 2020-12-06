@@ -19,9 +19,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     JMenu messenger = new JMenu("Messenger");
     JMenuItem logOut = new JMenuItem("Close");
     JMenuBar bar = new JMenuBar();
-    JMenu options = new JMenu("Options");
-    JMenuItem organizer = new JMenuItem("Organizer Options");
-    JMenuItem speaker = new JMenuItem("Speaker Options");
     JMenu messageOptions = new JMenu("Messenger Options");
     JMenuItem viewMessages = new JMenuItem("View My Messages");
     MessengerPresenter _msgPresenter = new MessengerPresenter();
@@ -67,12 +64,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         messenger.add(logOut);
         logOut.addActionListener(this);
 
-        bar.add(options);
-        options.add(organizer);
-        organizer.addActionListener(this);
-        options.add(speaker);
-        speaker.addActionListener(this);
-
         setJMenuBar(bar);
         messageOptions.add(viewMessages);
         viewMessages.addActionListener(this);
@@ -117,16 +108,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         if (src == logOut){
             System.exit(0);
         }
-        if (src == organizer){
-            //Here we need to check if user is an Organizer through presenter
-            OrganizerMessenger org = new OrganizerMessenger();
-            dispose();
-        }
-        if (src == speaker){
-            //Here we need to check if user is a speaker through presenter
-            SpeakerMessenger spkr = new SpeakerMessenger();
-            dispose();
-        }
+
         if (src == rcv) {
             JFrame frame = new JFrame();
             List<List<String>> listOfLists = _msgPresenter.readReceivedMessages();

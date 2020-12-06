@@ -51,6 +51,18 @@ public class Presenter {
         }
     }
 
+    public void openMessenger(int type){
+        if (type == 1){
+            IMessage userMes = new MessengerWindow();
+        }
+        if (type == 2){
+            IMessage organizerMes = new OrganizerMessenger();
+        }
+        if (type == 3){
+            IMessage speakerMes = new SpeakerMessenger();
+        }
+    }
+
 
 
 

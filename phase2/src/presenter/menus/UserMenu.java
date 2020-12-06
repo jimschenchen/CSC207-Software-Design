@@ -121,11 +121,11 @@ public class UserMenu extends JFrame implements IUpdate {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (presenter.type == 2){
-                    //Open Attendee Messenger
+                    presenter.openMessenger(2);
                 }else if(presenter.type == 1){
-                    //Open Organizer Messenger
+                    presenter.openMessenger(1);
                 }else{
-                  //Open Speaker Messenger
+                    presenter.openMessenger(3);
                 }
             }
         });
