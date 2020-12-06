@@ -2,8 +2,6 @@ package gateway;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import entity.User;
-import gateway.bean.UserBean;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -18,7 +16,7 @@ import java.lang.reflect.Type;
  **/
 public abstract class Gateway<T> {
 
-    private JedisPool jedisPool;
+    private static JedisPool jedisPool;
 
     static final String DATABASE_URL = Config.DATABASE_URL;
     static final int DATABASE_PORT = Config.DATABASE_PORT;
@@ -29,6 +27,10 @@ public abstract class Gateway<T> {
     private Type type;
 
     /** Constructor */
+    /**
+    * @Description: Default constructor is only for testing
+    * @Date: 2020-12-06
+    */
     public Gateway() {
         initJedisPool();
     }
@@ -48,21 +50,23 @@ public abstract class Gateway<T> {
 
     /** Private Method - Jedis Pool */
     private void initJedisPool() {
-        JedisPoolConfig poolConfig = new JedisPoolConfig();
-        jedisPool = new JedisPool(poolConfig, DATABASE_URL, DATABASE_PORT, 10000, DATABASE_PASSWORD);
-        shutDownHook(); // ShutdownHook added
-        // System.out.println(getClass() + ": Jedis Pool has been Established");
-        // ping();
+        if (jedisPool == null) {
+            JedisPoolConfig poolConfig = new JedisPoolConfig();
+            jedisPool = new JedisPool(poolConfig, DATABASE_URL, DATABASE_PORT, 10000, DATABASE_PASSWORD);
+            shutDownHook(); // ShutdownHook added
+            System.out.println("Gateway: " + jedisPool.toString() + " has been Established");
+            ping();
+        }
     }
     private void close() {
         if(jedisPool != null){
             jedisPool.destroy();
-            // System.out.println(getClass() + "Gateway: Jedis Pool is Closed");
+            System.out.println("Gateway: Jedis Pool has been terminated");
         }
     }
     private void shutDownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
-        // System.out.println(getClass() + "Gateway: ShutdownHook has been Added");
+        System.out.println(getClass() + "Gateway: ShutdownHook has been Added");
     }
 
     /** Public Methods - Jedis */
@@ -70,7 +74,7 @@ public abstract class Gateway<T> {
         try{
             return jedisPool.getResource();
         }catch(Exception e) {
-            System.err.println(getClass() + "Gateway: getJedis Fails\n");
+            System.err.println(getClass() + "Gateway: Fail to get jedis from jedis pool\n");
             e.printStackTrace();
             return null;
         }
@@ -80,7 +84,7 @@ public abstract class Gateway<T> {
     }
     public void ping() {
         try(Jedis jedis = jedisPool.getResource()){
-            System.out.println(getClass() + "Gateway: Jedis " + (jedis.ping().equals("PONG") ? "is running" : "is stopped"));
+            System.out.println("Gateway: Jedis" + (jedis.ping().equals("PONG") ? "is connected" : "is disconnected"));
         }
     }
 
