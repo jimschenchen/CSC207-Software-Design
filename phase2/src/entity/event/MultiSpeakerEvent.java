@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class MultiSpeakerEvent extends Event{
-    private ArrayList<Integer> speakerList;
+    private ArrayList<Integer> speakerList = new ArrayList<>();
 
     public MultiSpeakerEvent(LocalDateTime startTime, LocalDateTime endTime,
                              int eventId, String title, int roomId, int capacity) {
