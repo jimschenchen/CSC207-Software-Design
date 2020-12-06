@@ -318,7 +318,7 @@ public class PanelFactory implements IUpdate {
 
     private String idHelper(JCheckBox[] checkArray, String[] idArray){
         ArrayList<String> idSelected = new ArrayList<>();
-        String speakersSelected = "";
+        StringBuilder speakersSelected = new StringBuilder();
         int ii = 0;
        for (JCheckBox cb : checkArray){
             if (cb.isSelected()) {
@@ -327,14 +327,15 @@ public class PanelFactory implements IUpdate {
             ii++;
         }
        if (idSelected.size() == 1){
-           speakersSelected = idSelected.get(0);
+           speakersSelected = new StringBuilder(idSelected.get(0));
        }else{
            for (String id: idSelected){
-               speakersSelected = id + ",";
+               speakersSelected.append(id).append(",");
+               System.out.println(id);
            }
        }
        System.out.println(speakersSelected);
-       return speakersSelected;
+       return speakersSelected.toString();
     }
 
     private JPanel createUser(){
