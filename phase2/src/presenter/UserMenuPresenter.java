@@ -4,7 +4,7 @@ import controller.ConferenceSystem;
 
 import java.util.List;
 
-class UserMenuPresenter {
+class UserMenuPresenter extends Presenter{
     ConferenceSystem cs = new ConferenceSystem();
     IMessage userMenu = new UserMenu();
 

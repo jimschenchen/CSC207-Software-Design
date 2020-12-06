@@ -6,7 +6,7 @@ import gateway.GatewayFacade;
 
 import java.util.List;
 
-public class MessengerPresenter {
+public class MessengerPresenter extends Presenter {
     ConferenceSystem msgSystem = new ConferenceSystem();
     IMessage msgWindow = new MessengerWindow();
 

@@ -14,7 +14,7 @@ public class UserMenu extends JFrame implements ActionListener, IMessage {
         final JFrame mainFrame;
         private JButton button1, button2, button3;
         private JMenu myProfile; JMenu mySchedule; JMenu menu;
-        private JMenuItem m1, m4, m5, m6, m7, m8, m9;
+        JMenuItem m1, m4, m5, m6, m7, m8, m9;
         private static JPanel cards;
 
         public UserMenu() {
