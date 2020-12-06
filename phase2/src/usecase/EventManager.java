@@ -64,8 +64,9 @@ public class EventManager {
         try{
             Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                     g.getNextEventId(), title, roomId, capacity);
+            ((OneSpeakerEvent) nEvent).setSpeaker(speakerId);
             g.addEvent(nEvent);
-            g.getOneSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerId);
+
             return nEvent.getEventId();
         }
         catch (NullPointerException npe){
@@ -104,8 +105,8 @@ public class EventManager {
                            LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
+        ((MultiSpeakerEvent) nEvent).setSpeaker(speakerList);
         g.addEvent(nEvent);
-        g.getMultiSpeakerEventById(nEvent.getEventId()).setSpeaker(speakerList);
         return nEvent.getEventId();
     }
 
