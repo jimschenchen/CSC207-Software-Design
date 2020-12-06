@@ -17,7 +17,7 @@ public abstract class NonSpeakerEvent extends Event{
      *
      * @Description: Set the speaker id
      */
-    public void setSpeaker(@Nullable int speakerId) {}
+    public void setSpeaker(int speakerId) {}
 
     public void getSpeakerId() {};
 }

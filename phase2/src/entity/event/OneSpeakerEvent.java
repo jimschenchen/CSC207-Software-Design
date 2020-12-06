@@ -22,15 +22,8 @@ public abstract class OneSpeakerEvent extends Event{
      *
      * @Description: set the speaker id
      */
-    public void setSpeakerId(int speakerId) {
-        this.speakerId = speakerId;
-    }
-
-    /**
-     *
-     * @Description: set the speaker
-     */
     public void setSpeaker(int speakerId) {
         this.speakerId = speakerId;
     }
+
 }
