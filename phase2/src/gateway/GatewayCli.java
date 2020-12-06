@@ -92,7 +92,7 @@ public class GatewayCli extends Gateway{
         GatewayFacade gf = new GatewayFacade();
         testUser (gf);
         testEvent (gf);
-//        testRoom (gf);
+        testRoom (gf);
         testMessage(gf);
         System.out.println("\nGateway: All tests passed");
     }
@@ -147,14 +147,14 @@ public class GatewayCli extends Gateway{
         System.out.print("**");
     }
 
-//    private void testRoom (GatewayFacade gf) {
-//        Room r1 = new Room("123313", 999);
-//        gf.addRoom(r1);
-//        assert (gf.getRoomById(999).getRoomNum().equals("123313"));
-//        assert (gf.getRoomByRoomNum("123313").getRid() == 999);
-//        gf.deleteRoom(r1);
-//        System.out.print("**");
-//    }
+    private void testRoom (GatewayFacade gf) {
+        Room r1 = new Room("123313", 999, 10);
+        gf.addRoom(r1);
+        assert (gf.getRoomById(999).getRoomNum().equals("123313"));
+        assert (gf.getRoomByRoomNum("123313").getRid() == 999);
+        gf.deleteRoom(r1);
+        System.out.print("**");
+    }
 
     private void testMessage (GatewayFacade gf) {
         boolean check = false;
@@ -163,8 +163,8 @@ public class GatewayCli extends Gateway{
             check = (message.getInfo().equals("Hello Message") || check);
         }
         if (!check) {
-//            Message m = new Message("Hello Message", 999, 998);
-//            gf.addMessage(m);
+            Message m = new Message("Hello Message", "info", 999, 998);
+            gf.addMessage(m);
         }
         messageList = gf.getSentMessageListByUserId(999);
         check = false;

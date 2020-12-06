@@ -118,21 +118,20 @@ public class LoginWindow extends JFrame implements IUpdate {
     public void update(String action) {
         if (action == "error"){
             wf.get("error");
-        }else if (action == "Speaker"){
-            // open the speaker window
-        }else if (action == "Organizer"){
-            // open the organizer window
-        }else if (action == "Attendee"){
-            // open the attendee window
-        }else if (action == "SignUp"){
-            SignUpWindow signUpWindow = new SignUpWindow(language);
-            dispose();
         }else  if (action == "Exit"){
             System.exit(0);
+        }else if (action == "Speaker"){
+            SpeakerMenu speakerMenu = new SpeakerMenu(language, presenter);
+        }else if (action == "Organizer"){
+            OrganizerMenu organizerMenu = new OrganizerMenu(language, presenter);
+        }else if (action == "Attendee"){
+           UserMenu userMenu = new UserMenu(language, presenter);
+        }else if (action == "SignUp"){
+            SignUpWindow signUpWindow = new SignUpWindow(language);
         }else if(action == "Language"){
             LanguageWindow languageWindow = new LanguageWindow(language);
-            dispose();
         }
+        dispose();
     }
 
 

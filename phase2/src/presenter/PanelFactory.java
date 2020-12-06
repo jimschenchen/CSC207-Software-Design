@@ -20,6 +20,11 @@ public class PanelFactory implements IUpdate{
     private JOptionPaneFactory optionPaneFactory;
     private PanelPresenter presenter;
 
+    public PanelFactory(Language language, Presenter presenter){
+        this.language = language;
+        this.optionPaneFactory = new JOptionPaneFactory(language);
+        this.presenter = new PanelPresenter(presenter, this);
+    }
 
     public JPanel getPanel(String action) {
         JPanel panel = new JPanel();
@@ -58,7 +63,7 @@ public class PanelFactory implements IUpdate{
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                update("reSet");
+                presenter.reSetPass(newPass.getText());
             }
         });
         panel.add(newPass);

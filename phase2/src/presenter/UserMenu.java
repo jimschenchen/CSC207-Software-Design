@@ -26,11 +26,13 @@ public class UserMenu extends JFrame implements IUpdate{
     JMenuItem viewWait;
     JMenuItem messenger;
     JMenuBar menuBar;
-    PanelFactory panelFactory = new PanelFactory();
+    PanelFactory panelFactory;
     JPanel panel;
     Language language;
 
-    public UserMenu() {
+    public UserMenu(Language language, Presenter presenter) {
+        this.language = language;
+        panelFactory = new PanelFactory(language, presenter);
         this.mainFrame = new JFrame();
         mainFrame.setSize(400, 400);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,6 +1,7 @@
 package presenter;
 
 import entity.Organizer;
+import presenter.language.Language;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,8 @@ public class OrganizerMenu extends UserMenu{
     JMenuItem changeEventSetting;
     JMenuItem viewOrganizedEvent;
     JMenu organizedEvent;
-    public OrganizerMenu() {
+    public OrganizerMenu(Language language, Presenter presenter) {
+        super(language, presenter);
      create = new JMenu("Create: ");
      createUser = new JMenuItem("New User");
      createUser.addActionListener(new ActionListener() {
