@@ -1,14 +1,23 @@
-package presenter;
+package presenter.menus;
 
+import presenter.Presenter;
 import presenter.language.Language;
+import presenter.menus.UserMenu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-public class SpeakerMenu extends UserMenu{
+/**
+ * The menu all speakers see
+ */
+public class SpeakerMenu extends UserMenu {
     JMenuItem viewMyTalks;
     JMenu myTalks;
+    /**
+     * construct the SpeakerMenu
+     * @param language the language used in UserMenu
+     * @param presenter the presenter whose presenter is used to initialize the PanelFactory
+     */
     public SpeakerMenu(Language language, Presenter presenter) {
         super(language, presenter);
         this.myTalks = new JMenu(language.talk());

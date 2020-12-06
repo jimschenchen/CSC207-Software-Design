@@ -1,19 +1,31 @@
 package presenter;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import controller.ConferenceSystem;
 
 import java.util.List;
 
+/**
+ * This is an presenter class for the panel made by the PanelFactory
+ */
 public class PanelPresenter extends Presenter{
     ConferenceSystem cs;
     IUpdate panel;
 
+    /**
+     * Construct the PanelPresenter
+     * @param presenter the presenter whose ConferenceSystem will be used in the PanelPresenter
+     * @param panel the IUpdate panel whose update method we need to use
+     */
     public PanelPresenter(Presenter presenter, IUpdate panel) {
         this.cs = presenter.cs;
         this.panel = panel;
     }
 
+
+    /**
+     * sign up the event which doesn't have a waiting list at present
+     * @param eventID the event ID that the user wants to sign up
+     */
     public void signUpEvent(String eventID) {
         Boolean success = cs.signUpForEvent(eventID);
         if (success) {

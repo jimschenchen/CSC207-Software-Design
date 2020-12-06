@@ -1,10 +1,10 @@
 package presenter;
 
-import presenter.factory.JOptionPaneFactory;
-import presenter.language.English;
+import presenter.windows.LoginWindow;
 
-import javax.swing.*;
-
+/**
+ * the class is used to open the Tech Conference
+ */
 public class Present {
     public static void main(String[] args) {
         LoginWindow loginWindow = new LoginWindow();

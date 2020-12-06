@@ -1,13 +1,17 @@
-package presenter;
+package presenter.windows;
 
 import presenter.language.*;
+import presenter.IUpdate;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LanguageWindow extends JFrame implements IUpdate{
+/**
+ * the window used to choose language
+ */
+public class LanguageWindow extends JFrame implements IUpdate {
     ButtonGroup buttonGroup;
     JRadioButton simplifiedChineseButton;
     JRadioButton englishButton;
@@ -20,6 +24,10 @@ public class LanguageWindow extends JFrame implements IUpdate{
 
     Font defaultFont = new Font("Mononspace", 1, 25);
 
+    /**
+     * Construct the language Window
+     * @param language the language used in this window
+     */
     public LanguageWindow(Language language) {
         this.language = language;
         init();

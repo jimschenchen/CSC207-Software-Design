@@ -1,14 +1,22 @@
-package presenter;
+package presenter.windows;
 
+import presenter.Presenter;
 import presenter.factory.JOptionPaneFactory;
 import presenter.language.English;
 import presenter.language.Language;
+import presenter.IUpdate;
+import presenter.menus.OrganizerMenu;
+import presenter.menus.SpeakerMenu;
+import presenter.menus.UserMenu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The first window users see
+ */
 public class LoginWindow extends JFrame implements IUpdate {
     JLabel usernameLabel;
     JLabel passwordLabel;
@@ -25,13 +33,19 @@ public class LoginWindow extends JFrame implements IUpdate {
     JOptionPaneFactory wf;
     IUpdate window = this;
 
-
+    /**
+     * construct the login window in English
+     */
     public LoginWindow(){//The language is English By default
         language = new English();
         wf = new JOptionPaneFactory(language);
         init();
     }
 
+    /**
+     * construct the login window in a specific language
+     * @param language the language used in the login window
+     */
     public LoginWindow(Language language){
         this.language = language;
         wf = new JOptionPaneFactory(language);

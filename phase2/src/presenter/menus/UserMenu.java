@@ -1,5 +1,8 @@
-package presenter;
+package presenter.menus;
 
+import presenter.IUpdate;
+import presenter.windows.LoginWindow;
+import presenter.Presenter;
 import presenter.factory.PanelFactory;
 import presenter.language.Language;
 
@@ -9,25 +12,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static javax.swing.JOptionPane.showMessageDialog;
+/**
+ * The menu all attendees see
+ */
+public class UserMenu extends JFrame implements IUpdate {
+    protected JMenu myProfile;
+    protected JMenu schedule;
+    protected JMenu signUp;
+    protected JMenu viewMyEvent;
+    protected JMenuItem logOut;
+    protected JMenuItem reSet;
+    protected JMenuItem viewAllEvent;
+    protected JMenuItem signUpNoWait;
+    protected JMenuItem signUpWait;
+    protected JMenuItem viewNoWait;
+    protected JMenuItem viewWait;
+    protected JMenuItem messenger;
+    protected JMenuBar menuBar;
+    protected PanelFactory panelFactory;
+    protected JPanel contentPanel;
+    protected Language language;
 
-public class UserMenu extends JFrame implements IUpdate{
-    JMenu myProfile;
-    JMenu schedule;
-    JMenu signUp;
-    JMenu viewMyEvent;
-    JMenuItem logOut;
-    JMenuItem reSet;
-    JMenuItem viewAllEvent;
-    JMenuItem signUpNoWait;
-    JMenuItem signUpWait;
-    JMenuItem viewNoWait;
-    JMenuItem viewWait;
-    JMenuItem messenger;
-    JMenuBar menuBar;
-    PanelFactory panelFactory;
-    JPanel contentPanel;
-    Language language;
-
+    /**
+     * construct the UserMenu
+     * @param language the language used in UserMenu
+     * @param presenter the presenter whose presenter is used to initialize the PanelFactory
+     */
     public UserMenu(Language language, Presenter presenter) {
         setLayout(new BorderLayout());
         this.language = language;

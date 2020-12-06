@@ -3,7 +3,6 @@ package presenter.factory;
 import presenter.IUpdate;
 import presenter.PanelPresenter;
 import presenter.Presenter;
-import presenter.factory.JOptionPaneFactory;
 import presenter.language.Language;
 
 import javax.swing.*;
@@ -11,9 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * PanelFactory is used to make panel needed by the userMenu

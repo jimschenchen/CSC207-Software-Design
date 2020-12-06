@@ -5,10 +5,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 
-import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 class MessengerWindow extends JFrame implements ActionListener, IMessage {

@@ -1,8 +1,6 @@
 package presenter;
 
 import controller.ConferenceSystem;
-import controller.MessagingSystem;
-import gateway.GatewayFacade;
 
 import java.util.List;
 

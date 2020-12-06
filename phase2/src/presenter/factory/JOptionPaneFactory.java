@@ -3,13 +3,25 @@ package presenter.factory;
 import presenter.language.Language;
 
 import javax.swing.*;
-
+/**
+ *JOptionPaneFactory, as the name suggested, is used to make JOptionPane used in the program
+ */
 public class JOptionPaneFactory {
-    // This is for JOptionPane.showMessageDialog
     Language language;
+    /**
+     * @param language the language used in the JOptionPane
+     */
     public JOptionPaneFactory(Language language){
         this.language = language;
     }
+
+    /**
+     * get the JOptionPane wanted
+     * Input "error" to tell there is an error
+     * Input "createAccount" to tell the account has been made successfully
+     * Input.......
+     * @param instruction to tell the JOptionFactory which JOptionPane should it make
+     */
     public void get(String instruction){
         if(instruction == "error"){
             error();

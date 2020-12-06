@@ -1,14 +1,16 @@
-package presenter;
+package presenter.windows;
 
+import presenter.Presenter;
 import presenter.factory.JOptionPaneFactory;
 import presenter.language.Language;
+import presenter.IUpdate;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpWindow extends JFrame implements IUpdate{
+public class SignUpWindow extends JFrame implements IUpdate {
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;

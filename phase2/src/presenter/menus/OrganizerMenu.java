@@ -1,14 +1,17 @@
-package presenter;
+package presenter.menus;
 
-import entity.Organizer;
+import presenter.Presenter;
 import presenter.language.Language;
+import presenter.menus.UserMenu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.EventHandler;
 
-public class OrganizerMenu extends UserMenu{
+/**
+ * The menu organizers see
+ */
+public class OrganizerMenu extends UserMenu {
     JMenu create;
     JMenuItem createUser;
     JMenuItem createRoom;
@@ -16,6 +19,12 @@ public class OrganizerMenu extends UserMenu{
     JMenuItem changeEventSetting;
     JMenuItem viewOrganizedEvent;
     JMenu organizedEvent;
+
+    /**
+     * construct the OrganizerMenu
+     * @param language the language used in the organizer menu
+     * @param presenter the presenter whose presenter is used to initialize the PanelFactory
+     */
     public OrganizerMenu(Language language, Presenter presenter) {
         super(language, presenter);
      create = new JMenu(language.create());
