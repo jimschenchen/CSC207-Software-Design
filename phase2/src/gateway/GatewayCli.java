@@ -148,7 +148,7 @@ public class GatewayCli extends Gateway{
     }
 
     private void testRoom (GatewayFacade gf) {
-        Room r1 = new Room("123313", 999);
+        Room r1 = new Room("123313", 999, 10);
         gf.addRoom(r1);
         assert (gf.getRoomById(999).getRoomNum().equals("123313"));
         assert (gf.getRoomByRoomNum("123313").getRid() == 999);
@@ -163,7 +163,7 @@ public class GatewayCli extends Gateway{
             check = (message.getInfo().equals("Hello Message") || check);
         }
         if (!check) {
-            Message m = new Message("Hello Message", 999, 998);
+            Message m = new Message("Hello Message", "info", 999, 998);
             gf.addMessage(m);
         }
         messageList = gf.getSentMessageListByUserId(999);
