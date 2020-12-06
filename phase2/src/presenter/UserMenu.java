@@ -33,10 +33,9 @@ public class UserMenu extends JFrame implements IUpdate{
         setLayout(new BorderLayout());
         this.language = language;
         panelFactory = new PanelFactory(language, presenter);
-        add(contentPanel, BorderLayout.CENTER);
-
         contentPanel = new JPanel();
         contentPanel.add(new JLabel("Welcome!"));
+        add(contentPanel, BorderLayout.CENTER);
 
 
         menuBar = new JMenuBar();
