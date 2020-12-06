@@ -189,4 +189,289 @@ public class Japanese implements Language {
     public String failCreateAccount() {
         return fail;
     }
+
+    @Override
+    public String Welcome() {
+        return null;
+    }
+
+    @Override
+    public String myProfile() {
+        return null;
+    }
+
+    @Override
+    public String logOut() {
+        return null;
+    }
+
+    @Override
+    public String resetPass() {
+        return null;
+    }
+
+    @Override
+    public String schedule() {
+        return null;
+    }
+
+    @Override
+    public String signUp() {
+        return null;
+    }
+
+    @Override
+    public String signUpWait() {
+        return null;
+    }
+
+    @Override
+    public String signUpNowait() {
+        return null;
+    }
+
+    @Override
+    public String viewMyEvent() {
+        return null;
+    }
+
+    @Override
+    public String viewMyWait() {
+        return null;
+    }
+
+    @Override
+    public String viewMyNoWait() {
+        return null;
+    }
+
+    @Override
+    public String viewAllEvent() {
+        return null;
+    }
+
+    @Override
+    public String messenger() {
+        return null;
+    }
+
+    @Override
+    public String newPass() {
+        return null;
+    }
+
+    @Override
+    public String eventInfo() {
+        return null;
+    }
+
+    @Override
+    public String withID() {
+        return null;
+    }
+
+    @Override
+    public String startAt() {
+        return null;
+    }
+
+    @Override
+    public String endAt() {
+        return null;
+    }
+
+    @Override
+    public String takePlace() {
+        return null;
+    }
+
+    @Override
+    public String whichIs() {
+        return null;
+    }
+
+    @Override
+    public String title() {
+        return null;
+    }
+
+    @Override
+    public String duration() {
+        return null;
+    }
+
+    @Override
+    public String startTime() {
+        return null;
+    }
+
+    @Override
+    public String endTime() {
+        return null;
+    }
+
+    @Override
+    public String vIPStatus() {
+        return null;
+    }
+
+    @Override
+    public String waitinglist() {
+        return null;
+    }
+
+    @Override
+    public String signUpQuestion() {
+        return null;
+    }
+
+    @Override
+    public String yes() {
+        return null;
+    }
+
+    @Override
+    public String enterRoomNum() {
+        return null;
+    }
+
+    @Override
+    public String enterRoomCapacity() {
+        return null;
+    }
+
+    @Override
+    public String create() {
+        return null;
+    }
+
+    @Override
+    public String eventType() {
+        return null;
+    }
+
+    @Override
+    public String party() {
+        return null;
+    }
+
+    @Override
+    public String talk() {
+        return null;
+    }
+
+    @Override
+    public String discussion() {
+        return null;
+    }
+
+    @Override
+    public String topic() {
+        return null;
+    }
+
+    @Override
+    public String roomNum() {
+        return null;
+    }
+
+    @Override
+    public String capacity() {
+        return null;
+    }
+
+    @Override
+    public String no() {
+        return null;
+    }
+
+    @Override
+    public String selectSpeaker() {
+        return null;
+    }
+
+    @Override
+    public String empty() {
+        return null;
+    }
+
+    @Override
+    public String userType() {
+        return null;
+    }
+
+    @Override
+    public String speaker() {
+        return null;
+    }
+
+    @Override
+    public String organizer() {
+        return null;
+    }
+
+    @Override
+    public String attendee() {
+        return null;
+    }
+
+    @Override
+    public String cancel() {
+        return null;
+    }
+
+    @Override
+    public String rank() {
+        return null;
+    }
+
+    @Override
+    public String reallyQuestion() {
+        return null;
+    }
+
+    @Override
+    public String change() {
+        return null;
+    }
+
+    @Override
+    public String newWord() {
+        return null;
+    }
+
+    @Override
+    public String viewTalks() {
+        return null;
+    }
+
+    @Override
+    public String newUser() {
+        return null;
+    }
+
+    @Override
+    public String newRoom() {
+        return null;
+    }
+
+    @Override
+    public String newEvent() {
+        return null;
+    }
+
+    @Override
+    public String organizedEvent() {
+        return null;
+    }
+
+    @Override
+    public String changeEventSetting() {
+        return null;
+    }
+
+    @Override
+    public String viewOrganizedEvent() {
+        return null;
+    }
 }

@@ -2,16 +2,12 @@ package presenter;
 
 import presenter.factory.JOptionPaneFactory;
 import presenter.language.Language;
-import sun.tools.jps.Jps;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
