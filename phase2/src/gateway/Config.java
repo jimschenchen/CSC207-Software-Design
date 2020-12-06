@@ -2,8 +2,7 @@ package gateway;
 
 /**
  * @program: group_0173
- * @description:
- * @author:
+ * @description: Configuration of DATABASE.
  * @create: 2020-11-30 14:33
  **/
 public class Config {

@@ -2,24 +2,20 @@ package gateway.bean;
 
 import entity.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @program: group_0173
- * @description:
- * @author:
+ * @description: Storing a user in purpose of easily serializing/deserializing genetic data
  * @create: 2020-11-26 18:45
  **/
 public class UserBean {
 
-    private List<User> data = new ArrayList<>();
+    private User[] data = new User[1];
 
     public UserBean(User u) {
-        this.data.add(u);
+        this.data[0] = u;
     }
 
     public Object convertToObject () {
-        return data.get(0);
+        return data[0];
     }
 }
