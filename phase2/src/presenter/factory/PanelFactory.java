@@ -10,6 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,21 +85,31 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-    private JPanel viewAllEvents(List<List<String>> allEventList) {
-        JPanel viewEventPanel = new JPanel();
-        viewEventPanel.setLayout(null);
-        TitledBorder tb = BorderFactory.createTitledBorder(language.eventInfo());
-        viewEventPanel.setBorder(tb);
-        for (int i = 0; i < allEventList.size(); i++) {
-            List<String> event = allEventList.get(i);
-            String eventInfo = event.get(1) + ", " + event.get(0)+ language.withID()+ event.get(2) +
-                    language.startAt() + event.get(3) + language.endAt() + event.get(4) +
-                    language.takePlace() +  event.get(5) + language.whichIs() + event.get(6);
-            JLabel eventLabel = new JLabel(eventInfo);
-            eventLabel.setBounds(0, 50*i, 1000,50);
-            viewEventPanel.add(eventLabel);
+    private JPanel viewAllEvents(List<List<String>> events) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(events.size()+1, 7, 10,5));
+        System.out.println(events);
+        panel.add(new JLabel(language.eventType()));
+        panel.add(new JLabel(language.title()));
+        panel.add(new JLabel(language.eventId()));
+        panel.add(new JLabel(language.startAt()));
+        panel.add(new JLabel(language.endAt()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        int i = 0;
+        for (List<String> event: events){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
+            i++;
         }
-        return viewEventPanel;
+        return panel;
     }
 
     private JPanel signUpWaitListEvent(List<List<String>> events){
@@ -229,7 +240,7 @@ public class PanelFactory implements IUpdate {
         String[] roomsArray = new String[rooms.size()];
         int ii = 0;
         for(List<String> room: rooms){
-            roomsArray[ii] = room.get(0) + " "+room.get(1);
+            roomsArray[ii] = room.get(0) + " with capacity "+room.get(1);
             ii++;
         }
         JComboBox roomNumberSelected = new JComboBox(roomsArray);
@@ -255,6 +266,7 @@ public class PanelFactory implements IUpdate {
 
         JCheckBox[] checkArray = new JCheckBox[speakers.size()];
         String[] idArray = new String[speakers.size()];
+
         int i = 0;
         for(List<String> speaker : speakers){
             checkArray[i] = new JCheckBox(speaker.get(0) + " "+ speaker.get(1));
@@ -275,7 +287,7 @@ public class PanelFactory implements IUpdate {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.createEvent((String) typeSelected.getSelectedItem(), startTime.getText(),
+                presenter.createEvent((Integer.toString(typeSelected.getSelectedIndex())), startTime.getText(),
                         endTime.getText(),
                         idHelper(checkArray, idArray), rooms.get(roomIndex).get(0),
                         topicEntered.getText(),
@@ -304,20 +316,24 @@ public class PanelFactory implements IUpdate {
     }
 
     private String idHelper(JCheckBox[] checkArray, String[] idArray){
+        ArrayList<String> idSelected = new ArrayList<>();
         String speakersSelected = "";
         int ii = 0;
-        if (idArray.length == 1) {
-            speakersSelected += idArray[0];
-        }
-        else{
-            for (JCheckBox cb : checkArray){
-                if (cb.isSelected()){
-                    speakersSelected = speakersSelected + idArray[ii] + ",";
-                }
-                ii++;
+       for (JCheckBox cb : checkArray){
+            if (cb.isSelected()) {
+                idSelected.add(idArray[ii]);
             }
+            ii++;
         }
-        return speakersSelected;
+       if (idSelected.size() == 1){
+           speakersSelected = idSelected.get(0);
+       }else{
+           for (String id: idSelected){
+               speakersSelected = id + ",";
+           }
+       }
+       System.out.println(speakersSelected);
+       return speakersSelected;
     }
 
     private JPanel createUser(){
