@@ -13,22 +13,22 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class UserMenu extends JFrame{
     JFrame mainFrame;
-    private JMenu myProfile;
-    private JMenu schedule;
-    private JMenu signUp;
-    private JMenu viewMyEvent;
-    private JMenuItem logOut;
-    private JMenuItem reSet;
-    private JMenuItem viewAllEvent;
-    private JMenuItem signUpNoWait;
-    private JMenuItem signUpWait;
-    private JMenuItem viewNoWait;
-    private JMenuItem viewWait;
-    private JMenuItem messenger;
-    private JMenuBar menuBar;
-    private PanelFactory panelFactory = new PanelFactory();
-    private JPanel panel;
-    private Language language;
+    JMenu myProfile;
+    JMenu schedule;
+    JMenu signUp;
+    JMenu viewMyEvent;
+    JMenuItem logOut;
+    JMenuItem reSet;
+    JMenuItem viewAllEvent;
+    JMenuItem signUpNoWait;
+    JMenuItem signUpWait;
+    JMenuItem viewNoWait;
+    JMenuItem viewWait;
+    JMenuItem messenger;
+    JMenuBar menuBar;
+    PanelFactory panelFactory = new PanelFactory();
+    JPanel panel;
+    Language language;
 
     public UserMenu() {
         this.mainFrame = new JFrame();

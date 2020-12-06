@@ -11,13 +11,16 @@ public class SpeakerMenu extends UserMenu{
         super();
         this.myTalks = new JMenu();
         myTalks.add(this.viewMyTalks = new JMenuItem());
-        this.menu.add(myTalks);
+        menuBar.add(myTalks);
         viewMyTalks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _presenter.menuItemClicked(14);
+                update("viewTalks");
                 ;
             }
         });
+    }
+    public void update(String action){
+        panel = panelFactory.getPanel(action);
     }
 }
