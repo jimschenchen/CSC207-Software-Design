@@ -141,6 +141,7 @@ class EventManagementSystem extends subSystem{
             int cap = Integer.parseInt(capacity);
             if (!(speakerID.length() == 0)){
                 if (speakerID.contains(",")) { // have more than 1 speaker
+                    System.out.println(speakerID);
                     ArrayList<Integer> sID = new ArrayList<>();
                     StringTokenizer token = new StringTokenizer(speakerID,",");
                     while (token.hasMoreElements()){
@@ -150,6 +151,7 @@ class EventManagementSystem extends subSystem{
                             rID, cap, vipStatus, gw);
                 }
                 else { // only have 1 speaker
+//                    System.out.println("11111");
                     int sID = Integer.parseInt(speakerID);
                     return newEvent1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID,
                             cap, vipStatus, gw);
@@ -200,8 +202,10 @@ class EventManagementSystem extends subSystem{
      */
     private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
                                    GatewayFacade gw){
-        System.out.println(em.canCreateEvent(rID, sTime, eTime, cap, gw));
-        System.out.println(! um.isSpeakerBusy(sID, sTime, eTime, gw));
+//        System.out.println(em.canCreateEvent(rID, sTime, eTime, cap, gw));
+//        System.out.println(cap);
+//        System.out.println(! um.isSpeakerBusy(sID, sTime, eTime, gw));
+//        System.out.println("___________");
         return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
                 ! um.isSpeakerBusy(sID, sTime, eTime, gw);
     }
@@ -222,7 +226,7 @@ class EventManagementSystem extends subSystem{
                                      LocalDateTime eTime, String topic, int rID, int cap,
                                      boolean vipStatus, GatewayFacade gw){
 
-        System.out.println(canCreateEvent(sID, rID, sTime, eTime, cap, gw));
+//        System.out.println(canCreateEvent(sID, rID, sTime, eTime, cap, gw));
         if (type1 != 1){
             return false;
         }

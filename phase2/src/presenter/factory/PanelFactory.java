@@ -10,6 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -239,7 +240,7 @@ public class PanelFactory implements IUpdate {
         String[] roomsArray = new String[rooms.size()];
         int ii = 0;
         for(List<String> room: rooms){
-            roomsArray[ii] = room.get(0) + " "+room.get(1);
+            roomsArray[ii] = room.get(0) + " with capacity "+room.get(1);
             ii++;
         }
         JComboBox roomNumberSelected = new JComboBox(roomsArray);
@@ -265,6 +266,7 @@ public class PanelFactory implements IUpdate {
 
         JCheckBox[] checkArray = new JCheckBox[speakers.size()];
         String[] idArray = new String[speakers.size()];
+
         int i = 0;
         for(List<String> speaker : speakers){
             checkArray[i] = new JCheckBox(speaker.get(0) + " "+ speaker.get(1));
@@ -285,7 +287,7 @@ public class PanelFactory implements IUpdate {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                presenter.createEvent((String) typeSelected.getSelectedItem(), startTime.getText(),
+                presenter.createEvent((Integer.toString(typeSelected.getSelectedIndex())), startTime.getText(),
                         endTime.getText(),
                         idHelper(checkArray, idArray), rooms.get(roomIndex).get(0),
                         topicEntered.getText(),
@@ -314,20 +316,24 @@ public class PanelFactory implements IUpdate {
     }
 
     private String idHelper(JCheckBox[] checkArray, String[] idArray){
+        ArrayList<String> idSelected = new ArrayList<>();
         String speakersSelected = "";
         int ii = 0;
-        if (idArray.length == 1) {
-            speakersSelected += idArray[0];
-        }
-        else{
-            for (JCheckBox cb : checkArray){
-                if (cb.isSelected()){
-                    speakersSelected = speakersSelected + idArray[ii] + ",";
-                }
-                ii++;
+       for (JCheckBox cb : checkArray){
+            if (cb.isSelected()) {
+                idSelected.add(idArray[ii]);
             }
+            ii++;
         }
-        return speakersSelected;
+       if (idSelected.size() == 1){
+           speakersSelected = idSelected.get(0);
+       }else{
+           for (String id: idSelected){
+               speakersSelected = id + ",";
+           }
+       }
+       System.out.println(speakersSelected);
+       return speakersSelected;
     }
 
     private JPanel createUser(){
