@@ -1,7 +1,5 @@
 package gateway;
 
-import com.google.gson.Gson;
-import entity.Message;
 import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.Type;
@@ -10,8 +8,7 @@ import java.util.List;
 
 /**
  * @program: group_0173
- * @description: List has fast perform but
- * @author:
+ * @description: Gateway operating one field-value in database with type of list.
  * @create: 2020-12-03 21:18
  **/
 public class ListGateway<T> extends Gateway<T> {

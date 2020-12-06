@@ -188,5 +188,6 @@ public class GatewayCli extends Gateway{
         for (Message message : messageList) {
             check = (message.getInfo().equals("Hello Message") || check);
         }
+        System.out.print("**");
     }
 }

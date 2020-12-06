@@ -1,7 +1,5 @@
 package gateway;
 
-import com.google.gson.Gson;
-import entity.event.Event;
 import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.Type;
@@ -12,8 +10,7 @@ import java.util.Map;
 
 /**
  * @program: group_0173
- * @description:
- * @author:
+ * @description: Gateway operating one field-value in database with type of hash.
  * @create: 2020-12-03 20:03
  **/
 public class HashGateway<T> extends Gateway<T>{
