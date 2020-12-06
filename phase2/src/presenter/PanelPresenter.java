@@ -96,17 +96,9 @@ public class PanelPresenter extends Presenter{
         }
     }
 
-    public void createEvent(String eventType, String startTime, String endTime, String speakers,
+    public void createEvent(int eventType, String startTime, String endTime, String speakers,
                             String roomNum, String topic, String capacity, String vipStatus) {
-        int type;
-        if (eventType == "Party") {
-            type = 0;
-        } else if (eventType == "Talk") {
-            type = 1;
-        } else {
-            type = 2;
-        }
-        Boolean success = cs.newEvent(type, startTime, endTime, speakers, topic, roomNum, capacity, vIPConverter(vipStatus));
+        Boolean success = cs.newEvent(eventType, startTime, endTime, speakers, topic, roomNum, capacity, vIPConverter(vipStatus));
         if (success) {
             panel.update("succeedCreateEvent");
         } else {

@@ -284,9 +284,7 @@ public class PanelFactory implements IUpdate {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = roomNumberSelected.getSelectedIndex();
-                System.out.println("Index"+ index);
-                presenter.createEvent((Integer.toString(typeSelected.getSelectedIndex())), startTime.getText(),
+                presenter.createEvent(typeSelected.getSelectedIndex(), startTime.getText(),
                         endTime.getText(),
                         idHelper(checkArray, idArray), rooms.get( roomNumberSelected.getSelectedIndex()).get(0),
                         topicEntered.getText(),
