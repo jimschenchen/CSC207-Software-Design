@@ -320,7 +320,8 @@ public class UserManager {
      */
     public boolean isSpeakerBusy(int speakerId, LocalDateTime start, LocalDateTime end, GatewayFacade g) {
         for (int eid :g.getSpeakerById(speakerId).get_GivingEventList()) {
-            if (!(g.getEventById(eid).getEndTime().isBefore(start) | g.getEventById(eid).getStartTime().isAfter(end))) {
+            if ((g.getEventById(eid).getStartTime().isBefore(end) & !(g.getEventById(eid).getEndTime().isBefore(start) |
+                    g.getEventById(eid).getEndTime().equals(start)))) {
                 return true;
             }
         }

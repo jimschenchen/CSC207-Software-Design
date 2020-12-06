@@ -35,14 +35,14 @@ public class EventManager {
         List<Event> allEvent = g.getEventList();
         for (Event event : allEvent) {
             if (roomId == event.getRoomId() &&
-                    ((event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start))) |
-                            capacity > g.getRoomById(roomId).getCapacity())) {
-//                System.out.println(roomId == event.getRoomId());
-//                System.out.print(g.getRoomById(roomId));
-//                System.out.println(roomId);
-//                System.out.println(capacity > g.getRoomById(roomId).getCapacity());
-//                System.out.println(capacity);
-//                System.out.println(g.getRoomById(roomId).getCapacity());
+                    ((event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start) |
+                            event.getEndTime().equals(start))) | capacity > g.getRoomById(roomId).getCapacity())) {
+                System.out.println(roomId == event.getRoomId());
+                System.out.print(g.getRoomById(roomId));
+                System.out.println(roomId);
+                System.out.println(capacity > g.getRoomById(roomId).getCapacity());
+                System.out.println(capacity);
+                System.out.println(g.getRoomById(roomId).getCapacity());
                 return false;
             }
         }
