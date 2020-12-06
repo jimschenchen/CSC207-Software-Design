@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginWindow extends JFrame implements IWindow {
+public class LoginWindow extends JFrame implements IUpdate {
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;
@@ -23,7 +23,7 @@ public class LoginWindow extends JFrame implements IWindow {
     Language language;
     Presenter presenter = new Presenter();
     JOptionPaneFactory wf;
-    IWindow window = this;
+    IUpdate window = this;
 
 
     public LoginWindow(){//The language is English By default

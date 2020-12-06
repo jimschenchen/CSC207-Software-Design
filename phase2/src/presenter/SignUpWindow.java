@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SignUpWindow extends JFrame implements IWindow{
+public class SignUpWindow extends JFrame implements IUpdate{
     JLabel usernameLabel;
     JLabel passwordLabel;
     JTextField usernameText;
@@ -19,7 +19,7 @@ public class SignUpWindow extends JFrame implements IWindow{
     Language language;
     JOptionPaneFactory windowFactory;
     Presenter presenter = new Presenter();
-    IWindow window = this;
+    IUpdate window = this;
 
     public SignUpWindow(Language language) {
         this.language = language;

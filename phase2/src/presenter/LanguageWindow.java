@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LanguageWindow extends JFrame implements IWindow{
+public class LanguageWindow extends JFrame implements IUpdate{
     ButtonGroup buttonGroup;
     JRadioButton simplifiedChineseButton;
     JRadioButton englishButton;

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class UserMenu extends JFrame{
+public class UserMenu extends JFrame implements IUpdate{
     JFrame mainFrame;
     JMenu myProfile;
     JMenu schedule;

@@ -4,9 +4,9 @@ import controller.ConferenceSystem;
 
 public class MyUserMenuPresenter extends Presenter{
     private ConferenceSystem cs = new ConferenceSystem();
-    private IWindow userMenu;
+    private IUpdate userMenu;
 
-    public MyUserMenuPresenter(IWindow userMenu){
+    public MyUserMenuPresenter(IUpdate userMenu){
         this.userMenu = userMenu;
     }
 
