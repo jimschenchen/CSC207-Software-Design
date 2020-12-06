@@ -7,15 +7,13 @@ import entity.event.Talk;
 import redis.clients.jedis.Jedis;
 import usecase.EventManager;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * @program: group_0173
- * @description:
- * @author:
+ * @description: GatewayCli is an external Command line interface of Gateway in the purpose of debugging, displaying database and operating database.
  * @create: 2020-12-03 22:18
  **/
 public class GatewayCli extends Gateway{
@@ -36,6 +34,7 @@ public class GatewayCli extends Gateway{
             System.out.println("1. Display all data");
             System.out.println("2. Check gateway errors");
             System.out.println("3. Format Database");
+            System.out.println("4. Create new Organizer");
             System.out.println("0. Exit");
             input = scan.nextLine();
             switch (input) {
@@ -48,6 +47,8 @@ public class GatewayCli extends Gateway{
                 case "3":
                     gcli.rmrf();
                     break;
+                case "4":
+                    gcli.createOrganizer(gatewayFacade);
                 case "0":
                     System.out.println("Gateway: CLI exit");
                     break;
@@ -57,6 +58,19 @@ public class GatewayCli extends Gateway{
         }
     }
 
+    /** Create a new organizer*/
+    private void createOrganizer(GatewayFacade gatewayFacade) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("User Name:");
+        String username = scan.nextLine();
+        System.out.println("Password:");
+        String password = scan.nextLine();
+        Organizer o = new Organizer(gatewayFacade.getNextUserId(), password, username);
+        gatewayFacade.addUser(o);
+        System.out.println(ANSI_RED + "Organizer" + o.getUserName() + "has been created" + ANSI_RESET);
+    }
+
+    /** Format Database*/
     private void rmrf() {
         Jedis jedis = getJedis();
         Scanner scan = new Scanner(System.in);
@@ -86,16 +100,6 @@ public class GatewayCli extends Gateway{
         closeJedis(jedis);
     }
 
-    /** Enable '-ea' in VM option in config before testing*/
-    private void testCases () {
-        System.out.println("Gateway: Testing...");
-        GatewayFacade gf = new GatewayFacade();
-        testUser (gf);
-        testEvent (gf);
-        testRoom (gf);
-        testMessage(gf);
-        System.out.println("\nGateway: All tests passed");
-    }
     /** This method is used for test    */
     public void printDataBase () {
         GatewayFacade gf = new GatewayFacade();
@@ -117,6 +121,19 @@ public class GatewayCli extends Gateway{
         jedis.close();
     }
 
+    /** Enable '-ea' in VM option in config before testing */
+    private void testCases () {
+        System.out.println(ANSI_RED + "Please Enable '-ea' in VM option in configuration before testing" + ANSI_RESET);
+        System.out.println("Gateway: Testing...");
+        GatewayFacade gf = new GatewayFacade();
+        testUser (gf);
+        testEvent (gf);
+        testRoom (gf);
+        testMessage(gf);
+        System.out.println("\nGateway: All tests passed");
+    }
+
+    /** All test case */
     private void testUser (GatewayFacade gf) {
         User u1 = new Attendee(998, "114514", "testJIMA");
         User u2 = new Organizer(999, "234234", "testJim2");
