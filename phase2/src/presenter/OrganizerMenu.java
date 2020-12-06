@@ -18,22 +18,22 @@ public class OrganizerMenu extends UserMenu{
     JMenu organizedEvent;
     public OrganizerMenu(Language language, Presenter presenter) {
         super(language, presenter);
-     create = new JMenu("Create: ");
-     createUser = new JMenuItem("New User");
+     create = new JMenu(language.create());
+     createUser = new JMenuItem(language.newUser());
      createUser.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
              update("createUser");
          }
      });
-     createRoom = new JMenuItem("New Room");
+     createRoom = new JMenuItem(language.newRoom());
      createRoom.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
              update("addRoom");
          }
      });
-     createEvent = new JMenuItem("New Event");
+     createEvent = new JMenuItem(language.newEvent());
      createEvent.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
@@ -45,15 +45,15 @@ public class OrganizerMenu extends UserMenu{
      create.add(createRoom);
      menuBar.add(create);
 
-     organizedEvent = new JMenu("Organized Event");
-     changeEventSetting = new JMenuItem("Change Event Setting");
+     organizedEvent = new JMenu(language.organizedEvent());
+     changeEventSetting = new JMenuItem(language.changeEventSetting());
         changeEventSetting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 update("changeEventSetting");
             }
         });
-     viewOrganizedEvent = new JMenuItem("View Organized Event");
+     viewOrganizedEvent = new JMenuItem(language.viewOrganizedEvent());
      viewOrganizedEvent.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {

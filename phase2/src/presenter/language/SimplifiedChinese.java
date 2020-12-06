@@ -185,7 +185,7 @@ public class SimplifiedChinese implements Language {
     }
 
     @Override
-    public String Welcome(){
+    public String welcome(){
         return ("欢迎");
     }
     @Override
@@ -215,7 +215,7 @@ public class SimplifiedChinese implements Language {
     }
     @Override
     public String signUpNowait(){
-        return ("Don't have to wait!");
+        return ("无需等待");
     }
     @Override
     public String viewMyEvent(){
@@ -263,7 +263,7 @@ public class SimplifiedChinese implements Language {
     }
     @Override
     public String  whichIs(){
-        return (" which is ");
+        return (" 是 ");
     }
 
     @Override
@@ -316,15 +316,15 @@ public class SimplifiedChinese implements Language {
     }
     @Override
     public String  party(){
-        return ("Party");
+        return ("聚会");
     }
     @Override
     public String  talk(){
-        return ("Talk");
+        return ("演讲");
     }
     @Override
     public String  discussion(){
-        return ("Panel Discussion");
+        return ("论坛会");
     }
     @Override
     public String  topic(){
@@ -336,7 +336,7 @@ public class SimplifiedChinese implements Language {
     }
     @Override
     public String  capacity(){
-        return ("容量y: ");
+        return ("容量: ");
     }
     @Override
     public String  no(){
@@ -348,7 +348,7 @@ public class SimplifiedChinese implements Language {
     }
     @Override
     public String  empty(){
-        return ("Empty");
+        return ("清空");
     }
 
     @Override
@@ -414,6 +414,10 @@ public class SimplifiedChinese implements Language {
     @Override
     public String viewOrganizedEvent(){
         return ("查看举办的活动");
+    }
+    @Override
+    public String eventId(){
+        return ("会议代码");
     }
 
 }

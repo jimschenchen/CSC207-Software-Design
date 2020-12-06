@@ -58,10 +58,10 @@ public class PanelFactory implements IUpdate{
 
     private JPanel reSet(){
         JPanel panel = new JPanel(new BorderLayout(30,30));
-        JTextField newPass = new JTextField("New Password");
+        JTextField newPass = new JTextField(language.newPass());
         newPass.setSize(400,300);
         panel.add(newPass, BorderLayout.CENTER);
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(language.ok());
         okButton.setSize(200,80);
         panel.add(okButton,BorderLayout.SOUTH);
         okButton.addActionListener(new ActionListener() {
@@ -76,13 +76,13 @@ public class PanelFactory implements IUpdate{
     public JPanel viewAllEvents(List<List<String>> allEventList) {
         JPanel viewEventPanel = new JPanel();
         viewEventPanel.setLayout(null);
-        TitledBorder tb = BorderFactory.createTitledBorder("Events' Info");
+        TitledBorder tb = BorderFactory.createTitledBorder(language.eventInfo());
         viewEventPanel.setBorder(tb);
         for (int i = 0; i < allEventList.size(); i++) {
             List<String> event = allEventList.get(i);
-            String eventInfo = event.get(1) + ", " + event.get(0)+ ", with ID "+ event.get(2) + " starts at "
-                    + event.get(3) + " ends at " + event.get(4) + " takes place at " +  event.get(5) + " which is "
-                    + event.get(6);
+            String eventInfo = event.get(1) + ", " + event.get(0)+ language.withID()+ event.get(2) +
+                    language.startAt() + event.get(3) + language.endAt() + event.get(4) +
+                    language.takePlace() +  event.get(5) + language.whichIs() + event.get(6);
             JLabel eventLabel = new JLabel(eventInfo);
             eventLabel.setBounds(0, 50*i, 1000,50);
             viewEventPanel.add(eventLabel);
@@ -94,14 +94,14 @@ public class PanelFactory implements IUpdate{
         // This method includes both viewing and signing up
         GridLayout layout = new GridLayout(events.size()+1,8, 10,5);
         JPanel panel = new JPanel(layout);
-        panel.add(new JLabel("Title"));
-        panel.add(new JLabel("Start Time: "));
-        panel.add(new JLabel("End time: "));
-        panel.add(new JLabel("Duration "));
-        panel.add(new JLabel("Location "));
-        panel.add(new JLabel("VIP Status: "));
-        panel.add(new JLabel("Waiting list: "));
-        panel.add(new JLabel("Sign Up?"));
+        panel.add(new JLabel(language.title()));
+        panel.add(new JLabel(language.startTime()));
+        panel.add(new JLabel(language.endTime()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        panel.add(new JLabel(language.waitinglist()));
+        panel.add(new JLabel(language.signUpQuestion()));
         JButton[] buttonArray = new JButton[events.size()];
         int i = 0;
         for (List<String> event: events){
@@ -112,7 +112,7 @@ public class PanelFactory implements IUpdate{
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
-            buttonArray[i] = new JButton("Yes!");
+            buttonArray[i] = new JButton(language.yes());
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -130,13 +130,14 @@ public class PanelFactory implements IUpdate{
         // This method includes both viewing and signing up. Why? Because I am lazy.
         GridLayout layout = new GridLayout(events.size()+1,7, 10,5);
         JPanel panel = new JPanel(layout);
-        panel.add(new JLabel("Title"));
-        panel.add(new JLabel("Start Time: "));
-        panel.add(new JLabel("End time: "));
-        panel.add(new JLabel("Duration "));
-        panel.add(new JLabel("Location "));
-        panel.add(new JLabel("VIP Status: "));
-        panel.add(new JLabel("Sign Up?"));
+        panel.add(new JLabel(language.title()));
+        panel.add(new JLabel(language.startTime()));
+        panel.add(new JLabel(language.title()));
+        panel.add(new JLabel(language.startTime()));
+        panel.add(new JLabel(language.endTime()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
         JButton[] buttonArray = new JButton[events.size()];
         int i = 0;
         for (List<String> event: events){
@@ -146,7 +147,7 @@ public class PanelFactory implements IUpdate{
             panel.add(new JLabel(event.get(4)));
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
-            buttonArray[i] = new JButton("Yes!");
+            buttonArray[i] = new JButton(language.yes());
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -161,9 +162,9 @@ public class PanelFactory implements IUpdate{
 
     public JPanel addRoom() {
         JPanel addRoomPanel = new JPanel();
-        JLabel addRoom = new JLabel("Enter a new room number you want to add:");
-        JLabel roomCapacity = new JLabel("Enter a capacity for this room:");
-        JButton btn = new JButton("Create");;
+        JLabel addRoom = new JLabel(language.enterRoomNum());
+        JLabel roomCapacity = new JLabel(language.enterRoomCapacity());
+        JButton btn = new JButton(language.create());;
         JTextField jtxt=new JTextField(10);
         JTextField cap = new JTextField(5);
         addRoomPanel.setLayout(new GridLayout(5,1));
@@ -190,45 +191,46 @@ public class PanelFactory implements IUpdate{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9 + numCheck ,2,10,5));
 
-        JLabel type = new JLabel("Event Type: ");
+        JLabel type = new JLabel(language.eventType());
         panel.add(type);
-        JComboBox typeSelected = new JComboBox(new String[]{"Party", "Talk", "Panel Discussion"});
+        JComboBox typeSelected = new JComboBox(new String[]{language.party(), language.talk(),
+                language.discussion()});
         typeSelected.setSize(300,100);
         panel.add(typeSelected);
 
-        JLabel start = new JLabel("Start: ");
+        JLabel start = new JLabel(language.startAt());
         panel.add(start);
         JTextField startTime = new JTextField("YYYY-MM-DD HH:mm");
         panel.add(startTime);
 
-        JLabel end = new JLabel("End: ");
+        JLabel end = new JLabel(language.endAt());
         panel.add(end);
         JTextField endTime = new JTextField("YYYY-MM-DD HH:mm");
         panel.add(endTime);
 
-        JLabel topic =  new JLabel("Topic: ");
+        JLabel topic =  new JLabel(language.topic());
         JTextField topicEntered = new JTextField();
         panel.add(topic);
         panel.add(topicEntered);
 
-        JLabel roomNumber = new JLabel("Room Number: ");
+        JLabel roomNumber = new JLabel(language.roomNum());
         panel.add(roomNumber);
         JComboBox roomNumberSelected = new JComboBox((Vector) rooms);
         panel.add(roomNumberSelected);
 
-        JLabel capacity = new JLabel("Capacity: ");
+        JLabel capacity = new JLabel(language.capacity());
         JTextField capacityEntered = new JTextField();
         panel.add(capacity);
         panel.add(capacityEntered);
 
-        JLabel VIPStatus = new JLabel("VIP status: ");
+        JLabel VIPStatus = new JLabel(language.vIPStatus());
         panel.add(VIPStatus);
-        JComboBox VIPStatusSelected = new JComboBox(new String[]{"Yes", "No"});
+        JComboBox VIPStatusSelected = new JComboBox(new String[]{language.yes(), language.no()});
         panel.add(VIPStatusSelected);
 
 
 
-        JLabel askSpeaker = new JLabel("Select Speaker: ");
+        JLabel askSpeaker = new JLabel(language.selectSpeaker());
         panel.add(askSpeaker);
         Panel empty1 = new Panel();
         panel.add(empty1);
@@ -248,7 +250,7 @@ public class PanelFactory implements IUpdate{
             panel.add(empty2);
         }
 
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(language.ok());
         panel.add(okButton);
 
         okButton.addActionListener(new ActionListener() {
@@ -262,7 +264,7 @@ public class PanelFactory implements IUpdate{
                         (String) VIPStatusSelected.getSelectedItem());
             }
         });
-        JButton resetButton = new JButton("Reset");
+        JButton resetButton = new JButton(language.empty());
 
         resetButton.addActionListener(new ActionListener() {
             @Override
@@ -296,19 +298,20 @@ public class PanelFactory implements IUpdate{
 
     public JPanel createUser(){
         JPanel panel = new JPanel(new GridLayout(4,2));
-        JLabel userType = new JLabel("User Type: ");
+        JLabel userType = new JLabel(language.userType());
         panel.add(userType);
-        JComboBox userTypeSelected = new JComboBox(new String[]{"Speaker", "Organizer", "Attendee", "VIP"});
+        JComboBox userTypeSelected = new JComboBox(new String[]{language.speaker(),
+               language.organizer(), language.attendee(), "VIP"});
         panel.add(userTypeSelected);
-        JLabel username = new JLabel("User Name: ");
+        JLabel username = new JLabel(language.username());
         panel.add(username);
         JTextField usernameEntered = new JTextField();
         panel.add(usernameEntered);
-        JLabel password = new JLabel("Password: ");
+        JLabel password = new JLabel(language.password());
         panel.add(password);
         JTextField passwordEntered = new JTextField();
         panel.add(passwordEntered);
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(language.ok());
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -316,7 +319,7 @@ public class PanelFactory implements IUpdate{
                         passwordEntered.getText());
             }
         });
-        JButton resetButton = new JButton("Reset");
+        JButton resetButton = new JButton(language.empty());
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -331,14 +334,14 @@ public class PanelFactory implements IUpdate{
 
     public JPanel alreadySignedUpEvents(List<List<String>> events){
         JPanel panel = new JPanel(new GridLayout(events.size()+1, 8, 10,5));
-        panel.add(new JLabel("Title"));
+        panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
-        panel.add(new JLabel("Start at:"));
-        panel.add(new JLabel("End at"));
-        panel.add(new JLabel("Duration: "));
-        panel.add(new JLabel("Location: "));
-        panel.add(new JLabel("VIP Status: "));
-        panel.add(new JLabel("Cancel"));
+        panel.add(new JLabel(language.startAt()));
+        panel.add(new JLabel(language.endAt()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        panel.add(new JLabel(language.cancel()));
         JButton[] cancelButtons = new JButton[events.size()];
         int i = 0;
         for (List<String> event: events){
@@ -349,7 +352,7 @@ public class PanelFactory implements IUpdate{
             panel.add(new JLabel(event.get(4)));
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
-            cancelButtons[i] = new JButton("Really??!");
+            cancelButtons[i] = new JButton(language.reallyQuestion());
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -363,15 +366,15 @@ public class PanelFactory implements IUpdate{
 
     public JPanel alreadyWaitlistedSignedUpEvents(List<List<String>> events){
         JPanel panel = new JPanel(new GridLayout(events.size()+1, 9, 10,5));
-        panel.add(new JLabel("Title"));
+        panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
-        panel.add(new JLabel("Start at:"));
-        panel.add(new JLabel("End at"));
-        panel.add(new JLabel("Duration: "));
-        panel.add(new JLabel("Location: "));
-        panel.add(new JLabel("VIP Status: "));
-        panel.add(new JLabel("My Rank: "));
-        panel.add(new JLabel("Cancel"));
+        panel.add(new JLabel(language.startAt()));
+        panel.add(new JLabel(language.endAt()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        panel.add(new JLabel(language.rank()));
+        panel.add(new JLabel(language.cancel()));
         JButton[] cancelButtons = new JButton[events.size()];
         int i = 0;
         for (List<String> event: events){
@@ -383,7 +386,7 @@ public class PanelFactory implements IUpdate{
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
-            cancelButtons[i] = new JButton("Really??!");
+            cancelButtons[i] = new JButton(language.reallyQuestion());
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -397,16 +400,16 @@ public class PanelFactory implements IUpdate{
 
     public JPanel organizedEvents(List<List<String>> events){
         JPanel panel = new JPanel(new GridLayout(events.size()+1, 10, 10,5));
-        panel.add(new JLabel("Title"));
+        panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
-        panel.add(new JLabel("Start:"));
-        panel.add(new JLabel("End"));
-        panel.add(new JLabel("Duration: "));
-        panel.add(new JLabel("Location: "));
-        panel.add(new JLabel("VIP Status: "));
-        panel.add(new JLabel("Capacity: "));
-        panel.add(new JLabel("Speakers"));
-        panel.add(new JLabel("Cancel"));
+        panel.add(new JLabel(language.startAt()));
+        panel.add(new JLabel(language.endAt()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        panel.add(new JLabel(language.capacity()));
+        panel.add(new JLabel(language.speaker()));
+        panel.add(new JLabel(language.cancel()));
         JButton[] cancelButtons = new JButton[events.size()];
         int i = 0;
         for (List<String> event: events){
@@ -419,7 +422,7 @@ public class PanelFactory implements IUpdate{
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
             panel.add(new JLabel(event.get(8)));
-            cancelButtons[i] = new JButton("Really??!");
+            cancelButtons[i] = new JButton(language.reallyQuestion());
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -433,18 +436,18 @@ public class PanelFactory implements IUpdate{
 
     public JPanel changeEvent(){
         JPanel panel = new JPanel(new GridLayout(3,2,10,10));
-        JLabel eventID = new JLabel("Event ID: ");
+        JLabel eventID = new JLabel(language.eventId());
         JTextField eventEntered = new JTextField();
-        JLabel changeItem = new JLabel("You are changing: ");
+        JLabel changeItem = new JLabel(language.change());
         panel.add(changeItem);
         JComboBox changeItemSelected = new JComboBox(new String[]{"Speaker", "Capacity", "VIP Status"});
         panel.add(changeItemSelected);
-        JLabel newSetting = new JLabel("New: ");
+        JLabel newSetting = new JLabel(language.newWord());
         panel.add(newSetting);
         JTextField newSettingEntered = new JTextField();
         panel.add(newSettingEntered);
-        JButton resetButton = new JButton("Reset");
-        JButton okButton = new JButton("OK");
+        JButton resetButton = new JButton(language.empty());
+        JButton okButton = new JButton(language.ok());
         panel.add(okButton);
         panel.add(resetButton);
         resetButton.addActionListener(new ActionListener() {
@@ -465,16 +468,16 @@ public class PanelFactory implements IUpdate{
     }
 
     public JPanel viewSpeakingEvent(List<List<String>> givingEvent) {
-        JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 8, 10,5));
-        panel.add(new JLabel("Title"));
+        JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 9, 10,5));
+        panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
-        panel.add(new JLabel("Start:"));
-        panel.add(new JLabel("End"));
-        panel.add(new JLabel("Duration: "));
-        panel.add(new JLabel("Location: "));
-        panel.add(new JLabel("VIP Status: "));
-        panel.add(new JLabel("Capacity: "));
-        panel.add(new JLabel("Speakers(including yourself)"));
+        panel.add(new JLabel(language.startAt()));
+        panel.add(new JLabel(language.endAt()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        panel.add(new JLabel(language.capacity()));
+        panel.add(new JLabel(language.speaker()));
         for (List<String> event: givingEvent){
             panel.add(new JLabel(event.get(0)));
             panel.add(new JLabel(event.get(1)));

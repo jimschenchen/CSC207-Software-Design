@@ -38,7 +38,7 @@ public interface Language {
     String failResetPasswordMessage();
     String succeedCreateAccountMessage();
     String failCreateAccount();
-    String Welcome();
+    String welcome();
     String myProfile();
     String logOut();
     String resetPass();
@@ -95,6 +95,5 @@ public interface Language {
     String organizedEvent();
     String changeEventSetting();
     String viewOrganizedEvent();
-
-
+    String eventId();
 }

@@ -187,7 +187,7 @@ public class English implements Language {
     }
 
     @Override
-    public String Welcome(){
+    public String welcome(){
         return ("Welcome");
     }
     @Override
@@ -416,6 +416,10 @@ public class English implements Language {
     @Override
     public String viewOrganizedEvent(){
         return ("View Organized Event");
+    }
+    @Override
+    public String eventId(){
+        return ("Event ID: ");
     }
 
 }

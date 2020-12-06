@@ -34,14 +34,14 @@ public class UserMenu extends JFrame implements IUpdate{
         this.language = language;
         panelFactory = new PanelFactory(language, presenter);
         contentPanel = new JPanel();
-        contentPanel.add(new JLabel("Welcome!"));
+        contentPanel.add(new JLabel(language.welcome()));
         add(contentPanel, BorderLayout.CENTER);
 
 
 
         menuBar = new JMenuBar();
-        myProfile = new JMenu("My Profile");
-        logOut = new JMenuItem("Log Out");
+        myProfile = new JMenu(language.myProfile());
+        logOut = new JMenuItem(language.logOut());
         logOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,7 +49,7 @@ public class UserMenu extends JFrame implements IUpdate{
                 dispose();
             }
         });
-        reSet = new JMenuItem("Reset your password");
+        reSet = new JMenuItem(language.resetPass());
         reSet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,16 +60,16 @@ public class UserMenu extends JFrame implements IUpdate{
         myProfile.add(reSet);
         menuBar.add(myProfile);
 
-        schedule = new JMenu("Schedule");
-        signUp = new JMenu("Sign Up for an event");
-        signUpNoWait = new JMenuItem("Don't have to wait!");
+        schedule = new JMenu(language.schedule());
+        signUp = new JMenu(language.signUp());
+        signUpNoWait = new JMenuItem(language.signUpNowait());
         signUpNoWait.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 update("signUpNoWait");
             }
         });
-        signUpWait = new JMenuItem("Get a spot in the waiting list");
+        signUpWait = new JMenuItem(language.signUpWait());
         signUpWait.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,15 +78,15 @@ public class UserMenu extends JFrame implements IUpdate{
         });
         signUp.add(signUpNoWait);
         signUp.add(signUpWait);
-        viewMyEvent = new JMenu("View my Event");
-        viewNoWait = new JMenuItem("Events not in waiting list");
+        viewMyEvent = new JMenu(language.viewMyEvent());
+        viewNoWait = new JMenuItem(language.viewMyNoWait());
         viewNoWait.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 update("viewNoWait");
             }
         });
-        viewWait = new JMenuItem("Events in waiting list");
+        viewWait = new JMenuItem(language.viewMyWait());
         viewWait.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +95,7 @@ public class UserMenu extends JFrame implements IUpdate{
         });
         viewMyEvent.add(viewNoWait);
         viewMyEvent.add(viewWait);
-        viewAllEvent = new JMenuItem("View All event");
+        viewAllEvent = new JMenuItem(language.viewAllEvent());
         viewAllEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +107,7 @@ public class UserMenu extends JFrame implements IUpdate{
         schedule.add(viewAllEvent);
         menuBar.add(schedule);
 
-        messenger = new JMenuItem("Messenger");
+        messenger = new JMenuItem(language.messenger());
         messenger.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

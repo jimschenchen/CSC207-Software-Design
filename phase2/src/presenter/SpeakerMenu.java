@@ -11,8 +11,8 @@ public class SpeakerMenu extends UserMenu{
     JMenu myTalks;
     public SpeakerMenu(Language language, Presenter presenter) {
         super(language, presenter);
-        this.myTalks = new JMenu();
-        myTalks.add(this.viewMyTalks = new JMenuItem());
+        this.myTalks = new JMenu(language.talk());
+        myTalks.add(this.viewMyTalks = new JMenuItem(language.viewTalks()));
         menuBar.add(myTalks);
         viewMyTalks.addActionListener(new ActionListener() {
             @Override
