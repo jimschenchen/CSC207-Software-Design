@@ -18,15 +18,18 @@ public class Presenter {
             window.update("Organizer");
         }else if(type == 2){
             window.update("Attendee");
+        }else{
+            window.update("error");
         }
     }
 
     public void signup(String username, String password, IUpdate window){
         Boolean bool = cs.signup(username, password);
+        System.out.println(bool);
         if (bool){
-            window.update("createAccount");
+            window.update("succeedCreateAccount");
         }else{
-            window.update("error");
+            window.update("failCreateAccount");
         }
     }
 
