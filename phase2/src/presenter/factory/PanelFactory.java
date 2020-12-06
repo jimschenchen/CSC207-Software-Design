@@ -149,17 +149,15 @@ public class PanelFactory implements IUpdate {
 
 
     private JPanel signUpEvent(List<List<String>> events){
-        // This method includes both viewing and signing up. Why? Because I am lazy.
         GridLayout layout = new GridLayout(events.size()+1,7, 10,5);
         JPanel panel = new JPanel(layout);
-        panel.add(new JLabel(language.title()));
-        panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
         panel.add(new JLabel(language.takePlace()));
         panel.add(new JLabel(language.vIPStatus()));
+        panel.add(new JLabel(language.signUpQuestion()));
         JButton[] buttonArray = new JButton[events.size()];
         int i = 0;
         for (List<String> event: events){
