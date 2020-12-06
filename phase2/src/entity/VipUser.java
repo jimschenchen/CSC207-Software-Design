@@ -11,4 +11,15 @@ public class VipUser extends Attendee{
     public VipUser(int uid, String password, String name) {
         super(uid, password, name);
     }
+
+    @Override
+    public String toString() {
+        return "VIP{" +
+                "uid=" + super.getUserId() +
+                ", username='" + super.getUserName() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
+                ", signed up event=" + this.getSignedUpEventList() +
+                ", my waiting events=" + this.getMyWaitList() +
+                '}';
+    }
 }
