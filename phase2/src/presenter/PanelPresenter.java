@@ -5,12 +5,12 @@ import controller.ConferenceSystem;
 
 import java.util.List;
 
-public class PanelPresenter {
+public class PanelPresenter extends Presenter{
     ConferenceSystem cs;
     IUpdate panel;
 
-    public PanelPresenter(ConferenceSystem cs, IUpdate panel) {
-        this.cs = cs;
+    public PanelPresenter(Presenter presenter, IUpdate panel) {
+        this.cs = presenter.cs;
         this.panel = panel;
     }
 
@@ -164,5 +164,14 @@ public class PanelPresenter {
 
     public List<List<String>> viewSpeakingEvents() {
         return cs.viewSpeakingEvents();
+    }
+
+    public void reSetPass(String newPass){
+        Boolean success = cs.resetPassword(newPass);
+        if(success){
+            panel.update("succeedResetPass");
+        }else{
+            panel.update("failResetPass");
+        }
     }
 }

@@ -51,6 +51,10 @@ public class JOptionPaneFactory {
             succeedRemoveWait();
         }else if(instruction == "failRemoveWait"){
             failRemoveWait();
+        }else if(instruction == "succeedResetPass"){
+            succeedResetPass();
+        }else if(instruction == "failResetPass"){
+            failResetPass();
         }
     }
 
@@ -155,6 +159,17 @@ public class JOptionPaneFactory {
     private void failRemoveWait(){
         JOptionPane.showMessageDialog(null, "It seems that we cannot remove you from " +
                         "the waiting list of the event!",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void succeedResetPass(){
+        JOptionPane.showMessageDialog(null, "You have a new password!",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void failResetPass(){
+        JOptionPane.showMessageDialog(null, "You cannot reset your new password to this" +
+                        "password!",
                 "Failed", JOptionPane.WARNING_MESSAGE);
     }
 

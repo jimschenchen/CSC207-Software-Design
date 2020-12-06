@@ -1,5 +1,7 @@
 package presenter;
 
+import presenter.language.Language;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,8 +9,8 @@ import java.awt.event.ActionListener;
 public class SpeakerMenu extends UserMenu{
     JMenuItem viewMyTalks;
     JMenu myTalks;
-    public SpeakerMenu() {
-        super();
+    public SpeakerMenu(Language language, Presenter presenter) {
+        super(language, presenter);
         this.myTalks = new JMenu();
         myTalks.add(this.viewMyTalks = new JMenuItem());
         menuBar.add(myTalks);
