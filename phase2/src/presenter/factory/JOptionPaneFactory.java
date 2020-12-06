@@ -55,8 +55,14 @@ public class JOptionPaneFactory {
             succeedCreateAccount();
         }else if(instruction == "failCreateAccount"){
             failCreateAccount();
+        }else if(instruction == "succeedCreateEvent"){
+            succeedCreateEvent();
+        }else if(instruction == "failCreateEvent"){
+            failCreateEvent();
         }
     }
+
+
 
     private void error(){
         JOptionPane.showMessageDialog(null, language.fail(), language.messageTitle(),

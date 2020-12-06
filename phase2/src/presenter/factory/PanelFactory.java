@@ -1,5 +1,8 @@
-package presenter;
+package presenter.factory;
 
+import presenter.IUpdate;
+import presenter.PanelPresenter;
+import presenter.Presenter;
 import presenter.factory.JOptionPaneFactory;
 import presenter.language.Language;
 
@@ -12,16 +15,30 @@ import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Vector;
 
-public class PanelFactory implements IUpdate{
+/**
+ * PanelFactory is used to make panel needed by the userMenu
+ */
+public class PanelFactory implements IUpdate {
     private Language language;
     private JOptionPaneFactory optionPaneFactory;
     private PanelPresenter presenter;
 
+    /**
+     * @param language the language used in the panel
+     * @param presenter the presenter whose ConferenceSystem is used in the panel
+     */
     public PanelFactory(Language language, Presenter presenter){
         this.language = language;
         this.optionPaneFactory = new JOptionPaneFactory(language);
         this.presenter = new PanelPresenter(presenter, this);
     }
+
+    /**
+     * make a panel based on the instruction
+     * @param action the action required to tell the PanelFactory which panel should be made
+     * @Return Return the panel used to reset the password when the action is "reSet",
+     *         Return the panel..........
+     */
 
     public JPanel getPanel(String action) {
         JPanel panel = new JPanel();
@@ -70,7 +87,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel viewAllEvents(List<List<String>> allEventList) {
+    private JPanel viewAllEvents(List<List<String>> allEventList) {
         JPanel viewEventPanel = new JPanel();
         viewEventPanel.setLayout(null);
         TitledBorder tb = BorderFactory.createTitledBorder(language.eventInfo());
@@ -87,7 +104,7 @@ public class PanelFactory implements IUpdate{
         return viewEventPanel;
     }
 
-    public JPanel signUpWaitListEvent(List<List<String>> events){
+    private JPanel signUpWaitListEvent(List<List<String>> events){
         // This method includes both viewing and signing up
         GridLayout layout = new GridLayout(events.size()+1,8, 10,5);
         JPanel panel = new JPanel(layout);
@@ -123,7 +140,7 @@ public class PanelFactory implements IUpdate{
     }
 
 
-    public JPanel signUpEvent(List<List<String>> events){
+    private JPanel signUpEvent(List<List<String>> events){
         // This method includes both viewing and signing up. Why? Because I am lazy.
         GridLayout layout = new GridLayout(events.size()+1,7, 10,5);
         JPanel panel = new JPanel(layout);
@@ -157,7 +174,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel addRoom() {
+    private JPanel addRoom() {
         JPanel addRoomPanel = new JPanel();
         JLabel addRoom = new JLabel(language.enterRoomNum());
         JLabel roomCapacity = new JLabel(language.enterRoomCapacity());
@@ -179,7 +196,7 @@ public class PanelFactory implements IUpdate{
         return addRoomPanel;
     }
 
-    public JPanel createEvent(List<List<String>> rooms, List<List<String>> speakers){
+    private JPanel createEvent(List<List<String>> rooms, List<List<String>> speakers){
         int length = speakers.size();
         float lengthF = length;
         int numCheck = new Double(Math.ceil(lengthF/2)).intValue();
@@ -301,7 +318,7 @@ public class PanelFactory implements IUpdate{
         return speakersSelected;
     }
 
-    public JPanel createUser(){
+    private JPanel createUser(){
         JPanel panel = new JPanel(new GridLayout(4,2));
         JLabel userType = new JLabel(language.userType());
         panel.add(userType);
@@ -337,7 +354,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel alreadySignedUpEvents(List<List<String>> events){
+    private JPanel alreadySignedUpEvents(List<List<String>> events){
         JPanel panel = new JPanel(new GridLayout(events.size()+1, 8, 10,5));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
@@ -369,7 +386,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel alreadyWaitlistedSignedUpEvents(List<List<String>> events){
+    private JPanel alreadyWaitlistedSignedUpEvents(List<List<String>> events){
         JPanel panel = new JPanel(new GridLayout(events.size()+1, 9, 10,5));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
@@ -403,7 +420,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel organizedEvents(List<List<String>> events){
+    private JPanel organizedEvents(List<List<String>> events){
         JPanel panel = new JPanel(new GridLayout(events.size()+1, 10, 10,5));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
@@ -439,7 +456,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel changeEvent(){
+    private JPanel changeEvent(){
         JPanel panel = new JPanel(new GridLayout(4,2,10,10));
         JLabel eventID = new JLabel(language.eventId());
         panel.add(eventID);
@@ -475,7 +492,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel viewSpeakingEvent(List<List<String>> givingEvent) {
+    private JPanel viewSpeakingEvent(List<List<String>> givingEvent) {
         JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 9, 10,5));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));

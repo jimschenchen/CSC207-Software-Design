@@ -1,5 +1,7 @@
 package presenter.language;
-
+/**
+ * This is the interface used to implement the multi-language version used in our system
+ */
 public interface Language {
     String username();
     String password();

@@ -1,13 +1,12 @@
 package presenter;
 
+import presenter.factory.PanelFactory;
 import presenter.language.Language;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.EventHandler;
-import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
