@@ -155,4 +155,94 @@ public abstract class  Event {
      */
     public void removeUserFromWaitList(int userId) {waitList.remove(userId);}
 
+    @Override
+    public String toString() {
+        if (this instanceof Party){
+            if (this.isVipEvent){
+                return "VIPParty{" +
+                        ", title='" + title + '\'' +
+                        ", startTime=" + startTime +
+                        ", endTime=" + endTime +
+                        ", roomId=" + roomId +
+                        ", capacity=" + capacity +
+                        ", signedUserList=" + signedUserList +
+                        ", waitList=" + waitList +
+                        '}';
+            }
+            else{
+                return "Party{" +
+                        ", title='" + title + '\'' +
+                        ", startTime=" + startTime +
+                        ", endTime=" + endTime +
+                        ", roomId=" + roomId +
+                        ", capacity=" + capacity +
+                        ", signedUserList=" + signedUserList +
+                        ", waitList=" + waitList +
+                        '}';
+            }
+        }
+        if (this instanceof Talk){
+            if (this.isVipEvent){
+                return "VIPTalk{" +
+                        ", title='" + title + '\'' +
+                        ", speaker=" + ((Talk) this).getSpeakerId() +
+                        ", startTime=" + startTime +
+                        ", endTime=" + endTime +
+                        ", roomId=" + roomId +
+                        ", capacity=" + capacity +
+                        ", signedUserList=" + signedUserList +
+                        ", waitList=" + waitList +
+                        '}';
+            }
+            else{
+                return "Talk{" +
+                        ", title='" + title + '\'' +
+                        ", speaker=" + ((Talk) this).getSpeakerId() +
+                        ", startTime=" + startTime +
+                        ", endTime=" + endTime +
+                        ", roomId=" + roomId +
+                        ", capacity=" + capacity +
+                        ", signedUserList=" + signedUserList +
+                        ", waitList=" + waitList +
+                        '}';
+            }
+        }
+        if (this instanceof PanelDiscussion){
+            if (this.isVipEvent){
+                return "VIPPanelDiscussion{" +
+                        ", title='" + title + '\'' +
+                        ", speaker=" + ((PanelDiscussion) this).getSpeakerId() +
+                        ", startTime=" + startTime +
+                        ", endTime=" + endTime +
+                        ", roomId=" + roomId +
+                        ", capacity=" + capacity +
+                        ", signedUserList=" + signedUserList +
+                        ", waitList=" + waitList +
+                        '}';
+            }
+            else{
+                return "PanelDiscussion{" +
+                        ", title='" + title + '\'' +
+                        ", speaker=" + ((PanelDiscussion) this).getSpeakerId() +
+                        ", startTime=" + startTime +
+                        ", endTime=" + endTime +
+                        ", roomId=" + roomId +
+                        ", capacity=" + capacity +
+                        ", signedUserList=" + signedUserList +
+                        ", waitList=" + waitList +
+                        '}';
+            }
+        }
+        return "Event{" +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", duration=" + duration +
+                ", title='" + title + '\'' +
+                ", roomId=" + roomId +
+                ", capacity=" + capacity +
+                ", isVipEvent=" + isVipEvent +
+                ", signedUserList=" + signedUserList +
+                ", waitList=" + waitList +
+                '}';
+    }
 }

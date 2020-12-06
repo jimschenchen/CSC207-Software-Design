@@ -62,6 +62,7 @@ public class Message implements java.io.Serializable {
     @Override
     public String toString() {
         return "Message{" +
+                "title=" + title + '\'' +
                 "content='" + content + '\'' +
                 ", sender_id=" + senderId +
                 ", receiver_id=" + receiverId +
