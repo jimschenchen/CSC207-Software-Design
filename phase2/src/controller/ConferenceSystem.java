@@ -534,7 +534,7 @@ public class ConferenceSystem {
      * @return Return a list of strings that represent all rooms in the system.
      * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
      */
-    public List<String> viewAllRooms(){
+    public List<List<String>> viewAllRooms(){
         return vs.viewAllRooms(gw);
     }
 }

@@ -17,7 +17,7 @@ public class Japanese implements Language{
 
     @Override
     public String signUpAccount() {
-        return "今すぐアカウントを作成する";
+        return "アカウントを作成する";
     }
 
     @Override

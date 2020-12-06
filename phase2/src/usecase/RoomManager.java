@@ -64,9 +64,12 @@ public class RoomManager {
      * @param g the database
      * @return the room number
      */
-    private String getRoomString(int roomId, GatewayFacade g){
+    private List<String> getRoomString(int roomId, GatewayFacade g){
+        List<String> rString = new ArrayList<>();
         Room room = g.getRoomById(roomId);
-        return room.getRoomNum();
+        rString.add(room.getRoomNum());
+        rString.add(String.valueOf(room.getCapacity()));
+        return rString;
     }
 
 
@@ -76,11 +79,12 @@ public class RoomManager {
      * @return Return a list of strings that represent all rooms in the system.
      * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
      */
-    public List<String> allRooms(GatewayFacade gw){
+    public List<List<String>> allRooms(GatewayFacade gw){
         List<Room> allRooms = getListOfRooms(gw);
-        List<String> sAllRooms = new ArrayList<>();
+        List<List<String>> sAllRooms = new ArrayList<>();
         for (Room r: allRooms) {
-            String rString = getRoomString(r.getRid(), gw);
+            List<String> rString = getRoomString(r.getRid(), gw);
+            sAllRooms.add(rString);
         }
         return sAllRooms;
     }

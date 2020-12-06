@@ -201,7 +201,7 @@ class ViewingSystem extends subSystem{
      * @return Return a list of strings that represent all rooms in the system.
      * Every room is represented by a string formatted as follows: "RoomName/Number (RoomID)"
      */
-    List<String> viewAllRooms(GatewayFacade gw){
+    List<List<String>> viewAllRooms(GatewayFacade gw){
         return rm.allRooms(gw);
     }
 }
