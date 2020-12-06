@@ -117,4 +117,13 @@ public class PanelPresenter {
         }
     }
 
+    public void addRoom(String roomNumber, String capacity){
+        Boolean success = cs.addNewRoom(roomNumber, capacity);
+        if (success){
+            panel.update("succeedAddRoom");
+        }else{
+            panel.update("failAddRoom");
+        }
+    }
+
 }
