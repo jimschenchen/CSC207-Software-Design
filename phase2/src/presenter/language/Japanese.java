@@ -53,16 +53,136 @@ public class Japanese implements Language {
 
     @Override
     public String fail() {
-        return null;
+        return "失敗しました、もう一度確認してください。";
     }
 
     @Override
     public String messageTitle() {
-        return null;
+        return "メール";
     }
 
     @Override
     public String createAccountMessage() {
+        return "";
+    }
+
+    @Override
+    public String succeedAddRoomMessage() {
+        return null;
+    }
+
+    @Override
+    public String successful() {
+        return null;
+    }
+
+    @Override
+    public String failed() {
+        return null;
+    }
+
+    @Override
+    public String failAddRoomMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedCancelEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String failCancelEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedSignUpEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String failSignUpEvent() {
+        return null;
+    }
+
+    @Override
+    public String succeedWaitEvent() {
+        return null;
+    }
+
+    @Override
+    public String failWaitEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedChangeEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String failChangeEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedCreateUserMessage() {
+        return null;
+    }
+
+    @Override
+    public String failCreateUserMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedCreateEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String failCreateEventMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedCancelEnrollmentMessage() {
+        return null;
+    }
+
+    @Override
+    public String failCancelEnrollmentMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedRemoveWaitMessage() {
+        return null;
+    }
+
+    @Override
+    public String failRemoveWaitMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedResetPasswordMessage() {
+        return null;
+    }
+
+    @Override
+    public String failResetPasswordMessage() {
+        return null;
+    }
+
+    @Override
+    public String succeedCreateAccountMessage() {
+        return null;
+    }
+
+    @Override
+    public String failCreateAccount() {
         return null;
     }
 }
