@@ -72,119 +72,112 @@ public class JOptionPaneFactory {
     }
 
     private void succeedAddRoom(){
-        JOptionPane.showMessageDialog(null, "New Room has been created successfully!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedAddRoomMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failAddRoom(){
-        JOptionPane.showMessageDialog(null, "The room already exists or your input is valid",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failAddRoomMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedCancelEvent(){
-        JOptionPane.showMessageDialog(null, "Whoops, the event has been canceled successfully",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedCancelEventMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failCancelEvent(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot cancel the event",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failCancelEventMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedSignUpEvent(){
-        JOptionPane.showMessageDialog(null, "You have signed up for this event!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedSignUpEventMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failSignUpEvent(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot sign up for this event",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failSignUpEvent(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedWaitEvent(){
-        JOptionPane.showMessageDialog(null, "You have signed up for the waiting" +
-                        " list of this event!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedWaitEvent(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failWaitEvent(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot sign up for " +
-                        "the waiting list of this event",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failWaitEventMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedChangeEvent(){
-        JOptionPane.showMessageDialog(null, "You have changed the setting of this event!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedChangeEventMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failChangeEvent(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot change the setting  " +
-                        "of this event",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failChangeEventMessage(),
+                language.successful(), JOptionPane.WARNING_MESSAGE);
     }
     private void succeedCreateUser(){
-        JOptionPane.showMessageDialog(null, "You have created a user!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedCreateUserMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private  void failCreateUser(){
-        JOptionPane.showMessageDialog(null, "You fail to create a user!",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failCreateUserMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedCreateEvent(){
-        JOptionPane.showMessageDialog(null, "You have created an event!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedCreateEventMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failCreateEvent(){
-        JOptionPane.showMessageDialog(null, "You fail to create an event!",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failCreateEventMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedCancelEnrollment(){
-        JOptionPane.showMessageDialog(null, "Whoops! You have cancel the enrollment from the " +
-                        "event successfully!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedCancelEnrollmentMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failCancelEnrollment(){
-        JOptionPane.showMessageDialog(null, "You fail to cancel the enrollment!",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failCancelEnrollmentMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedRemoveWait(){
-        JOptionPane.showMessageDialog(null, "Whoops! You have given up the waiting list " +
-                        "spot for the event successfully",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedRemoveWaitMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failRemoveWait(){
-        JOptionPane.showMessageDialog(null, "It seems that we cannot remove you from " +
-                        "the waiting list of the event!",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failRemoveWaitMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedResetPass(){
-        JOptionPane.showMessageDialog(null, "You have a new password!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedResetPasswordMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failResetPass(){
-        JOptionPane.showMessageDialog(null, "You cannot reset your new password to this" +
-                        "password!",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failResetPasswordMessage(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
     private void succeedCreateAccount(){
-        JOptionPane.showMessageDialog(null, "You have created an account!",
-                "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.succeedCreateAccountMessage(),
+                language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void failCreateAccount(){
-        JOptionPane.showMessageDialog(null, "It seems that you cannot create an account",
-                "Failed", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, language.failCreateAccount(),
+                language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
 

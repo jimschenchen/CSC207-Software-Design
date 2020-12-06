@@ -12,7 +12,6 @@ import java.util.List;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class UserMenu extends JFrame implements IUpdate{
-    JFrame mainFrame;
     JMenu myProfile;
     JMenu schedule;
     JMenu signUp;
@@ -27,20 +26,18 @@ public class UserMenu extends JFrame implements IUpdate{
     JMenuItem messenger;
     JMenuBar menuBar;
     PanelFactory panelFactory;
-    JPanel panel;
+    JPanel contentPanel;
     Language language;
 
     public UserMenu(Language language, Presenter presenter) {
+        setLayout(new BorderLayout());
         this.language = language;
         panelFactory = new PanelFactory(language, presenter);
-        this.mainFrame = new JFrame();
-        mainFrame.setSize(400, 400);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setBackground(Color.white);
+        add(contentPanel, BorderLayout.CENTER);
 
-        panel = new JPanel();
-        panel.add( new JLabel("Welcome to the User menu!"));
-        setContentPane(panel);
+        contentPanel = new JPanel();
+        contentPanel.add(new JLabel("Welcome!"));
+
 
         menuBar = new JMenuBar();
         myProfile = new JMenu("My Profile");
@@ -48,8 +45,8 @@ public class UserMenu extends JFrame implements IUpdate{
         logOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 LoginWindow window = new LoginWindow();
+                dispose();
             }
         });
         reSet = new JMenuItem("Reset your Account");
@@ -113,14 +110,22 @@ public class UserMenu extends JFrame implements IUpdate{
         messenger = new JMenuItem("Messenger");
         menuBar.add(messenger);
 
-        mainFrame.setJMenuBar(menuBar);;
+        setJMenuBar(menuBar);;
 
-        mainFrame.setVisible(true);
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
 
     }
 
     public void update(String action){
-        panel = panelFactory.getPanel(action);
+        contentPanel.removeAll();
+        contentPanel.add(panelFactory.getPanel(action));
+        contentPanel.validate();
+        contentPanel.repaint();
     }
+
+
+
 
 }

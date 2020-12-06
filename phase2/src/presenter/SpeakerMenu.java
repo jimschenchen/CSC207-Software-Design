@@ -23,6 +23,9 @@ public class SpeakerMenu extends UserMenu{
         });
     }
     public void update(String action){
-        panel = panelFactory.getPanel(action);
+        contentPanel.removeAll();
+        contentPanel.add(panelFactory.getPanel(action));
+        contentPanel.validate();
+        contentPanel.repaint();
     }
 }
