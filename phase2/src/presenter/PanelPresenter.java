@@ -100,7 +100,6 @@ public class PanelPresenter extends Presenter{
         } else {
             panel.update("failCreateEvent");
         }
-
     }
 
     public void cancelEnrollment(String eventID) {
@@ -142,7 +141,7 @@ public class PanelPresenter extends Presenter{
         return cs.viewCanSignUpEvents();
     }
 
-    public List<String> viewAllRooms() {
+    public List<List<String>> viewAllRooms() {
         return cs.viewAllRooms();
     }
 

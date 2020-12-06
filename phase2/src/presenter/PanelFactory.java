@@ -8,6 +8,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Vector;
 
@@ -178,7 +179,7 @@ public class PanelFactory implements IUpdate{
         return addRoomPanel;
     }
 
-    public JPanel createEvent(List<String> rooms, List<List<String>> speakers){
+    public JPanel createEvent(List<List<String>> rooms, List<List<String>> speakers){
         int length = speakers.size();
         float lengthF = length;
         int numCheck = new Double(Math.ceil(lengthF/2)).intValue();
@@ -211,7 +212,13 @@ public class PanelFactory implements IUpdate{
 
         JLabel roomNumber = new JLabel(language.roomNum());
         panel.add(roomNumber);
-        JComboBox roomNumberSelected = new JComboBox(rooms.toArray());
+        String[] roomsArray = new String[rooms.size()];
+        int ii = 0;
+        for(List<String> room: rooms){
+            roomsArray[ii] = room.get(0) + " "+room.get(1);
+            ii++;
+        }
+        JComboBox roomNumberSelected = new JComboBox(roomsArray);
         panel.add(roomNumberSelected);
 
         JLabel capacity = new JLabel(language.capacity());
@@ -249,12 +256,14 @@ public class PanelFactory implements IUpdate{
         JButton okButton = new JButton(language.ok());
         panel.add(okButton);
 
+        int roomIndex = roomNumberSelected.getSelectedIndex();
+
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 presenter.createEvent((String) typeSelected.getSelectedItem(), startTime.getText(),
                         endTime.getText(),
-                        idHelper(checkArray, idArray),(String) roomNumberSelected.getSelectedItem(),
+                        idHelper(checkArray, idArray), rooms.get(roomIndex).get(0),
                         topicEntered.getText(),
                        capacityEntered.getText(),
                         (String) VIPStatusSelected.getSelectedItem());
