@@ -118,10 +118,10 @@ public class LanguageWindow extends JFrame implements IUpdate{
     }
 
     public void update(String action){
-        if (action == "OK"){
+        if (action == "Back"){
             LoginWindow loginWindow = new LoginWindow(language);
             dispose();
-        }else if (action == "Back"){
+        }else if (action == "OK"){
             setNewLanguage();
         }
     }
