@@ -2,21 +2,39 @@ package presenter;
 
 import controller.ConferenceSystem;
 
-public class UserMenuPresenter extends Presenter{
-    private ConferenceSystem cs = new ConferenceSystem();
-    private IWindow userMenu;
+import java.util.List;
 
-    public UserMenuPresenter(IWindow userMenu){
-        this.userMenu = userMenu;
-    }
+class UserMenuPresenter {
+    ConferenceSystem cs = new ConferenceSystem();
+    IMessage userMenu = new UserMenu();
 
-    public void menuItemClicked(int i){
-        if (i == 4){
-            String type = "passwordField";
-            userMenu.update(type);
-//            cs.resetPassword();
+
+    void menuItemClicked(int i){
+        if (i == 1){
+            IMessage messenger = new MessengerWindow();
         }
 
+    }
 
+    void updatePassword(String password){
+        userMenu.messageSuccess(cs.resetPassword(password));
+    }
+
+    List<List<String>> viewEvents(){
+        return cs.viewEvents();
+    }
+
+    List<List<String>> viewSignedUpEvents(){
+        return cs.viewSignedUpEvents();
+    }
+
+    void sgnUpEvent(String eventID){
+        boolean success = cs.signUpForEvent(eventID);
+        userMenu.messageSuccess(success);
+    }
+
+    void cancelEvent(String eventID){
+        boolean success = cs.cancelEvent(eventID);
+        userMenu.messageSuccess(success);
     }
 }

@@ -20,9 +20,9 @@ public class Presenter {
         }
     }
 
-    public void menuItemClicked(String string){
 
-    }
+
+
 
 
 }

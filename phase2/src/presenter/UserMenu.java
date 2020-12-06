@@ -5,29 +5,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
+import java.util.List;
 
-public class UserMenu extends JFrame implements IWindow{
+import static javax.swing.JOptionPane.showMessageDialog;
+
+public class UserMenu extends JFrame implements ActionListener, IMessage {
         UserMenuPresenter _presenter;
         final JFrame mainFrame;
         private JButton button1, button2, button3;
-        private JMenu myProfile;
-    JMenu mySchedule;
-    JMenu menu;
-        private JMenuItem m4;
-    private JMenuItem m5;
-    JMenuItem m6;
-    private JMenuItem m7;
-    private JMenuItem m8;
-    private JMenuItem m9;
+        private JMenu myProfile; JMenu mySchedule; JMenu menu;
+        private JMenuItem m1, m4, m5, m6, m7, m8, m9;
         private static JPanel cards;
 
         public UserMenu() {
             //Creates and sets up the main window
             this.mainFrame = new JFrame();
-            mainFrame.setPreferredSize(new Dimension(1000, 1000));
+            mainFrame.setSize(400, 400);
             mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mainFrame.setBackground(Color.white);
-            mainFrame.setVisible(true);
             JPanel p = new JPanel();
             JLabel lab1 = new JLabel("User Name", JLabel.LEFT);
             p.setLayout(new FlowLayout());
@@ -36,17 +31,17 @@ public class UserMenu extends JFrame implements IWindow{
             //createMenu
             JMenuBar mb = new JMenuBar();
             this.menu = new JMenu("UserMenu");
-            JMenuItem m1 = new JMenuItem("Messenger");
+            m1 = new JMenuItem("Messenger");
             this.mySchedule = new JMenu("Schedule");
             menu.add(m1);
             mainFrame.setJMenuBar(mb);
             this.myProfile = new JMenu("My Profile");
-            JMenuItem m4 = new JMenuItem("Change Password");
-            JMenuItem m5 = new JMenuItem("SignOut");
-            JMenuItem m6 = new JMenuItem("Events");
-            JMenuItem m7 = new JMenuItem("My Schedule");
-            JMenuItem m8 = new JMenuItem("Sign up for a new event");
-            JMenuItem m9 = new JMenuItem("Cancel an event");
+            m4 = new JMenuItem("Change Password");
+            m5 = new JMenuItem("SignOut");
+            m6 = new JMenuItem("Events");
+            m7 = new JMenuItem("My Schedule");
+            m8 = new JMenuItem("Sign up for a new event");
+            m9 = new JMenuItem("Cancel an event");
             mySchedule.add(m6);
             mySchedule.add(m7);
             mySchedule.add(m8);
@@ -56,54 +51,79 @@ public class UserMenu extends JFrame implements IWindow{
             myProfile.add(m5);
             menu.add(myProfile);
             mb.add(menu);
-            eventHandler handler = new eventHandler();
-            m4.addActionListener(handler);
-            m5.addActionListener(handler);
-            m6.addActionListener(handler);
-            m7.addActionListener(handler);
-            m8.addActionListener(handler);
-            m9.addActionListener(handler);
+            m1.addActionListener(this);
+            m4.addActionListener(this);
+            m5.addActionListener(this);
+            m6.addActionListener(this);
+            m7.addActionListener(this);
+            m8.addActionListener(this);
+            m9.addActionListener(this);
+            mainFrame.setVisible(true);
         }
 
-
-
-    class eventHandler implements ActionListener{
-
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                int i = 0;
-                if (event.getSource() == m4){
-                    i = 4;
-                }
-                else if (event.getSource()== m5){
-                    i = 5;
-                }
-                else if (event.getSource() == m6){
-                   i = 6;
-                }
-                else if (event.getSource() == m7){
-                   i = 7;
-                }
-                else if (event.getSource() == m8){
-                   i = 8;
-                }
-                else if (event.getSource() == m9){
-                    i = 9;
-                }
-                _presenter.menuItemClicked(i);
+        public void actionPerformed(ActionEvent event) {
+            Object src = event.getSource();
+            if (src == m1){
+                _presenter.menuItemClicked(1);
             }
+            if (src == m4){
+                String pass = JOptionPane.showInputDialog("Enter you new password");
+                _presenter.updatePassword(pass);}
+            if (src == m5){
+                dispose();
+                //do we have a log out event?
+            }
+            if (src == m6){
+                JFrame frame = new JFrame();
+                List<List<String>> listOfLists  = _presenter.viewEvents();;
+                DefaultListModel listModel = new DefaultListModel();
+                for (List lst : listOfLists) {
+                    String element = (String) lst.get(0);
+                    listModel.addElement(element);
+                }
+                JList list = new JList(listModel);
+                frame.add(list);
+                frame.pack();
+                frame.setSize(300, 300);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                //I'll add the buttons tomorrow I am sorry
+                //Someone can add it if you want! Rn they can only see the title lmao
+            }
+            if (src == m7){
+                JFrame frame = new JFrame();
+                List<List<String>> listOfLists  = _presenter.viewSignedUpEvents();
+                DefaultListModel listModel = new DefaultListModel();
+                for (List lst : listOfLists) {
+                    String element = (String) lst.get(0);
+                    listModel.addElement(element);
+                }
+                JList list = new JList(listModel);
+                frame.add(list);
+                frame.pack();
+                frame.setSize(300, 300);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
+            if (src == m8){
+                String id = JOptionPane.showInputDialog("Enter the id of the event");
+                _presenter.sgnUpEvent(id);
+            }
+            if (src == m9){
+                String id = JOptionPane.showInputDialog("Enter the id of the event");
+                _presenter.cancelEvent(id);
+            }
+
         }
 
-        public void panelReplaced(JPanel panel){
-             mainFrame.getContentPane().removeAll();
-             mainFrame.getContentPane().add(panel);
+    @Override
+    public void messageSuccess(boolean success) {
+            if (success){
+                showMessageDialog(null, "Success!");
+            }
+            else{
+                showMessageDialog(null, "Oops, something went wrong!");
+            }
+
     }
-
-        @Override
-        public void update(String type) {
-           PanelFactory factory = new PanelFactory();
-           JPanel panel = factory.getPanel(type);
-           panelReplaced(panel);
-
-        }
 }

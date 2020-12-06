@@ -459,7 +459,6 @@ public class ConferenceSystem {
     public List<List<String>> viewEvents(){
         return vs.viewEvents(gw);
     }
-
     /**
      * Return a list of events that the current logged in user has signed up for.
      * @return List of Strings of the events
