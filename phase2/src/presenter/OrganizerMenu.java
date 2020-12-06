@@ -50,7 +50,7 @@ public class OrganizerMenu extends UserMenu{
         changeEventSetting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                update("changeEventSetting");
+                update("changeEvent");
             }
         });
      viewOrganizedEvent = new JMenuItem(language.viewOrganizedEvent());

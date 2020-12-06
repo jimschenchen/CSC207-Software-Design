@@ -472,4 +472,9 @@ public class TraditionalChinese implements Language {
     public String viewOrganizedEvent() {
         return null;
     }
+
+    @Override
+    public String eventId(){
+        return null;
+    }
 }

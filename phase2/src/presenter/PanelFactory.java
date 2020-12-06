@@ -211,7 +211,7 @@ public class PanelFactory implements IUpdate{
 
         JLabel roomNumber = new JLabel(language.roomNum());
         panel.add(roomNumber);
-        JComboBox roomNumberSelected = new JComboBox((Vector) rooms);
+        JComboBox roomNumberSelected = new JComboBox(rooms.toArray());
         panel.add(roomNumberSelected);
 
         JLabel capacity = new JLabel(language.capacity());
@@ -431,12 +431,15 @@ public class PanelFactory implements IUpdate{
     }
 
     public JPanel changeEvent(){
-        JPanel panel = new JPanel(new GridLayout(3,2,10,10));
+        JPanel panel = new JPanel(new GridLayout(4,2,10,10));
         JLabel eventID = new JLabel(language.eventId());
+        panel.add(eventID);
         JTextField eventEntered = new JTextField();
+        panel.add(eventEntered);
         JLabel changeItem = new JLabel(language.change());
         panel.add(changeItem);
-        JComboBox changeItemSelected = new JComboBox(new String[]{"Speaker", "Capacity", "VIP Status"});
+        JComboBox changeItemSelected = new JComboBox(new String[]{language.speaker(), language.capacity(),
+                language.vIPStatus()});
         panel.add(changeItemSelected);
         JLabel newSetting = new JLabel(language.newWord());
         panel.add(newSetting);

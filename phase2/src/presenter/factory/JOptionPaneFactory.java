@@ -32,17 +32,13 @@ public class JOptionPaneFactory {
         }else if(instruction == "failWaitEvent"){
             failWaitEvent();
         }else if(instruction == "succeedChangeEvent"){
-            succeedCancelEvent();
+            succeedChangeEvent();
         }else if(instruction == "failChangeEvent"){
-            failCancelEvent();
+            failChangeEvent();
         }else if(instruction == "succeedCreateUser"){
             succeedCreateUser();
         }else if (instruction == "failCreateUser"){
             failCreateUser();
-        }else if(instruction =="succeedCreateEvent"){
-            succeedCreateEvent();
-        }else if(instruction == "failCreateEvent"){
-            failCreateEvent();
         }else if(instruction == "succeedCancelEnrollment"){
             succeedCancelEnrollment();
         }else if(instruction == "failCancelEnrollment"){
