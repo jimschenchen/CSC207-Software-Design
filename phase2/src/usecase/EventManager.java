@@ -34,8 +34,8 @@ public class EventManager {
     public boolean canCreateEvent(int roomId, LocalDateTime start, LocalDateTime end, int capacity, GatewayFacade g){
         List<Event> allEvent = g.getEventList();
         for (Event event : allEvent) {
-            if (roomId == event.getRoomId() ||
-                    event.getStartTime().isAfter(end) || event.getEndTime().isBefore(start) ||
+            if (roomId == event.getRoomId() &&
+                    (event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start))) |
                             capacity > g.getRoomById(roomId).getCapacity()) {
                 return false;
             }

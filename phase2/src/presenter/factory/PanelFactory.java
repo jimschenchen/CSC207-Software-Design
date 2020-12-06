@@ -306,11 +306,16 @@ public class PanelFactory implements IUpdate {
     private String idHelper(JCheckBox[] checkArray, String[] idArray){
         String speakersSelected = "";
         int ii = 0;
-        for (JCheckBox cb : checkArray){
-            if (cb.isSelected()){
-                speakersSelected = speakersSelected + idArray[ii] + ",";
+        if (idArray.length == 1) {
+            speakersSelected += idArray[0];
+        }
+        else{
+            for (JCheckBox cb : checkArray){
+                if (cb.isSelected()){
+                    speakersSelected = speakersSelected + idArray[ii] + ",";
+                }
+                ii++;
             }
-            ii++;
         }
         return speakersSelected;
     }

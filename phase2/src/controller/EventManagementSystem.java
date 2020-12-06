@@ -149,7 +149,7 @@ class EventManagementSystem extends subSystem{
                     return newEventMoreThan1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic,
                             rID, cap, vipStatus, gw);
                 }
-                else{ // only have 1 speaker
+                else { // only have 1 speaker
                     int sID = Integer.parseInt(speakerID);
                     return newEvent1Speaker(types.get(0), types.get(1), sID, sTime, eTime, topic, rID,
                             cap, vipStatus, gw);
@@ -200,8 +200,10 @@ class EventManagementSystem extends subSystem{
      */
     private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
                                    GatewayFacade gw){
+        System.out.println(em.canCreateEvent(rID, sTime, eTime, cap, gw));
+        System.out.println(! um.isSpeakerBusy(sID, sTime, eTime, gw));
         return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-                um.isSpeakerBusy(sID, sTime, eTime, gw);
+                ! um.isSpeakerBusy(sID, sTime, eTime, gw);
     }
 
 
@@ -219,6 +221,8 @@ class EventManagementSystem extends subSystem{
     private boolean newEvent1Speaker(int type1, int type2, int sID, LocalDateTime sTime,
                                      LocalDateTime eTime, String topic, int rID, int cap,
                                      boolean vipStatus, GatewayFacade gw){
+
+        System.out.println(canCreateEvent(sID, rID, sTime, eTime, cap, gw));
         if (type1 != 1){
             return false;
         }

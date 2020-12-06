@@ -112,7 +112,7 @@ public class ConferenceSystem {
     /**
      * create a VIP. This action can only be performed by an organizer.
      *
-     * @param username User name of the new VIP. username should be unique.
+     * @param userName User name of the new VIP. username should be unique.
      * @param password Password of the new VIP account. Password should be at least 6 characters long.
      * @return Return true if the VIP is created successfully, false otherwise.
      */

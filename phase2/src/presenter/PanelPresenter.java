@@ -106,6 +106,7 @@ public class PanelPresenter extends Presenter{
         } else {
             type = 2;
         }
+        System.out.println("here");
         Boolean success = cs.newEvent(type, startTime, endTime, speakers, topic, roomNum, capacity, vIPConverter(vipStatus));
         if (success) {
             panel.update("succeedCreateEvent");
