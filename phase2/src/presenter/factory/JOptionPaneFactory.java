@@ -55,6 +55,10 @@ public class JOptionPaneFactory {
             succeedResetPass();
         }else if(instruction == "failResetPass"){
             failResetPass();
+        }else if(instruction == "succeedCreateAccount"){
+            succeedCreateAccount();
+        }else if(instruction == "failCreateAccount"){
+            failCreateAccount();
         }
     }
 
@@ -170,6 +174,16 @@ public class JOptionPaneFactory {
     private void failResetPass(){
         JOptionPane.showMessageDialog(null, "You cannot reset your new password to this" +
                         "password!",
+                "Failed", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void succeedCreateAccount(){
+        JOptionPane.showMessageDialog(null, "You have created an account!",
+                "Successful", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void failCreateAccount(){
+        JOptionPane.showMessageDialog(null, "It seems that you cannot create an account",
                 "Failed", JOptionPane.WARNING_MESSAGE);
     }
 

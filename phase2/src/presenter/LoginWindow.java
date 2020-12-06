@@ -116,9 +116,7 @@ public class LoginWindow extends JFrame implements IUpdate {
     }
 
     public void update(String action) {
-        if (action == "error"){
-            wf.get("error");
-        }else  if (action == "Exit"){
+        if (action == "Exit"){
             System.exit(0);
         }else if (action == "Speaker"){
             SpeakerMenu speakerMenu = new SpeakerMenu(language, presenter);
@@ -130,6 +128,8 @@ public class LoginWindow extends JFrame implements IUpdate {
             SignUpWindow signUpWindow = new SignUpWindow(language);
         }else if(action == "Language"){
             LanguageWindow languageWindow = new LanguageWindow(language);
+        }else{
+            wf.get(action);
         }
         dispose();
     }

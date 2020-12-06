@@ -65,7 +65,7 @@ public class SignUpWindow extends JFrame implements IUpdate{
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                update("OK");
+                presenter.signup(usernameText.getText(), passwordText.getText(), window);
             }
         });
 
@@ -90,10 +90,8 @@ public class SignUpWindow extends JFrame implements IUpdate{
         if(action == "Back"){ //back to the login page
             LoginWindow loginWindow = new LoginWindow(language);
             dispose();
-        }else if(action == "createAccount"){
-            windowFactory.get("createAccount");
-        }else if (action == "error"){
-            windowFactory.get("error");
+        }else {
+            windowFactory.get(action);
         }
     }
 
