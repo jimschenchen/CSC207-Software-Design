@@ -1,6 +1,6 @@
 package presenter.language;
 
-public class Japanese implements Language {
+public class Japanese implements Language{
 
     private final String fail = "失敗しました。もう一度確認してください。";
     private final String permission = "権限がないかもしれません。";
@@ -191,7 +191,7 @@ public class Japanese implements Language {
     }
 
     @Override
-    public String Welcome() {
+    public String welcome() {
         return null;
     }
 

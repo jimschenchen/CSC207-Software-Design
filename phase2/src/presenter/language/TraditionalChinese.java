@@ -189,7 +189,7 @@ public class TraditionalChinese implements Language {
     }
 
     @Override
-    public String Welcome() {
+    public String welcome() {
         return "歡迎";
     }
 
