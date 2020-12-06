@@ -474,7 +474,7 @@ public class TraditionalChinese implements Language {
     }
 
     @Override
-    public String eventId(){
+    public String eventId() {
         return null;
     }
 }

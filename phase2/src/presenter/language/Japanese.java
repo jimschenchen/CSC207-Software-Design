@@ -476,7 +476,7 @@ public class Japanese implements Language{
     }
 
     @Override
-    public String eventId(){
+    public String eventId() {
         return null;
     }
 }
