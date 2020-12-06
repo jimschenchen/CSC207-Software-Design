@@ -57,17 +57,19 @@ public class PanelFactory implements IUpdate{
     }
 
     private JPanel reSet(){
-        JPanel panel = new JPanel(new FlowLayout());
-        JTextField newPass = new JTextField("Enter your new Password Here");
+        JPanel panel = new JPanel(new BorderLayout(30,30));
+        JTextField newPass = new JTextField("New Pass");
+        newPass.setSize(400,300);
+        panel.add(newPass, BorderLayout.CENTER);
         JButton okButton = new JButton("OK");
+        okButton.setSize(200,80);
+        panel.add(okButton,BorderLayout.SOUTH);
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 presenter.reSetPass(newPass.getText());
             }
         });
-        panel.add(newPass);
-        panel.add(okButton);
         return panel;
     }
 

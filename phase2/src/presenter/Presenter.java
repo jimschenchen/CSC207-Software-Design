@@ -3,7 +3,7 @@ package presenter;
 import controller.ConferenceSystem;
 
 public class Presenter {
-    private int type;
+    public int type;
     ConferenceSystem cs;
 
     public Presenter(){

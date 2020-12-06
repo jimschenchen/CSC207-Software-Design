@@ -38,6 +38,7 @@ public class UserMenu extends JFrame implements IUpdate{
         add(contentPanel, BorderLayout.CENTER);
 
 
+
         menuBar = new JMenuBar();
         myProfile = new JMenu("My Profile");
         logOut = new JMenuItem("Log Out");
@@ -48,7 +49,7 @@ public class UserMenu extends JFrame implements IUpdate{
                 dispose();
             }
         });
-        reSet = new JMenuItem("Reset your Account");
+        reSet = new JMenuItem("Reset your password");
         reSet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,6 +108,18 @@ public class UserMenu extends JFrame implements IUpdate{
         menuBar.add(schedule);
 
         messenger = new JMenuItem("Messenger");
+        messenger.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (presenter.type == 2){
+                    //Open Attendee Messenger
+                }else if(presenter.type == 1){
+                    //Open Organizer Messenger
+                }else{
+                  //Open Speaker Messenger
+                }
+            }
+        });
         menuBar.add(messenger);
 
         setJMenuBar(menuBar);;
