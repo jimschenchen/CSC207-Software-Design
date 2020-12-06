@@ -50,7 +50,7 @@ public class PanelFactory implements IUpdate{
             panel = organizedEvents(presenter.viewOrganizedEvents());
         }else if (action == "changeEvent"){
             panel = changeEvent();
-        }else if (action == "viewTalk"){
+        }else if (action == "viewTalks"){
             panel = viewSpeakingEvent(presenter.viewSpeakingEvents());
         }
         return panel;
@@ -58,7 +58,7 @@ public class PanelFactory implements IUpdate{
 
     private JPanel reSet(){
         JPanel panel = new JPanel(new BorderLayout(30,30));
-        JTextField newPass = new JTextField("New Pass");
+        JTextField newPass = new JTextField("New Password");
         newPass.setSize(400,300);
         panel.add(newPass, BorderLayout.CENTER);
         JButton okButton = new JButton("OK");

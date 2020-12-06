@@ -186,4 +186,236 @@ public class English implements Language {
         return "It seems that you cannot create an account";
     }
 
+    @Override
+    public String Welcome(){
+        return ("Welcome");
+    }
+    @Override
+    public String myProfile(){
+        return ("My Profile");
+    }
+    @Override
+    public String logOut(){
+        return ("Log Out");
+    }
+    @Override
+    public String resetPass(){
+        return ("Reset Password");
+    }
+    @Override
+    public String schedule(){
+        return ("Schedule");
+    }
+    @Override
+    public String signUp(){
+        return ("Sign Up for An Event");
+    }
+
+    @Override
+    public String signUpWait(){
+        return ("Get a spot in the waiting list");
+    }
+    @Override
+    public String signUpNowait(){
+        return ("Don't have to wait!");
+    }
+    @Override
+    public String viewMyEvent(){
+        return ("View my Event");
+    }
+    @Override
+    public String  viewMyWait(){
+        return ("Events in waiting list");
+    }
+    @Override
+    public String  viewMyNoWait(){
+        return ("Events not in waiting list");
+    }
+    @Override
+    public String  viewAllEvent(){
+        return ("View All event");
+    }
+    @Override
+    public String  messenger(){
+        return ("Messenger");
+    }
+    @Override
+    public String  newPass(){
+        return ("New Password");
+    }
+    @Override
+    public String  eventInfo(){
+        return ("Events' Info");
+    }
+    @Override
+    public String  withID(){
+        return (", with ID ");
+    }
+    @Override
+    public String  startAt(){
+        return (" starts at ");
+    }
+    @Override
+    public String  endAt(){
+        return (" ends at ");
+    }
+    @Override
+    public String  takePlace(){
+        return (" takes place at ");
+    }
+    @Override
+    public String  whichIs(){
+        return (" which is ");
+    }
+
+    @Override
+    public String  title(){
+        return ("Title: ");
+    }
+    @Override
+    public String  duration(){
+        return ("Duration: ");
+    }
+    @Override
+    public String  startTime(){
+        return ("Start Time: ");
+    }
+    @Override
+    public String  endTime(){
+        return ("End Time: ");
+    }
+    @Override
+    public String  vIPStatus(){
+        return ("VIP Status: ");
+    }
+    @Override
+    public String  waitinglist(){
+        return ("Waiting list: ");
+    }
+    @Override
+    public String  signUpQuestion(){
+        return ("Sign Up?");
+    }
+    @Override
+    public String  yes(){
+        return ("Yes!");
+    }
+    @Override
+    public String  enterRoomNum(){
+        return ("Enter a new room number you want to add: ");
+    }
+    @Override
+    public String  enterRoomCapacity(){
+        return ("Enter a capacity for this room:");
+    }
+    @Override
+    public String  create(){
+        return ("Create");
+    }
+    @Override
+    public String  eventType(){
+        return ("Event Type: ");
+    }
+    @Override
+    public String  party(){
+        return ("Party");
+    }
+    @Override
+    public String  talk(){
+        return ("Talk");
+    }
+    @Override
+    public String  discussion(){
+        return ("Panel Discussion");
+    }
+    @Override
+    public String  topic(){
+        return ("Topic: ");
+    }
+    @Override
+    public String  roomNum(){
+        return ("Room Number: ");
+    }
+    @Override
+    public String  capacity(){
+        return ("Capacity: ");
+    }
+    @Override
+    public String  no(){
+        return ("No!");
+    }
+    @Override
+    public String  selectSpeaker(){
+        return ("Select Speaker: ");
+    }
+    @Override
+    public String  empty(){
+        return ("Empty");
+    }
+
+    @Override
+    public String  userType(){
+        return ("User Type: ");
+    }
+    @Override
+    public String  speaker(){
+        return ("Speaker");
+    }
+    @Override
+    public String  organizer(){
+        return ("Organizer");
+    }
+    @Override
+    public String  attendee(){
+        return ("Attendee");
+    }
+    @Override
+    public String  cancel(){
+        return ("Cancel");
+    }
+    @Override
+    public String  rank(){
+        return ("Rank: ");
+    }
+    @Override
+    public String  reallyQuestion(){
+        return ("Really??");
+    }
+    @Override
+    public String  change(){
+        return ("Change: ");
+    }
+    @Override
+    public String  newWord(){
+        return ("New: ");
+    }
+    @Override
+    public String  viewTalks(){
+        return ("View my Talks: ");
+    }
+    @Override
+    public String  newUser(){
+        return ("New User");
+    }
+    @Override
+    public String  newRoom(){
+        return ("New Room");
+    }
+    @Override
+    public String  newEvent(){
+        return ("New Event");
+    }
+    @Override
+    public String  organizedEvent(){
+        return ("Organized Event");
+    }
+    @Override
+    public String  changeEventSetting(){
+        return ("Change Event Setting");
+    }
+    @Override
+    public String viewOrganizedEvent(){
+        return ("View Organized Event");
+    }
+
 }
