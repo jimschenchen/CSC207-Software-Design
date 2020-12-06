@@ -1,9 +1,7 @@
 package gateway;
 
 import entity.*;
-import entity.event.Event;
-import entity.event.Party;
-import entity.event.Talk;
+import entity.event.*;
 import redis.clients.jedis.Jedis;
 import usecase.EventManager;
 
@@ -153,8 +151,9 @@ public class GatewayCli extends Gateway{
         LocalDateTime sTime = LocalDateTime.parse("2020-11-14 18:00", em.getTimeFormatter());
         LocalDateTime eTime = LocalDateTime.parse("2020-11-14 20:00", em.getTimeFormatter());
 
-        Event e1 = new Party(sTime, eTime, 998, "test event", 250, 200);
-        Event e2 = new Talk(sTime, eTime, 999, "test event222", 255, 400);
+        NonSpeakerEvent e1 = new Party(sTime, eTime, 998, "test event", 250, 200);
+        OneSpeakerEvent e2 = new Talk(sTime, eTime, 999, "test event222", 255, 400);
+        e2.setSpeaker(14);
         gf.addEvent(e1);
         gf.addEvent(e2);
         assert (gf.getEventById(998).getTitle().equals("test event"));

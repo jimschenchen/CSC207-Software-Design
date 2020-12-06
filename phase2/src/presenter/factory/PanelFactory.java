@@ -84,21 +84,31 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-    private JPanel viewAllEvents(List<List<String>> allEventList) {
-        JPanel viewEventPanel = new JPanel();
-        viewEventPanel.setLayout(null);
-        TitledBorder tb = BorderFactory.createTitledBorder(language.eventInfo());
-        viewEventPanel.setBorder(tb);
-        for (int i = 0; i < allEventList.size(); i++) {
-            List<String> event = allEventList.get(i);
-            String eventInfo = event.get(1) + ", " + event.get(0)+ language.withID()+ event.get(2) +
-                    language.startAt() + event.get(3) + language.endAt() + event.get(4) +
-                    language.takePlace() +  event.get(5) + language.whichIs() + event.get(6);
-            JLabel eventLabel = new JLabel(eventInfo);
-            eventLabel.setBounds(0, 50*i, 1000,50);
-            viewEventPanel.add(eventLabel);
+    private JPanel viewAllEvents(List<List<String>> events) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(events.size()+1, 7, 10,5));
+        System.out.println(events);
+        panel.add(new JLabel(language.eventType()));
+        panel.add(new JLabel(language.title()));
+        panel.add(new JLabel(language.eventId()));
+        panel.add(new JLabel(language.startAt()));
+        panel.add(new JLabel(language.endAt()));
+        panel.add(new JLabel(language.duration()));
+        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.vIPStatus()));
+        int i = 0;
+        for (List<String> event: events){
+            panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
+            panel.add(new JLabel(event.get(2)));
+            panel.add(new JLabel(event.get(3)));
+            panel.add(new JLabel(event.get(4)));
+            panel.add(new JLabel(event.get(5)));
+            panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
+            i++;
         }
-        return viewEventPanel;
+        return panel;
     }
 
     private JPanel signUpWaitListEvent(List<List<String>> events){
