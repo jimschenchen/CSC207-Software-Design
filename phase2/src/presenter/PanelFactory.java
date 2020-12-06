@@ -16,62 +16,63 @@ import java.util.List;
 import java.util.Vector;
 
 public class PanelFactory implements IUpdate{
-    //Produces the Panel depending on the specified type
-    //Add Panel type whenever needed
-    private Object JPanel;
     private Language language;
     private JOptionPaneFactory optionPaneFactory;
     private PanelPresenter presenter;
 
 
-    public JPanel getPanel(String string) {
+    public JPanel getPanel(String action) {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        if (string.equals("passwordField")) {
-            JPasswordField pass = new JPasswordField();
-            pass.setFont(new Font("Tahoma", Font.PLAIN, 34));
-            pass.setBounds(373, 35, 609, 67);
-            panel.add(pass);
-            pass.setColumns(10);
-            JButton btn = new JButton("Enter");
-            btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    char[] txt = pass.getPassword();
-                }
-            });
-        }
-        if (string.equals("textField")) {
-            JTextField txt = new JPasswordField();
-            txt.setFont(new Font("Tahoma", Font.PLAIN, 34));
-            txt.setBounds(373, 35, 609, 67);
-            panel.add(txt);
-            txt.setColumns(10);
-            JButton btn = new JButton("Enter");
-            btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String t = txt.getText();
-                }
-            });
-        }
-        if (string.equals("Panel")) {
-            return panel;
+        if(action == "reSet"){
+            panel = reSet();
+        }else if(action == "viewAllEvents"){
+            panel = viewAllEvents(presenter.viewAllEvent());
+        }else if(action == "signUpWait"){
+            panel = signUpWaitListEvent(presenter.viewCanWaitlistEvents());
+        }else if(action == "signUpNoWait"){
+            panel = signUpEvent(presenter.viewCanSignUpEvents());
+        }else if (action == "addRoom"){
+            panel = addRoom();
+        }else if (action == "createEvent"){
+            panel = createEvent(presenter.viewAllRooms(), presenter.viewAllSpeaker());
+        }else if(action == "createUser"){
+            panel = createUser();
+        }else if (action == "viewNoWait"){
+            panel = alreadySignedUpEvents(presenter.viewSignedUpEvents());
+        }else if (action == "viewWait"){
+            panel = alreadyWaitlistedSignedUpEvents(presenter.viewMyWaitList());
+        }else if (action == "viewOrganizedEvent"){
+            panel = organizedEvents(presenter.viewOrganizedEvents());
+        }else if (action == "changeEvent"){
+            panel = changeEvent();
+        }else if (action == "viewTalk"){
+            panel = viewSpeakingEvent(presenter.viewSpeakingEvents());
         }
         return panel;
     }
-    //I will move all the following methods to the method above by calling it at the end
 
+    private JPanel reSet(){
+        JPanel panel = new JPanel(new FlowLayout());
+        JTextField newPass = new JTextField("Enter your new Password Here");
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                update("reSet");
+            }
+        });
+        panel.add(newPass);
+        panel.add(okButton);
+        return panel;
+    }
 
-
-    public JPanel viewEventPanel(ArrayList<ArrayList<String>> allEventList) {
+    public JPanel viewAllEvents(List<List<String>> allEventList) {
         JPanel viewEventPanel = new JPanel();
         viewEventPanel.setLayout(null);
         TitledBorder tb = BorderFactory.createTitledBorder("Events' Info");
         viewEventPanel.setBorder(tb);
         for (int i = 0; i < allEventList.size(); i++) {
-            ArrayList<String> event = allEventList.get(i);
+            List<String> event = allEventList.get(i);
             String eventInfo = event.get(1) + ", " + event.get(0)+ ", with ID "+ event.get(2) + " starts at "
                     + event.get(3) + " ends at " + event.get(4) + " takes place at " +  event.get(5) + " which is "
                     + event.get(6);
@@ -151,7 +152,7 @@ public class PanelFactory implements IUpdate{
         return panel;
     }
 
-    public JPanel AddRoomPanel(String roomNub) {
+    public JPanel addRoom() {
         JPanel addRoomPanel = new JPanel();
         JLabel addRoom = new JLabel("Enter a new room number you want to add:");
         JLabel roomCapacity = new JLabel("Enter a capacity for this room:");
