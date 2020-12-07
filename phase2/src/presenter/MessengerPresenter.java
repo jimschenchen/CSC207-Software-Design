@@ -13,7 +13,10 @@ public class MessengerPresenter extends Presenter {
      *
      */
     ConferenceSystem msgSystem = new ConferenceSystem();
-    IMessage msgWindow = new MessengerWindow();
+    MessengerWindow msgWindow;
+    public MessengerPresenter(MessengerWindow msgWindow) {
+        this.msgWindow = msgWindow;
+    }
 
     /**
      * Allows attendee to message all the attendees of the event.
