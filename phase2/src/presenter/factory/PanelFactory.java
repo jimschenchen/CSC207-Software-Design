@@ -539,8 +539,7 @@ public class PanelFactory implements IUpdate {
         });
         okButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                presenter.changeEvent((String) changeItemSelected.getSelectedItem(), eventEntered.getText(),
+            public void actionPerformed(ActionEvent e) { presenter.changeEvent(changeItemSelected.getSelectedIndex(), eventEntered.getText(),
                         newSettingEntered.getText());
             }
         });

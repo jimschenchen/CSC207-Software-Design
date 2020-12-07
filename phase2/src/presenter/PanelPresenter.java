@@ -67,11 +67,11 @@ public class PanelPresenter extends Presenter{
      * @param eventID the event ID that the user wants to sign up
      * @param newSetting speaker id
      */
-    public void changeEvent(String type, String eventID, String newSetting) {
+    public void changeEvent(int type, String eventID, String newSetting) {
         Boolean success;
-        if (type == "Speaker") {
+        if (type == 0) {
             success = cs.modifySpeakerForEvent(newSetting, eventID);
-        } else if (type == "VIP Status") {
+        } else if (type ==  2) {
             Boolean VIP = false;
             if (newSetting.toLowerCase() == "yes"){
                 VIP = true;
