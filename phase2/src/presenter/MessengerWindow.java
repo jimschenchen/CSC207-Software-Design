@@ -24,7 +24,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     JMenuItem logOut = new JMenuItem("Close");
     JMenuBar bar = new JMenuBar();
     JMenu messageOptions = new JMenu("Messenger Options");
-    JMenuItem viewMessages = new JMenuItem("View My Messages");
     MessengerPresenter _msgPresenter = new MessengerPresenter(this);
 
     /**
@@ -73,8 +72,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         logOut.addActionListener(this);
 
         setJMenuBar(bar);
-        messageOptions.add(viewMessages);
-        viewMessages.addActionListener(this);
         bar.add(messageOptions);
         rcv.setSize(200, 200);
         msgRec.setLayout(new FlowLayout());
@@ -93,9 +90,9 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
      */
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        String title = JOptionPane.showInputDialog("Enter the title of your message");
 
         if (src == send){
+            String title = JOptionPane.showInputDialog("Enter the title of your message");
             String message = msgSend.getText();
             Object[] options = {"All attendees",
                     "One attendee"};
@@ -126,7 +123,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
             List<List<String>> listOfLists = _msgPresenter.readReceivedMessages();
             DefaultListModel listModel = new DefaultListModel();
             for (List lst : listOfLists) {
-                String element = (String) lst.get(0);
+                String element = lst.get(0) + ": " + lst.get(1);
                 listModel.addElement(element);
             }
 
@@ -139,7 +136,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                             "Close"};
                     List t = listOfLists.get(ind+1);
                     int optionPane = JOptionPane.showOptionDialog(new JFrame(),
-                            t.get(1),
+                            t.get(2),
                             "Received Email",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
@@ -166,7 +163,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
             List<List<String>> listOfLists = _msgPresenter.readSentMessages();
             DefaultListModel listModel = new DefaultListModel();
             for (List lst : listOfLists) {
-                String element = (String) lst.get(0);
+                String element = lst.get(0) + ": " + lst.get(1);
                 listModel.addElement(element);
             }
             JList list = new JList(listModel);
