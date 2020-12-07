@@ -9,6 +9,10 @@ import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+/**
+ * the messenger window
+ */
+
 class MessengerWindow extends JFrame implements ActionListener, IMessage {
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
@@ -23,6 +27,10 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     JMenuItem viewMessages = new JMenuItem("View My Messages");
     MessengerPresenter _msgPresenter = new MessengerPresenter();
 
+    /**
+     * Construct the messenger Window
+     *
+     */
 
     public MessengerWindow(){
         super("Message");
@@ -125,8 +133,9 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                     int ind = listOfLists.indexOf(list.getSelectedValue());
                     Object[] replyOrClose = {"Reply",
                             "Close"};
+                    List t = listOfLists.get(ind+1);
                     int optionPane = JOptionPane.showOptionDialog(new JFrame(),
-                            listOfLists.get(ind+1),
+                            t.get(1),
                             "Received Email",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
@@ -136,7 +145,8 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                     if (optionPane == JOptionPane.YES_OPTION){
                         String content = JOptionPane.showInputDialog("Write your message here");
                         String title = JOptionPane.showInputDialog("Choose the title");
-                        _msgPresenter.replyTo(content, title);
+                        String messageID = Integer.toString(ind);
+                        _msgPresenter.replyTo(content, title, messageID);
                     }
                 }
 
@@ -165,7 +175,10 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     }
 
 
-
+    /**
+     * notifies the user of his/her/they message status
+     * @param success the success of user's action
+     */
 
     public void messageSuccess(boolean success){
         if (success){

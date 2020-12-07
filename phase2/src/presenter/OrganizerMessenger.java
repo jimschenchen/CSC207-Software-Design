@@ -3,10 +3,18 @@ package presenter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * the organizer messenger window
+ */
+
 public class OrganizerMessenger extends MessengerWindow {
+
+    /**
+     * Construct the Organizer messenger window
+     *
+     */
     OrganizerMessenger(){
         super();
-        super.bar.remove(options);
     }
     public void actionPerformed(ActionEvent e){
         Object src = e.getSource();
@@ -27,8 +35,7 @@ public class OrganizerMessenger extends MessengerWindow {
                 _msgPresenter.messageOneSpeaker(title, message, username);
             }
             if (i == 2){
-                String id = JOptionPane.showInputDialog("Enter the id of the event");
-                _msgPresenter.messageAllAttendees(title, message, id);
+                _msgPresenter.messageAllAttendeeOrganizer(title, message);
             }
             if (i == 3){
                 String username = JOptionPane.showInputDialog("Enter the username of an attendee");
