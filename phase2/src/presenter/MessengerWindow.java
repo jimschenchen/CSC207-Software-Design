@@ -25,7 +25,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     JMenuBar bar = new JMenuBar();
     JMenu messageOptions = new JMenu("Messenger Options");
     JMenuItem viewMessages = new JMenuItem("View My Messages");
-    MessengerPresenter _msgPresenter = new MessengerPresenter();
+    MessengerPresenter _msgPresenter = new MessengerPresenter(this);
 
     /**
      * Construct the messenger Window
