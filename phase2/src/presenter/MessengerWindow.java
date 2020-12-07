@@ -87,6 +87,10 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     }
 
     @Override
+    /**
+     * Perform the action
+     * @param e action that we need to follow
+     */
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         String title = JOptionPane.showInputDialog("Enter the title of your message");
@@ -179,7 +183,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
      * notifies the user of his/her/they message status
      * @param success the success of user's action
      */
-
     public void messageSuccess(boolean success){
         if (success){
             showMessageDialog(null, "Your message was sent successfully!");

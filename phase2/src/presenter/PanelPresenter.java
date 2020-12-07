@@ -35,6 +35,10 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * The event that need to be waited
+     * @param eventID the event ID that the user wants to sign up
+     */
     public void waitEvent(String eventID) {
         Boolean success = cs.signUpForEventWaitList(eventID);
         if (success) {
@@ -44,6 +48,10 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * cancel the event
+     * @param eventID the event ID that the user wants to sign up
+     */
     public void cancelEvent(String eventID) {
         Boolean success = cs.cancelEvent(eventID);
         if (success) {
@@ -53,6 +61,12 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * change the event
+     * @param type the type of the user
+     * @param eventID the event ID that the user wants to sign up
+     * @param newSetting speaker id
+     */
     public void changeEvent(String type, String eventID, String newSetting) {
         Boolean success;
         if (type == "Speaker") {
@@ -70,6 +84,11 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+
+    /**
+     * check if a user is VIP or not
+     * @param VIP vip status
+     */
     private Boolean vIPConverter(String VIP) {
         if (VIP == "Yes") {
             return true;
@@ -78,6 +97,12 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * create an user
+     * @param type the type of the user
+     * @param username the user name
+     * @param password password for a user
+     */
     public void createUser(String type, String username, String password) {
         Boolean success;
         if (type == "Speaker") {
@@ -96,6 +121,22 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * create an event
+     * @param eventType the type of the user
+     * @param startTime the user name
+     * @param roomNum password for a user
+     * @param topic password for a user
+     * @param capacity password for a user
+     * @param vipStatus password for a user
+     * @param endTime password for a user
+     * @param endTime password for a user
+     * @param endTime password for a user
+     * @param endTime password for a user
+     * @param endTime password for a user
+
+     * @param endTime password for a user
+     */
     public void createEvent(int eventType, String startTime, String endTime, String speakers,
                             String roomNum, String topic, String capacity, String vipStatus) {
         Boolean success = cs.newEvent(eventType, startTime, endTime, speakers, topic, roomNum, capacity, vIPConverter(vipStatus));

@@ -31,6 +31,11 @@ public class SpeakerMenu extends UserMenu {
             }
         });
     }
+
+    /**
+     * update the actions
+     * @param action action that we need to follow
+     */
     public void update(String action){
         contentPanel.removeAll();
         contentPanel.add(panelFactory.getPanel(action));
