@@ -127,16 +127,19 @@ public class UserManager {
      * @Description: add an Event to Attendee or Organizer
      */
     public void addEventToUser(int eventId, int userId, GatewayFacade g){
-        if (!isExistingAttendee(userId, g)){
-            Organizer organizer = g.getOrganizerById(userId);
-            organizer.signUpEvent(eventId);
-            g.updateUser(organizer);
-        }
-        else{
-            Attendee attendee = g.getAttendeeById(userId);
-            attendee.signUpEvent(eventId);
-            g.updateUser(attendee);
-        }
+//        if (!isExistingAttendee(userId, g)){
+//            Organizer organizer = g.getOrganizerById(userId);
+//            organizer.signUpEvent(eventId);
+//            g.updateUser(organizer);
+//        }
+//        else{
+//            Attendee attendee = g.getAttendeeById(userId);
+//            attendee.signUpEvent(eventId);
+//            g.updateUser(attendee);
+//        }
+        Attendee attendee = (Attendee) g.getUserById(userId);
+        attendee.signUpEvent(eventId);
+        g.updateUser(attendee);
     }
 
     /**

@@ -48,10 +48,12 @@ public class Organizer extends Attendee implements java.io.Serializable{
                 ", username='" + super.getUserName() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
                 ", created event list=" + createdEventList +
+                ", signedup event list=" + this.getSignedUpEventList() +
+                ", waiting event list=" + this.getMyWaitList() +
                 '}';
     }
 
     public void cancelCreatedEvent(int eID){
-        createdEventList.remove(eID);
+        createdEventList.remove(new Integer(eID));
     }
 }

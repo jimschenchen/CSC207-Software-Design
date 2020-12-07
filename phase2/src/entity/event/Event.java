@@ -138,7 +138,7 @@ public abstract class  Event {
      * @Description: remove the user from the event
      */
     public void removeUserFromEvent(int userId) {
-        signedUserList.remove(userId);
+        signedUserList.remove(new Integer(userId));
     };
 
     /**
@@ -153,7 +153,7 @@ public abstract class  Event {
      * @param userId the id of the user
      * @Description: remove the user from waiting list.
      */
-    public void removeUserFromWaitList(int userId) {waitList.remove(userId);}
+    public void removeUserFromWaitList(int userId) {waitList.remove(new Integer (userId));}
 
     @Override
     public String toString() {

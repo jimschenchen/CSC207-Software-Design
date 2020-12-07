@@ -39,7 +39,7 @@ public class Attendee extends User implements java.io.Serializable{
      * @param eid event id
      */
     public void cancelEvent (int eid){
-            signedUpEvent.remove(eid);
+            signedUpEvent.remove(new Integer(eid));
     }
 
     /**
@@ -65,7 +65,7 @@ public class Attendee extends User implements java.io.Serializable{
      * @param eid event id
      */
     public void removeWaitingEvent (int eid) {
-        myWaitList.remove(eid);
+        myWaitList.remove(new Integer(eid));
     }
 
     /**
