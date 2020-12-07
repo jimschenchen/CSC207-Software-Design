@@ -120,9 +120,11 @@ public class PanelFactory implements IUpdate {
      */
     private JPanel signUpWaitListEvent(List<List<String>> events){
         // This method includes both viewing and signing up
-        GridLayout layout = new GridLayout(events.size()+1,8, 10,5);
+        GridLayout layout = new GridLayout(events.size()+1,10, 10,5);
         JPanel panel = new JPanel(layout);
+        panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
+        panel.add(new JLabel(language.eventId()));
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
@@ -134,17 +136,19 @@ public class PanelFactory implements IUpdate {
         int i = 0;
         for (List<String> event: events){
             panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
             panel.add(new JLabel(event.get(2)));
             panel.add(new JLabel(event.get(3)));
             panel.add(new JLabel(event.get(4)));
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
+            panel.add(new JLabel(event.get(9)));
             buttonArray[i] = new JButton(language.yes());
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.waitEvent(event.get(1)); // the presenter will be added later
+                    presenter.waitEvent(event.get(2)); // the presenter will be added later
                 }
             });
             panel.add(buttonArray[i]);
@@ -157,9 +161,11 @@ public class PanelFactory implements IUpdate {
      * @Description: sign up event
      */
     private JPanel signUpEvent(List<List<String>> events){
-        GridLayout layout = new GridLayout(events.size()+1,7, 10,5);
+        GridLayout layout = new GridLayout(events.size()+1,9, 10,5);
         JPanel panel = new JPanel(layout);
+        panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
+        panel.add( new JLabel(language.eventId()));
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
@@ -170,16 +176,18 @@ public class PanelFactory implements IUpdate {
         int i = 0;
         for (List<String> event: events){
             panel.add(new JLabel(event.get(0)));
+            panel.add(new JLabel(event.get(1)));
             panel.add(new JLabel(event.get(2)));
             panel.add(new JLabel(event.get(3)));
             panel.add(new JLabel(event.get(4)));
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
+            panel.add(new JLabel(event.get(7)));
             buttonArray[i] = new JButton(language.yes());
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.signUpEvent(event.get(1)); //the presenter will be added later
+                    presenter.signUpEvent(event.get(2)); //the presenter will be added later
                 }
             });
             panel.add(buttonArray[i]);
@@ -390,7 +398,8 @@ public class PanelFactory implements IUpdate {
     }
 
     private JPanel alreadySignedUpEvents(List<List<String>> events){
-        JPanel panel = new JPanel(new GridLayout(events.size()+1, 8, 10,5));
+        JPanel panel = new JPanel(new GridLayout(events.size()+1, 9, 10,5));
+        panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
         panel.add(new JLabel(language.startAt()));
@@ -413,7 +422,7 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.cancelEnrollment(event.get(1));
+                    presenter.cancelEnrollment(event.get(2));
                 }
             });
             panel.add(cancelButtons[i]);
@@ -423,7 +432,8 @@ public class PanelFactory implements IUpdate {
     }
 
     private JPanel alreadyWaitlistedSignedUpEvents(List<List<String>> events){
-        JPanel panel = new JPanel(new GridLayout(events.size()+1, 9, 10,5));
+        JPanel panel = new JPanel(new GridLayout(events.size()+1, 10, 10,5));
+        panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
         panel.add(new JLabel(language.startAt()));
@@ -448,7 +458,7 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.removeWait(event.get(1));
+                    presenter.removeWait(event.get(2));
                 }
             });
             panel.add(cancelButtons[i]);
@@ -458,7 +468,8 @@ public class PanelFactory implements IUpdate {
     }
 
     private JPanel organizedEvents(List<List<String>> events){
-        JPanel panel = new JPanel(new GridLayout(events.size()+1, 10, 10,5));
+        JPanel panel = new JPanel(new GridLayout(events.size()+1, 11, 10,5));
+        panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
         panel.add(new JLabel(language.startAt()));
@@ -481,11 +492,12 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
             panel.add(new JLabel(event.get(8)));
+            panel.add(new JLabel(event.get(9)));
             cancelButtons[i] = new JButton(language.reallyQuestion());
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.cancelEvent(event.get(1));
+                    presenter.cancelEvent(event.get(2));
                 }
             });
             panel.add(cancelButtons[i]);
