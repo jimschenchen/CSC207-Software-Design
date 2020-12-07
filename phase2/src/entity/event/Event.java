@@ -160,6 +160,7 @@ public abstract class  Event {
         if (this instanceof Party){
             if (this.isVipEvent){
                 return "VIPParty{" +
+                        "eventID=" + eventId +
                         ", title='" + title + '\'' +
                         ", startTime=" + startTime +
                         ", endTime=" + endTime +
@@ -171,6 +172,7 @@ public abstract class  Event {
             }
             else{
                 return "Party{" +
+                        "eventID=" + eventId +
                         ", title='" + title + '\'' +
                         ", startTime=" + startTime +
                         ", endTime=" + endTime +
@@ -184,6 +186,7 @@ public abstract class  Event {
         if (this instanceof Talk){
             if (this.isVipEvent){
                 return "VIPTalk{" +
+                        "eventID=" + eventId +
                         ", title='" + title + '\'' +
                         ", speaker=" + ((Talk) this).getSpeakerId() +
                         ", startTime=" + startTime +
@@ -196,6 +199,7 @@ public abstract class  Event {
             }
             else{
                 return "Talk{" +
+                        "eventID=" + eventId +
                         ", title='" + title + '\'' +
                         ", speaker=" + ((Talk) this).getSpeakerId() +
                         ", startTime=" + startTime +
@@ -210,6 +214,7 @@ public abstract class  Event {
         if (this instanceof PanelDiscussion){
             if (this.isVipEvent){
                 return "VIPPanelDiscussion{" +
+                        "eventID=" + eventId +
                         ", title='" + title + '\'' +
                         ", speaker=" + ((PanelDiscussion) this).getSpeakerId() +
                         ", startTime=" + startTime +
@@ -222,6 +227,7 @@ public abstract class  Event {
             }
             else{
                 return "PanelDiscussion{" +
+                        "eventID=" + eventId +
                         ", title='" + title + '\'' +
                         ", speaker=" + ((PanelDiscussion) this).getSpeakerId() +
                         ", startTime=" + startTime +
@@ -234,6 +240,7 @@ public abstract class  Event {
             }
         }
         return "Event{" +
+                "eventID=" + eventId +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", duration=" + duration +

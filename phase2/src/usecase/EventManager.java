@@ -258,7 +258,7 @@ public class EventManager {
                 add(String.valueOf(event.getEventId()));
                 add(event.getStartTime().format(formatter));
                 add(event.getEndTime().format(formatter));
-                add(String.valueOf(event.getDuration().toHours()));
+                add(event.getDuration().toMinutes() + " minute(s)");
                 add(g.getRoomById(event.getRoomId()).getRoomNum());
             }
         };

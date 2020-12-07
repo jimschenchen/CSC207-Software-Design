@@ -139,7 +139,6 @@ class EventManagementSystem extends subSystem{
             LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
             int cap = Integer.parseInt(capacity);
-            System.out.println(vipStatus);
             if (!(speakerID.length() == 0)){
                 if (speakerID.contains(",")) { // have more than 1 speaker
                     System.out.println("in the if branch");
