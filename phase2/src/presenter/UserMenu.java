@@ -1,6 +1,8 @@
-package presenter.menus;
+package presenter;
 
+import presenter.IMessage;
 import presenter.IUpdate;
+import presenter.OrganizerMessenger;
 import presenter.windows.LoginWindow;
 import presenter.Presenter;
 import presenter.factory.PanelFactory;
@@ -32,6 +34,7 @@ public class UserMenu extends JFrame implements IUpdate {
     protected PanelFactory panelFactory;
     protected JPanel contentPanel;
     protected Language language;
+    protected IUpdate menu = this;
 
     /**
      * construct the UserMenu
@@ -120,13 +123,7 @@ public class UserMenu extends JFrame implements IUpdate {
         messenger.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (presenter.type == 2){
-                    presenter.openMessenger(2);
-                }else if(presenter.type == 1){
-                    presenter.openMessenger(1);
-                }else{
-                    presenter.openMessenger(3);
-                }
+               presenter.openMessenger(menu);
             }
         });
         menuBar.add(messenger);
@@ -144,6 +141,13 @@ public class UserMenu extends JFrame implements IUpdate {
      * @param action action that we need to follow
      */
     public void update(String action){
+        if (action == "Speaker"){
+            IMessage speakerMes = new SpeakerMessenger();
+        }else if (action == "Organizer"){
+            IMessage organizerMes = new OrganizerMessenger();
+        }else if (action == "Attendee"){
+            IMessage userMes = new MessengerWindow();
+        }
         contentPanel.removeAll();
         contentPanel.add(panelFactory.getPanel(action));
         contentPanel.validate();

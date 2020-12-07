@@ -416,6 +416,7 @@ public class PanelFactory implements IUpdate {
                     presenter.cancelEnrollment(event.get(1));
                 }
             });
+            panel.add(cancelButtons[i]);
             i++;
         }
         return panel;
@@ -450,6 +451,7 @@ public class PanelFactory implements IUpdate {
                     presenter.removeWait(event.get(1));
                 }
             });
+            panel.add(cancelButtons[i]);
             i++;
         }
         return panel;
@@ -464,8 +466,8 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.duration()));
         panel.add(new JLabel(language.takePlace()));
         panel.add(new JLabel(language.vIPStatus()));
-        panel.add(new JLabel(language.capacity()));
         panel.add(new JLabel(language.speaker()));
+        panel.add(new JLabel(language.capacity()));
         panel.add(new JLabel(language.cancel()));
         JButton[] cancelButtons = new JButton[events.size()];
         int i = 0;
@@ -486,6 +488,7 @@ public class PanelFactory implements IUpdate {
                     presenter.cancelEvent(event.get(1));
                 }
             });
+            panel.add(cancelButtons[i]);
             i++;
         }
         return panel;

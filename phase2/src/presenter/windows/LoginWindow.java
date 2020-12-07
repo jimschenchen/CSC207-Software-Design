@@ -5,9 +5,9 @@ import presenter.factory.JOptionPaneFactory;
 import presenter.language.English;
 import presenter.language.Language;
 import presenter.IUpdate;
-import presenter.menus.OrganizerMenu;
-import presenter.menus.SpeakerMenu;
-import presenter.menus.UserMenu;
+import presenter.OrganizerMenu;
+import presenter.SpeakerMenu;
+import presenter.UserMenu;
 
 import javax.swing.*;
 import java.awt.*;
