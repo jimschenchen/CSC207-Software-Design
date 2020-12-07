@@ -50,4 +50,8 @@ public class Organizer extends Attendee implements java.io.Serializable{
                 ", created event list=" + createdEventList +
                 '}';
     }
+
+    public void cancelCreatedEvent(int eID){
+        createdEventList.remove(eID);
+    }
 }

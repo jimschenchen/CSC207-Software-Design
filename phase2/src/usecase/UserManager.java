@@ -418,7 +418,7 @@ public class UserManager {
      *
      * @Description cancel an event.
      */
-    public void cancelEvent(int eventID, GatewayFacade gw) {
+    public void cancelEvent(int eventID, int organizerID, GatewayFacade gw) {
 //        Event event = gw.getEventById(eventID);
 //        List<Integer> userList = event.getSignedUpUserList();
 //        for (Integer userID : userList){
@@ -428,6 +428,7 @@ public class UserManager {
         if (gw.getMultiSpeakerEventById(eventID) != null){
             MultiSpeakerEvent event = gw.getMultiSpeakerEventById(eventID);
             cancelEventFromSignedUsers(eventID, event, gw);
+            cancelEventFromOrganized(eventID, organizerID, gw);
             List<Integer> speakerList = event.getSpeakerList();
             for (Integer speakerID : speakerList){
                 Speaker speaker = gw.getSpeakerById(speakerID);
@@ -438,10 +439,12 @@ public class UserManager {
         else if(gw.getOneSpeakerEventById(eventID) != null){
             OneSpeakerEvent event = gw.getOneSpeakerEventById(eventID);
             cancelEventFromSignedUsers(eventID, event, gw);
+            cancelEventFromOrganized(eventID, organizerID, gw);
             removeOneSpeakerEventFromSpeaker(eventID, gw);
         }
         else{
             NonSpeakerEvent event = gw.getNonSpeakerEventById(eventID);
+            cancelEventFromOrganized(eventID, organizerID, gw);
             cancelEventFromSignedUsers(eventID, event, gw);
         }
     }
@@ -482,5 +485,11 @@ public class UserManager {
                 cancelEventFromUser(eventId, userID, gw);
             }
         }
+    }
+
+    private void cancelEventFromOrganized(int eventID, int organizerID, GatewayFacade gw){
+        Organizer organizer = gw.getOrganizerById(organizerID);
+        organizer.cancelCreatedEvent(eventID);
+        gw.updateUser(organizer);
     }
 }

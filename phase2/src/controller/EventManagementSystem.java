@@ -302,7 +302,7 @@ class EventManagementSystem extends subSystem{
         try{
             int eID = Integer.parseInt(eventID);
             if (um.canCancelEvent(user, eID, gw) && em.canCancelEvent(eID, gw)){
-                um.cancelEvent(eID, gw);
+                um.cancelEvent(eID, user, gw);
                 em.cancelEvent(eID, gw);
                 return true;
             }
