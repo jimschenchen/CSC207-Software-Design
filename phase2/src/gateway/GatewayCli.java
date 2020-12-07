@@ -146,6 +146,9 @@ public class GatewayCli extends Gateway{
         System.out.print("**");
     }
 
+    /**
+     * @Description: test event
+     */
     private void testEvent (GatewayFacade gf) {
         EventManager em = new EventManager();
         LocalDateTime sTime = LocalDateTime.parse("2020-11-14 18:00", em.getTimeFormatter());
@@ -163,6 +166,9 @@ public class GatewayCli extends Gateway{
         System.out.print("**");
     }
 
+    /**
+     * @Description: test room
+     */
     private void testRoom (GatewayFacade gf) {
         Room r1 = new Room("123313", 999, 10);
         gf.addRoom(r1);
@@ -172,6 +178,10 @@ public class GatewayCli extends Gateway{
         System.out.print("**");
     }
 
+
+    /**
+     * @Description: test message
+     */
     private void testMessage (GatewayFacade gf) {
         boolean check = false;
         List<Message> messageList = gf.getSentMessageListByUserId(999);

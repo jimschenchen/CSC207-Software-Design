@@ -371,59 +371,16 @@ public class ConferenceSystem {
         return ems.modifySpeakerForEvent(speakerID, eventID, gw);
     }
 
-//    /**
-//     * Creates a new event into the system.
-//     *
-//     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH". Example: "2020-11-14 18"
-//     * @param speakerID ID of speaker giving the event.
-//     * @param topic Topic/title of the event.
-//     * @param roomNumber Room number of the location of this event.
-//     * @return Return true if successfully created a new event into the system, false otherwise.
-//     */
-//    public boolean newEvent(String type01, String type02, String startTime, String endTime, @Nullable String speakerID,
-//                            String topic, String roomNumber, String capacity){
-//        try{
-//            int type1 = Integer.parseInt(type01);
-//            int type2 = Integer.parseInt(type02);
-//            LocalDateTime sTime = LocalDateTime.parse(startTime, em.getTimeFormatter());
-//            LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
-//            int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
-//            int cap = Integer.parseInt(capacity);
-//            if (speakerID.contains(",")) {
-//                ArrayList<Integer> sID = new ArrayList<>();
-//                StringTokenizer token = new StringTokenizer(speakerID,",");
-//                while (token.hasMoreElements()) {
-//                    sID.add(Integer.parseInt(token.nextToken()));
-//                    if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-//                            um.isSpeakerBusy(sID,sTime, eTime, gw)) {
-//
-//                        int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
-//                        um.addEventToOrganizedList(eventID, user, gw);
-//                        for (int speaker : sID){
-//                            um.addEventToSpeaker(eventID, speaker, gw);}
-//                        return true;
-//                    }
-//                }
-//            }
-//            else {
-//                int sID = Integer.parseInt(speakerID);
-//                if (um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
-//                        um.isSpeakerBusy(sID, sTime, eTime, gw)) {
-//
-//                    int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
-//                    um.addEventToOrganizedList(eventID, user, gw);
-//                    um.addEventToSpeaker(eventID, sID, gw);
-//                    return true;
-//                }
-//            }
-//
-//            return false; // return false when unsuccessful
-//        }
-//        catch(DateTimeParseException | NullPointerException ex){
-//            return false; // return false on invalid input
-//        }
-//    }
 
+    /**
+     * Creates a new event into the system.
+     *
+     * @param startTime Start time of the event. In the format of "yyyy-MM-dd HH". Example: "2020-11-14 18"
+     * @param speakerID ID of speaker giving the event.
+     * @param topic Topic/title of the event.
+     * @param roomNumber Room number of the location of this event.
+     * @return Return true if successfully created a new event into the system, false otherwise.
+     */
     // if no speaker, pass in empty string
     // if more than one speaker, pass "id1,id2"
     public boolean newEvent(int type, String startTime, String endTime, String speakerID,
@@ -507,22 +464,36 @@ public class ConferenceSystem {
         return vs.viewCanWaitListEvents(gw);
     }
 
+
+    /**
+     * View all my wait list
+     */
     // when use this method, you need to restrict the type of user to be attendee type...
     // return format: [title, eventID, startTime, endTime, duration, room, VIPstatus, waitlistRank]
     public List<List<String>> viewMyWaitList(){
         return vs.viewMyWaitList(gw);
     }
 
+    /**
+     * view attendees in speaking events
+     */
     // format: [ID, username]
     public List<List<String>> viewAttendeesInSpeakingEvents(){
         return vs.viewAttendeesInSpeakingEvents(gw);
     }
 
+
+    /**
+     * view all the attendees
+     */
     // format: [ID, username]
     public List<List<String>> viewAllAttendees(){
         return vs.viewAllAttendees(gw);
     }
 
+    /**
+     * change view all the speakers
+     */
     //format: [ID, username]
     public List<List<String>> viewAllSpeakers(){
         return vs.viewAllSpeakers(gw);

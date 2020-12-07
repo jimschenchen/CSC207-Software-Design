@@ -123,19 +123,12 @@ public class PanelPresenter extends Presenter{
 
     /**
      * create an event
-     * @param eventType the type of the user
-     * @param startTime the user name
-     * @param roomNum password for a user
-     * @param topic password for a user
-     * @param capacity password for a user
-     * @param vipStatus password for a user
-     * @param endTime password for a user
-     * @param endTime password for a user
-     * @param endTime password for a user
-     * @param endTime password for a user
-     * @param endTime password for a user
-
-     * @param endTime password for a user
+     * @param eventType ending time
+     * @param startTime starting time
+     * @param roomNum room id
+     * @param topic topic of the event
+     * @param capacity capacity
+     * @param vipStatus VIP status
      */
     public void createEvent(int eventType, String startTime, String endTime, String speakers,
                             String roomNum, String topic, String capacity, String vipStatus) {
@@ -147,6 +140,10 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * cancel the enrollment for an event
+     * @param eventID event id
+     */
     public void cancelEnrollment(String eventID) {
         Boolean success = cs.cancelEnrollmentInEvent(eventID);
         if (success) {
@@ -156,6 +153,10 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * remove wait for an event
+     * @param eventID event id
+     */
     public void removeWait(String eventID) {
         Boolean success = cs.removeEventFromWaitList(eventID);
         if (success) {
@@ -165,6 +166,11 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * add other rooms
+     * @param roomNumber room id
+     * @param capacity capacity
+     */
     public void addRoom(String roomNumber, String capacity) {
         Boolean success = cs.addNewRoom(roomNumber, capacity);
         if (success) {
@@ -174,42 +180,73 @@ public class PanelPresenter extends Presenter{
         }
     }
 
+    /**
+     * view all the events
+     */
     public List<List<String>> viewAllEvent() {
         return cs.viewEvents();
     }
 
+    /**
+     * view all the events that can be canceled
+     */
     public List<List<String>> viewCanWaitlistEvents() {
         return cs.viewCanWaitlistEvents();
     }
 
+    /**
+     * view all the events that can be signed up
+     */
     public List<List<String>> viewCanSignUpEvents() {
         return cs.viewCanSignUpEvents();
     }
 
+    /**
+     * view all the rooms
+     */
     public List<List<String>> viewAllRooms() {
         return cs.viewAllRooms();
     }
 
+    /**
+     * view all the speakers
+     */
     public List<List<String>> viewAllSpeaker() {
         return cs.viewAllSpeakers();
     }
 
+    /**
+     * view all the signed up events
+     */
     public List<List<String>> viewSignedUpEvents() {
         return cs.viewSignedUpEvents();
     }
 
+    /**
+     * view my wait list
+     */
     public List<List<String>> viewMyWaitList() {
         return cs.viewMyWaitList();
     }
 
+    /**
+     * view all the organized events
+     */
     public List<List<String>> viewOrganizedEvents() {
         return cs.viewOrganizedEvents();
     }
 
+    /**
+     * view all the speaking events
+     */
     public List<List<String>> viewSpeakingEvents() {
         return cs.viewSpeakingEvents();
     }
 
+    /**
+     * reset password
+     * @param newPass new password
+     */
     public void reSetPass(String newPass){
         Boolean success = cs.resetPassword(newPass);
         if(success){

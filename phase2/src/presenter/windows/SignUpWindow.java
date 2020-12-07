@@ -23,6 +23,11 @@ public class SignUpWindow extends JFrame implements IUpdate {
     Presenter presenter = new Presenter();
     IUpdate window = this;
 
+
+    /**
+     * @Description: the sign up window
+     * @param language the language
+     */
     public SignUpWindow(Language language) {
         this.language = language;
         windowFactory = new JOptionPaneFactory(language);
@@ -82,12 +87,19 @@ public class SignUpWindow extends JFrame implements IUpdate {
         });
     }
 
+    /**
+     * @Description: a user sign up with his password
+     */
     private void signUp(){
         String username = usernameText.getText();
         String password = passwordText.getText();
         presenter.signup(username, password, window);
     }
 
+    /**
+     * @Description: update the action
+     * @param action the action
+     */
     public void update(String action){
         if(action == "Back"){ //back to the login page
             LoginWindow loginWindow = new LoginWindow(language);

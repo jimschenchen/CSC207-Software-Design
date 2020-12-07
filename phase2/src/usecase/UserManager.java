@@ -33,6 +33,11 @@ public class UserManager {
         g.addUser(s);
     }
 
+    /**
+     * @Description: create an organizer
+     * @param password password
+     * @param name the name of the organizer
+     */
     public void createOrganizer(String password, String name, GatewayFacade g){
         /**
          * @Description: create a organizer account
@@ -441,6 +446,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * @Description: cancel the event from signup up users
+     * @param eventID event id
+     * @param event the event
+     */
     private void cancelEventFromSignedUsers(int eventID, Event event, GatewayFacade gw){
         List<Integer> userList = event.getSignedUpUserList();
         for (Integer userID : userList){
@@ -448,10 +458,20 @@ public class UserManager {
         }
     }
 
+    /**
+     * @return true if we can change the event capacity
+     * @param user user
+     */
     public boolean canChangeEventCapacity(int user, GatewayFacade gw) {
         return isExistingOrganizer(user, gw);
     }
 
+
+    /**
+     * @Description: remove all the non vip events
+     * @param eventId event id
+     * @param droppedUsers a list of user id
+     */
     public void dropNonVipEventFromNonVIP(List<Integer> droppedUsers, int eventId, GatewayFacade gw) {
         for (int userID : droppedUsers){
             Attendee attendee = (Attendee) gw.getUserById(userID);

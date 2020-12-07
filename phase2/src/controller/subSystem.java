@@ -13,6 +13,9 @@ abstract class subSystem {
     UserManager um = new UserManager();
     int user;
 
+    /**
+     * set the user
+     */
     void setUser(int userID){
         this.user = userID;
     }
