@@ -45,7 +45,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String language(){
-        return("语言");
+        return("简体中文");
     }
 
     @Override

@@ -51,7 +51,7 @@ public class LanguageWindow extends JFrame implements IUpdate {
         englishButton.setSelected(true);
         englishButton.setFont(defaultFont);
 
-        russiaButton = new JRadioButton("Not Yet");
+        russiaButton = new JRadioButton(new Russian().language());
         russiaButton.setFont(defaultFont);
 
         traditionalChineseButton = new JRadioButton(new TraditionalChinese().language());
@@ -115,14 +115,16 @@ public class LanguageWindow extends JFrame implements IUpdate {
      */
     private void setNewLanguage(){
         Language newLanguage;
-        if (simplifiedChineseButton.isSelected() == true){
+        if (simplifiedChineseButton.isSelected()){
             newLanguage = new SimplifiedChinese();
-        }else if (englishButton.isSelected() == true){
+        }else if (englishButton.isSelected()){
             newLanguage = new English();
         }else if(traditionalChineseButton.isSelected()){
             newLanguage = new TraditionalChinese();
-        }else {
+        }else if(japaneseButton.isSelected()){
             newLanguage = new Japanese();
+        }else {
+            newLanguage = new Russian();
         }
         LoginWindow loginWindow = new LoginWindow(newLanguage);
         dispose();
