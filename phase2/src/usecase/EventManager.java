@@ -238,20 +238,14 @@ public class EventManager {
         return allEvents;
     }
 
-//    public List<Integer> getNormalEventList(GatewayFacade g){
-//        List<Integer> normalEvents = new ArrayList<>();
-//        List<Event> events = g.getEventList();
-//        for (Event event : events){
-//            if(event.isVipEvent() == false) {
-//                normalEvents.add(event.getEventId());
-//            }
-//        }
-//        return normalEvents;
-//    }
 
-    // modified getStringOfEvent
-    // return list of string in format [title, eventID, startTime, endTime, duration, room, VIPstatus]
-    // VIP status: "VIP event" for VIP events, "not VIP event" for non-VIP events
+    /**
+     * @Description: return the information of the event
+     * modified getStringOfEvent
+     * return list of string in format [title, eventID, startTime, endTime, duration, room, VIPstatus]
+     * VIP status: "VIP event" for VIP events, "not VIP event" for non-VIP events
+     * @param eventID event id
+     */
     public List<String> getInfoOfEvent(int eventID, GatewayFacade g){
         Event event = g.getEventById(eventID);
         List<String> eventInfo = new ArrayList<String>(){
@@ -275,9 +269,13 @@ public class EventManager {
 
     }
 
-    // no speaker = "No Speaker"
-    // 1 speaker = "speakername"
-    // 2 or more speaker = "speakername1, speakername2..."
+    /**
+     * @Description: get string of speakers for the event
+     * no speaker = "No Speaker"
+     * 1 speaker = "speakername"
+     * 2 or more speaker = "speakername1, speakername2..."
+     * @param eventID event id
+     */
     public String getStringOfSpeakerOfEvent(int eventID, GatewayFacade gw){
         int type = determineEventType(eventID, gw);
         String sSpeaker = null;
@@ -304,11 +302,20 @@ public class EventManager {
         return sSpeaker;
     }
 
+
+    /**
+     * @Description: get the sapacity
+     * @param eventID event id
+     */
     public int getCapacity(int eventID, GatewayFacade gw){
         return gw.getEventById(eventID).getCapacity();
     }
 
     // 0: no speaker event, 1: 1speaker event, 2: multi speaker event
+    /**
+     * @Description: gdetermine the event type
+     * @param eventID event id
+     */
     public int determineEventType(int eventID, GatewayFacade gw){
         if (gw.getOneSpeakerEventById(eventID) != null){
             return 1;
@@ -412,6 +419,10 @@ public class EventManager {
         g.updateEvent(event);
     }
 
+    /**
+     * @Description: remove non vip users from vip events
+     * @param eventId event id
+     */
     public List<Integer> dropNonVipFromVipEvent(int eventId, GatewayFacade gw) {
         List<Integer> signedUsers = gw.getEventById(eventId).getSignedUpUserList();
         List<Integer> waitingUsers = gw.getEventById(eventId).getWaitList();
@@ -498,6 +509,10 @@ public class EventManager {
         g.updateEvent(event);
     }
 
+    /**
+     * @Description: get wait list length
+     * @param eventID event id
+     */
     public int getWaitlistLength(int eventID, GatewayFacade gw){
         return gw.getEventById(eventID).getWaitList().size();
     }

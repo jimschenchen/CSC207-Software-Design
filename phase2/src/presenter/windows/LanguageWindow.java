@@ -110,6 +110,9 @@ public class LanguageWindow extends JFrame implements IUpdate {
     }
 
 
+    /**
+     * @Description: set new languages
+     */
     private void setNewLanguage(){
         Language newLanguage;
         if (simplifiedChineseButton.isSelected() == true){
@@ -125,6 +128,10 @@ public class LanguageWindow extends JFrame implements IUpdate {
         dispose();
     }
 
+    /**
+     * @Description: update the action
+     * @param action the action
+     */
     public void update(String action){
         if (action == "Back"){
             LoginWindow loginWindow = new LoginWindow(language);

@@ -129,6 +129,10 @@ public class LoginWindow extends JFrame implements IUpdate {
         setVisible(true);
     }
 
+    /**
+     * @Description: update the action
+     * @param action the action
+     */
     public void update(String action) {
         if (action == "Exit"){
             System.exit(0);

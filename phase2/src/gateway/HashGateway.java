@@ -39,6 +39,11 @@ public class HashGateway<T> extends Gateway<T>{
         closeJedis(jedis);
         return ret;
     }
+
+    /**
+     * @Description: increate the id
+     * @return the next id
+     */
     public int getAndIncreaseNextId() {
         Jedis jedis = getJedis();
         int ret = 0;

@@ -19,5 +19,8 @@ public abstract class NonSpeakerEvent extends Event{
      */
     public void setSpeaker(int speakerId) {}
 
+    /**
+     * get the speaker id
+     */
     public void getSpeakerId() {};
 }

@@ -116,6 +116,10 @@ public class MessageManager {
                 " Content: " + message.getInfo();
     }
 
+    /**
+     * Get received message list by using the user id
+     * @param userID user id
+     */
     public List<List<String>> getReceivedMessageListByUserId(int userID, GatewayFacade g){
         List<Message> messages = g.getReceivedMessageListByUserId(userID);
         List<List<String>> allMessageInfo = new ArrayList<>();

@@ -38,6 +38,12 @@ public abstract class Gateway<T> {
         setAttributes(type, genericEnable);
         initJedisPool();
     }
+
+    /** Constructor */
+    /**
+     * @Description: set attributes
+     * @param type the type of the user
+     */
     private void setAttributes (Type type, boolean genericEnable) {
         this.type = type;
         this.genericEnable = genericEnable;
@@ -58,18 +64,30 @@ public abstract class Gateway<T> {
             ping();
         }
     }
+
+    /**
+    /**
+     * @Description: clase
+     */
     private void close() {
         if(jedisPool != null){
             jedisPool.destroy();
             System.out.println("Gateway: Jedis Pool has been terminated");
         }
     }
+
+    /**
+    /**
+     * @Description: shut the hook down
+     */
     private void shutDownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
         System.out.println(getClass() + "Gateway: ShutdownHook has been Added");
     }
 
-    /** Public Methods - Jedis */
+    /** Public Methods - Jedis
+     * @Description: get Jedis
+     */
     public Jedis getJedis() {
         try{
             return jedisPool.getResource();
@@ -79,6 +97,11 @@ public abstract class Gateway<T> {
             return null;
         }
     }
+
+    /** Constructor */
+    /**
+     * @Description: close Jedis
+     */
     public void closeJedis(Jedis jedis) {
         if(null != jedis) jedis.close();
     }
@@ -88,7 +111,9 @@ public abstract class Gateway<T> {
         }
     }
 
-    /** Private Methods - Gson Builder */
+    /** Private Methods - Gson Builder
+     * @Description: s Gson Builder
+     */
     private Gson buildGson () {
         return new GsonBuilder().serializeNulls().create();
     }

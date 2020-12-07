@@ -51,6 +51,13 @@ public class Presenter {
         }
     }
 
+    /**
+     * Open messenger
+     * @param type integer that represents different type
+     *             1 stands for userMessage
+     *             2 stands for organizer Message
+     *             3 stands for speaker message
+     */
     public void openMessenger(int type){
         if (type == 1){
             IMessage userMes = new MessengerWindow();
