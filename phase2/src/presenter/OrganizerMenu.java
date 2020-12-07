@@ -1,8 +1,6 @@
-package presenter.menus;
+package presenter;
 
-import presenter.Presenter;
 import presenter.language.Language;
-import presenter.menus.UserMenu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

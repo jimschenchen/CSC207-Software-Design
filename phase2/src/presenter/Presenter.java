@@ -53,20 +53,17 @@ public class Presenter {
 
     /**
      * Open messenger
-     * @param type integer that represents different type
-     *             1 stands for userMessage
-     *             2 stands for organizer Message
-     *             3 stands for speaker message
+     * @param menu  the IUpdate menu whose update method we need to use
      */
-    public void openMessenger(int type){
-        if (type == 1){
-            IMessage userMes = new MessengerWindow();
-        }
+    public void openMessenger(IUpdate menu){
         if (type == 2){
-            IMessage organizerMes = new OrganizerMessenger();
+            menu.update("Attendee");
         }
-        if (type == 3){
-            IMessage speakerMes = new SpeakerMessenger();
+        if (type == 1){
+            menu.update("Organizer");
+        }
+        if (type == 0){
+            menu.update("Speaker");
         }
     }
 
