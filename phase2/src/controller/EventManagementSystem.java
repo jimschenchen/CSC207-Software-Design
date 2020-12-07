@@ -139,6 +139,7 @@ class EventManagementSystem extends subSystem{
             LocalDateTime eTime = LocalDateTime.parse(endTime, em.getTimeFormatter());
             int rID = rm.getRoomIDbyRoomNumber(roomNumber, gw);
             int cap = Integer.parseInt(capacity);
+            System.out.println(vipStatus);
             if (!(speakerID.length() == 0)){
                 if (speakerID.contains(",")) { // have more than 1 speaker
                     System.out.println("in the if branch");
@@ -230,10 +231,10 @@ class EventManagementSystem extends subSystem{
             return false;
         }
         if (canCreateEvent(sID, rID, sTime, eTime, cap, gw)) {
-            int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, gw);
+            int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, vipStatus, gw);
             um.addEventToOrganizedList(eventID, user, gw);
             um.addEventToSpeaker(eventID, sID, gw);
-            em.changeVipStatusOfEvent(eventID, vipStatus, gw);
+//            em.changeVipStatusOfEvent(eventID, vipStatus, gw);
             return true;
         }
         return false;
@@ -261,8 +262,8 @@ class EventManagementSystem extends subSystem{
                 return false;
             }
         }
-        int eventID = em.createEvent(type1, type2, sID, sTime, eTIme, topic, rID, cap, gw);
-        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
+        int eventID = em.createEvent(type1, type2, sID, sTime, eTIme, topic, rID, cap, vipStatus, gw);
+//        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
         um.addEventToOrganizedList(eventID, user, gw);
         for (int speakerID : sID){
             um.addEventToSpeaker(eventID, speakerID, gw);
@@ -286,9 +287,9 @@ class EventManagementSystem extends subSystem{
         if (type1 != 0 || !em.canCreateEvent(rID, sTime, eTime, cap, gw)){
             return false;
         }
-        int eventID = em.createEvent(type1, type2, sTime, eTime, topic, rID, cap, gw);
+        int eventID = em.createEvent(type1, type2, sTime, eTime, topic, rID, cap, vipStatus, gw);
         um.addEventToOrganizedList(eventID, user, gw);
-        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
+//        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
         return true;
     }
 

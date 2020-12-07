@@ -32,6 +32,7 @@ class ViewingSystem extends subSystem{
             List<String> info = em.getInfoOfEvent(id, gw);
             info.add(em.getStringOfSpeakerOfEvent(id, gw));
             info.add(String.valueOf(em.getCapacity(id, gw)));
+            allEvents.add(info);
         }
         return allEvents;
     }

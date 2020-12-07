@@ -60,11 +60,12 @@ public class EventManager {
      * @return the new event id
      */
     public int createEvent(int type1, int type2, int speakerId, LocalDateTime start,
-                           LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
+                           LocalDateTime end, String title, int roomId, int capacity, boolean vipStatus, GatewayFacade g){
         try{
             Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                     g.getNextEventId(), title, roomId, capacity);
             ((OneSpeakerEvent) nEvent).setSpeaker(speakerId);
+            nEvent.setVipEvent(vipStatus);
             g.addEvent(nEvent);
 
             return nEvent.getEventId();
@@ -85,9 +86,10 @@ public class EventManager {
      * @return the new event id
      */
     public int createEvent(int type1, int type2, LocalDateTime start, LocalDateTime end, String title,
-                           int roomID, int capacity, GatewayFacade gw){
+                           int roomID, int capacity, boolean vipStatus, GatewayFacade gw){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end, gw.getNextEventId(),
                 title, roomID, capacity);
+        nEvent.setVipEvent(vipStatus);
         gw.addEvent(nEvent);
         return nEvent.getEventId();
     }
@@ -102,10 +104,11 @@ public class EventManager {
      * @return the new event id
      */
     public int createEvent(int type1, int type2, @NotNull ArrayList<Integer> speakerList, LocalDateTime start,
-                           LocalDateTime end, String title, int roomId, int capacity, GatewayFacade g){
+                           LocalDateTime end, String title, int roomId, int capacity, boolean vipStatus, GatewayFacade g){
         Event nEvent = FactoryProducer.getFactory(type1).getEvent(type2, start, end,
                 g.getNextEventId(), title, roomId, capacity);
         ((MultiSpeakerEvent) nEvent).setSpeaker(speakerList);
+        nEvent.setVipEvent(vipStatus);
         g.addEvent(nEvent);
         return nEvent.getEventId();
     }
