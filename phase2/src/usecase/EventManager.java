@@ -253,7 +253,7 @@ public class EventManager {
         Event event = g.getEventById(eventID);
         List<String> eventInfo = new ArrayList<String>(){
             {
-                add(event.getClass().getName());
+                add(event.getClass().getSimpleName());
                 add(event.getTitle());
                 add(String.valueOf(event.getEventId()));
                 add(event.getStartTime().format(formatter));
