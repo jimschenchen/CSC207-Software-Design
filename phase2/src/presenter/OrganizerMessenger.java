@@ -18,9 +18,9 @@ public class OrganizerMessenger extends MessengerWindow {
     }
     public void actionPerformed(ActionEvent e){
         Object src = e.getSource();
-        String title = JOptionPane.showInputDialog("Enter the title of your message");
 
         if (src == send){
+            String title = JOptionPane.showInputDialog("Enter the title of your message");
             String message = msgSend.getText();
             String[] buttons = {"Message all speakers", "Message one speaker", "Message all attendees",
                     "Message attendee"};

@@ -16,9 +16,9 @@ public class SpeakerMessenger extends MessengerWindow {
     }
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        String title = JOptionPane.showInputDialog("Enter the title of your message");
 
         if (src == send) {
+            String title = JOptionPane.showInputDialog("Enter the title of your message");
             String message = msgSend.getText();
             String[] buttons = {"Message all attendees of my events", "Message one attendee of my event"};
             int i = JOptionPane.showOptionDialog(null, "Who do you want to send this message to?",
