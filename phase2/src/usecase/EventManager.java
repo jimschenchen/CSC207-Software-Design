@@ -155,7 +155,7 @@ public class EventManager {
         }
         else {
             if (e.getSignedUpUserList().contains(userId)
-                    | e.getCapacity() >= e.getSignedUpUserList().size()) {
+                    | e.getCapacity() <= e.getSignedUpUserList().size()) {
                 return false;
             }
             return true;
