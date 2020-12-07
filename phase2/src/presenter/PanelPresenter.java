@@ -72,7 +72,10 @@ public class PanelPresenter extends Presenter{
         if (type == "Speaker") {
             success = cs.modifySpeakerForEvent(newSetting, eventID);
         } else if (type == "VIP Status") {
-            Boolean VIP = vIPConverter(newSetting);
+            Boolean VIP = false;
+            if (newSetting.toLowerCase() == "yes"){
+                VIP = true;
+            }
             success = cs.changeVipStatusOfEvent(eventID, VIP);
         } else {
             success = cs.changeEventCapacity(eventID, newSetting);
@@ -89,8 +92,8 @@ public class PanelPresenter extends Presenter{
      * check if a user is VIP or not
      * @param VIP vip status
      */
-    private Boolean vIPConverter(String VIP) {
-        if (VIP == "Yes") {
+    private Boolean vIPConverter(int VIP) {
+        if (VIP == 0) {
             return true;
         } else {
             return false;
@@ -131,7 +134,7 @@ public class PanelPresenter extends Presenter{
      * @param vipStatus VIP status
      */
     public void createEvent(int eventType, String startTime, String endTime, String speakers,
-                            String roomNum, String topic, String capacity, String vipStatus) {
+                            String roomNum, String topic, String capacity, int vipStatus) {
         Boolean success = cs.newEvent(eventType, startTime, endTime, speakers, topic, roomNum, capacity, vIPConverter(vipStatus));
         if (success) {
             panel.update("succeedCreateEvent");

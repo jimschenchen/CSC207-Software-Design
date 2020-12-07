@@ -102,7 +102,6 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.duration()));
         panel.add(new JLabel(language.takePlace()));
         panel.add(new JLabel(language.vIPStatus()));
-        int i = 0;
         for (List<String> event: events){
             panel.add(new JLabel(event.get(0)));
             panel.add(new JLabel(event.get(1)));
@@ -112,7 +111,6 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
-            i++;
         }
         return panel;
     }
@@ -307,7 +305,7 @@ public class PanelFactory implements IUpdate {
                         idHelper(checkArray, idArray), rooms.get( roomNumberSelected.getSelectedIndex()).get(0),
                         topicEntered.getText(),
                        capacityEntered.getText(),
-                        (String) VIPStatusSelected.getSelectedItem());
+                        VIPStatusSelected.getSelectedIndex());
             }
         });
         JButton resetButton = new JButton(language.empty());
