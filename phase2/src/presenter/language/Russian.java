@@ -243,10 +243,7 @@ public class Russian implements Language{
     public String  newPass(){
         return ("Новые пароль");
     }
-    @Override
-    public String  eventInfo(){
-        return ("Информация о мероприятиях");
-    }
+
     @Override
     public String  withID(){
         return (", с идентифкатором ");
@@ -385,10 +382,7 @@ public class Russian implements Language{
     public String  change(){
         return ("Изменить: ");
     }
-    @Override
-    public String  newWord(){
-        return ("Новые: ");
-    }
+
     @Override
     public String  viewTalks(){
         return ("Посмотреть мои конференции");
@@ -421,4 +415,175 @@ public class Russian implements Language{
     public String eventId(){
         return ("Введите идентификатор мероприятия: ");
     }
+
+    @Override
+    public String cancelled() {
+        return null; // Waiting for Amina
+    }
+
+    @Override
+    public String signedUp() {
+        return null;//Waiting for Amina
+    }
+
+    @Override
+    public String addSpeaker() {
+        return null;//Waiting for Amina
+    }
+
+    @Override
+    public String newCapacity() {
+        return null;//Waiting for Amina
+    }
+
+    @Override
+    public String newStatus() {
+        return null;//Waiting for Amina
+    }
+
+    @Override
+    public String receivedEmail() {
+        return ("Received email");//Waiting for Amina
+    }
+
+    @Override
+    public String send() {
+        return ("Отправить");
+    }
+
+    @Override
+    public String receivedMessages() {
+        return ("Полученные сообщения");
+    }
+
+    @Override
+    public String sentMessage(){
+        return ("Отправленные сообщения");
+    }
+
+    @Override
+    public String close() {
+        return ("Закрыть");
+    }
+
+    @Override
+    public String messengerOptions() {
+        return ("Параметры сообщений");
+    }
+
+    @Override
+    public String viewMyMessages() {
+        return ("Посмотреть мои сообщения");
+    }
+
+    @Override
+    public String message() {
+        return ("Сообщение");
+    }
+
+    @Override
+    public String writeMessage() {
+        return ("Введите ваше сообщение");
+    }
+
+    @Override
+    public String writeTitle() {
+        return ("Введите наименование вашего сообщения");
+    }
+
+    @Override
+    public String allAttendees() {
+        return ("Всем участникам");
+    }
+
+    @Override
+    public String oneAttendee() {
+        return ("Одному участнику");
+    }
+
+    @Override
+    public String sendTo() {
+        return ("Кому вы хотите отправиить сообщение");
+    }
+
+    @Override
+    public String messageInformation() {
+        return ("Информация о сообщении");
+    }
+
+    @Override
+    public String enterIdEvent() {
+        return ("Введите идентификатор вашего мероприятия ");
+    }
+
+    @Override
+    public String enterNameAttendee() {
+        return ("Введите имя пользователя");
+    }
+
+    @Override
+    public String writeNewMes() {
+        return ("Введите новое сообщение");
+    }
+
+    @Override
+    public String reply() {
+        return ("Ответить");
+    }
+
+    @Override
+    public String writeMesHere() {
+        return ("Введите ваше сообщение");
+    }
+
+    @Override
+    public String chooseTitle() {
+        return ("Выберите наименование");
+    }
+
+    @Override
+    public String succeedSendMes() {
+        return ("Ваше сообщение было отправлено успешно!");
+    }
+
+    @Override
+    public String enterTitleMes() {
+        return ("Введите наименование вашего сообщения");
+    }
+
+    @Override
+    public String mesAllSpeakers() {
+        return ("Написать сообщение всем спикерам");
+    }
+
+    @Override
+    public String mesOneSpeaker() {
+        return ("Написать сообщение спикеру");
+    }
+
+    @Override
+    public String mesAllAttendees() {
+        return ("Написать сообщение участнику");
+    }
+
+    @Override
+    public String mesOneAttendees() {
+        return ("Написать сообщение всем участникам");
+    }
+
+    @Override
+    public String enterNameSpeaker() {
+        return ("Введите имя спикера");
+    }
+
+    @Override
+    public String mesAllAttendeesEvent() {
+        return ("Написать сообщение всем участникам моего мероприятия");
+    }
+
+    @Override
+    public String mesOneAttendeeEvent() {
+        return ("Написать сообщение участнику моего мероприятия");
+    }
+
 }

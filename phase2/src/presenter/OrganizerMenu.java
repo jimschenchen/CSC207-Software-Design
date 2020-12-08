@@ -81,7 +81,7 @@ public class OrganizerMenu extends UserMenu {
     public void update(String action){
       if  (action == "Organizer"){
           if (organizerMes == null) {
-              IMessage organizerMes = new OrganizerMessenger(super.presenter);
+              IMessage organizerMes = new OrganizerMessenger(super.presenter, super.language);
               this.organizerMes = organizerMes;
           }
           else {

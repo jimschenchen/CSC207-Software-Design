@@ -245,236 +245,236 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String viewAllEvent() {
-        return ("查看所有活動");
+        return "瀏覽會議中所有活動";
     }
 
     @Override
     public String messenger() {
-        return ("消息系統");
+        return null;
     }
 
     @Override
     public String newPass() {
-        return ("新密碼");
+        return null;
     }
 
     @Override
     public String eventInfo() {
-        return ("活動信息");
+        return null;
     }
 
     @Override
     public String withID() {
-        return (",ID 為 ");
+        return null;
     }
 
     @Override
     public String startAt() {
-        return (" 開始於 ");
+        return null;
     }
 
     @Override
     public String endAt() {
-        return (" 結束於 ");
+        return null;
     }
 
     @Override
     public String takePlace() {
-        return (" 舉辦在 ");
+        return null;
     }
 
     @Override
     public String whichIs() {
-        return (" 是 ");
+        return null;
     }
 
     @Override
     public String title() {
-        return ("標題: ");
+        return null;
     }
 
     @Override
     public String duration() {
-        return ("時長: ");
+        return null;
     }
 
     @Override
     public String startTime() {
-        return ("開始時間: ");
+        return null;
     }
 
     @Override
     public String endTime() {
-        return ("結束時間: ");
+        return null;
     }
 
     @Override
     public String vIPStatus() {
-        return ("是否為VIP活動: ");
+        return null;
     }
 
     @Override
     public String waitinglist() {
-        return ("等待列表: ");
+        return null;
     }
 
     @Override
     public String signUpQuestion() {
-        return ("報名?");
+        return null;
     }
 
     @Override
     public String yes() {
-        return ("是!");
+        return null;
     }
 
     @Override
     public String enterRoomNum() {
-        return ("輸入你想新建的房間號碼: ");
+        return null;
     }
 
     @Override
     public String enterRoomCapacity() {
-        return ("輸入新房間能容納的最大人數:");
+        return null;
     }
 
     @Override
     public String create() {
-        return ("創建");
+        return null;
     }
 
     @Override
     public String eventType() {
-        return ("活動類型: ");
+        return null;
     }
 
     @Override
     public String party() {
-        return ("聚會");
+        return null;
     }
 
     @Override
     public String talk() {
-        return ("演講");
+        return null;
     }
 
     @Override
     public String discussion() {
-        return ("論壇會");
+        return null;
     }
 
     @Override
     public String topic() {
-        return ("標題: ");
+        return null;
     }
 
     @Override
     public String roomNum() {
-        return ("房間號: ");
+        return null;
     }
 
     @Override
     public String capacity() {
-        return ("容量: ");
+        return null;
     }
 
     @Override
     public String no() {
-        return ("否!");
+        return null;
     }
 
     @Override
     public String selectSpeaker() {
-        return ("選擇演講者: ");
+        return null;
     }
 
     @Override
     public String empty() {
-        return ("清空");
+        return null;
     }
 
     @Override
     public String userType() {
-        return ("用戶類型: ");
+        return null;
     }
 
     @Override
     public String speaker() {
-        return ("演讲者");
+        return null;
     }
 
     @Override
     public String organizer() {
-        return ("舉辦者");
+        return null;
     }
 
     @Override
     public String attendee() {
-        return ("參加者");
+        return null;
     }
 
     @Override
     public String cancel() {
-        return ("取消");
+        return null;
     }
 
     @Override
     public String rank() {
-        return ("排名: ");
+        return null;
     }
 
     @Override
     public String reallyQuestion() {
-        return ("真的確定麼??");
+        return null;
     }
 
     @Override
     public String change() {
-        return ("改動: ");
+        return null;
     }
 
     @Override
     public String newWord() {
-        return ("活動新設定: ");
+        return null;
     }
 
     @Override
     public String viewTalks() {
-        return ("查看我的演講: ");
+        return null;
     }
 
     @Override
     public String newUser() {
-        return ("新的用戶");
+        return null;
     }
 
     @Override
     public String newRoom() {
-        return ("新的房間");
+        return null;
     }
 
     @Override
     public String newEvent() {
-        return ("新活動");
+        return null;
     }
 
     @Override
     public String organizedEvent() {
-        return ("舉辦的活動");
+        return null;
     }
 
     @Override
     public String changeEventSetting() {
-        return ("改變活動設定");
+        return null;
     }
 
     @Override
     public String viewOrganizedEvent() {
-        return ("查看舉辦的活動");
+        return null;
     }
 
     @Override
     public String eventId() {
-        return ("會議代碼");
+        return null;
     }
 }
