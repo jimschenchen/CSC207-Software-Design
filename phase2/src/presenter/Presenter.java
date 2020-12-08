@@ -61,6 +61,7 @@ public class Presenter {
             menu.update("Attendee");
         }
         if (type == 1){
+            System.out.println("222222222");
             menu.update("Organizer");
         }
         if (type == 0){

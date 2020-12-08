@@ -36,6 +36,7 @@ public class UserMenu extends JFrame implements IUpdate {
     protected Language language;
     protected IUpdate menu = this;
     protected Presenter presenter;
+    protected IMessage mesWindow;
 
     /**
      * construct the UserMenu
@@ -126,6 +127,7 @@ public class UserMenu extends JFrame implements IUpdate {
             @Override
             public void actionPerformed(ActionEvent e) {
                presenter.openMessenger(menu);
+               System.out.println("111111111");
             }
         });
         menuBar.add(messenger);
@@ -144,7 +146,14 @@ public class UserMenu extends JFrame implements IUpdate {
      */
     public void update(String action){
         if  (action == "Attendee"){
-            IMessage messengerWindow = new MessengerWindow(presenter);
+            if (mesWindow == null){
+                IMessage mesWindow = new MessengerWindow(presenter);
+                this.mesWindow = mesWindow;
+            }
+            else{
+                mesWindow.setVisible();
+            }
+
         }else{
             contentPanel.removeAll();
             contentPanel.add(panelFactory.getPanel(action));

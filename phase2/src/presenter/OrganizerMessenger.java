@@ -16,6 +16,7 @@ public class OrganizerMessenger extends MessengerWindow {
     OrganizerMessenger(Presenter presenter){
         super(presenter);
     }
+
     public void actionPerformed(ActionEvent e){
         Object src = e.getSource();
 

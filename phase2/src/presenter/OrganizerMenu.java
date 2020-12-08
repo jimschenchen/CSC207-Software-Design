@@ -17,6 +17,7 @@ public class OrganizerMenu extends UserMenu {
     JMenuItem changeEventSetting;
     JMenuItem viewOrganizedEvent;
     JMenu organizedEvent;
+    IMessage organizerMes;
 
     /**
      * construct the OrganizerMenu
@@ -79,8 +80,15 @@ public class OrganizerMenu extends UserMenu {
      */
     public void update(String action){
       if  (action == "Organizer"){
-            IMessage organizerMes = new OrganizerMessenger(super.presenter);
-        }else{
+          if (organizerMes == null) {
+              IMessage organizerMes = new OrganizerMessenger(super.presenter);
+              this.organizerMes = organizerMes;
+          }
+          else {
+              organizerMes.setVisible();
+          }
+        }
+      else{
           contentPanel.removeAll();
           contentPanel.add(panelFactory.getPanel(action));
           contentPanel.validate();

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 public class SpeakerMenu extends UserMenu {
     JMenuItem viewMyTalks;
     JMenu myTalks;
+    IMessage speakerMes;
     /**
      * construct the SpeakerMenu
      * @param language the language used in UserMenu
@@ -36,7 +37,13 @@ public class SpeakerMenu extends UserMenu {
      */
     public void update(String action){
         if  (action == "Speaker"){
-            IMessage speakerMes = new SpeakerMessenger(super.presenter);
+            if (speakerMes == null){
+                IMessage speakerMes = new SpeakerMessenger(super.presenter);
+                this.speakerMes = speakerMes;
+            }
+            else {
+                speakerMes.setVisible();
+            }
         }else{
             contentPanel.removeAll();
             contentPanel.add(panelFactory.getPanel(action));

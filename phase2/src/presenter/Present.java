@@ -10,7 +10,8 @@ public class Present {
         LoginWindow loginWindow = new LoginWindow();
         //SignUpWindow signUpWindow = new SignUpWindow();
         //LanguageWindow languageWindow = new LanguageWindow(new English());
-         //MessengerWindow msg = new MessengerWindow();
+//        Presenter p = new Presenter();
+//        MessengerWindow msg = new MessengerWindow(p);
         //JOptionPaneFactory optionPaneFactory = new JOptionPaneFactory(new English());
         //optionPaneFactory.get("error");
     }

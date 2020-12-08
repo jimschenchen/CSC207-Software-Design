@@ -16,14 +16,14 @@ import static javax.swing.JOptionPane.showMessageDialog;
 class MessengerWindow extends JFrame implements ActionListener, IMessage {
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
-    JButton send = new JButton("Send");
-    JButton rcv = new JButton("Received Messages");
-    JButton snd = new JButton("Sent Messages");
+    JButton send;
+    JButton rcv;
+    JButton snd;
     JScrollPane pane2, pane1;
-    JMenu messenger = new JMenu("Messenger");
-    JMenuItem logOut = new JMenuItem("Close");
-    JMenuBar bar = new JMenuBar();
-    JMenu messageOptions = new JMenu("Messenger Options");
+    JMenu messenger;
+    JMenuItem logOut;
+    JMenuBar bar;
+    JMenu messageOptions;
     MessengerPresenter _msgPresenter;
 
     /**
@@ -33,6 +33,14 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
 
     public MessengerWindow(Presenter presenter){
         super("Message");
+        send = new JButton("Send");
+        rcv = new JButton("Received Messages");
+        snd = new JButton("Sent Messages");
+        messenger = new JMenu("Messenger");
+        logOut = new JMenuItem("Close");
+        bar = new JMenuBar();
+        messageOptions = new JMenu("Messenger Options");
+
         _msgPresenter = new MessengerPresenter(this, presenter);
         setBounds(0, 0, 407, 495);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -80,8 +88,8 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         msgRec.add(snd);
         rcv.addActionListener(this);
         snd.addActionListener(this);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
-
     }
 
     @Override
@@ -91,7 +99,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
      */
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-
         if (src == send){
             String title = JOptionPane.showInputDialog("Enter the title of your message");
             String message = msgSend.getText();
@@ -190,5 +197,10 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         else{
             showMessageDialog(null, "Oops, something went wrong!");
         }
+    }
+
+    @Override
+    public void setVisible() {
+        setVisible(true);
     }
 }
