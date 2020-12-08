@@ -11,8 +11,8 @@ public class SpeakerMessenger extends MessengerWindow {
      * Construct the Speaker messenger window
      *
      */
-    SpeakerMessenger(){
-        super();
+    SpeakerMessenger(Presenter presenter){
+        super(presenter);
     }
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();

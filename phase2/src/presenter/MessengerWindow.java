@@ -24,15 +24,16 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     JMenuItem logOut = new JMenuItem("Close");
     JMenuBar bar = new JMenuBar();
     JMenu messageOptions = new JMenu("Messenger Options");
-    MessengerPresenter _msgPresenter = new MessengerPresenter(this);
+    MessengerPresenter _msgPresenter;
 
     /**
      * Construct the messenger Window
      *
      */
 
-    public MessengerWindow(){
+    public MessengerWindow(Presenter presenter){
         super("Message");
+        _msgPresenter = new MessengerPresenter(this, presenter);
         setBounds(0, 0, 407, 495);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

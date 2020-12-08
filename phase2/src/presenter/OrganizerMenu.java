@@ -79,7 +79,7 @@ public class OrganizerMenu extends UserMenu {
      */
     public void update(String action){
       if  (action == "Organizer"){
-            IMessage organizerMes = new OrganizerMessenger();
+            IMessage organizerMes = new OrganizerMessenger(super.presenter);
         }else{
           contentPanel.removeAll();
           contentPanel.add(panelFactory.getPanel(action));

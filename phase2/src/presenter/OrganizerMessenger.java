@@ -13,8 +13,8 @@ public class OrganizerMessenger extends MessengerWindow {
      * Construct the Organizer messenger window
      *
      */
-    OrganizerMessenger(){
-        super();
+    OrganizerMessenger(Presenter presenter){
+        super(presenter);
     }
     public void actionPerformed(ActionEvent e){
         Object src = e.getSource();

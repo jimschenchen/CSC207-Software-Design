@@ -14,8 +14,8 @@ public class MessengerPresenter extends Presenter {
      */
     ConferenceSystem msgSystem;
     IMessage msgWindow;
-    public MessengerPresenter(IMessage msgWindow) {
-        msgSystem = super.cs;
+    public MessengerPresenter(IMessage msgWindow, Presenter presenter) {
+        msgSystem = presenter.cs;
         this.msgWindow = msgWindow;
     }
 
