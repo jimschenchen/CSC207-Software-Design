@@ -496,18 +496,20 @@ public class EventManager {
             event.addUserToWaitList(userId);
         }
         else {
-//            for (int i = 0; i < event.getWaitList().size(); i++) {
-//                if (!((g.getUserById(event.getWaitList().get(i))) instanceof VipUser)) {
-//                    event.getWaitList().add(i, userId);
-//                    break;
-//                }
-            int i = 0;
-            for (int userID : waitingUsers){
-                if (!(g.getUserById(userID) instanceof VipUser)){
-                    event.getWaitList().add(i, userID);
+            for (int i = 0; i <= event.getWaitList().size(); i++) {
+                if (!((g.getUserById(waitingUsers.get(i))) instanceof VipUser)) {
+                    event.getWaitList().add(i, userId);
                     break;
                 }
             }
+//            int i = 0;
+//            for (int user : waitingUsers){
+//                if (!(g.getUserById(user) instanceof VipUser)){
+//                    event.getWaitList().add(i, userId);
+//                    break;
+//                }
+//                i += 1;
+//            }
         }
         g.updateEvent(event);
     }

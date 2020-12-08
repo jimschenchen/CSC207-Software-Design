@@ -108,7 +108,7 @@ public class UserManager {
      */
     public boolean canSignUpForEvent(int eventId, int userId, GatewayFacade g) {
         Event e = g.getEventById(eventId);
-        if (!(e == null | isExistingSpeaker(userId, g)
+        if (!(e == null || isExistingSpeaker(userId, g)
                 || (!(g.getUserById(userId) instanceof VipUser) & e.isVipEvent()))) {
             Attendee a = (Attendee) g.getUserById(userId);
 
