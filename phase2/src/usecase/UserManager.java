@@ -161,7 +161,7 @@ public class UserManager {
         g.updateUser(attendee);
     }
 
-    // used by ems.changeEventCapacity
+    // used by ems.changeEventCapacity & ems.changeVIPStatusOfEvent
     public void transferWaitingEventToSignedUp(int eid, List<Integer> users, GatewayFacade gw) {
         for (int userID : users){
             transferWaitingEventToSignedUp(eid, userID, gw);

@@ -22,7 +22,9 @@ class EventManagementSystem extends subSystem{
                 em.changeVipStatusOfEvent(eID, type, gw);
                 if (type){ // change from non-vip to vip
                     List<Integer> droppedUsers = em.dropNonVipFromVipEvent(eID, gw);
+                    List<Integer> movedUsers = em.addWaitlistUsersToEvent(eID, gw);
                     um.dropNonVipEventFromNonVIP(droppedUsers, eID, gw);
+                    um.transferWaitingEventToSignedUp(eID, movedUsers, gw);
                 }
                 return true;
             }

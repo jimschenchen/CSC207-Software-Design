@@ -448,6 +448,15 @@ public class EventManager {
         return droppedUsers;
     }
 
+    public List<Integer> addWaitlistUsersToEvent(int eventID, GatewayFacade gw){
+        List<Integer> movedUsers = new ArrayList<>();
+        while (gw.getEventById(eventID).getSignedUpUserList().size() < gw.getEventById(eventID).getCapacity()){
+            int userID = add1stRankedWaitListUser(eventID, gw);
+            movedUsers.add(userID);
+        }
+        return movedUsers;
+    }
+
     /**
      * return the event type, true means event is VIP, false means event is not VIP
      * @param eventId event id
