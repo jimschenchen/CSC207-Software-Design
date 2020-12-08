@@ -12,11 +12,13 @@ public class MessengerPresenter extends Presenter {
      * Construct the PanelPresenter.
      *
      */
-    ConferenceSystem msgSystem = new ConferenceSystem();
-    MessengerWindow msgWindow;
-    public MessengerPresenter(MessengerWindow msgWindow) {
+    ConferenceSystem msgSystem;
+    IMessage msgWindow;
+    public MessengerPresenter(IMessage msgWindow) {
+        msgSystem = super.cs;
         this.msgWindow = msgWindow;
     }
+
 
     /**
      * Allows attendee to message all the attendees of the event.

@@ -9,6 +9,7 @@ public class Presenter {
     public int type;
     ConferenceSystem cs;
 
+
     /**
      * construct the Presenter
      */
