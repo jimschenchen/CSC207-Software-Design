@@ -20,7 +20,7 @@ class EventManagementSystem extends subSystem{
             int eID = Integer.parseInt(eventId);
             if (em.getVipStatusOfEvent(eID, gw) != type && um.isExistingOrganizer(user, gw)){
                 em.changeVipStatusOfEvent(eID, type, gw);
-                if (!type){ // change from vip to non-vip
+                if (type){ // change from non-vip to vip
                     List<Integer> droppedUsers = em.dropNonVipFromVipEvent(eID, gw);
                     um.dropNonVipEventFromNonVIP(droppedUsers, eID, gw);
                 }
