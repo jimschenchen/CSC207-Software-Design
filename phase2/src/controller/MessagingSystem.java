@@ -3,7 +3,7 @@ package controller;
 import java.util.List;
 import gateway.GatewayFacade;
 
-public class MessagingSystem extends subSystem {
+class MessagingSystem extends subSystem {
 
     /**
      * Allow user to message all attendees in an event.
@@ -12,7 +12,7 @@ public class MessagingSystem extends subSystem {
      * @param content The content of the message.
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
-    public boolean messageAllAttendeesInEvent(String eventID, String title, String content, GatewayFacade gw){
+    boolean messageAllAttendeesInEvent(String eventID, String title, String content, GatewayFacade gw){
         try{
             int eID = Integer.parseInt(eventID);
             if (em.isExistingEvent(eID, gw)){

@@ -37,8 +37,8 @@ class EventEnrollmentSystem extends subSystem{
     boolean signUpForEventWaitList(String eventId, GatewayFacade gw) {
         try{
             int eid = Integer.parseInt(eventId);
-            if (em.canAddUserToWaitList(eid, user,gw) & um.canSignUpForEvent(eid, user, gw)){
-                em.addUserToWaitList(user, eid, gw);
+            if (em.canAddUserToWaitList(eid, user, gw) & um.canSignUpForEvent(eid, user, gw)){
+                em.addUserToWaitList(eid, user, gw);
                 um.addEventToMyWaitList(eid, user, gw);
                 return true;
             }
@@ -86,8 +86,8 @@ class EventEnrollmentSystem extends subSystem{
     boolean removeEventFromWaitList(String eventId, GatewayFacade gw) {
         try{
             int eid = Integer.parseInt(eventId);
-            if (em.canRemoveWaitingUser(user ,eid, gw)){
-                em.removeWaitingUser(user, eid, gw);
+            if (em.canRemoveWaitingUser(eid, user, gw)){
+                em.removeWaitingUser(eid, user, gw);
                 um.cancelEventFromMyWaitList(eid, user, gw);
                 return true;
             }
