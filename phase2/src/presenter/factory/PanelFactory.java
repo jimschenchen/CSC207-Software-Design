@@ -10,6 +10,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +98,7 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.startAt()));
         panel.add(new JLabel(language.endAt()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
         for (List<String> event: events){
             panel.add(new JLabel(event.get(0)));
@@ -122,7 +124,7 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
         panel.add(new JLabel(language.waitinglist()));
         panel.add(new JLabel(language.signUpQuestion()));
@@ -163,7 +165,7 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
         panel.add(new JLabel(language.signUpQuestion()));
         JButton[] buttonArray = new JButton[events.size()];
@@ -395,7 +397,7 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.startAt()));
         panel.add(new JLabel(language.endAt()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
         panel.add(new JLabel(language.cancel()));
         JButton[] cancelButtons = new JButton[events.size()];
@@ -432,7 +434,7 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.startAt()));
         panel.add(new JLabel(language.endAt()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
         panel.add(new JLabel(language.rank()));
         panel.add(new JLabel(language.cancel()));
@@ -471,7 +473,7 @@ public class PanelFactory implements IUpdate {
         panel.add(new JLabel(language.startAt()));
         panel.add(new JLabel(language.endAt()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
         panel.add(new JLabel(language.speaker()));
         panel.add(new JLabel(language.capacity()));
@@ -513,17 +515,37 @@ public class PanelFactory implements IUpdate {
         panel.add(eventEntered);
         JLabel changeItem = new JLabel(language.change());
         panel.add(changeItem);
-        JComboBox changeItemSelected = new JComboBox(new String[]{language.speaker(), language.capacity(),
-                language.vIPStatus()});
+        String speaker = language.speaker();
+        String capacity = language.capacity();
+        String vIPStatus = language.vIPStatus();
+        JComboBox changeItemSelected = new JComboBox(new String[]{speaker,capacity,
+                vIPStatus});
         panel.add(changeItemSelected);
-        JLabel newSetting = new JLabel(language.newWord());
+        JLabel newSetting = new JLabel("Add Speaker");
         panel.add(newSetting);
-        JTextField newSettingEntered = new JTextField();
+        JTextField newSettingEntered = new JTextField("Speaker ID");
         panel.add(newSettingEntered);
         JButton resetButton = new JButton(language.empty());
         JButton okButton = new JButton(language.ok());
         panel.add(okButton);
         panel.add(resetButton);
+        changeItemSelected.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED ){
+                    if (e.getItem() == speaker){
+                        newSetting.setText("Add Speaker");
+                        newSettingEntered.setText("Speaker ID");
+                    }else if (e.getItem() == capacity){
+                        newSetting.setText("New Capacity");
+                        newSettingEntered.setText("The number");
+                    }else if(e.getItem() == vIPStatus){
+                        newSetting.setText("New VIP Status");
+                        newSettingEntered.setText("Yes/No");
+                    }
+                }
+            }
+        });
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -542,16 +564,15 @@ public class PanelFactory implements IUpdate {
 
 //     * @Description: look at the speaking events
     private JPanel viewSpeakingEvent(List<List<String>> givingEvent) {
-        JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 9, 10,5));
+        JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 8, 10,5));
+        panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
         panel.add(new JLabel("ID"));
         panel.add(new JLabel(language.startAt()));
         panel.add(new JLabel(language.endAt()));
         panel.add(new JLabel(language.duration()));
-        panel.add(new JLabel(language.takePlace()));
+        panel.add(new JLabel(language.roomNum()));
         panel.add(new JLabel(language.vIPStatus()));
-        panel.add(new JLabel(language.capacity()));
-        panel.add(new JLabel(language.speaker()));
         for (List<String> event: givingEvent){
             panel.add(new JLabel(event.get(0)));
             panel.add(new JLabel(event.get(1)));
@@ -561,7 +582,6 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(5)));
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
-            panel.add(new JLabel(event.get(8)));
         }
         return panel;
     }
