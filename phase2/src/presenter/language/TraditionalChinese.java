@@ -255,27 +255,27 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String newPass() {
-        return null;
+        return "新密碼";
     }
 
     @Override
     public String eventInfo() {
-        return null;
+        return "活動信息";
     }
 
     @Override
     public String withID() {
-        return null;
+        return ",ID 為 ";
     }
 
     @Override
     public String startAt() {
-        return null;
+        return " 開始於 ";
     }
 
     @Override
     public String endAt() {
-        return null;
+        return " 結束於 ";
     }
 
     @Override
