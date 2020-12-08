@@ -585,5 +585,4 @@ public class Russian implements Language{
     public String mesOneAttendeeEvent() {
         return ("Написать сообщение участнику моего мероприятия");
     }
-
 }

@@ -438,147 +438,147 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String send() {
-        return null;
+        return "发送";
     }
 
     @Override
     public String sentMessage() {
-        return null;
+        return "已寄讯息";
     }
 
     @Override
     public String receivedMessages() {
-        return null;
+        return "收到的消息";
     }
 
     @Override
     public String close() {
-        return null;
+        return "关";
     }
 
     @Override
     public String messengerOptions() {
-        return null;
+        return "信使选项";
     }
 
     @Override
     public String viewMyMessages() {
-        return null;
+        return "查看我的讯息";
     }
 
     @Override
     public String message() {
-        return null;
+        return "信息";
     }
 
     @Override
     public String writeMessage() {
-        return null;
+        return "在这里写下您的讯息";
     }
 
     @Override
     public String writeTitle() {
-        return null;
+        return "输入消息标题";
     }
 
     @Override
     public String allAttendees() {
-        return null;
+        return "所有参加者";
     }
 
     @Override
     public String oneAttendee() {
-        return null;
+        return "一位参加者";
     }
 
     @Override
     public String sendTo() {
-        return null;
+        return "您想投放消息发送给谁";
     }
 
     @Override
     public String messageInformation() {
-        return null;
+        return "留言信息";
     }
 
     @Override
     public String enterIdEvent() {
-        return null;
+        return "输入事件的ID";
     }
 
     @Override
     public String enterNameAttendee() {
-        return null;
+        return "输入与会者的用户名";
     }
 
     @Override
     public String writeNewMes() {
-        return null;
+        return "撰寫新訊息";
     }
 
     @Override
     public String reply() {
-        return null;
+        return "回复";
     }
 
     @Override
     public String writeMesHere() {
-        return null;
+        return "在这里写下您的讯息";
     }
 
     @Override
     public String chooseTitle() {
-        return null;
+        return "选择你的标题";
     }
 
     @Override
     public String succeedSendMes() {
-        return null;
+        return "您的信息已经成功发送";
     }
 
     @Override
     public String enterTitleMes() {
-        return null;
+        return "输入邮件标题";
     }
 
     @Override
     public String mesAllSpeakers() {
-        return null;
+        return "给所有章节发信息";
     }
 
     @Override
     public String mesOneSpeaker() {
-        return null;
+        return "给一位演讲者留言";
     }
 
     @Override
     public String mesAllAttendees() {
-        return null;
+        return "给所有同轴发消息";
     }
 
     @Override
     public String mesOneAttendees() {
-        return null;
+        return "给一位与会者留言";
     }
 
     @Override
     public String enterNameSpeaker() {
-        return null;
+        return "输入演讲者的用户名";
     }
 
     @Override
     public String mesAllAttendeesEvent() {
-        return null;
+        return "向我的活动的所有参与者发送消息";
     }
 
     @Override
     public String mesOneAttendeeEvent() {
-        return null;
+        return "向我的活动的一位先前发送消息";
     }
 
     @Override
     public String receivedEmail() {
-        return ("Received email");
+        return ("收到的电子邮件");
     }
 
 }

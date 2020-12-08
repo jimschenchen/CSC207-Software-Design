@@ -549,96 +549,96 @@ public class Japanese implements Language{
 
     @Override
     public String oneAttendee() {
-        return null;
+        return "1人の参加者";
     }
 
     @Override
     public String sendTo() {
-        return null;
+        return "このメッセージを誰に送信しますか";
     }
 
     @Override
     public String messageInformation() {
-        return null;
+        return "メッセージ情報";
     }
 
     @Override
     public String enterIdEvent() {
-        return null;
+        return "イベントのIDを入力してください";
     }
 
     @Override
     public String enterNameAttendee() {
-        return null;
+        return "出席者のユーザー名を入力します";
     }
 
     @Override
     public String writeNewMes() {
-        return null;
+        return "新しいメッセージを書く";
     }
 
     @Override
     public String reply() {
-        return null;
+        return "応答";
     }
 
     @Override
     public String writeMesHere() {
-        return null;
+        return "ここにメッセージを書いてください";
     }
 
     @Override
     public String chooseTitle() {
-        return null;
+        return "タイトルを選択してください";
     }
 
     @Override
     public String succeedSendMes() {
-        return null;
+        return "メッセージは正常に送信されました";
     }
 
     @Override
     public String enterTitleMes() {
-        return null;
+        return "メッセージのタイトルを入力してください";
     }
 
     @Override
     public String mesAllSpeakers() {
-        return null;
+        return "すべてのスピーカーにメッセージを送る";
     }
 
     @Override
     public String mesOneSpeaker() {
-        return null;
+        return "1人のスピーカーにメッセージを送る";
     }
 
     @Override
     public String mesAllAttendees() {
-        return null;
+        return "すべての参加者にメッセージを送る";
     }
 
     @Override
     public String mesOneAttendees() {
-        return null;
+        return "1人の参加者にメッセージを送る";
     }
 
     @Override
     public String enterNameSpeaker() {
-        return null;
+        return "スピーカーのユーザー名を入力します";
     }
 
     @Override
     public String mesAllAttendeesEvent() {
-        return null;
+        return "私のイベントのすべての参加者にメッセージを送る";
     }
 
     @Override
     public String mesOneAttendeeEvent() {
-        return null;
+        return "私のイベントの1人の参加者にメッセージを送る";
     }
 
     @Override
     public String receivedEmail() {
-        return ("Received email");
+        return ("受信したメール");
     }
 }

@@ -259,11 +259,6 @@ public class TraditionalChinese implements Language {
     }
 
     @Override
-    public String eventInfo() {
-        return "活動信息";
-    }
-
-    @Override
     public String withID() {
         return ",ID 為 ";
     }
@@ -434,11 +429,6 @@ public class TraditionalChinese implements Language {
     }
 
     @Override
-    public String newWord() {
-        return "新詞";
-    }
-
-    @Override
     public String viewTalks() {
         return "查看我的演講: ";
     }
@@ -476,5 +466,175 @@ public class TraditionalChinese implements Language {
     @Override
     public String eventId() {
         return "會議代碼";
+    }
+
+    @Override
+    public String cancelled() {
+        return "已取消";
+    }
+
+    @Override
+    public String signedUp() {
+        return "已報名";
+    }
+
+    @Override
+    public String addSpeaker() {
+        return "添加演讲者";
+    }
+
+    @Override
+    public String newCapacity() {
+        return "新容量";
+    }
+
+    @Override
+    public String newStatus() {
+        return "新狀態";
+    }
+
+    @Override
+    public String send() {
+        return "發送";
+    }
+
+    @Override
+    public String sentMessage() {
+        return "已寄訊息";
+    }
+
+    @Override
+    public String receivedMessages() {
+        return "收到的消息";
+    }
+
+    @Override
+    public String close() {
+        return "關";
+    }
+
+    @Override
+    public String messengerOptions() {
+        return "信使選項";
+    }
+
+    @Override
+    public String viewMyMessages() {
+        return "查看我的訊息";
+    }
+
+    @Override
+    public String message() {
+        return "信息";
+    }
+
+    @Override
+    public String writeMessage() {
+        return "在這裡寫下您的訊息";
+    }
+
+    @Override
+    public String writeTitle() {
+        return "輸入消息標題";
+    }
+
+    @Override
+    public String allAttendees() {
+        return "所有參加者";
+    }
+
+    @Override
+    public String oneAttendee() {
+        return "一位參加者";
+    }
+
+    @Override
+    public String sendTo() {
+        return "您想將此消息發送給誰";
+    }
+
+    @Override
+    public String messageInformation() {
+        return "留言信息";
+    }
+
+    @Override
+    public String enterIdEvent() {
+        return "輸入事件的ID";
+    }
+
+    @Override
+    public String enterNameAttendee() {
+        return "輸入與會者的用戶名";
+    }
+
+    @Override
+    public String writeNewMes() {
+        return "撰写新讯息";
+    }
+
+    @Override
+    public String reply() {
+        return "回复";
+    }
+
+    @Override
+    public String writeMesHere() {
+        return "在這裡寫下您的訊息";
+    }
+
+    @Override
+    public String chooseTitle() {
+        return "選擇你的標題";
+    }
+
+    @Override
+    public String succeedSendMes() {
+        return "您的信息已經成功發送";
+    }
+
+    @Override
+    public String enterTitleMes() {
+        return "輸入郵件標題";
+    }
+
+    @Override
+    public String mesAllSpeakers() {
+        return "給所有發言人發信息";
+    }
+
+    @Override
+    public String mesOneSpeaker() {
+        return "給一位演講者留言";
+    }
+
+    @Override
+    public String mesAllAttendees() {
+        return "給所有與會者發消息";
+    }
+
+    @Override
+    public String mesOneAttendees() {
+        return "給一位與會者留言";
+    }
+
+    @Override
+    public String enterNameSpeaker() {
+        return "輸入演講者的用戶名";
+    }
+
+    @Override
+    public String mesAllAttendeesEvent() {
+        return "向我的活動的所有參與者發送消息";
+    }
+
+    @Override
+    public String mesOneAttendeeEvent() {
+        return "向我的活動的一位與會者發送消息";
+    }
+
+    @Override
+    public String receivedEmail() {
+        return "收到的電子郵件";
     }
 }
