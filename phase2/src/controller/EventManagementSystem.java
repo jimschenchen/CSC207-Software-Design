@@ -28,7 +28,7 @@ class EventManagementSystem extends subSystem{
             }
             return false;
         }
-        catch (NumberFormatException nfe){
+        catch (NumberFormatException | NullPointerException nfe){
             return false;
         }
 
@@ -64,7 +64,7 @@ class EventManagementSystem extends subSystem{
             }
             return flag;
         }
-        catch (NumberFormatException nfe){
+        catch (NumberFormatException | NullPointerException e){
             return false;
         }
     }
@@ -87,7 +87,7 @@ class EventManagementSystem extends subSystem{
             }
             return false; // return false when cannot add event to speaker
         }
-        catch(NumberFormatException nfe){
+        catch(NumberFormatException | NullPointerException e){
             return false; // return false on invalid input
         }
     }
@@ -111,7 +111,7 @@ class EventManagementSystem extends subSystem{
             }
             return false; // return false when cannot add event to speaker
         }
-        catch(NumberFormatException nfe){
+        catch(NumberFormatException | NullPointerException e){
             return false; // return false on invalid input
         }
     }
@@ -331,7 +331,7 @@ class EventManagementSystem extends subSystem{
             }
             return false;
         }
-        catch (NumberFormatException nfe) {
+        catch (NumberFormatException | NullPointerException e) {
             return false;
         }
     }
