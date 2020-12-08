@@ -434,13 +434,13 @@ public class EventManager {
         List<Integer> waitingUsers = gw.getEventById(eventId).getWaitList();
         List<Integer> droppedUsers = new ArrayList<>();
         for (int userID : signedUsers){
-            if(canRemoveSignedUpUser(userID, eventId, gw)){
+            if(canRemoveSignedUpUser(userID, eventId, gw) && !(gw.getUserById(userID) instanceof VipUser)){
                 removeSignedUpUser(userID, eventId, gw);
                 droppedUsers.add(userID);
             }
         }
         for (int userID : waitingUsers){
-            if (canRemoveWaitingUser(eventId, userID, gw)){
+            if (canRemoveWaitingUser(eventId, userID, gw) && !(gw.getUserById(userID) instanceof VipUser)){
                 removeWaitingUser(eventId, userID, gw);
                 droppedUsers.add(userID);
             }
