@@ -35,7 +35,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         super("Message");
         _msgPresenter = new MessengerPresenter(this, presenter);
         setBounds(0, 0, 407, 495);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLayout(null);
 
@@ -116,7 +116,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
             msgSend.setText("Write new message");
         }
         if (src == logOut){
-            System.exit(0);
+            dispose();
         }
 
         if (src == rcv) {
@@ -127,6 +127,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 String element = lst.get(0) + ": " + lst.get(1);
                 listModel.addElement(element);
             }
+
 
             JList list = new JList(listModel);
             list.addListSelectionListener(new ListSelectionListener() {
@@ -147,7 +148,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                     if (optionPane == JOptionPane.YES_OPTION){
                         String content = JOptionPane.showInputDialog("Write your message here");
                         String title = JOptionPane.showInputDialog("Choose the title");
-                        String messageID = Integer.toString(ind);
+                        String messageID = Integer.toString(ind+1);
                         _msgPresenter.replyTo(content, title, messageID);
                     }
                 }
