@@ -250,7 +250,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String messenger() {
-        return null;
+        return "消息系統";
     }
 
     @Override
