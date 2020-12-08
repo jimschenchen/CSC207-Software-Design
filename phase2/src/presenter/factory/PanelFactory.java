@@ -578,7 +578,7 @@ public class PanelFactory implements IUpdate {
      * @Description: update all the actions
      */
     public void update(String action){
-       optionPaneFactory.get(action);
+        optionPaneFactory.get(action);
     }
 
 
