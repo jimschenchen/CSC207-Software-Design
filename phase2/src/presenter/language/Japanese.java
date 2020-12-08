@@ -187,364 +187,364 @@ public class Japanese implements Language{
 
     @Override
     public String failCreateAccount() {
-        return fail;
+        return "アカウントを作成できないようです";
     }
 
     @Override
     public String welcome() {
-        return null;
+        return "ようこそ";
     }
 
     @Override
     public String myProfile() {
-        return null;
+        return "私のプロフィール";
     }
 
     @Override
     public String logOut() {
-        return null;
+        return "ログアウト";
     }
 
     @Override
     public String resetPass() {
-        return null;
+        return "パスワードを再設定する";
     }
 
     @Override
     public String schedule() {
-        return null;
+        return "スケジュール";
     }
 
     @Override
     public String signUp() {
-        return null;
+        return "イベントにサインアップする";
     }
 
     @Override
     public String signUpWait() {
-        return null;
+        return "順番待ちリストに入る";
     }
 
     @Override
     public String signUpNowait() {
-        return null;
+        return "待つ必要はありません！";
     }
 
     @Override
     public String viewMyEvent() {
-        return null;
+        return "私のイベントを見る";
     }
 
     @Override
     public String viewMyWait() {
-        return null;
+        return "順番待ちリストのイベント";
     }
 
     @Override
     public String viewMyNoWait() {
-        return null;
+        return "順番待ちリストにないイベント";
     }
 
     @Override
     public String viewAllEvent() {
-        return null;
+        return "すべてのイベントを表示";
     }
 
     @Override
     public String messenger() {
-        return null;
+        return "メッセンジャー";
     }
 
     @Override
     public String newPass() {
-        return null;
+        return "新しいパスワード";
     }
 
 
     @Override
     public String withID() {
-        return null;
+        return "ID付き";
     }
 
     @Override
     public String startAt() {
-        return null;
+        return "で始まります";
     }
 
     @Override
     public String endAt() {
-        return null;
+        return "で終わる";
     }
 
     @Override
     public String takePlace() {
-        return null;
+        return "で行われます";
     }
 
     @Override
     public String whichIs() {
-        return null;
+        return "これは";
     }
 
     @Override
     public String title() {
-        return null;
+        return "題名：";
     }
 
     @Override
     public String duration() {
-        return null;
+        return "期間：";
     }
 
     @Override
     public String startTime() {
-        return null;
+        return "始まる時間：";
     }
 
     @Override
     public String endTime() {
-        return null;
+        return "終了時間：";
     }
 
     @Override
     public String vIPStatus() {
-        return null;
+        return "VIPステータス：";
     }
 
     @Override
     public String waitinglist() {
-        return null;
+        return "順番待ちリスト：";
     }
 
     @Override
     public String signUpQuestion() {
-        return null;
+        return "サインアップ？";
     }
 
     @Override
     public String yes() {
-        return null;
+        return "はい！";
     }
 
     @Override
     public String enterRoomNum() {
-        return null;
+        return "追加する新しい部屋番号を入力します。";
     }
 
     @Override
     public String enterRoomCapacity() {
-        return null;
+        return "この部屋の収容人数を入力してください。";
     }
 
     @Override
     public String create() {
-        return null;
+        return "作成する";
     }
 
     @Override
     public String eventType() {
-        return null;
+        return "イベントタイプ：";
     }
 
     @Override
     public String party() {
-        return null;
+        return "パーティー";
     }
 
     @Override
     public String talk() {
-        return null;
+        return "トーク";
     }
 
     @Override
     public String discussion() {
-        return null;
+        return "パネル・ディスカッション";
     }
 
     @Override
     public String topic() {
-        return null;
+        return "トピック：";
     }
 
     @Override
     public String roomNum() {
-        return null;
+        return "部屋番号：";
     }
 
     @Override
     public String capacity() {
-        return null;
+        return "容量：";
     }
 
     @Override
     public String no() {
-        return null;
+        return "番号！";
     }
 
     @Override
     public String selectSpeaker() {
-        return null;
+        return "スピーカーの選択：";
     }
 
     @Override
     public String empty() {
-        return null;
+        return "空の";
     }
 
     @Override
     public String userType() {
-        return null;
+        return "ユーザータイプ：";
     }
 
     @Override
     public String speaker() {
-        return null;
+        return "スピーカー";
     }
 
     @Override
     public String organizer() {
-        return null;
+        return "主催者";
     }
 
     @Override
     public String attendee() {
-        return null;
+        return "参加者";
     }
 
     @Override
     public String cancel() {
-        return null;
+        return "キャンセル";
     }
 
     @Override
     public String rank() {
-        return null;
+        return "ランク：";
     }
 
     @Override
     public String reallyQuestion() {
-        return null;
+        return "本当に？？";
     }
 
     @Override
     public String change() {
-        return null;
+        return "変化する：";
     }
 
 
     @Override
     public String viewTalks() {
-        return null;
+        return "私の講演を見る：";
     }
 
     @Override
     public String newUser() {
-        return null;
+        return "新しいユーザー";
     }
 
     @Override
     public String newRoom() {
-        return null;
+        return "新しい部屋";
     }
 
     @Override
     public String newEvent() {
-        return null;
+        return "新しいイベント";
     }
 
     @Override
     public String organizedEvent() {
-        return null;
+        return "主催イベント";
     }
 
     @Override
     public String changeEventSetting() {
-        return null;
+        return "イベント設定の変更";
     }
 
     @Override
     public String viewOrganizedEvent() {
-        return null;
+        return "開催されたイベントを見る";
     }
 
     @Override
     public String eventId() {
-        return null;
+        return "イベントID：";
     }
 
     @Override
     public String cancelled() {
-        return null;
+        return "キャンセル";
     }
 
     @Override
     public String signedUp() {
-        return null;
+        return "サインアップ";
     }
 
     @Override
     public String addSpeaker() {
-        return null;
+        return "スピーカーを追加";
     }
 
     @Override
     public String newCapacity() {
-        return null;
+        return "容量を追加";
     }
 
     @Override
     public String newStatus() {
-        return null;
+        return "新しいステータス";
     }
 
     @Override
     public String send() {
-        return null;
+        return "送信";
     }
 
     @Override
     public String receivedMessages() {
-        return null;
+        return "受信したメッセージ";
     }
 
     @Override
     public String sentMessage(){
-        return ("Sent Message");
+        return "送信されたメッセージ";
     }
 
     @Override
     public String close() {
-        return null;
+        return "閉じる";
     }
 
     @Override
     public String messengerOptions() {
-        return null;
+        return "メッセンジャーオプション";
     }
 
     @Override
     public String viewMyMessages() {
-        return null;
+        return "私のメッセージを見る";
     }
 
     @Override
     public String message() {
-        return null;
+        return "メッセージ";
     }
 
     @Override
     public String writeMessage() {
-        return null;
+        return "ここにメッセージを書いてください";
     }
 
     @Override
     public String writeTitle() {
-        return null;
+        return "メッセージのタイトルを入力してください";
     }
 
     @Override
     public String allAttendees() {
-        return null;
+        return "すべての参加者";
     }
 
     @Override
