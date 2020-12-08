@@ -182,7 +182,7 @@ public class UserManager {
      */
     public void cancelEventFromMyWaitList(int eventId, int userId, GatewayFacade g) {
         Attendee attendee = (Attendee) g.getUserById(userId);
-        attendee.cancelEvent(eventId);
+        attendee.removeWaitingEvent(eventId);
         g.updateUser(attendee);
     }
 
@@ -432,6 +432,7 @@ public class UserManager {
             MultiSpeakerEvent event = gw.getMultiSpeakerEventById(eventID);
             cancelEventFromSignedUsers(eventID, event, gw);
             cancelEventFromOrganized(eventID, organizerID, gw);
+            cancelEventFromWaitingUsers(eventID, event, gw);
             List<Integer> speakerList = event.getSpeakerList();
             for (Integer speakerID : speakerList){
                 Speaker speaker = gw.getSpeakerById(speakerID);
@@ -443,12 +444,21 @@ public class UserManager {
             OneSpeakerEvent event = gw.getOneSpeakerEventById(eventID);
             cancelEventFromSignedUsers(eventID, event, gw);
             cancelEventFromOrganized(eventID, organizerID, gw);
+            cancelEventFromWaitingUsers(eventID, event, gw);
             removeOneSpeakerEventFromSpeaker(eventID, gw);
         }
         else{
             NonSpeakerEvent event = gw.getNonSpeakerEventById(eventID);
             cancelEventFromOrganized(eventID, organizerID, gw);
             cancelEventFromSignedUsers(eventID, event, gw);
+            cancelEventFromWaitingUsers(eventID, event, gw);
+        }
+    }
+
+    private void cancelEventFromWaitingUsers(int eventID, Event event, GatewayFacade gw) {
+        List<Integer> userList = event.getWaitList();
+        for (Integer userID : userList){
+            cancelEventFromMyWaitList(eventID, userID, gw);
         }
     }
 
