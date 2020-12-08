@@ -35,9 +35,13 @@ public class SpeakerMenu extends UserMenu {
      * @param action action that we need to follow
      */
     public void update(String action){
-        contentPanel.removeAll();
-        contentPanel.add(panelFactory.getPanel(action));
-        contentPanel.validate();
-        contentPanel.repaint();
+        if  (action == "Speaker"){
+            IMessage speakerMes = new SpeakerMessenger();
+        }else{
+            contentPanel.removeAll();
+            contentPanel.add(panelFactory.getPanel(action));
+            contentPanel.validate();
+            contentPanel.repaint();
+        }
     }
 }

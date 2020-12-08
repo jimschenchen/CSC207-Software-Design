@@ -141,17 +141,14 @@ public class UserMenu extends JFrame implements IUpdate {
      * @param action action that we need to follow
      */
     public void update(String action){
-        if (action == "Speaker"){
-            IMessage speakerMes = new SpeakerMessenger();
-        }else if (action == "Organizer"){
-            IMessage organizerMes = new OrganizerMessenger();
-        }else if (action == "Attendee"){
-            IMessage userMes = new MessengerWindow();
+        if  (action == "Attendee"){
+            IMessage messengerWindow = new MessengerWindow();
+        }else{
+            contentPanel.removeAll();
+            contentPanel.add(panelFactory.getPanel(action));
+            contentPanel.validate();
+            contentPanel.repaint();
         }
-        contentPanel.removeAll();
-        contentPanel.add(panelFactory.getPanel(action));
-        contentPanel.validate();
-        contentPanel.repaint();
     }
 
 

@@ -78,10 +78,14 @@ public class OrganizerMenu extends UserMenu {
      * @param action action that we need to follow
      */
     public void update(String action){
-        contentPanel.removeAll();
-        contentPanel.add(panelFactory.getPanel(action));
-        contentPanel.validate();
-        contentPanel.repaint();
+      if  (action == "Organizer"){
+            IMessage organizerMes = new OrganizerMessenger();
+        }else{
+          contentPanel.removeAll();
+          contentPanel.add(panelFactory.getPanel(action));
+          contentPanel.validate();
+          contentPanel.repaint();
+        }
     }
 
 
