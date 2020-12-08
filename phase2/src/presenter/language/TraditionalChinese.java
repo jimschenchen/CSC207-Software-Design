@@ -310,37 +310,37 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String vIPStatus() {
-        return null;
+        return "是否為VIP活動: ";
     }
 
     @Override
     public String waitinglist() {
-        return null;
+        return "等待列表: ";
     }
 
     @Override
     public String signUpQuestion() {
-        return null;
+        return "报名?";
     }
 
     @Override
     public String yes() {
-        return null;
+        return "是!";
     }
 
     @Override
     public String enterRoomNum() {
-        return null;
+        return "輸入你想新建的房間號碼: ";
     }
 
     @Override
     public String enterRoomCapacity() {
-        return null;
+        return "輸入新房間能容納的最大人數:";
     }
 
     @Override
     public String create() {
-        return null;
+        return "創建";
     }
 
     @Override
