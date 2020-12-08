@@ -88,7 +88,7 @@ public class HashGateway<T> extends Gateway<T>{
         Jedis jedis = getJedis();
         String value = jedis.hget(this.hashKey, String.valueOf(id));
         closeJedis(jedis);
-        return deserialize(value);
+        return value != null ? deserialize(value) : null;
     }
     public void delete (int id) {
         Jedis jedis = getJedis();

@@ -161,6 +161,7 @@ public class GatewayCli extends Gateway{
         gf.addEvent(e2);
         assert (gf.getEventById(998).getTitle().equals("test event"));
         assert (gf.getEventList().get(999).getCapacity() == 400);
+        assert (gf.getEventById(10000) == null);
         gf.deleteEvent(e1);
         gf.deleteEvent(e2);
         System.out.print("**");
