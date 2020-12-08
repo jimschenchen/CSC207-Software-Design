@@ -9,7 +9,7 @@ public class MessageManager {
     /**
      * @Description: message all signed up users in an event
      */
-    public void messageAllUsers(int eventId, int senderId, String title, String content, GatewayFacade g){
+    public void messageAllUsersInEvent(int eventId, int senderId, String title, String content, GatewayFacade g){
         for (int receiverId : g.getEventById(eventId).getSignedUpUserList()){
             Message m = new Message(title, content, senderId, receiverId);
             g.addMessage(m);
@@ -23,14 +23,14 @@ public class MessageManager {
         Speaker speaker = g.getSpeakerById(speakerID);
         List<Integer> speakingEvents = speaker.get_GivingEventList();
         for (int eventID : speakingEvents){
-            messageAllUsers(eventID, speakerID, title, content, g);
+            messageAllUsersInEvent(eventID, speakerID, title, content, g);
         }
     }
 
     /**
      * @Description: judge whether receiver whose Id is receiverID participate Event which id is eventId
      */
-    public boolean canMessageAttendeeOfEvent(int eventId, int receiverId, GatewayFacade g){
+    public boolean canMessageAttendeeOfSpeakingEvent(int eventId, int receiverId, GatewayFacade g){
         return g.getEventById(eventId).getSignedUpUserList().contains(receiverId);
     }
 
@@ -146,7 +146,7 @@ public class MessageManager {
         for (Message message : messages){
             List<String> messageInfo = new ArrayList<String>(){
                 {
-                    add(String.valueOf(g.getUserById(message.getSenderId()).getUserName()));
+                    add(String.valueOf(g.getUserById(message.getReceiverId()).getUserName()));
                     add(message.getTitle());
                     add(message.getInfo());
                 }

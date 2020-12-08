@@ -16,7 +16,7 @@ public class MessagingSystem extends subSystem {
         try{
             int eID = Integer.parseInt(eventID);
             if (em.isExistingEvent(eID, gw)){
-                mm.messageAllUsers(eID, user, title, content, gw);
+                mm.messageAllUsersInEvent(eID, user, title, content, gw);
                 return true;
             }
             return false;
@@ -52,7 +52,7 @@ public class MessagingSystem extends subSystem {
         try{
             int eID = Integer.parseInt(eventID);
             int reID = Integer.parseInt(receiverID);
-            if (em.isExistingEvent(eID, gw) && mm.canMessageAttendeeOfEvent(eID, reID, gw)){
+            if (em.isExistingEvent(eID, gw) && mm.canMessageAttendeeOfSpeakingEvent(eID, reID, gw)){
                 mm.messageOneUser(user, reID, title, content, gw);
                 return true;
             }
