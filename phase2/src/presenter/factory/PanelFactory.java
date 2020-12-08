@@ -139,10 +139,12 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(7)));
             panel.add(new JLabel(event.get(8)));
             buttonArray[i] = new JButton(language.yes());
+            int finalI = i;
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.waitEvent(event.get(2)); // the presenter will be added later
+                    presenter.waitEvent(event.get(2));
+                    buttonArray[finalI].setText("Signed Up");
                 }
             });
             panel.add(buttonArray[i]);
@@ -176,10 +178,12 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
             buttonArray[i] = new JButton(language.yes());
+            int finalI = i;
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.signUpEvent(event.get(2)); //the presenter will be added later
+                    presenter.signUpEvent(event.get(2));
+                    buttonArray[finalI].setText("Signed Up");
                 }
             });
             panel.add(buttonArray[i]);
@@ -406,10 +410,12 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(6)));
             panel.add(new JLabel(event.get(7)));
             cancelButtons[i] = new JButton(language.reallyQuestion());
+            int finalI = i;
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.cancelEnrollment(event.get(2));
+                    cancelButtons[finalI].setText("Cancelled");
                 }
             });
             panel.add(cancelButtons[i]);
@@ -443,10 +449,12 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(7)));
             panel.add(new JLabel(event.get(8)));
             cancelButtons[i] = new JButton(language.reallyQuestion());
+            int finalI = i;
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.removeWait(event.get(2));
+                    cancelButtons[finalI].setText("Cancelled");
                 }
             });
             panel.add(cancelButtons[i]);
@@ -482,10 +490,12 @@ public class PanelFactory implements IUpdate {
             panel.add(new JLabel(event.get(8)));
             panel.add(new JLabel(event.get(9)));
             cancelButtons[i] = new JButton(language.reallyQuestion());
+            int finalI = i;
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.cancelEvent(event.get(2));
+                    cancelButtons[finalI].setText("cancelled"); // Needed to be added to language later
                 }
             });
             panel.add(cancelButtons[i]);

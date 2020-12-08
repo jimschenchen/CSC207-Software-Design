@@ -422,4 +422,11 @@ public class English implements Language {
         return ("Event ID: ");
     }
 
+    public String cancelled(){
+        return ("Cancelled");
+    }
+    public String signedUp(){
+        return ("Signed Up");
+    }
+
 }

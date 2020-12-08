@@ -420,4 +420,11 @@ public class SimplifiedChinese implements Language {
         return ("会议代码");
     }
 
+    public String cancelled(){
+        return ("已取消");
+    }
+    public String signedUp(){
+        return ("已报名");
+    }
+
 }

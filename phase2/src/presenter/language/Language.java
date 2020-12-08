@@ -287,4 +287,13 @@ public interface Language {
 
     /** event if */
     String eventId();
+
+    /**
+     * return the string meaning cancel
+     */
+    //String cancelled();
+    /**
+     * return the String meaning signed up
+     */
+    //String signedUp();
 }
