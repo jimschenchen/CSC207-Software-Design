@@ -74,193 +74,146 @@ public class JOptionPaneFactory {
         }
     }
 
-    /**
-     * @Description: tells you there is an error
-     */
+//   @Description: tells you there is an error
     private void error(){
         JOptionPane.showMessageDialog(null, language.fail(), language.messageTitle(),
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    /**
-     * @Description: tells you an account has been created
-     */
+    //   @Description: tells you an account has been created
     private void createAccount(){
         JOptionPane.showMessageDialog(null, language.createAccountMessage(), language.messageTitle(),
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: a room has been successfully added
-     */
+     //   @Description: a room has been successfully added
     private void succeedAddRoom(){
         JOptionPane.showMessageDialog(null, language.succeedAddRoomMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: a room is failed to be added
-     */
+    //   @Description: a room is failed to be added
     private void failAddRoom(){
         JOptionPane.showMessageDialog(null, language.failAddRoomMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an event has been successfully canceled
-     */
+     //   @Description: an event has been successfully canceled
     private void succeedCancelEvent(){
         JOptionPane.showMessageDialog(null, language.succeedCancelEventMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: a room hasn't been canceled
-     */
+     //   @Description: a room hasn't been canceled
     private void failCancelEvent(){
         JOptionPane.showMessageDialog(null, language.failCancelEventMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an event has been successfully signed up
-     */
+     //   @Description: an event has been successfully signed up
     private void succeedSignUpEvent(){
         JOptionPane.showMessageDialog(null, language.succeedSignUpEventMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an event is failed to signed up
-     */
+
+     //   @Description: an event is failed to signed up
     private void failSignUpEvent(){
         JOptionPane.showMessageDialog(null, language.failSignUpEvent(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an event has been successfully signed up
-     */
+     //   @Description: an event has been successfully signed up
     private void succeedWaitEvent(){
         JOptionPane.showMessageDialog(null, language.succeedWaitEvent(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an event is failed to signed up
-     */
+     //   @Description: an event is failed to signed up
     private void failWaitEvent(){
         JOptionPane.showMessageDialog(null, language.failWaitEventMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an event has been successfully changed
-     */
+     //    @Description: an event has been successfully changed
     private void succeedChangeEvent(){
         JOptionPane.showMessageDialog(null, language.succeedChangeEventMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an event is failed to change
-     */
+     //   @Description: an event is failed to change
     private void failChangeEvent(){
         JOptionPane.showMessageDialog(null, language.failChangeEventMessage(),
                 language.successful(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an user has been successfully created
-     */
+     //   @Description: an user has been successfully created
     private void succeedCreateUser(){
         JOptionPane.showMessageDialog(null, language.succeedCreateUserMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an user is failed to be created
-     */
+     //   @Description: an user is failed to be created
     private  void failCreateUser(){
         JOptionPane.showMessageDialog(null, language.failCreateUserMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an event has been successfully created
-     */
+     //   @Description: an event has been successfully created
     private void succeedCreateEvent(){
         JOptionPane.showMessageDialog(null, language.succeedCreateEventMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an event is failed to be created
-     */
+     //   @Description: an event is failed to be created
     private void failCreateEvent(){
         JOptionPane.showMessageDialog(null, language.failCreateEventMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: the enrollment has been successfully canceled
-     */
+     //   @Description: the enrollment has been successfully canceled
     private void succeedCancelEnrollment(){
         JOptionPane.showMessageDialog(null, language.succeedCancelEnrollmentMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: the enrollment is failed to be canceled
-     */
+     //   @Description: the enrollment is failed to be canceled
     private void failCancelEnrollment(){
         JOptionPane.showMessageDialog(null, language.failCancelEnrollmentMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an user has been successfully removed from the wait list
-     */
+     //   @Description: an user has been successfully removed from the wait list
     private void succeedRemoveWait(){
         JOptionPane.showMessageDialog(null, language.succeedRemoveWaitMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an user is failed to be removed from the wait list
-     */
+     //   @Description: an user is failed to be removed from the wait list
     private void failRemoveWait(){
         JOptionPane.showMessageDialog(null, language.failRemoveWaitMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: successfully reset a pass
-     */
+     //   @Description: successfully reset a pass
     private void succeedResetPass(){
         JOptionPane.showMessageDialog(null, language.succeedResetPasswordMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: failed to reset a pass
-     */
+     //   @Description: failed to reset a pass
     private void failResetPass(){
         JOptionPane.showMessageDialog(null, language.failResetPasswordMessage(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
     }
 
-    /**
-     * @Description: an account has been successfully created
-     */
+     //   @Description: an account has been successfully created
     private void succeedCreateAccount(){
         JOptionPane.showMessageDialog(null, language.succeedCreateAccountMessage(),
                 language.successful(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * @Description: an account is failed to be created
-     */
+     //   @Description: an account is failed to be created
     private void failCreateAccount(){
         JOptionPane.showMessageDialog(null, language.failCreateAccount(),
                 language.failed(), JOptionPane.WARNING_MESSAGE);
