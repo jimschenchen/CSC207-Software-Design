@@ -492,10 +492,10 @@ public class UserManager {
         for (int userID : droppedUsers){
             Attendee attendee = (Attendee) gw.getUserById(userID);
             if (attendee.getSignedUpEventList().contains(eventId)){
-                cancelEventFromMyWaitList(eventId, userID, gw);
+                cancelEventFromUser(eventId, userID, gw);
             }
             else{
-                cancelEventFromUser(eventId, userID, gw);
+                cancelEventFromMyWaitList(eventId, userID, gw);
             }
         }
     }

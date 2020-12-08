@@ -73,7 +73,7 @@ public class PanelPresenter extends Presenter{
             success = cs.modifySpeakerForEvent(newSetting, eventID);
         } else if (type ==  2) {
             Boolean VIP = false;
-            if (newSetting.toLowerCase() == "yes"){
+            if (newSetting.equalsIgnoreCase("yes")){
                 VIP = true;
             }
             success = cs.changeVipStatusOfEvent(eventID, VIP);

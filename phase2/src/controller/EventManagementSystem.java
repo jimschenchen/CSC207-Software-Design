@@ -20,7 +20,7 @@ class EventManagementSystem extends subSystem{
             int eID = Integer.parseInt(eventId);
             if (em.getVipStatusOfEvent(eID, gw) != type && um.isExistingOrganizer(user, gw)){
                 em.changeVipStatusOfEvent(eID, type, gw);
-                if (!type){ // change from vip to non-vip
+                if (type){ // change from non-vip to vip
                     List<Integer> droppedUsers = em.dropNonVipFromVipEvent(eID, gw);
                     um.dropNonVipEventFromNonVIP(droppedUsers, eID, gw);
                 }
@@ -28,7 +28,7 @@ class EventManagementSystem extends subSystem{
             }
             return false;
         }
-        catch (NumberFormatException nfe){
+        catch (NumberFormatException | NullPointerException nfe){
             return false;
         }
 
@@ -64,7 +64,7 @@ class EventManagementSystem extends subSystem{
             }
             return flag;
         }
-        catch (NumberFormatException nfe){
+        catch (NumberFormatException | NullPointerException e){
             return false;
         }
     }
@@ -87,7 +87,7 @@ class EventManagementSystem extends subSystem{
             }
             return false; // return false when cannot add event to speaker
         }
-        catch(NumberFormatException nfe){
+        catch(NumberFormatException | NullPointerException e){
             return false; // return false on invalid input
         }
     }
@@ -111,7 +111,7 @@ class EventManagementSystem extends subSystem{
             }
             return false; // return false when cannot add event to speaker
         }
-        catch(NumberFormatException nfe){
+        catch(NumberFormatException | NullPointerException e){
             return false; // return false on invalid input
         }
     }
@@ -331,7 +331,7 @@ class EventManagementSystem extends subSystem{
             }
             return false;
         }
-        catch (NumberFormatException nfe) {
+        catch (NumberFormatException | NullPointerException e) {
             return false;
         }
     }

@@ -297,6 +297,9 @@ public class EventManager {
                     if (gw.getUserById(id) != null) {
                         String name = gw.getUserById(id).getUserName();
                         sbSpeakers.append(name);
+                        if (id != ids.get(ids.size() - 1)){
+                            sbSpeakers.append(", ");
+                        }
                     }
                 }
                 sSpeaker = sbSpeakers.toString();
