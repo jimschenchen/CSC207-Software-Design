@@ -534,13 +534,13 @@ public class PanelFactory implements IUpdate {
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED ){
                     if (e.getItem() == speaker){
-                        newSetting.setText("Add Speaker");
-                        newSettingEntered.setText("Speaker ID");
+                        newSetting.setText(language.addSpeaker());
+                        newSettingEntered.setText(language.speaker() + " ID");
                     }else if (e.getItem() == capacity){
-                        newSetting.setText("New Capacity");
-                        newSettingEntered.setText("The number");
+                        newSetting.setText(language.newCapacity());
+                        newSettingEntered.setText("");
                     }else if(e.getItem() == vIPStatus){
-                        newSetting.setText("New VIP Status");
+                        newSetting.setText(language.newStatus());
                         newSettingEntered.setText("Yes/No");
                     }
                 }

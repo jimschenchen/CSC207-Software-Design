@@ -241,10 +241,7 @@ public class SimplifiedChinese implements Language {
     public String  newPass(){
         return ("新密码");
     }
-    @Override
-    public String  eventInfo(){
-        return ("活动信息");
-    }
+
     @Override
     public String  withID(){
         return (",ID 为 ");
@@ -383,10 +380,7 @@ public class SimplifiedChinese implements Language {
     public String  change(){
         return ("改动: ");
     }
-    @Override
-    public String  newWord(){
-        return ("活动新设定: ");
-    }
+
     @Override
     public String  viewTalks(){
         return ("查看我的演讲: ");
@@ -425,6 +419,161 @@ public class SimplifiedChinese implements Language {
     }
     public String signedUp(){
         return ("已报名");
+    }
+
+    @Override
+    public String addSpeaker() {
+        return ("添加演讲者");
+    }
+
+    @Override
+    public String newCapacity() {
+        return ("新容量");
+    }
+
+    @Override
+    public String newStatus() {
+        return ("新状态");
+    }
+
+    @Override
+    public String send() {
+        return null;
+    }
+
+    @Override
+    public String sentMessage() {
+        return null;
+    }
+
+    @Override
+    public String receivedMessages() {
+        return null;
+    }
+
+    @Override
+    public String close() {
+        return null;
+    }
+
+    @Override
+    public String messengerOptions() {
+        return null;
+    }
+
+    @Override
+    public String viewMyMessages() {
+        return null;
+    }
+
+    @Override
+    public String message() {
+        return null;
+    }
+
+    @Override
+    public String writeMessage() {
+        return null;
+    }
+
+    @Override
+    public String writeTitle() {
+        return null;
+    }
+
+    @Override
+    public String allAttendees() {
+        return null;
+    }
+
+    @Override
+    public String oneAttendee() {
+        return null;
+    }
+
+    @Override
+    public String sendTo() {
+        return null;
+    }
+
+    @Override
+    public String messageInformation() {
+        return null;
+    }
+
+    @Override
+    public String enterIdEvent() {
+        return null;
+    }
+
+    @Override
+    public String enterNameAttendee() {
+        return null;
+    }
+
+    @Override
+    public String writeNewMes() {
+        return null;
+    }
+
+    @Override
+    public String reply() {
+        return null;
+    }
+
+    @Override
+    public String writeMesHere() {
+        return null;
+    }
+
+    @Override
+    public String chooseTitle() {
+        return null;
+    }
+
+    @Override
+    public String succeedSendMes() {
+        return null;
+    }
+
+    @Override
+    public String enterTitleMes() {
+        return null;
+    }
+
+    @Override
+    public String mesAllSpeakers() {
+        return null;
+    }
+
+    @Override
+    public String mesOneSpeaker() {
+        return null;
+    }
+
+    @Override
+    public String mesAllAttendees() {
+        return null;
+    }
+
+    @Override
+    public String mesOneAttendees() {
+        return null;
+    }
+
+    @Override
+    public String enterNameSpeaker() {
+        return null;
+    }
+
+    @Override
+    public String mesAllAttendeesEvent() {
+        return null;
+    }
+
+    @Override
+    public String mesOneAttendeeEvent() {
+        return null;
     }
 
 }

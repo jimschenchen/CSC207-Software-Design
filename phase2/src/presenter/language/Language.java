@@ -3,297 +3,377 @@ package presenter.language;
  * This is the interface used to implement the multi-language version used in our system
  */
 public interface Language {
-    /** the user name */
+    /** @return the String meaning Username:  */
     String username();
 
-    /** password */
+    /** @return the String meaning Password: */
     String password();
 
-    /** sign up account */
+    /** @return the String meaning sign up an account */
     String signUpAccount();
 
-    /** the meaning of ok*/
+    /** @return  the String meaning OK*/
     String ok();
 
-    /** exit */
+    /** @return the String meaning Exit */
     String exit();
 
-    /** go back */
+    /** @return the String meaning Back */
     String back();
 
-    /** the title  */
+    /** @return the String meaning Welcome to the Best Conference in the World!  */
     String titleLogin();
 
-    /** the title for signing up */
+    /** @return the String meaning You are signing up */
     String titleSignUp();
 
-    /** language */
+    /** @return the String meaning what is the language called in this language*/
     String language();
 
-    /** select language */
+    /** @return the String meaning select language */
     String selectLanguage();
 
-    /** failed */
+    /** @return the String meaning It looks like something went wrong! Try again!" */
     String fail();
 
-    /** the title of the message */
+    /** @return the String meaning the message */
     String messageTitle();
 
-    /** create account message */
+    /** @return the String meaning Hey! You have created an account! */
     String createAccountMessage();
 
-    /** a room has been successfully added */
+    /** @return the String meaning a room has been successfully added */
     String succeedAddRoomMessage();
 
-    /** successful */
+    /** @return the String meaning successful */
     String successful();
 
-    /** failed */
+    /** @return the String meaning failed */
     String failed();
 
-    /** filed to add room message */
+    /** @return the String meaning The room already exists or your input is valid */
     String failAddRoomMessage();
 
-    /** successfully canceled event message */
+    /** @return the String meaning the user has successfully canceled event */
     String succeedCancelEventMessage();
 
-    /** failed to cancel event message */
+    /** @return the String meaning the user has failed to cancel event*/
     String failCancelEventMessage();
 
-    /** successfully signup event message */
+    /** @return the String meaning the user has successfully sign up an event */
     String succeedSignUpEventMessage();
 
-    /** failed to signup event */
+    /** @return the String meaning the user has failed to sign up an event */
     String failSignUpEvent();
 
-    /** successfully wait event */
+    /** @return the String meaning the user has successfully get a spot in an event in the waiting list */
     String succeedWaitEvent();
 
-    /** failed to wait event message */
+    /** @return the String meaning the user has failed to get a spot in an event in the waiting list */
     String failWaitEventMessage();
 
-    /** successfully change event message */
+    /** @return the String meaning the user has successfully changed an event's setting */
     String succeedChangeEventMessage();
 
-    /** failed to change event message */
+    /** @return the String meaning the user has failed to change an event's setting  */
     String failChangeEventMessage();
 
-    /** successfully create user message */
+    /** @return the String meaning the User has successfully created an user */
     String succeedCreateUserMessage();
 
-    /** failed to create user message */
+    /** @return the String meaning the User has failed to create an user */
     String failCreateUserMessage();
 
-    /** successfully create event message */
+    /** @return the String meaning the user has successfully created an  event */
     String succeedCreateEventMessage();
 
-    /** failed to create event message */
+    /** @return the String meaning the user has failed to create an event */
     String failCreateEventMessage();
 
-    /** successfully canceled enrollment message */
+    /** @return the String meaning the user has successfully canceled an enrollment in an event*/
     String succeedCancelEnrollmentMessage();
 
-    /** failed to cancel emrollment */
+    /** @return the String meaning the user has failed to cancel an enrollment in an event */
     String failCancelEnrollmentMessage();
 
-    /** successfully removed wait message */
+    /** @return the String meaning the user has successfully removed the spot in the waiting list */
     String succeedRemoveWaitMessage();
 
-    /** failed to removed wait message  */
+    /** @return the String meaning the user has failed to remove the spot in the waiting list */
     String failRemoveWaitMessage();
 
-    /** successfully reset the password */
+    /** @return the String meaning the user has successfully reset the password */
     String succeedResetPasswordMessage();
 
-    /** failed reset the password */
+    /** @return the String meaning the user has failed to reset the password */
     String failResetPasswordMessage();
 
-    /** successfully create an account*/
+    /** @return the String meaning the user has successfully created an account*/
     String succeedCreateAccountMessage();
 
-    /** failed create an account*/
+    /** @return the String meaning the user has  failed to create an account*/
     String failCreateAccount();
 
-    /** welcome */
+    /** @return the String meaning welcome */
     String welcome();
 
-    /** my profile */
+    /** @return the String meaning my profile */
     String myProfile();
 
-    /** logout  */
+    /** @return the String meaning logout  */
     String logOut();
 
-    /** resetPass */
+    /** @return the String meaning resetPass */
     String resetPass();
 
-    /** schedule */
+    /** @return the String meaning schedule */
     String schedule();
 
-    /** signUp */
+    /** @return the String meaning sign up  */
     String signUp();
 
-    /** sign Up Wait */
+    /** @return  the String meaning get a spot in the waiting list */
     String signUpWait();
 
-    /** sign Up No wait */
+    /**  @return the String meaning sign Up an event that is not in the waiting list  */
     String signUpNowait();
 
-    /**  view all My Events */
+    /**  @return the String meaning view my events  */
     String viewMyEvent();
 
-    /** view My Wait */
+    /** @return the String meaning view my events that are in the waiting list  */
     String viewMyWait();
 
-    /** view my wait list */
+    /** @return the String meaning view my events that are not in the waiting list */
     String viewMyNoWait();
 
-    /** view all events */
+    /** @return the String meaning view all events */
     String viewAllEvent();
 
-    /** messenger */
+    /** @return the String meaning messenger */
     String messenger();
 
-    /** new pass */
+    /** @return the String meaning new password */
     String newPass();
 
-    /** event information */
-    String eventInfo();
-
-    /** with id */
+    /** @return the String meaning With id */
     String withID();
 
-    /** srart at */
+    /** @return the String meaning Start at */
     String startAt();
 
-    /** end at */
+    /** @return the String meaning End at */
     String endAt();
 
-    /** the place that is going take */
+    /** @return the String meaning the place that is going take */
     String takePlace();
 
-    /** which is */
+    /** @return the String meaning which is */
     String whichIs();
 
-    /** title */
+    /** @return the String meaning title */
     String title();
 
-    /** duration */
+    /** @return the String meaning duration */
     String duration();
 
-    /** starting time */
+    /** @return the String meaning starting time */
     String startTime();
 
-    /** ending time */
+    /** @return the String meaning end time */
     String endTime();
 
-    /** VIP status */
+    /** @return the String meaning  */
     String vIPStatus();
 
-    /** waiting list */
+    /** @return the String meaning  */
     String waitinglist();
 
-    /** signup Questions */
+    /** @return the String meaning  */
     String signUpQuestion();
 
-    /** yes */
+    /** @return the String meaning yes */
     String yes();
 
-    /** enterroom id */
+    /** @return the String meaning enter the room number */
     String enterRoomNum();
 
-    /** room capacity */
+    /** @return the String meaning enter the room capacity */
     String enterRoomCapacity();
 
-    /** create */
+    /** @return the String meaning create */
     String create();
 
-    /** the type of the event */
+    /** @return the String meaning Event type*/
     String eventType();
 
-    /** party */
+    /** @return the String meaning Party */
     String party();
 
-    /** talk */
+    /** @return the String meaning Talk */
     String talk();
 
-    /** discussion */
+    /**  @return the String meaning Discussion */
     String discussion();
 
-    /** topic */
+    /**  @return the String meaning Topic */
     String topic();
 
-    /** room id */
+    /**  @return the String meaning Room Number */
     String roomNum();
 
-    /** capacity */
+    /** @return the String meaning capacity */
     String capacity();
 
-    /** no */
+    /** @return the String meaning No */
     String no();
 
-    /** select speaker */
+    /** @return the String meaning select a speaker */
     String selectSpeaker();
 
-    /** empty */
+    /** @return the String meaning empty */
     String empty();
 
-    /** user type */
+    /** @return the String meaning User type */
     String userType();
 
-    /** speaker */
+    /** @return the String meaning Speaker */
     String speaker();
 
-    /** organizer */
+    /** @return the String meaning Organizer */
     String organizer();
 
-    /** attendee */
+    /** @return the String meaning Attendee */
     String attendee();
 
-    /** cancel */
+    /** @return the String meaning cancel */
     String cancel();
 
-    /** the rank */
+    /** @return the String meaning the rank */
     String rank();
 
-    /** questions for confirmation*/
+    /** @return the String meaning questions for confirmation*/
     String reallyQuestion();
 
-    /** change */
+    /** @return the String meaningchange */
     String change();
 
-    /** new word */
-    String newWord();
-
-    /** view talks */
+    /** @return the String meaning view talks */
     String viewTalks();
 
-    /** a new user */
+    /** @return the String meaning New User */
     String newUser();
 
-    /** a new room */
+    /** @return the String meaning New Room */
     String newRoom();
 
-    /** new event */
+    /** @return the String meaning New Event */
     String newEvent();
 
-    /** aorganized event */
+    /** @return the String meaning Organized event */
     String organizedEvent();
 
-    /** change event setting */
+    /** @return the String meaning change event setting */
     String changeEventSetting();
 
-    /** view all the organized event */
+    /** @return the String meaning view all the organized event */
     String viewOrganizedEvent();
 
-    /** event if */
+    /** @return the String meaning Event ID */
     String eventId();
 
     /**
-     * return the string meaning cancel
+     * @return the string meaning cancel
      */
-    //String cancelled();
+    String cancelled();
     /**
-     * return the String meaning signed up
+     * @return the String meaning signed up
      */
-    //String signedUp();
+    String signedUp();
+    /**
+     * @return the String meaning Add Speaker
+     */
+    String addSpeaker();
+    /**
+     * @return the String meaning New Capacity
+     */
+    String newCapacity();
+    /**
+     * @return the String meaning New Status
+     */
+    String newStatus();
+
+    /**
+     * @return the String meaning Send
+     */
+    String send();
+    /**
+     * @return the String meaning Received Messages
+     */
+    /**
+     *
+     * @return the String meaning Sent Messages
+     */
+    String sentMessage();
+    String receivedMessages();
+    /**
+     * @return the String meaning Close
+     */
+    String close();
+    /**
+     * @return the String Meaning Messenger Options;
+     */
+    String messengerOptions();
+    /**
+     * @return the String meaning View my messages
+     */
+    String viewMyMessages();
+    /**
+     * @return the String meaning message
+     */
+    String message();
+    /**
+     * @return the String meaning Write your message here
+     */
+    String writeMessage();
+    /**
+     * @return the String meaning Enter the title of your message
+     */
+    String writeTitle();
+    /**
+     * @return the String meaning All attendees
+     */
+    String allAttendees();
+    /**
+     * @return the String meaning one attendess
+     */
+    String oneAttendee();
+
+    /**
+     *
+     * @return return the String meaning Who do you want to send this message to
+     */
+    String sendTo();
+    String messageInformation();
+    String enterIdEvent();
+    String enterNameAttendee();
+    String writeNewMes();
+    String reply();
+    String writeMesHere();
+    String chooseTitle();
+    String succeedSendMes();
+    String enterTitleMes();
+    String mesAllSpeakers();
+    String mesOneSpeaker();
+    String mesAllAttendees();
+    String mesOneAttendees();
+    String enterNameSpeaker();
+    String mesAllAttendeesEvent();
+    String mesOneAttendeeEvent();
+
+
+
+
+
+
 }

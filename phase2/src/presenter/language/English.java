@@ -243,10 +243,7 @@ public class English implements Language {
     public String  newPass(){
         return ("New Password");
     }
-    @Override
-    public String  eventInfo(){
-        return ("Events' Info");
-    }
+
     @Override
     public String  withID(){
         return (", with ID ");
@@ -385,10 +382,7 @@ public class English implements Language {
     public String  change(){
         return ("Change: ");
     }
-    @Override
-    public String  newWord(){
-        return ("New: ");
-    }
+
     @Override
     public String  viewTalks(){
         return ("View my Talks: ");
@@ -421,12 +415,168 @@ public class English implements Language {
     public String eventId(){
         return ("Event ID: ");
     }
-
+    @Override
     public String cancelled(){
         return ("Cancelled");
     }
+    @Override
     public String signedUp(){
         return ("Signed Up");
+    }
+
+    @Override
+    public String addSpeaker() {
+        return ("Add Speaker");
+    }
+
+    @Override
+    public String newCapacity() {
+        return ("Add Capacity");
+    }
+
+    @Override
+    public String newStatus() {
+        return ("New Status");
+    }
+
+    @Override
+    public String send() {
+        return ("Send");
+    }
+
+    @Override
+    public String sentMessage(){
+        return ("Sent Message");
+    }
+
+    @Override
+    public String receivedMessages() {
+        return ("Received Messages");
+    }
+
+    @Override
+    public String close() {
+        return ("Close");
+    }
+
+    @Override
+    public String messengerOptions() {
+        return ("Messenger Options");
+    }
+
+    @Override
+    public String viewMyMessages() {
+        return ("View my messages");
+    }
+
+    @Override
+    public String message() {
+        return ("Message");
+    }
+
+    @Override
+    public String writeMessage() {
+        return ("Write your message here");
+    }
+
+    @Override
+    public String writeTitle() {
+        return ("Enter the title of the message");
+    }
+
+    @Override
+    public String allAttendees() {
+        return ("All attendees");
+    }
+
+    @Override
+    public String oneAttendee() {
+        return ("One Attendee");
+    }
+
+    @Override
+    public String sendTo() {
+        return ("Who do you want to send this message to");
+    }
+
+    @Override
+    public String messageInformation() {
+        return ("Message Information");
+    }
+
+    @Override
+    public String enterIdEvent() {
+        return ("Enter the id of the event");
+    }
+
+    @Override
+    public String enterNameAttendee() {
+        return ("Enter the username of the attendee");
+    }
+
+    @Override
+    public String writeNewMes() {
+        return ("Write new message");
+    }
+
+    @Override
+    public String reply() {
+        return ("Reply");
+    }
+
+    @Override
+    public String writeMesHere() {
+        return ("Write your message here");
+    }
+
+    @Override
+    public String chooseTitle() {
+        return ("Choose your title");
+    }
+
+    @Override
+    public String succeedSendMes() {
+        return ("Your message was sent successfully");
+    }
+
+    @Override
+    public String enterTitleMes() {
+        return ("Enter the title of your message");
+    }
+
+    @Override
+    public String mesAllSpeakers() {
+        return ("Message all speakers");
+    }
+
+    @Override
+    public String mesOneSpeaker() {
+        return ("Message one speaker");
+    }
+
+    @Override
+    public String mesAllAttendees() {
+        return ("Message all attendees");
+    }
+
+    @Override
+    public String mesOneAttendees() {
+        return ("Message one attendee");
+    }
+
+    @Override
+    public String enterNameSpeaker() {
+        return ("Enter the username of the speaker");
+    }
+
+    @Override
+    public String mesAllAttendeesEvent() {
+        return ("Message all attendees of my events");
+    }
+
+    @Override
+    public String mesOneAttendeeEvent() {
+        return ("Message one attendee of my events");
     }
 
 }

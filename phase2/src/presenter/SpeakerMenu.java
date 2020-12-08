@@ -38,7 +38,7 @@ public class SpeakerMenu extends UserMenu {
     public void update(String action){
         if  (action == "Speaker"){
             if (speakerMes == null){
-                IMessage speakerMes = new SpeakerMessenger(super.presenter);
+                IMessage speakerMes = new SpeakerMessenger(super.presenter, super.language);
                 this.speakerMes = speakerMes;
             }
             else {

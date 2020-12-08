@@ -147,7 +147,7 @@ public class UserMenu extends JFrame implements IUpdate {
     public void update(String action){
         if  (action == "Attendee"){
             if (mesWindow == null){
-                IMessage mesWindow = new MessengerWindow(presenter);
+                IMessage mesWindow = new MessengerWindow(presenter, language);
                 this.mesWindow = mesWindow;
             }
             else{

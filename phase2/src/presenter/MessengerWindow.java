@@ -1,5 +1,7 @@
 package presenter;
 
+import presenter.language.Language;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,21 +27,23 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     JMenuBar bar;
     JMenu messageOptions;
     MessengerPresenter _msgPresenter;
+    Language language;
 
     /**
      * Construct the messenger Window
      *
      */
 
-    public MessengerWindow(Presenter presenter){
-        super("Message");
-        send = new JButton("Send");
-        rcv = new JButton("Received Messages");
-        snd = new JButton("Sent Messages");
-        messenger = new JMenu("Messenger");
-        logOut = new JMenuItem("Close");
+    public MessengerWindow(Presenter presenter, Language language){
+        super(language.message());
+        this.language = language;
+        send = new JButton(language.send());
+        rcv = new JButton(language.receivedMessages());
+        snd = new JButton(language.sentMessage());
+        messenger = new JMenu(language.messenger());
+        logOut = new JMenuItem(language.close());
         bar = new JMenuBar();
-        messageOptions = new JMenu("Messenger Options");
+        messageOptions = new JMenu(language.messengerOptions());
 
         _msgPresenter = new MessengerPresenter(this, presenter);
         setBounds(0, 0, 407, 495);
@@ -65,7 +69,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         msgSend.setLineWrap(true);
         msgSend.setWrapStyleWord(true);
 
-        msgSend.setText("Write Message here");
+        msgSend.setText(language.writeMesHere());
 
         pane1 = new JScrollPane(msgSend);
         pane1.setBounds(0, 200, 400, 200);
@@ -100,27 +104,27 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if (src == send){
-            String title = JOptionPane.showInputDialog("Enter the title of your message");
+            String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
             Object[] options = {"All attendees",
                     "One attendee"};
             int optionPane = JOptionPane.showOptionDialog(this,
-                    "Who do you want to send this message to?",
-                    "MessageInformation",
+                    language.sendTo(),
+                    language.messageInformation(),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null,
                     options,
                     options[1]);
             if (optionPane == JOptionPane.YES_OPTION){
-                String id = JOptionPane.showInputDialog("Enter the id of the event");
+                String id = JOptionPane.showInputDialog(language.enterIdEvent());
                 _msgPresenter.messageAllAttendees(title, message, id);
             }
             if (optionPane == JOptionPane.NO_OPTION){
-                String username = JOptionPane.showInputDialog("Enter the username of the attendee");
+                String username = JOptionPane.showInputDialog(language.enterNameAttendee());
                 _msgPresenter.messageOneAttendee(title, message, username);
             }
-            msgSend.setText("Write new message");
+            msgSend.setText(language.writeNewMes());
         }
         if (src == logOut){
             dispose();
@@ -153,8 +157,8 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                             replyOrClose,
                             replyOrClose[1]);
                     if (optionPane == JOptionPane.YES_OPTION){
-                        String content = JOptionPane.showInputDialog("Write your message here");
-                        String title = JOptionPane.showInputDialog("Choose the title");
+                        String content = JOptionPane.showInputDialog(language.writeMesHere());
+                        String title = JOptionPane.showInputDialog(language.chooseTitle());
                         String messageID = Integer.toString(ind+1);
                         _msgPresenter.replyTo(content, title, messageID);
                     }
@@ -191,11 +195,11 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
      */
     public void messageSuccess(boolean success){
         if (success){
-            showMessageDialog(null, "Your message was sent successfully!");
+            showMessageDialog(null, language.succeedSendMes());
 
         }
         else{
-            showMessageDialog(null, "Oops, something went wrong!");
+            showMessageDialog(null, language.fail());
         }
     }
 
