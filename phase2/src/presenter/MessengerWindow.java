@@ -106,8 +106,8 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         if (src == send){
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
-            Object[] options = {"All attendees",
-                    "One attendee"};
+            Object[] options = {language.allAttendees(),
+                    language.oneAttendee()};
             int optionPane = JOptionPane.showOptionDialog(this,
                     language.sendTo(),
                     language.messageInformation(),
@@ -145,12 +145,12 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     int ind = listOfLists.indexOf(list.getSelectedValue());
-                    Object[] replyOrClose = {"Reply",
-                            "Close"};
+                    Object[] replyOrClose = {language.reply(),
+                            language.close()};
                     List t = listOfLists.get(ind+1);
                     int optionPane = JOptionPane.showOptionDialog(new JFrame(),
                             t.get(2),
-                            "Received Email",
+                            language.receivedEmail(),
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
                             null,

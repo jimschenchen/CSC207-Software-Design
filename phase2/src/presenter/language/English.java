@@ -579,4 +579,8 @@ public class English implements Language {
         return ("Message one attendee of my events");
     }
 
+    @Override
+    public String receivedEmail() {
+        return ("Received email");
+    }
 }

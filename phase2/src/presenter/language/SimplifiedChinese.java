@@ -576,4 +576,9 @@ public class SimplifiedChinese implements Language {
         return null;
     }
 
+    @Override
+    public String receivedEmail() {
+        return ("Received email");
+    }
+
 }

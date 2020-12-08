@@ -22,7 +22,7 @@ public class SpeakerMessenger extends MessengerWindow {
         if (src == send) {
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
-            String[] buttons = {"Message all attendees of my events", "Message one attendee of my event"};
+            String[] buttons = {language.mesAllAttendeesEvent(), language.mesOneAttendeeEvent()};
             int i = JOptionPane.showOptionDialog(null, language.sendTo(),
                     language.messageInformation(),
                     JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[1]);

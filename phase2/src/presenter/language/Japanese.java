@@ -636,4 +636,9 @@ public class Japanese implements Language{
     public String mesOneAttendeeEvent() {
         return null;
     }
+
+    @Override
+    public String receivedEmail() {
+        return ("Received email");
+    }
 }

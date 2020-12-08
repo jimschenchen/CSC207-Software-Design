@@ -370,6 +370,7 @@ public interface Language {
     String enterNameSpeaker();
     String mesAllAttendeesEvent();
     String mesOneAttendeeEvent();
+    String receivedEmail();
 
 
 

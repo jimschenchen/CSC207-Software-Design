@@ -442,6 +442,11 @@ public class Russian implements Language{
     }
 
     @Override
+    public String receivedEmail() {
+        return ("Received email");//Waiting for Amina
+    }
+
+    @Override
     public String send() {
         return ("Отправить");
     }

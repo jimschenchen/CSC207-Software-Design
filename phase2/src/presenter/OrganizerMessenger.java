@@ -25,8 +25,8 @@ public class OrganizerMessenger extends MessengerWindow {
         if (src == send){
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
-            String[] buttons = {"Message all speakers", "Message one speaker", "Message all attendees",
-                    "Message attendee"};
+            String[] buttons = {language.mesAllSpeakers(), language.mesOneSpeaker(), language.mesAllAttendees(),
+                    language.mesOneAttendees()};
             int i = JOptionPane.showOptionDialog(null, language.sendTo(),
                     language.messengerOptions(),
                     JOptionPane.DEFAULT_OPTION, 0, null, buttons, buttons[3]);
