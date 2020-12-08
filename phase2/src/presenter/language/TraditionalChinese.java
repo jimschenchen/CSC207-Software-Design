@@ -280,32 +280,32 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String takePlace() {
-        return null;
+        return " 舉辦在 ";
     }
 
     @Override
     public String whichIs() {
-        return null;
+        return " 是 ";
     }
 
     @Override
     public String title() {
-        return null;
+        return "標題: ";
     }
 
     @Override
     public String duration() {
-        return null;
+        return "時長: ";
     }
 
     @Override
     public String startTime() {
-        return null;
+        return "開始時間: ";
     }
 
     @Override
     public String endTime() {
-        return null;
+        return "結束時間: ";
     }
 
     @Override
