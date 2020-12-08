@@ -108,8 +108,7 @@ class ViewingSystem extends subSystem{
         List<Integer> allEvents = em.getEventList(gw);
         List<List<String>> allEventsInfo = new ArrayList<>();
         for (Integer eventID : allEvents){
-            if (um.canSignUpForEvent(eventID, user, gw) && em.canAddUserToWaitList(user, eventID, gw)
-                    && !em.canAddUserToEvent(user, eventID, gw)){
+            if (um.canSignUpForEvent(eventID, user, gw) && em.canAddUserToWaitList(user, eventID, gw)){
                 List<String> info = em.getInfoOfEvent(eventID, gw);
                 info.add(String.valueOf(em.getWaitlistLength(eventID, gw)));
                 allEventsInfo.add(info);

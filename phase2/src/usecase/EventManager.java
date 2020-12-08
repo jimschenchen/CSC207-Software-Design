@@ -150,7 +150,7 @@ public class EventManager {
         if (!isExistingEvent(eventId, g)) {
             return false;
         }
-        else if (! (g.getUserById(userId) instanceof VipUser) & e.isVipEvent()) {
+        else if (!(g.getUserById(userId) instanceof VipUser) & e.isVipEvent()) {
             return false;
         }
         else {
@@ -460,10 +460,26 @@ public class EventManager {
      * @Description check if a user can be added to the waitlist
      */
     public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
-        Event e = g.getEventById(eventId);
-        if (e == null || e.getSignedUpUserList().size() <= e.getCapacity()
-                || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))) {
+//        Event e = g.getEventById(eventId);
+//        if (e == null || e.getSignedUpUserList().size() < e.getCapacity()
+//                || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))) {
+//            return false;
+//        }
+//        return true;
+        Event event = g.getEventById(eventId);
+        if (event == null){
             return false;
+        }
+        else if (event.getSignedUpUserList().size() < event.getCapacity()){
+            return false;
+        }
+        else{
+            if (! (g.getUserById(userId) instanceof VipUser) & event.isVipEvent()){
+                return false;
+            }
+            else if (event.getSignedUpUserList().contains(userId)){
+                return false;
+            }
         }
         return true;
     }

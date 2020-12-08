@@ -126,7 +126,7 @@ public class MessageManager {
         for (Message message : messages){
             List<String> messageInfo = new ArrayList<String>(){
                 {
-                    add(String.valueOf(message.getSenderId()));
+                    add(String.valueOf(g.getUserById(message.getSenderId()).getUserName()));
                     add(message.getTitle());
                     add(message.getInfo());
                 }
@@ -146,7 +146,7 @@ public class MessageManager {
         for (Message message : messages){
             List<String> messageInfo = new ArrayList<String>(){
                 {
-                    add(String.valueOf(message.getReceiverId()));
+                    add(String.valueOf(g.getUserById(message.getSenderId()).getUserName()));
                     add(message.getTitle());
                     add(message.getInfo());
                 }
