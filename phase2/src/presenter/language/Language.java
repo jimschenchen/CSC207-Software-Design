@@ -183,13 +183,13 @@ public interface Language {
     /** @return the String meaning end time */
     String endTime();
 
-    /** @return the String meaning  */
+    /** @return the String meaning VIP Status */
     String vIPStatus();
 
-    /** @return the String meaning  */
+    /** @return the String meaning waiting list */
     String waitinglist();
 
-    /** @return the String meaning  */
+    /** @return the String meaning sign up? */
     String signUpQuestion();
 
     /** @return the String meaning yes */
@@ -291,7 +291,7 @@ public interface Language {
      */
     String signedUp();
     /**
-     * @return the String meaning Add Speaker
+     * @return the String meaning Add/Change Speaker
      */
     String addSpeaker();
     /**

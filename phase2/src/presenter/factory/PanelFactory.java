@@ -79,7 +79,6 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-     //   @Description: reset everything
     private JPanel reSet(){
         JPanel panel = new JPanel(new BorderLayout(30,30));
         JTextField newPass = new JTextField(language.newPass());
@@ -97,7 +96,6 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-     //   @Description: see all the events
     private JPanel viewAllEvents(List<List<String>> events) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(events.size()+1, 7, 10,5));
@@ -123,14 +121,11 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-     //   @Description: sign up wait list event
     private JPanel signUpWaitListEvent(List<List<String>> events){
-        // This method includes both viewing and signing up
         GridLayout layout = new GridLayout(events.size()+1,9, 10,5);
         JPanel panel = new JPanel(layout);
         panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
-//        panel.add(new JLabel(language.eventId()));
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
@@ -143,7 +138,6 @@ public class PanelFactory implements IUpdate {
         for (List<String> event: events){
             panel.add(new JLabel(event.get(0)));
             panel.add(new JLabel(event.get(1)));
-//            panel.add(new JLabel(event.get(2)));
             panel.add(new JLabel(event.get(3)));
             panel.add(new JLabel(event.get(4)));
             panel.add(new JLabel(event.get(5)));
@@ -165,13 +159,11 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-     //   @Description: sign up event
     private JPanel signUpEvent(List<List<String>> events){
         GridLayout layout = new GridLayout(events.size()+1,8, 10,5);
         JPanel panel = new JPanel(layout);
         panel.add(new JLabel(language.eventType()));
         panel.add(new JLabel(language.title()));
-//        panel.add( new JLabel(language.eventId()));
         panel.add(new JLabel(language.startTime()));
         panel.add(new JLabel(language.endTime()));
         panel.add(new JLabel(language.duration()));
@@ -183,7 +175,6 @@ public class PanelFactory implements IUpdate {
         for (List<String> event: events){
             panel.add(new JLabel(event.get(0)));
             panel.add(new JLabel(event.get(1)));
-//            panel.add(new JLabel(event.get(2)));
             panel.add(new JLabel(event.get(3)));
             panel.add(new JLabel(event.get(4)));
             panel.add(new JLabel(event.get(5)));
@@ -204,7 +195,6 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-     //   @Description: add a room
     private JPanel addRoom() {
         JPanel addRoomPanel = new JPanel();
         JLabel addRoom = new JLabel(language.enterRoomNum());
@@ -227,7 +217,6 @@ public class PanelFactory implements IUpdate {
         return addRoomPanel;
     }
 
-    //   @Description: create event
     private JPanel createEvent(List<List<String>> rooms, List<List<String>> speakers){
         int length = speakers.size();
         float lengthF = length;
@@ -336,7 +325,6 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-    //   @Description: Id helper
     private String idHelper(JCheckBox[] checkArray, String[] idArray){
         ArrayList<String> idSelected = new ArrayList<>();
         StringBuilder speakersSelected = new StringBuilder();
@@ -359,7 +347,6 @@ public class PanelFactory implements IUpdate {
        return speakersSelected.toString();
     }
 
-     //   @Description: create users
     private JPanel createUser(){
         JPanel panel = new JPanel(new GridLayout(4,2));
         JLabel userType = new JLabel(language.userType());
@@ -514,7 +501,7 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-//     * @Description: change an event
+
     private JPanel changeEvent(){
         JPanel panel = new JPanel(new GridLayout(4,2,10,10));
         JLabel eventID = new JLabel(language.eventId());
@@ -529,9 +516,9 @@ public class PanelFactory implements IUpdate {
         JComboBox changeItemSelected = new JComboBox(new String[]{speaker,capacity,
                 vIPStatus});
         panel.add(changeItemSelected);
-        JLabel newSetting = new JLabel("Add Speaker");
+        JLabel newSetting = new JLabel(language.addSpeaker());
         panel.add(newSetting);
-        JTextField newSettingEntered = new JTextField("Speaker ID");
+        JTextField newSettingEntered = new JTextField(language.speaker() + " ID");
         panel.add(newSettingEntered);
         JButton resetButton = new JButton(language.empty());
         JButton okButton = new JButton(language.ok());
@@ -570,7 +557,6 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-//     * @Description: look at the speaking events
     private JPanel viewSpeakingEvent(List<List<String>> givingEvent) {
         JPanel panel = new JPanel(new GridLayout(givingEvent.size()+1, 8, 10,5));
         panel.add(new JLabel(language.eventType()));
@@ -594,7 +580,6 @@ public class PanelFactory implements IUpdate {
         return panel;
     }
 
-//     * @Description: update all the actions
     public void update(String action){
         optionPaneFactory.get(action);
     }

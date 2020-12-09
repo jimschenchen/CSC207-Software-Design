@@ -423,7 +423,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String addSpeaker() {
-        return ("添加演讲者");
+        return ("添加/改变演讲者");
     }
 
     @Override

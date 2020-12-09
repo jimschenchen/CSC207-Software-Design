@@ -246,7 +246,7 @@ public class English implements Language {
 
     @Override
     public String  withID(){
-        return (", with ID ");
+        return (" with ID ");
     }
     @Override
     public String  startAt(){
@@ -426,12 +426,12 @@ public class English implements Language {
 
     @Override
     public String addSpeaker() {
-        return ("Add Speaker");
+        return ("Add/New Speaker");
     }
 
     @Override
     public String newCapacity() {
-        return ("Add Capacity");
+        return ("New Capacity");
     }
 
     @Override
