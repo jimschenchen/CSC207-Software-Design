@@ -37,7 +37,17 @@ public class PanelFactory implements IUpdate {
      * make a panel based on the instruction
      * @param action the action required to tell the PanelFactory which panel should be made
      * @Return Return the panel used to reset the password when the action is "reSet",
-     *         Return the panel..........
+     *         Return the panel used to view all the event when the action is "viewAllEvents"
+     *         Return the panel used to sign up wait when the action is "signUpWait"
+     *         Return the panel used to sign up no wait when the action is "signUpNoWait"
+     *         Return the panel used to add room when the action is "addRoom"
+     *         Return the panel used to create an event when the action is "createEvent"
+     *         Return the panel used to create an user when the action is "createUser"
+     *         Return the panel used to view no wait when the action is "viewNoWait"
+     *         Return the panel used to view wait when the action is "viewWait"
+     *         Return the panel used to view organized event when the action is "viewOrganizedEvent"
+     *         Return the panel used to change the event when the action is "changeEvent"
+     *         Return the panel used to view talks when the action is "viewTalks"
      */
     public JPanel getPanel(String action) {
         JPanel panel = new JPanel();

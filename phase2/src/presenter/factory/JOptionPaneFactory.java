@@ -19,7 +19,28 @@ public class JOptionPaneFactory {
      * get the JOptionPane wanted
      * Input "error" to tell there is an error
      * Input "createAccount" to tell the account has been made successfully
-     * Input.......
+     * Input "succeedAddRoom" to tell a room has been added successfully
+     * Input "failAddRoom" to tell failed to add a room
+     * Input "succeedCancelEvent" successfully cancel the event
+     * Input "failCancelEvent" failed to cancel the event
+     * Input "succeedSignUpEvent" successfully signup the event
+     * Input "failSignUpEvent" failed to signup the event
+     * Input "succeedWaitEvent" successfully waited the event
+     * Input "failWaitEvent" failed to waited the event
+     * Input "succeedChangeEvent" successfully changed the event
+     * Input "failChangeEvent" failed to changed the event
+     * Input "succeedCreateUser" successfully created an user
+     * Input "failCreateUser" failed to created an user
+     * Input "succeedCancelEnrollment" successfully cancel the enrollment
+     * Input "failCancelEnrollment" failed to cancel the enrollment
+     * Input "succeedRemoveWait" successfully remove wait
+     * Input "failRemoveWait" failed to remove wait
+     * Input "succeedResetPass" successfully reset the password
+     * Input "failResetPass" failed to reset the password
+     * Input "succeedCreateAccount" successfully create an account
+     * Input "failCreateAccount" failed to create an account
+     * Input"succeedCreateEvent" successfully create an event
+     * Input "failCreateEvent" failed to create an event
      * @param instruction to tell the JOptionFactory which JOptionPane should it make
      */
     public void get(String instruction){
