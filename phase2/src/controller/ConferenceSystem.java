@@ -18,38 +18,7 @@ public class ConferenceSystem {
     private ViewingSystem vs = new ViewingSystem();
     private EventManagementSystem ems = new EventManagementSystem();
     private EventEnrollmentSystem ees = new EventEnrollmentSystem();
-//
-//    /**
-//    * @Description: Initialization of Gateway and Database
-//    * @Param: []
-//    * @return: void
-//    * @Date: 2020-11-14
-//    */
-//    public void init () throws IOException {
-//        shutDownHook();
-//        /** initial of database */
-//        gw.init();\
-//    }
-//    /**
-//    * @Description: Hook for listening the Shutdown of program and save all the data before exist0
-//    * @Param: []
-//    * @return: void
-//    * @Date: 2020-11-14
-//    */
-//    private void shutDownHook() {
-//        Runtime run = Runtime.getRuntime();
-//        run.addShutdownHook(new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    System.out.println("System: ShutDownHook");
-//                    gw.termination(gw);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
+
     /**
      * check if the password is valid
      *
