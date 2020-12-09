@@ -649,6 +649,6 @@ public class Japanese implements Language{
 
     @Override
     public String mesAllAttendeesInOneEvent() {
-        return "Message all attendees of one of my event";
+        return "私のイベントの1つのすべての参加者にメッセージを送る";
     }
 }

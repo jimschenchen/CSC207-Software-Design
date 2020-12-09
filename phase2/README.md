@@ -1,9 +1,7 @@
 ###Welcome to the 0173 Conference!
-To use our conference, you just first install dependencies below and run the Present.java and use our provided account below  or sign up a 
-new account by yourself. 
 
 #### Install Dependency
-1. Download all the jars from https://drive.google.com/drive/folders/1ALV-urNWRw3_SBN5bXW4HeRPeGiqDvxt?usp=sharing OR you can direct download `Group_0173 Dependency.zip` under `/phase2` dir.
+1. Download all the jars from https://drive.google.com/drive/folders/1ALV-urNWRw3_SBN5bXW4HeRPeGiqDvxt?usp=sharing OR you can direct download `Group_0173 Dependency` under `/phase2` dir.
 2. Right click the `"group_0173" folder` in the `Project Panel` on the left part of view.
 3. Click `Open Module Setting`
 4. Project `setting` -> `Modules` -> `Dependencies`
@@ -23,8 +21,6 @@ All events in 0173 system should start on the hour. The system will not accept a
 #### Room
 Each room has a room number. For example, you can create a room with room number BA1020.
 
-#### Credentials for organizer account
-`username` user\
-`password` password
+
 
 

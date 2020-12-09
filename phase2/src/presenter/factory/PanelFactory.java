@@ -291,7 +291,7 @@ public class PanelFactory implements IUpdate {
 
         int i = 0;
         for(List<String> speaker : speakers){
-            checkArray[i] = new JCheckBox(speaker.get(0) + " "+ speaker.get(1));
+            checkArray[i] = new JCheckBox( "Speaker:"+ speaker.get(1) + " with ID " + speaker.get(0));
             idArray[i] = speaker.get(0);
             panel.add(checkArray[i]);
             i++;

@@ -6,6 +6,14 @@ package presenter;
  * view.
  */
 public interface IMessage {
+    /**
+     * Generate message about whether a message is sent successfully.
+     * @param success
+     */
     void messageSuccess(boolean success);
+
+    /**
+     * Make the panel visible
+     */
     void setVisible();
 }

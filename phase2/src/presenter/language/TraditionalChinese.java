@@ -645,6 +645,6 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String mesAllAttendeesInOneEvent() {
-        return "Message all attendees of one of my event";
+        return "向參與活動的所有參加者發送消息";
     }
 }

@@ -120,27 +120,59 @@ public class MessengerPresenter extends Presenter {
         msgWindow.messageSuccess(success);
     }
 
+    /**
+     * Return information of all messageable attendee. This method should be used by speaker only
+     *
+     * @return the List contains information of all messagable attendees.
+     */
     List<List<String>> allMessageableAttendee() {
         return conferenceSystem.allMessageableAttendee();
     }
 
+    /**
+     * Return all the in iformation of Attendees in conference system
+     *
+     * @return the List contains information of all attendees.
+     */
     List<List<String>> viewAllAttendees() {
         return conferenceSystem.viewAllAttendees();
     }
 
+    /**
+     * Return all the in iformation of Speaker in conference system
+     *
+     * @return the List contains information of all speakers.
+     */
     List<List<String>> viewAllSpeakers() {
         return conferenceSystem.viewAllSpeakers();
     }
 
+    /**
+     * Send message to all the attenddes that participate in one given event.
+     *
+     * @param title The message title
+     * @param content the message content
+     * @param eventId the eventId
+     */
     public void messageAllAttendeesOfOneSpeakerEvent(String title, String content, String eventId) {
         boolean success = conferenceSystem.messageAllAttendeesInEvent(eventId, title, content);
         msgWindow.messageSuccess(success);
     }
 
+    /**
+     * Return all the events the speaker is giving.
+     * @return the List of information of all events the speaker is giving
+     */
     public List<List<String>> viewSpeakingEvent() {
         return conferenceSystem.viewSpeakingEvents();
     }
 
+    /**
+     * Return all the attendee in one event.
+     *
+     * @param eventId the event Id
+     * @return the List of information of all attendee in one event.
+     */
     public List<List<String>> viewAllAttendeesInEvent(String eventId) {
         return conferenceSystem.viewSignedUpUser(eventId);
     }

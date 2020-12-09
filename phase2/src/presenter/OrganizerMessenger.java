@@ -60,6 +60,16 @@ public class OrganizerMessenger extends MessengerWindow {
         }
     }
 
+    /**
+     * A helper function to send a message
+     * @param title the title of message
+     * @param message the message content
+     * @param frame the fram
+     * @param listModel the list model
+     * @param list a Jlist
+     * @param allAttendee the list of all attendees
+     * @param messageToAttendee a boolean of whether it is sent to an attendee
+     */
     private void helper(String title, String message, JFrame frame, DefaultListModel listModel, JList list, List<List<String>> allAttendee, boolean messageToAttendee) {
         MessengerWindow.helper(title, message, frame, listModel, list, allAttendee, _msgPresenter, messageToAttendee);
     }

@@ -588,7 +588,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String mesAllAttendeesInOneEvent() {
-        return "Message all attendees of one of my event";
+        return "向参与活动的所有参加者发送消息";
     }
 
 }
