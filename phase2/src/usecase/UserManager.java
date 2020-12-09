@@ -268,7 +268,10 @@ public class UserManager {
      * @Description: get User id by username
      */
     public int getUserID(String username, GatewayFacade g){
-        return g.getUserByUserName(username).getUserId();
+        if (isExistingUser(username, g)){
+            return g.getUserByUserName(username).getUserId();
+        }
+        return -1;
     }
 
 
