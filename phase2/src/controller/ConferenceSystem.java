@@ -190,6 +190,7 @@ public class ConferenceSystem {
 
     /**
      * Get user ID by user name.
+     * Return -1 if the user doesn't exist
      *
      * @param username User's name
      * @return Return user's ID
