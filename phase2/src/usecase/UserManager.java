@@ -113,6 +113,8 @@ public class UserManager {
             Attendee a = (Attendee) g.getUserById(userId);
 
             for (int i = 0; i < a.getSignedUpEventList().size(); i++) {
+                System.out.println(i + " " + a.getSignedUpEventList());
+                System.out.println(g.getEventById(a.getSignedUpEventList().get(i)).getStartTime().isBefore(e.getEndTime()));
                 if (g.getEventById(a.getSignedUpEventList().get(i)).getStartTime().isBefore(e.getEndTime())
                         & g.getEventById(a.getSignedUpEventList().get(i)).getEndTime().isAfter(e.getStartTime())) {
                     return false;

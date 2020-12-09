@@ -556,5 +556,9 @@ public class EventManager {
     public int getWaitlistLength(int eventID, GatewayFacade gw){
         return gw.getEventById(eventID).getWaitList().size();
     }
+
+    public List<Integer> getSignedUpUser(int eventId, GatewayFacade g) {
+        return g.getEventById(eventId).getSignedUpUserList();
+    }
 }
 

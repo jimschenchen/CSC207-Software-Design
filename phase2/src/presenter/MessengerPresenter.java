@@ -93,10 +93,9 @@ public class MessengerPresenter extends Presenter {
      * @param title the title of the message.
      * @param content the message's content.
      * @param eventID the ID of the event.
-     * @param user the username of the attendee they want to send their message to
+     * @param userID the userID of the attendee they want to send their message to
      */
-    void messageOneSpecificAttendee(String title, String content, String eventID, String user){
-        String userID = conferenceSystem.getUserIDbyUserName(user);
+    void messageOneSpecificAttendee(String title, String content, String eventID, String userID){
         boolean success = conferenceSystem.messageOneSpecificUserInEvent(eventID, userID, title, content);
         msgWindow.messageSuccess(success);
     }
@@ -121,10 +120,30 @@ public class MessengerPresenter extends Presenter {
         msgWindow.messageSuccess(success);
     }
 
+    List<List<String>> allMessageableAttendee() {
+        return conferenceSystem.allMessageableAttendee();
+    }
 
+    List<List<String>> viewAllAttendees() {
+        return conferenceSystem.viewAllAttendees();
+    }
 
+    List<List<String>> viewAllSpeakers() {
+        return conferenceSystem.viewAllSpeakers();
+    }
 
+    public void messageAllAttendeesOfOneSpeakerEvent(String title, String content, String eventId) {
+        boolean success = conferenceSystem.messageAllAttendeesInEvent(eventId, title, content);
+        msgWindow.messageSuccess(success);
+    }
 
+    public List<List<String>> viewSpeakingEvent() {
+        return conferenceSystem.viewSpeakingEvents();
+    }
+
+    public List<List<String>> viewAllAttendeesInEvent(String eventId) {
+        return conferenceSystem.viewSignedUpUser(eventId);
+    }
 }
 
 

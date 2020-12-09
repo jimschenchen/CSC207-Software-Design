@@ -1,5 +1,6 @@
 package controller;
 
+import gateway.Gateway;
 import gateway.GatewayFacade;
 
 import java.util.ArrayList;
@@ -209,5 +210,9 @@ class ViewingSystem extends subSystem{
 
     List<List<String>> viewAllMessageableAttendee(GatewayFacade g) {
         return getUserList(mm.allMessageableAttendee(user, g), g);
+    }
+
+    public List<List<String>> viewSignedUpUser(int eventId, GatewayFacade g) {
+        return getUserList(em.getSignedUpUser(eventId, g), g);
     }
 }

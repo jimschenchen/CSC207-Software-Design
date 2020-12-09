@@ -445,8 +445,5 @@ public interface Language {
     String receivedEmail();
 
 
-
-
-
-
+    String mesAllAttendeesInOneEvent();
 }

@@ -3,8 +3,6 @@ package presenter;
 import presenter.language.Language;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -105,6 +103,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         Object src = e.getSource();
         if (src == send){
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
+
             String message = msgSend.getText();
             Object[] options = {language.mesOneSpeaker(),
                     language.oneAttendee()};
@@ -120,7 +119,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 JFrame frame = new JFrame();
                 DefaultListModel listModel = new DefaultListModel();
                 JList Jlist = new JList(listModel);
-                List<List<String>> allSpeaker = _msgPresenter.conferenceSystem.viewAllSpeakers();
+                List<List<String>> allSpeaker = _msgPresenter.viewAllSpeakers();
                 for (List lst : allSpeaker) {
                     String element = "Speaker " + lst.get(1) + " with id " + lst.get(0);
                     listModel.addElement(element);
@@ -138,28 +137,14 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 frame.setVisible(true);
             }
             if (optionPane == JOptionPane.NO_OPTION){
+                System.out.println("No");
                 JFrame frame = new JFrame();
                 DefaultListModel listModel = new DefaultListModel();
                 JList list = new JList(listModel);
-                List<List<String>> allMessageableAttendee = _msgPresenter.conferenceSystem.allMessageableAttendee();
-                for (List lst : allMessageableAttendee) {
-                    String element = "User " + lst.get(1) + " with id " + lst.get(0);
-                    listModel.addElement(element);
-                }
-                list.addListSelectionListener(e1 -> {
-                    int ind = list.getSelectedIndex();
-                    String userName = allMessageableAttendee.get(ind).get(1);
-                    _msgPresenter.messageOneAttendee(title, message, userName);
-                    frame.dispose();
-                        });
-                frame.add(list);
-                frame.pack();
-                frame.setSize(300, 300);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                List<List<String>> allMessageableAttendee = _msgPresenter.allMessageableAttendee();
+                helper(title, message, frame, listModel, list, allMessageableAttendee, _msgPresenter, true);
             }
-            msgSend.setText(language.writeNewMes());
-        }
+            msgSend.setText(language.writeNewMes());}
         if (src == logOut){
             dispose();
         }
@@ -216,6 +201,28 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         }
+    }
+
+    static void helper(String title, String message, JFrame frame, DefaultListModel listModel, JList list, List<List<String>> allMessageableAttendee, MessengerPresenter _msgPresenter, boolean messageToAttendee) {
+        for (List lst : allMessageableAttendee) {
+            String element = "User " + lst.get(1) + " with id " + lst.get(0);
+            listModel.addElement(element);
+        }
+        list.addListSelectionListener(e1 -> {
+            int ind = list.getSelectedIndex();
+            String userName = allMessageableAttendee.get(ind).get(1);
+            if (messageToAttendee){
+                _msgPresenter.messageOneAttendee(title, message, userName);}
+            else{
+                _msgPresenter.messageOneSpeaker(title, message, userName);
+            }
+            frame.dispose();
+                });
+        frame.add(list);
+        frame.pack();
+        frame.setSize(300, 300);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
 

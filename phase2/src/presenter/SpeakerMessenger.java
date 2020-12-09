@@ -3,8 +3,6 @@ package presenter;
 import presenter.language.Language;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class SpeakerMessenger extends MessengerWindow {
         if (src == send) {
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
-            String[] buttons = {language.mesAllAttendeesEvent(), language.mesOneAttendeeEvent()};
+            String[] buttons = {language.mesAllAttendeesEvent(), language.mesAllAttendeesInOneEvent(), language.mesOneAttendeeEvent()};
             int i = JOptionPane.showOptionDialog(null, language.sendTo(),
                     language.messageInformation(),
                     JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[1]);
@@ -34,9 +32,63 @@ public class SpeakerMessenger extends MessengerWindow {
                 super._msgPresenter.messageAllAttendeesOfSpeakerEvent(title, message);
             }
             if (i == 1) {
-                String username = JOptionPane.showInputDialog(language.enterNameAttendee());
-                String id = JOptionPane.showInputDialog(language.enterIdEvent());
-                _msgPresenter.messageOneSpecificAttendee(title, message, id, username);
+                JFrame frame = new JFrame();
+                DefaultListModel listModel = new DefaultListModel();
+                JList Jlist = new JList(listModel);
+                List<List<String>> allSpeakingEvents = _msgPresenter.viewSpeakingEvent();
+                for (List lst : allSpeakingEvents) {
+                    String element = "Event " + lst.get(1) + " with id " + lst.get(2);
+                    listModel.addElement(element);
+                }
+                Jlist.addListSelectionListener(e1 -> {
+                    int ind = Jlist.getSelectedIndex();
+                    String eventId = allSpeakingEvents.get(ind).get(2);
+                    _msgPresenter.messageAllAttendeesOfOneSpeakerEvent(title, message, eventId);
+                    frame.dispose();
+                });
+                frame.add(Jlist);
+                frame.pack();
+                frame.setSize(300, 300);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
+            if (i == 2) {
+                JFrame frame = new JFrame();
+                DefaultListModel listModel = new DefaultListModel();
+                JList Jlist = new JList(listModel);
+                List<List<String>> allSpeakingEvents = _msgPresenter.viewSpeakingEvent();
+                for (List lst : allSpeakingEvents) {
+                    String element = "Event " + lst.get(1) + " with id " + lst.get(2);
+                    listModel.addElement(element);
+                }
+                Jlist.addListSelectionListener(e1 -> {
+                    int ind = Jlist.getSelectedIndex();
+                    String eventId = allSpeakingEvents.get(ind).get(2);
+                    JFrame frame2 = new JFrame();
+                    DefaultListModel listModel2 = new DefaultListModel();
+                    JList subList = new JList(listModel2);
+                    List<List<String>> allAttendeeInEvents = _msgPresenter.viewAllAttendeesInEvent(eventId);
+                    for (List lst : allAttendeeInEvents) {
+                        String element = "User " + lst.get(1) + " with id " + lst.get(0);
+                        listModel2.addElement(element);
+                    }
+                    subList.addListSelectionListener(e2 -> {
+                        int secondInd = subList.getSelectedIndex();
+                        String userId = allAttendeeInEvents.get(secondInd).get(0);
+                        _msgPresenter.messageOneSpecificAttendee(title, message, eventId, userId);
+                        frame2.dispose();
+                    });
+                    frame2.add(subList);
+                    frame2.pack();
+                    frame2.setSize(300, 300);
+                    frame2.setLocationRelativeTo(null);
+                    frame2.setVisible(true);
+                });
+                frame.add(Jlist);
+                frame.pack();
+                frame.setSize(300, 300);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
             msgSend.setText(language.writeNewMes());
         } else {

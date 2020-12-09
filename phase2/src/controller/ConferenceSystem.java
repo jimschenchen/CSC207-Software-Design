@@ -513,4 +513,8 @@ public class ConferenceSystem {
     public List<List<String>> viewAllRooms(){
         return vs.viewAllRooms(gw);
     }
+
+    public List<List<String>> viewSignedUpUser(String eventId) {
+        return vs.viewSignedUpUser(Integer.parseInt(eventId), gw);
+    }
 }

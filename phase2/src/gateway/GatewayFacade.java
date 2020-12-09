@@ -111,7 +111,7 @@ public class GatewayFacade {
      */
     public Attendee getAttendeeById(int id) {
         User user = this.getUserById(id);
-        if (user.getClass().equals(Attendee.class)) {
+        if (user.getClass().equals(Attendee.class) | user.getClass().equals(VipUser.class)) {
             return (Attendee)user;
         }
         return null;

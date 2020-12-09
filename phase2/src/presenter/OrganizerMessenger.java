@@ -4,6 +4,7 @@ import presenter.language.Language;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * the organizer messenger window
@@ -35,21 +36,32 @@ public class OrganizerMessenger extends MessengerWindow {
                 super._msgPresenter.messageAllSpeakers(title,message);
             }
             if (i == 1){
-                String username = JOptionPane.showInputDialog(language.enterNameSpeaker());
-                _msgPresenter.messageOneSpeaker(title, message, username);
+                JFrame frame = new JFrame();
+                DefaultListModel listModel = new DefaultListModel();
+                JList list = new JList(listModel);
+                List<List<String>> allSpeaker = _msgPresenter.viewAllSpeakers();
+                System.out.println("here");
+                helper(title, message, frame, listModel, list, allSpeaker, false);
             }
             if (i == 2){
                 _msgPresenter.messageAllAttendeeOrganizer(title, message);
             }
             if (i == 3){
-                String username = JOptionPane.showInputDialog(language.enterNameAttendee());
-                _msgPresenter.messageOneAttendee(title, message, username);
+                JFrame frame = new JFrame();
+                DefaultListModel listModel = new DefaultListModel();
+                JList list = new JList(listModel);
+                List<List<String>> allAttendee = _msgPresenter.viewAllAttendees();
+                helper(title, message, frame, listModel, list, allAttendee, true);
             }
             msgSend.setText(language.writeNewMes());
         }
         if (src == rcv || src == snd || src == logOut){
             super.actionPerformed(e);
         }
+    }
+
+    private void helper(String title, String message, JFrame frame, DefaultListModel listModel, JList list, List<List<String>> allAttendee, boolean messageToAttendee) {
+        MessengerWindow.helper(title, message, frame, listModel, list, allAttendee, _msgPresenter, messageToAttendee);
     }
 
 }

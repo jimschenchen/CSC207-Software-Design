@@ -642,4 +642,9 @@ public class TraditionalChinese implements Language {
     public String receivedEmail() {
         return "收到的電子郵件";
     }
+
+    @Override
+    public String mesAllAttendeesInOneEvent() {
+        return "Message all attendees of one of my event";
+    }
 }

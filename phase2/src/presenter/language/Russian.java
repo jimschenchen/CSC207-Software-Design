@@ -448,6 +448,11 @@ public class Russian implements Language{
     }
 
     @Override
+    public String mesAllAttendeesInOneEvent() {
+        return "Message all attendees of one of my event";
+    }
+
+    @Override
     public String send() {
         return ("Отправить");
     }
