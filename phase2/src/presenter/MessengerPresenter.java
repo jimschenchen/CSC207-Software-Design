@@ -12,11 +12,11 @@ public class MessengerPresenter extends Presenter {
      * Construct the PanelPresenter.
      *
      */
-    ConferenceSystem msgSystem;
+    ConferenceSystem conferenceSystem;
     IMessage msgWindow;
 
     public MessengerPresenter(IMessage msgWindow, Presenter presenter) {
-        msgSystem = presenter.cs;
+        conferenceSystem = presenter.cs;
         this.msgWindow = msgWindow;
     }
 
@@ -28,7 +28,7 @@ public class MessengerPresenter extends Presenter {
      * @param eventID the ID of the event
      */
     void messageAllAttendees(String title, String content, String eventID){
-        boolean success = msgSystem.messageAllAttendeesInEvent(eventID, title,  content);
+        boolean success = conferenceSystem.messageAllAttendeesInEvent(eventID, title,  content);
         msgWindow.messageSuccess(success);
 
     }
@@ -39,8 +39,8 @@ public class MessengerPresenter extends Presenter {
      * @param content the message's content.
      */
     void messageOneAttendee(String title, String content, String user){
-        String userID = msgSystem.getUserIDbyUserName(user);
-        boolean success = msgSystem.messageAttendee(userID, title, content);
+        String userID = conferenceSystem.getUserIDbyUserName(user);
+        boolean success = conferenceSystem.messageAttendee(userID, title, content);
         msgWindow.messageSuccess(success);
     }
 
@@ -48,14 +48,14 @@ public class MessengerPresenter extends Presenter {
      * Allows users to see the messages they received
      */
    List<List<String>> readReceivedMessages(){
-        return msgSystem.readReceivedMessages();
+        return conferenceSystem.readReceivedMessages();
    }
 
     /**
      * Allows users to see the messages they sent
      */
     List<List<String>>  readSentMessages(){
-       return msgSystem.readSentMessages();
+       return conferenceSystem.readSentMessages();
     }
 
     /**
@@ -64,7 +64,7 @@ public class MessengerPresenter extends Presenter {
      * @param content the message's content.
      */
     void messageAllSpeakers(String title, String content){
-        boolean success = msgSystem.messageAllSpeakers(title, content);
+        boolean success = conferenceSystem.messageAllSpeakers(title, content);
         msgWindow.messageSuccess(success);
     }
     /**
@@ -74,8 +74,8 @@ public class MessengerPresenter extends Presenter {
      * @param speaker the usernname of the speaker they want to send message to.
      */
     void messageOneSpeaker(String title, String content, String speaker){
-        String speakerID = msgSystem.getUserIDbyUserName(speaker);
-        boolean success = msgSystem.messageSpeaker(speakerID, title, content);
+        String speakerID = conferenceSystem.getUserIDbyUserName(speaker);
+        boolean success = conferenceSystem.messageSpeaker(speakerID, title, content);
         msgWindow.messageSuccess(success);
     }
     /**
@@ -84,7 +84,7 @@ public class MessengerPresenter extends Presenter {
      * @param content the message's content.
      */
     void messageAllAttendeesOfSpeakerEvent(String title, String content){
-        boolean success = msgSystem.messageAllUsersInAllSpeakingEvents(title, content);
+        boolean success = conferenceSystem.messageAllUsersInAllSpeakingEvents(title, content);
         msgWindow.messageSuccess(success);
     }
 
@@ -96,8 +96,8 @@ public class MessengerPresenter extends Presenter {
      * @param user the username of the attendee they want to send their message to
      */
     void messageOneSpecificAttendee(String title, String content, String eventID, String user){
-        String userID = msgSystem.getUserIDbyUserName(user);
-        boolean success = msgSystem.messageOneSpecificUserInEvent(eventID, userID, title, content);
+        String userID = conferenceSystem.getUserIDbyUserName(user);
+        boolean success = conferenceSystem.messageOneSpecificUserInEvent(eventID, userID, title, content);
         msgWindow.messageSuccess(success);
     }
 
@@ -107,7 +107,7 @@ public class MessengerPresenter extends Presenter {
      * @param content the message's content.
      */
     void messageAllAttendeeOrganizer(String title, String content){
-        msgWindow.messageSuccess(msgSystem.messageAllAttendee(title, content));
+        msgWindow.messageSuccess(conferenceSystem.messageAllAttendee(title, content));
     }
 
     /**
@@ -117,7 +117,7 @@ public class MessengerPresenter extends Presenter {
      * @param messageID the ID of the message.
      */
     void replyTo(String content, String title, String messageID){
-        boolean success = msgSystem.replyMessage(messageID, title, content);
+        boolean success = conferenceSystem.replyMessage(messageID, title, content);
         msgWindow.messageSuccess(success);
     }
 

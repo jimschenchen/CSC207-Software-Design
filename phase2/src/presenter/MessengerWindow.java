@@ -132,38 +132,35 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
 
         if (src == rcv) {
             JFrame frame = new JFrame();
-            List<List<String>> listOfLists = _msgPresenter.readReceivedMessages();
+            List<List<String>> allReceivedMessage = _msgPresenter.readReceivedMessages();
             DefaultListModel listModel = new DefaultListModel();
-            for (List lst : listOfLists) {
+            for (List lst : allReceivedMessage) {
                 String element = lst.get(0) + ": " + lst.get(1);
                 listModel.addElement(element);
             }
 
-
             JList list = new JList(listModel);
-            list.addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    int ind = listOfLists.indexOf(list.getSelectedValue());
-                    Object[] replyOrClose = {language.reply(),
-                            language.close()};
-                    List t = listOfLists.get(ind+1);
-                    int optionPane = JOptionPane.showOptionDialog(new JFrame(),
-                            t.get(2),
-                            language.receivedEmail(),
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,
-                            replyOrClose,
-                            replyOrClose[1]);
-                    if (optionPane == JOptionPane.YES_OPTION){
-                        String content = JOptionPane.showInputDialog(language.writeMesHere());
-                        String title = JOptionPane.showInputDialog(language.chooseTitle());
-                        String messageID = Integer.toString(ind+1);
-                        _msgPresenter.replyTo(content, title, messageID);
-                    }
+            list.addListSelectionListener(e1 -> {
+                int ind = list.getSelectedIndex();
+                System.out.println(ind);
+                Object[] replyOrClose = {language.reply(),
+                        language.close()};
+                List t = allReceivedMessage.get(ind);
+                System.out.println(t);
+                int optionPane = JOptionPane.showOptionDialog(new JFrame(),
+                        t.get(2),
+                        language.receivedEmail(),
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        replyOrClose,
+                        replyOrClose[1]);
+                if (optionPane == JOptionPane.YES_OPTION){
+                    String content = JOptionPane.showInputDialog(language.writeMesHere());
+                    String title = JOptionPane.showInputDialog(language.chooseTitle());
+                    String messageID = Integer.toString(ind+1);
+                    _msgPresenter.replyTo(content, title, messageID);
                 }
-
             });
             frame.add(list);
             frame.pack();
