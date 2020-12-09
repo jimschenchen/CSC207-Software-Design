@@ -11,7 +11,7 @@
 8. Click `Apply` and Done!
 
 ###And please follow instructions below:
-#### User
+####User
 
     To sign up as an `Attendee`, you can just sign up directly from our GUI and your username and password should be at least 6 characters. 
 
@@ -33,6 +33,6 @@
 #### Message
     The Message system in this Coference System is based on the description in Phase2 instruction.
 
-#### 
+####
 
 
