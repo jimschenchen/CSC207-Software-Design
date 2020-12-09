@@ -61,7 +61,7 @@ public class UserMenu extends JFrame implements IUpdate {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoginWindow window = new LoginWindow();
-                dispose();
+                System.exit(0);
             }
         });
         reSet = new JMenuItem(language.resetPass());
@@ -127,7 +127,6 @@ public class UserMenu extends JFrame implements IUpdate {
             @Override
             public void actionPerformed(ActionEvent e) {
                presenter.openMessenger(menu);
-               System.out.println("111111111");
             }
         });
         menuBar.add(messenger);

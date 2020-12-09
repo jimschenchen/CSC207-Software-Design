@@ -204,4 +204,5 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     public void setVisible() {
         setVisible(true);
     }
+
 }
