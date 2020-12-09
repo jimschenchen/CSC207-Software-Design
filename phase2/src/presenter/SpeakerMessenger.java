@@ -36,5 +36,8 @@ public class SpeakerMessenger extends MessengerWindow {
             }
             msgSend.setText(language.writeNewMes());
         }
+        else{
+            super.actionPerformed(e);
+        }
     }
 }

@@ -17,11 +17,12 @@ public class OrganizerMessenger extends MessengerWindow {
      */
     OrganizerMessenger(Presenter presenter, Language language){
         super(presenter, language);
+
     }
 
-    public void actionPerformed(ActionEvent e){
-        Object src = e.getSource();
+    public void actionPerformed(ActionEvent e) {
 
+        Object src = e.getSource();
         if (src == send){
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
@@ -46,9 +47,14 @@ public class OrganizerMessenger extends MessengerWindow {
             }
             msgSend.setText(language.writeNewMes());
         }
-        if (src == logOut){
-            System.exit(0);
+        if (src == rcv || src == snd || src == logOut){
+            super.actionPerformed(e);
         }
+
+
+
+
+
     }
 
 }
