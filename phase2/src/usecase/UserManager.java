@@ -380,6 +380,10 @@ public class UserManager {
         return g.getUserByUserName(username) != null;
     }
 
+    public boolean isExistingUser(int userID, GatewayFacade gw){
+        return gw.getUserById(userID) != null;
+    }
+
 
     /**
      * @Description: judge an Attendee is exist

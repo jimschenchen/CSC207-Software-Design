@@ -48,11 +48,13 @@ class MessagingSystem extends subSystem {
      * @param content Content of the message.
      * @return Return true if the message is sent successfully, false when input is invalid.
      */
-    boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String title, String content, GatewayFacade gw){
+    boolean messageOneSpecificUserInEvent(String eventID, String receiverID, String title, String content,
+                                          GatewayFacade gw){
         try{
             int eID = Integer.parseInt(eventID);
             int reID = Integer.parseInt(receiverID);
-            if (em.isExistingEvent(eID, gw) && mm.canMessageAttendeeOfSpeakingEvent(eID, reID, gw)){
+            if (em.isExistingEvent(eID, gw) && um.isExistingAttendee(reID, gw) &&
+                    mm.canMessageAttendeeOfSpeakingEvent(eID, reID, gw)){
                 mm.messageOneUser(user, reID, title, content, gw);
                 return true;
             }
@@ -88,7 +90,7 @@ class MessagingSystem extends subSystem {
     boolean messageSpeaker(String receiverID, String title, String content, GatewayFacade gw){
         try{
             int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageSpeaker(user, rID, gw)){
+            if (um.isExistingSpeaker(rID, gw) && mm.canMessageSpeaker(user, rID, gw)){
                 mm.messageOneUser(user, rID, title, content, gw);
                 return true;
             }
@@ -125,7 +127,7 @@ class MessagingSystem extends subSystem {
     boolean messageAttendee(String receiverID, String title, String content, GatewayFacade gw){
         try{
             int rID = Integer.parseInt(receiverID);
-            if (mm.canMessageAttendee(user, rID, gw)){
+            if (um.isExistingAttendee(rID, gw) && mm.canMessageAttendee(user, rID, gw)){
                 mm.messageOneUser(user, rID, title, content, gw);
                 return true;
             }
