@@ -287,7 +287,7 @@ public class Russian implements Language{
     }
     @Override
     public String  waitinglist(){
-        return ("Лист ождания: ");
+        return ("Лист ожидания: ");
     }
     @Override
     public String  signUpQuestion(){
@@ -418,32 +418,33 @@ public class Russian implements Language{
 
     @Override
     public String cancelled() {
-        return null; // Waiting for Amina
+        return ("Отменен"); // Waiting for Amina
     }
 
     @Override
-    public String signedUp() {
-        return null;//Waiting for Amina
+    public String signedUp(){
+        return ("Зарегистрированы");
     }
 
     @Override
     public String addSpeaker() {
-        return null;//Waiting for Amina
+        return ("Добавить спикера");
     }
 
     @Override
     public String newCapacity() {
-        return null;//Waiting for Amina
+        return ("Добавить вместимость");
     }
 
     @Override
     public String newStatus() {
-        return null;//Waiting for Amina
+        return ("Новый статус");
     }
+
 
     @Override
     public String receivedEmail() {
-        return ("Received email");//Waiting for Amina
+        return ("Полученные сообщения");
     }
 
     @Override
