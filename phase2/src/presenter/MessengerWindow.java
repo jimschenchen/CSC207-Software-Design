@@ -16,6 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 class MessengerWindow extends JFrame implements ActionListener, IMessage {
     static JTextArea msgRec = new JTextArea(100, 50);
     static JTextArea msgSend = new JTextArea(100, 50);
+    private static Language language1;
     JButton send;
     JButton rcv;
     JButton snd;
@@ -35,6 +36,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
     public MessengerWindow(Presenter presenter, Language language){
         super(language.message());
         this.language = language;
+        this.language1 = language;
         send = new JButton(language.send());
         rcv = new JButton(language.receivedMessages());
         snd = new JButton(language.sentMessage());
@@ -121,7 +123,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 JList Jlist = new JList(listModel);
                 List<List<String>> allSpeaker = _msgPresenter.viewAllSpeakers();
                 for (List lst : allSpeaker) {
-                    String element = "Speaker " + lst.get(1) + " with id " + lst.get(0);
+                    String element = language.speaker() + " " + lst.get(1) + language.withID() + lst.get(0);
                     listModel.addElement(element);
                 }
                 Jlist.addListSelectionListener(e1 -> {
@@ -137,7 +139,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 frame.setVisible(true);
             }
             if (optionPane == JOptionPane.NO_OPTION){
-                System.out.println("No");
+                System.out.println(language.no());
                 JFrame frame = new JFrame();
                 DefaultListModel listModel = new DefaultListModel();
                 JList list = new JList(listModel);
@@ -205,7 +207,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
 
     static void helper(String title, String message, JFrame frame, DefaultListModel listModel, JList list, List<List<String>> allMessageableAttendee, MessengerPresenter _msgPresenter, boolean messageToAttendee) {
         for (List lst : allMessageableAttendee) {
-            String element = "User " + lst.get(1) + " with id " + lst.get(0);
+            String element = language1.attendee() + " "+ lst.get(1) + language1.withID() + lst.get(0);
             listModel.addElement(element);
         }
         list.addListSelectionListener(e1 -> {
