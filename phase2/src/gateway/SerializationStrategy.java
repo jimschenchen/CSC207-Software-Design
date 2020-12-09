@@ -15,6 +15,12 @@ import java.lang.reflect.Type;
  **/
 public class SerializationStrategy {
 
+    /**
+    * @Description: deserialize the data with given gson and type
+    * @Param: [data, gson, type]
+    * @return: java.lang.Object
+    * @Date: 2020-12-10
+    */
     public Object deserialize (String data, Gson gson, Type type) {
         if (type.equals(User.class)) {  // User Class
             UserBean userBean = gson.fromJson(data, UserBean.class);
@@ -26,6 +32,12 @@ public class SerializationStrategy {
         return null;
     }
 
+    /**
+    * @Description: serialize the data with given gson and type
+    * @Param: [obj, gson, type]
+    * @return: java.lang.String
+    * @Date: 2020-12-10
+    */
     public String serialize (Object obj, Gson gson, Type type) {
         if (type.equals(User.class)) {  // User Class
             return gson.toJson(new UserBean((User)obj));

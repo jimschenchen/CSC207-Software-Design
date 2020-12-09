@@ -18,6 +18,11 @@ public class HashGateway<T> extends Gateway<T>{
     private String hashKey;
     private String idKey;
 
+    /**
+    * @Description: Constructor
+    * @Param: [idKey, hashKey, type, genericEnable]
+    * @Date: 2020-12-10
+    */
     public HashGateway(String idKey, String hashKey, Type type, boolean genericEnable) {
         super(type, genericEnable);
         this.idKey = idKey;
@@ -67,6 +72,12 @@ public class HashGateway<T> extends Gateway<T>{
     }
 
     /** Hash Methods */
+    /**
+    * @Description: Add object to the remote hash map
+    * @Param: [id, obj]
+    * @return: void
+    * @Date: 2020-12-10
+    */
     public void add (int id, T obj) {
         String value = serialize(obj);
         Jedis jedis = getJedis();
@@ -81,20 +92,47 @@ public class HashGateway<T> extends Gateway<T>{
         }
         closeJedis(jedis);
     }
+    /**
+    * @Description: Update the object to in hash map with filed id
+    * @Param: [id, obj]
+    * @return: void
+    * @Date: 2020-12-10
+    */
     public void update (int id, T obj) {
         add(id, obj);
     }
+
+    /**
+    * @Description: Get the object by given id in remote hash map
+    * @Param: [id]
+    * @return: T
+    * @Date: 2020-12-10
+    */
     public T get (int id) {
         Jedis jedis = getJedis();
         String value = jedis.hget(this.hashKey, String.valueOf(id));
         closeJedis(jedis);
         return value != null ? deserialize(value) : null;
     }
+
+    /**
+    * @Description: Delete the object with given id in the remote hash map
+    * @Param: [id]
+    * @return: void
+    * @Date: 2020-12-10
+    */
     public void delete (int id) {
         Jedis jedis = getJedis();
         jedis.hdel(this.hashKey, String.valueOf(id));
         closeJedis(jedis);
     }
+
+    /**
+    * @Description: Get the while list from given id in the remote hash map
+    * @Param: []
+    * @return: java.util.List<T>
+    * @Date: 2020-12-10
+    */
     public List<T> getList() {
         List<String> dateList = new ArrayList<>(getAll().values());
         List<T> list = new ArrayList<>();
