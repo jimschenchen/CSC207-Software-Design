@@ -15,11 +15,20 @@ public class ListGateway<T> extends Gateway<T> {
 
     private String listKey;
 
+    /**
+    * @Description: Constructor
+    * @Param: [listKey, type, genericEnable]
+    */
     public ListGateway(String listKey, Type type, boolean genericEnable) {
         super(type, genericEnable);
         this.listKey = listKey;
     }
 
+    /**
+    * @Description: Add object to the remote list
+    * @Param: [obj]
+    * @return: void
+    */
     public void add (T obj) {
         String value = serialize(obj);
         Jedis jedis = getJedis();
@@ -30,6 +39,12 @@ public class ListGateway<T> extends Gateway<T> {
         jedis.lpush(this.listKey, value);
         closeJedis(jedis);
     }
+
+    /**
+    * @Description: Get the whole list from the remote list
+    * @Param: []
+    * @return: java.util.List<T>
+    */
     public List<T> getList () {
         Jedis jedis = getJedis();
         List<String> dateList = jedis.lrange(this.listKey,0, -1);
