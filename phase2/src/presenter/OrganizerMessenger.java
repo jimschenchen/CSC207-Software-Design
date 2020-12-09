@@ -50,11 +50,6 @@ public class OrganizerMessenger extends MessengerWindow {
         if (src == rcv || src == snd || src == logOut){
             super.actionPerformed(e);
         }
-
-
-
-
-
     }
 
 }
