@@ -428,7 +428,7 @@ public class Russian implements Language{
 
     @Override
     public String addSpeaker() {
-        return ("Добавить спикера");
+        return ("Добавить/измен спикера");
     }
 
     @Override

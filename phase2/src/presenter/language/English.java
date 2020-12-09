@@ -426,12 +426,12 @@ public class English implements Language {
 
     @Override
     public String addSpeaker() {
-        return ("Add Speaker");
+        return ("Add/New Speaker");
     }
 
     @Override
     public String newCapacity() {
-        return ("Add Capacity");
+        return ("New Capacity");
     }
 
     @Override
