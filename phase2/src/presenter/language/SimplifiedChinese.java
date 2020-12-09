@@ -513,7 +513,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String writeNewMes() {
-        return "撰寫新訊息";
+        return "这里写新信息";
     }
 
     @Override
