@@ -351,25 +351,95 @@ public interface Language {
 
     /**
      *
-     * @return return the String meaning Who do you want to send this message to
+     * @return the String meaning Who do you want to send this message to
      */
     String sendTo();
+
+    /**the
+     * @return the String meaning Message Information
+     */
     String messageInformation();
+
+    /**
+     *
+     * @return the String meaning Enter the ID of the Event
+     */
     String enterIdEvent();
+
+    /**
+     *
+     * @return the String meaning Enter the username of the attendee
+     */
     String enterNameAttendee();
+    /**
+     *
+     * @return the String meaning Write new message
+     */
     String writeNewMes();
+    /**
+     *
+     * @return the String meaning Reply
+     */
     String reply();
+    /**
+     *
+     * @return the String meaning write your message
+     */
     String writeMesHere();
+    /**
+     *
+     * @return the String meaning Choose your title
+     */
     String chooseTitle();
+    /**
+     *
+     * @return the String meaning message is sent successfully
+     */
     String succeedSendMes();
+    /**
+     *
+     * @return the String meaning Enter the title of your message
+     */
     String enterTitleMes();
+    /**
+     *
+     * @return the String meaning message all speakers
+     */
     String mesAllSpeakers();
+    /**
+     *
+     * @return the String meaning message one speaker
+     */
     String mesOneSpeaker();
+    /**
+     *
+     * @return the String meaning message all attendees
+     */
     String mesAllAttendees();
+    /**
+     *
+     * @return the String meaning message one attendee
+     */
     String mesOneAttendees();
+    /**
+     *
+     * @return the String meaning Enter the username of the Speaker
+     */
     String enterNameSpeaker();
+    /**
+     *
+     * @return the String meaning message all attendee of my event
+     */
     String mesAllAttendeesEvent();
+    /**
+     *
+     * @return the String meaning message one Attendee of my event
+     */
     String mesOneAttendeeEvent();
+    /**
+     *
+     * @return the String meaning Received Email
+     */
     String receivedEmail();
 
 
