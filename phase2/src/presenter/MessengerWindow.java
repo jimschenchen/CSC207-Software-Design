@@ -106,7 +106,7 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
         if (src == send){
             String title = JOptionPane.showInputDialog(language.enterTitleMes());
             String message = msgSend.getText();
-            Object[] options = {language.allAttendees(),
+            Object[] options = {language.mesOneSpeaker(),
                     language.oneAttendee()};
             int optionPane = JOptionPane.showOptionDialog(this,
                     language.sendTo(),
@@ -117,12 +117,46 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                     options,
                     options[1]);
             if (optionPane == JOptionPane.YES_OPTION){
-                String id = JOptionPane.showInputDialog(language.enterIdEvent());
-                _msgPresenter.messageAllAttendees(title, message, id);
+                JFrame frame = new JFrame();
+                DefaultListModel listModel = new DefaultListModel();
+                JList Jlist = new JList(listModel);
+                List<List<String>> allSpeaker = _msgPresenter.conferenceSystem.viewAllSpeakers();
+                for (List lst : allSpeaker) {
+                    String element = "Speaker " + lst.get(1) + " with id " + lst.get(0);
+                    listModel.addElement(element);
+                }
+                Jlist.addListSelectionListener(e1 -> {
+                    int ind = Jlist.getSelectedIndex();
+                    String userName = allSpeaker.get(ind).get(1);
+                    _msgPresenter.messageOneSpeaker(title, message, userName);
+                    frame.dispose();
+                });
+                frame.add(Jlist);
+                frame.pack();
+                frame.setSize(300, 300);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
             if (optionPane == JOptionPane.NO_OPTION){
-                String username = JOptionPane.showInputDialog(language.enterNameAttendee());
-                _msgPresenter.messageOneAttendee(title, message, username);
+                JFrame frame = new JFrame();
+                DefaultListModel listModel = new DefaultListModel();
+                JList list = new JList(listModel);
+                List<List<String>> allMessageableAttendee = _msgPresenter.conferenceSystem.allMessageableAttendee();
+                for (List lst : allMessageableAttendee) {
+                    String element = "User " + lst.get(1) + " with id " + lst.get(0);
+                    listModel.addElement(element);
+                }
+                list.addListSelectionListener(e1 -> {
+                    int ind = list.getSelectedIndex();
+                    String userName = allMessageableAttendee.get(ind).get(1);
+                    _msgPresenter.messageOneAttendee(title, message, userName);
+                    frame.dispose();
+                        });
+                frame.add(list);
+                frame.pack();
+                frame.setSize(300, 300);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
             msgSend.setText(language.writeNewMes());
         }
@@ -146,7 +180,6 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 Object[] replyOrClose = {language.reply(),
                         language.close()};
                 List t = allReceivedMessage.get(ind);
-                System.out.println(t);
                 int optionPane = JOptionPane.showOptionDialog(new JFrame(),
                         t.get(2),
                         language.receivedEmail(),

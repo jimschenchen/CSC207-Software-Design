@@ -366,6 +366,8 @@ public interface Language {
      */
     String enterIdEvent();
 
+    String enterIdSpeaker();
+
     /**
      *
      * @return the String meaning Enter the username of the attendee

@@ -568,6 +568,11 @@ public class Japanese implements Language{
     }
 
     @Override
+    public String enterIdSpeaker() {
+        return "输入你想发送消息的演讲者";
+    }
+
+    @Override
     public String enterNameAttendee() {
         return "出席者のユーザー名を入力します";
     }

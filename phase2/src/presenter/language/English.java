@@ -510,6 +510,9 @@ public class English implements Language {
     }
 
     @Override
+    public String enterIdSpeaker() {return "Enter the id of the event";}
+
+    @Override
     public String enterNameAttendee() {
         return ("Enter the username of the attendee");
     }

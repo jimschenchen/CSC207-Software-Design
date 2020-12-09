@@ -232,8 +232,6 @@ public class PanelFactory implements IUpdate {
         int length = speakers.size();
         float lengthF = length;
         int numCheck = new Double(Math.ceil(lengthF/2)).intValue();
-        System.out.println(speakers.size());
-        System.out.println(numCheck);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9 + numCheck ,2,10,5));
 

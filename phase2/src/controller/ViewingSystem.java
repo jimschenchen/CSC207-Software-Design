@@ -206,4 +206,8 @@ class ViewingSystem extends subSystem{
     List<List<String>> viewAllRooms(GatewayFacade gw){
         return rm.allRooms(gw);
     }
+
+    List<List<String>> viewAllMessageableAttendee(GatewayFacade g) {
+        return getUserList(mm.allMessageableAttendee(user, g), g);
+    }
 }

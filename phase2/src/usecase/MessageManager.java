@@ -2,7 +2,10 @@ package usecase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import entity.*;
+import entity.event.Event;
 import gateway.GatewayFacade;
 public class MessageManager {
 
@@ -32,6 +35,17 @@ public class MessageManager {
      */
     public boolean canMessageAttendeeOfSpeakingEvent(int eventId, int receiverId, GatewayFacade g){
         return g.getEventById(eventId).getSignedUpUserList().contains(receiverId);
+    }
+
+    public List<Integer> allMessageableAttendee(int userId, GatewayFacade g){
+        List<Integer> eventListId = g.getAttendeeById(userId).getSignedUpEventList();
+        List<Integer> canMessageableList = new ArrayList<>();
+        for (int eventId: eventListId) {
+            canMessageableList.addAll(g.getEventById(eventId).getSignedUpUserList());
+        }
+        List<Integer> listWithoutDuplicates = canMessageableList.stream().distinct().collect(Collectors.toList());
+        listWithoutDuplicates.remove(userId);
+        return listWithoutDuplicates;
     }
 
     /**

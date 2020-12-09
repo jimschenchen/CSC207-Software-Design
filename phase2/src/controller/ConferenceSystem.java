@@ -327,6 +327,10 @@ public class ConferenceSystem {
         return ms.readReceivedMessages(gw);
     }
 
+    public List<List<String>> allMessageableAttendee() {
+        return vs.viewAllMessageableAttendee(gw);
+    }
+
     /**
      * Reply to a specific message.
      *

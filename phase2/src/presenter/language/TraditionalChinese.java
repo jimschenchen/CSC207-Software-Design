@@ -564,6 +564,11 @@ public class TraditionalChinese implements Language {
     }
 
     @Override
+    public String enterIdSpeaker() {
+        return "输入你想发送消息的演讲者";
+    }
+
+    @Override
     public String enterNameAttendee() {
         return "輸入與會者的用戶名";
     }
