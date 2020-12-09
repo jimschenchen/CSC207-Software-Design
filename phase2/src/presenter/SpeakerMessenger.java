@@ -3,7 +3,11 @@ package presenter;
 import presenter.language.Language;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
+
 /**
  * the speaker messenger window
  */
@@ -26,17 +30,16 @@ public class SpeakerMessenger extends MessengerWindow {
             int i = JOptionPane.showOptionDialog(null, language.sendTo(),
                     language.messageInformation(),
                     JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[1]);
-            if (i == 0){
+            if (i == 0) {
                 super._msgPresenter.messageAllAttendeesOfSpeakerEvent(title, message);
             }
-            if (i == 1){
+            if (i == 1) {
                 String username = JOptionPane.showInputDialog(language.enterNameAttendee());
                 String id = JOptionPane.showInputDialog(language.enterIdEvent());
                 _msgPresenter.messageOneSpecificAttendee(title, message, id, username);
             }
             msgSend.setText(language.writeNewMes());
-        }
-        else{
+        } else {
             super.actionPerformed(e);
         }
     }
