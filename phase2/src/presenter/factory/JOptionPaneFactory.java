@@ -18,7 +18,7 @@ public class JOptionPaneFactory {
     /**
      * get the JOptionPane wanted
      * Input "error" to tell there is an error
-     * Input "createAccount" to tell the account has been made successfully
+     * Input "createAccount" to tell the user is making an account
      * Input "succeedAddRoom" to tell a room has been added successfully
      * Input "failAddRoom" to tell failed to add a room
      * Input "succeedCancelEvent" successfully cancel the event
