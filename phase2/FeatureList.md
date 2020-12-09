@@ -11,7 +11,6 @@ Below I will list all the extension we did in phase2:
 
       1.4 organizer now can change the setting including capacity, Vip status and speaker of the event.
 
-
 2. We add waitList feature for all events. 
    
 
@@ -22,9 +21,7 @@ Below I will list all the extension we did in phase2:
       2.4 If you own a Vip account and you want to sign up for a waitList, 
           you will be added to the top of it (If there are some vip users already there, you will be added to the position behind them).
 
-
 3. We did the database, the data is now updated immediately, and you can see new data once you re-click the menu button.
-
 
 
 4. We changed the text UI to GUI and it can display 5 different languages.
