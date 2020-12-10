@@ -315,6 +315,11 @@ public interface Language {
      * @return the String meaning Sent Messages
      */
     String sentMessage();
+
+    /**
+     *
+     * @return the String meaning Received Message
+     */
     String receivedMessages();
     /**
      * @return the String meaning Close
@@ -444,6 +449,28 @@ public interface Language {
      */
     String receivedEmail();
 
-
+    /**
+     *
+     * @return the String meaning Message all attendees of one of my event
+     */
     String mesAllAttendeesInOneEvent();
+
+    /**
+     *
+     * @return the String " with capacity " (with space!)
+     */
+    String withCapacity();
+
+    /**
+     *
+     * @return the String meaning here
+     */
+    String here();
+
+    /**
+     *
+     * @return the String meaning event
+     */
+    String event();
+
 }

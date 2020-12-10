@@ -36,7 +36,7 @@ public class PanelPresenter extends Presenter{
     }
 
     /**
-     * The event that need to be waited
+     * Sign up the event that need to be waited
      * @param eventID the event ID that the user wants to sign up
      */
     public void waitEvent(String eventID) {
@@ -144,7 +144,7 @@ public class PanelPresenter extends Presenter{
     }
 
     /**
-     * cancel the enrollment for an event
+     * cancel the enrollment for an event that is not in the waiting list
      * @param eventID event id
      */
     public void cancelEnrollment(String eventID) {
@@ -157,7 +157,7 @@ public class PanelPresenter extends Presenter{
     }
 
     /**
-     * remove wait for an event
+     * remove a spot in an event that is in the waiting list
      * @param eventID event id
      */
     public void removeWait(String eventID) {

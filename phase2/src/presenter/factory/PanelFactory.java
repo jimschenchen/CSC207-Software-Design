@@ -22,6 +22,7 @@ public class PanelFactory implements IUpdate {
     private Language language;
     private JOptionPaneFactory optionPaneFactory;
     private PanelPresenter presenter;
+    private JButton buttonChanged;
 
     /**
      * @param language the language used in the panel
@@ -149,8 +150,8 @@ public class PanelFactory implements IUpdate {
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    buttonChanged = buttonArray[finalI];
                     presenter.waitEvent(event.get(2));
-                    buttonArray[finalI].setText("Signed Up");
                 }
             });
             panel.add(buttonArray[i]);
@@ -185,8 +186,8 @@ public class PanelFactory implements IUpdate {
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    buttonChanged = buttonArray[finalI];
                     presenter.signUpEvent(event.get(2));
-                    buttonArray[finalI].setText("Signed Up");
                 }
             });
             panel.add(buttonArray[i]);
@@ -251,7 +252,7 @@ public class PanelFactory implements IUpdate {
         String[] roomsArray = new String[rooms.size()];
         int ii = 0;
         for(List<String> room: rooms){
-            roomsArray[ii] = room.get(0) + " with capacity "+room.get(1);
+            roomsArray[ii] = room.get(0) + language.withCapacity() +room.get(1);
             ii++;
         }
         JComboBox roomNumberSelected = new JComboBox(roomsArray);
@@ -280,7 +281,7 @@ public class PanelFactory implements IUpdate {
 
         int i = 0;
         for(List<String> speaker : speakers){
-            checkArray[i] = new JCheckBox( "Speaker:"+ speaker.get(1) + " with ID " + speaker.get(0));
+            checkArray[i] = new JCheckBox( language.speaker() + ": "+ speaker.get(1) + language.withID() + speaker.get(0));
             idArray[i] = speaker.get(0);
             panel.add(checkArray[i]);
             i++;
@@ -411,8 +412,8 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    buttonChanged = cancelButtons[finalI];
                     presenter.cancelEnrollment(event.get(2));
-                    cancelButtons[finalI].setText("Cancelled");
                 }
             });
             panel.add(cancelButtons[i]);
@@ -450,8 +451,8 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    buttonChanged = cancelButtons[finalI];
                     presenter.removeWait(event.get(2));
-                    cancelButtons[finalI].setText("Cancelled");
                 }
             });
             panel.add(cancelButtons[i]);
@@ -491,8 +492,8 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    buttonChanged = cancelButtons[finalI];
                     presenter.cancelEvent(event.get(2));
-                    cancelButtons[finalI].setText("cancelled"); // Needed to be added to language later
                 }
             });
             panel.add(cancelButtons[i]);
@@ -581,6 +582,11 @@ public class PanelFactory implements IUpdate {
     }
 
     public void update(String action){
+        if(action == "succeedSignUpEvent" | action == "succeedWaitEvent"){
+            buttonChanged.setText(language.signedUp());
+        }else if (action == "succeedCancelEnrollment" | action == "succeedRemoveWait" | action == "succeedCancelEvent"){
+            buttonChanged.setText(language.cancelled());
+        }
         optionPaneFactory.get(action);
     }
 }

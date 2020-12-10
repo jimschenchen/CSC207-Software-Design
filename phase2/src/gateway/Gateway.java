@@ -164,7 +164,7 @@ public abstract class Gateway<T> {
     */
     public String serialize (T obj) {
         if (genericEnable) {
-            return new SerializationStrategy().serialize(obj, gson, type);
+            return new Serializer().serialize(obj, gson, type);
         } else {
             return gson.toJson(obj);
         }
@@ -176,7 +176,7 @@ public abstract class Gateway<T> {
     */
     public T deserialize (String data) {
         if (genericEnable) {
-            return (T)new SerializationStrategy().deserialize(data, gson, type);
+            return (T)new Serializer().deserialize(data, gson, type);
         } else {
             return (T)gson.fromJson(data, type);
         }

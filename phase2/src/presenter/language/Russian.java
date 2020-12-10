@@ -524,7 +524,7 @@ public class Russian implements Language{
 
     @Override
     public String enterIdSpeaker() {
-        return "输入你想发送消息的演讲者";
+        return "Введите идентификатор громкоговорителя для отправки сообщения";
     }
 
     @Override
@@ -595,5 +595,20 @@ public class Russian implements Language{
     @Override
     public String mesOneAttendeeEvent() {
         return ("Написать сообщение участнику моего мероприятия");
+    }
+
+    @Override
+    public String withCapacity() {
+        return "иметь Вместимость";
+    }
+
+    @Override
+    public String here() {
+        return "здесь";
+    }
+
+    @Override
+    public String event() {
+        return "мероприятия";
     }
 }

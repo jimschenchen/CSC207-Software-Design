@@ -5,15 +5,17 @@ import entity.User;
 import entity.event.Event;
 import gateway.bean.EventBean;
 import gateway.bean.UserBean;
+import gateway.serializationStrategy.EventSerializer;
+import gateway.serializationStrategy.UserSerializer;
 
 import java.lang.reflect.Type;
 
 /**
  * @program: group_0173
- * @description: Serialization Strategy to determine which data bean should be used to ser/deser specific type of data
+ * @description: Serializer to determine which data bean should be used to ser/deser specific type of data
  * @create: 2020-12-03 23:38
  **/
-public class SerializationStrategy {
+public class Serializer {
 
     /**
     * @Description: deserialize the data with given gson and type
@@ -23,11 +25,9 @@ public class SerializationStrategy {
     */
     public Object deserialize (String data, Gson gson, Type type) {
         if (type.equals(User.class)) {  // User Class
-            UserBean userBean = gson.fromJson(data, UserBean.class);
-            return userBean.convertToObject();
+            return new UserSerializer().deserialize(data, gson);
         } else if (type.equals(Event.class)) {  // Event Class
-            EventBean eventBean = gson.fromJson(data, EventBean.class);
-            return eventBean.convertToObject();
+            return new EventSerializer().deserialize(data, gson);
         }
         return null;
     }
@@ -40,9 +40,9 @@ public class SerializationStrategy {
     */
     public String serialize (Object obj, Gson gson, Type type) {
         if (type.equals(User.class)) {  // User Class
-            return gson.toJson(new UserBean((User)obj));
+            return new UserSerializer().serialize(obj, gson);
         } else if (type.equals(Event.class)) {  // Event Class
-            return gson.toJson(new EventBean((Event)obj));
+            return new EventSerializer().serialize(obj, gson);
         }
         return null;
     }

@@ -1,7 +1,7 @@
-package presenter.windows;
+package presenter.windowBeforeLogin;
 
-import presenter.language.*;
 import presenter.IUpdate;
+import presenter.language.*;
 
 import javax.swing.*;
 import java.awt.*;
