@@ -23,7 +23,14 @@
     - This is to make the code more open-close, as further subSystems can be added without worrying about the 
 
 ### Presenter
-    aaa
+  - There are two factories in the presenter package named PanelFactory and JOptionPaneFactory, which follows the Simple Factory Design Pattern.
+    - The PanelFactory is used to make the JPanel that is placed in the content panel in the user menu. In this way, we can obscure the creation of the panel we use.
+    - The JOptionPaneFactory, as its name suggests, is used to make the JOptionPane to tell user whether the action performed in the user menu is successful or not. In this way, we can
+    also obscure the creation process of the JOptionPane we use. 
+  - It is also worth noticing that we use the dependency Inversion Principle in the presenter, although the dependency inversion principle is not listed as a design pattern. 
+  Since the presenter in the presenter package like PanelPresenter, Presenter, MessengerPresenter needs to update the view, but they can't depend on the view, 
+  we let them depend on the abstraction, the interface (IUpdate or IMessage), so that we can follow the dependency principle in the Clean Architecture. 
+    
 
 ### Gateway
   - Facade
