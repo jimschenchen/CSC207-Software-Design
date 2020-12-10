@@ -1,6 +1,6 @@
 package presenter;
 
-import presenter.windows.LoginWindow;
+import presenter.windowBeforeLogin.LoginWindow;
 
 /**
  * the class is used to open the Tech Conference

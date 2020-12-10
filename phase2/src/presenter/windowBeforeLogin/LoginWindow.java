@@ -1,13 +1,9 @@
-package presenter.windows;
+package presenter.windowBeforeLogin;
 
-import presenter.Presenter;
+import presenter.*;
 import presenter.factory.JOptionPaneFactory;
 import presenter.language.English;
 import presenter.language.Language;
-import presenter.IUpdate;
-import presenter.OrganizerMenu;
-import presenter.SpeakerMenu;
-import presenter.UserMenu;
 
 import javax.swing.*;
 import java.awt.*;

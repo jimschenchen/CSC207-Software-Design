@@ -1,12 +1,8 @@
 package presenter;
 
-import presenter.IMessage;
-import presenter.IUpdate;
-import presenter.OrganizerMessenger;
-import presenter.windows.LoginWindow;
-import presenter.Presenter;
 import presenter.factory.PanelFactory;
 import presenter.language.Language;
+import presenter.windowBeforeLogin.LoginWindow;
 
 import javax.swing.*;
 import java.awt.*;
