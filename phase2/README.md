@@ -33,6 +33,12 @@
 #### Message
     The Message system in this Coference System is based on the description in Phase2 instruction.
 
-####
+### Credentials for organizer account
+`username` user\
+`password` password
+
+\
+`Note` You can find all functionalities in the GUI. Please follow the instruction above to use this conference system
+
 
 

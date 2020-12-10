@@ -2,6 +2,7 @@
 Below I will list all the extension we did in phase2:
 1. Any features in the mandatory extensions i.e.
 
+
     1.1 add a new type of user `Vip User`, add two new types of event `Panel Discussion, Party`, each type of event can be a vip event or a normal event.
 
     1.2 the organizer can decide how long one event last and assign each event a capacity. 
@@ -12,6 +13,7 @@ Below I will list all the extension we did in phase2:
 
 2. We add waitList feature for all events. 
    
+
     2.1 User can signUp to the waitList if the signed up user for one event is equal to its capacity.
 
     2.2 The User will be automatically added to the event if there is someone who cancelled. 
@@ -20,6 +22,7 @@ Below I will list all the extension we did in phase2:
           you will be added to the top of it (If there are some vip users already there, you will be added to the position behind them).
 
 3. We did the database, the data is now updated immediately, and you can see new data once you re-click the menu button.
+
 
     3.1 Connect to the jedis database in the server so all the data can update real-timely and synchronize all the data.
       
