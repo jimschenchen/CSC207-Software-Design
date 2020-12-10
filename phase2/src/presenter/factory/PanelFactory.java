@@ -252,7 +252,7 @@ public class PanelFactory implements IUpdate {
         String[] roomsArray = new String[rooms.size()];
         int ii = 0;
         for(List<String> room: rooms){
-            roomsArray[ii] = room.get(0) + " with capacity "+room.get(1);
+            roomsArray[ii] = room.get(0) + language.withCapacity() +room.get(1);
             ii++;
         }
         JComboBox roomNumberSelected = new JComboBox(roomsArray);
@@ -281,7 +281,7 @@ public class PanelFactory implements IUpdate {
 
         int i = 0;
         for(List<String> speaker : speakers){
-            checkArray[i] = new JCheckBox( "Speaker:"+ speaker.get(1) + " with ID " + speaker.get(0));
+            checkArray[i] = new JCheckBox( language.speaker() + ": "+ speaker.get(1) + language.withID() + speaker.get(0));
             idArray[i] = speaker.get(0);
             panel.add(checkArray[i]);
             i++;

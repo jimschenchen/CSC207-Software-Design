@@ -40,7 +40,7 @@ public class OrganizerMessenger extends MessengerWindow {
                 DefaultListModel listModel = new DefaultListModel();
                 JList list = new JList(listModel);
                 List<List<String>> allSpeaker = _msgPresenter.viewAllSpeakers();
-                System.out.println("here");
+                System.out.println(language.here());
                 helper(title, message, frame, listModel, list, allSpeaker, false);
             }
             if (i == 2){

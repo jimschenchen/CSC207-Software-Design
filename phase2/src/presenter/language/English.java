@@ -591,4 +591,19 @@ public class English implements Language {
     public String mesAllAttendeesInOneEvent() {
         return "Message all attendees of one of my event";
     }
+
+    @Override
+    public String withCapacity() {
+        return " with capacity ";
+    }
+
+    @Override
+    public String event() {
+        return "event";
+    }
+
+    @Override
+    public String here() {
+        return "here";
+    }
 }

@@ -647,4 +647,19 @@ public class TraditionalChinese implements Language {
     public String mesAllAttendeesInOneEvent() {
         return "向參與活動的所有參加者發送訊息";
     }
+
+    @Override
+    public String withCapacity() {
+        return null;
+    }
+
+    @Override
+    public String here() {
+        return null;
+    }
+
+    @Override
+    public String event() {
+        return null;
+    }
 }

@@ -37,7 +37,7 @@ public class SpeakerMessenger extends MessengerWindow {
                 JList Jlist = new JList(listModel);
                 List<List<String>> allSpeakingEvents = _msgPresenter.viewSpeakingEvent();
                 for (List lst : allSpeakingEvents) {
-                    String element = "Event " + lst.get(1) + " with id " + lst.get(2);
+                    String element = language.event() + " " + lst.get(1) + language.withID() + lst.get(2);
                     listModel.addElement(element);
                 }
                 Jlist.addListSelectionListener(e1 -> {
@@ -58,7 +58,7 @@ public class SpeakerMessenger extends MessengerWindow {
                 JList Jlist = new JList(listModel);
                 List<List<String>> allSpeakingEvents = _msgPresenter.viewSpeakingEvent();
                 for (List lst : allSpeakingEvents) {
-                    String element = "Event " + lst.get(1) + " with id " + lst.get(2);
+                    String element = language.event() + " " + lst.get(1) + language.withID()+ lst.get(2);
                     listModel.addElement(element);
                 }
                 Jlist.addListSelectionListener(e1 -> {
@@ -69,7 +69,7 @@ public class SpeakerMessenger extends MessengerWindow {
                     JList subList = new JList(listModel2);
                     List<List<String>> allAttendeeInEvents = _msgPresenter.viewAllAttendeesInEvent(eventId);
                     for (List lst : allAttendeeInEvents) {
-                        String element = "User " + lst.get(1) + " with id " + lst.get(0);
+                        String element = language.attendee() + " " + lst.get(1) + language.withID() + lst.get(0);
                         listModel2.addElement(element);
                     }
                     subList.addListSelectionListener(e2 -> {

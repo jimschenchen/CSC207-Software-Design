@@ -591,4 +591,18 @@ public class SimplifiedChinese implements Language {
         return "向参与活动的所有参加者发送消息";
     }
 
+    @Override
+    public String withCapacity() {
+        return "占容量";
+    }
+
+    @Override
+    public String here() {
+        return "这里";
+    }
+
+    @Override
+    public String event() {
+        return "事件";
+    }
 }

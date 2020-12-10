@@ -651,4 +651,19 @@ public class Japanese implements Language{
     public String mesAllAttendeesInOneEvent() {
         return "私の一つのイベントをすべての参加者にメールを送る";
     }
+
+    @Override
+    public String withCapacity() {
+        return null;
+    }
+
+    @Override
+    public String here() {
+        return null;
+    }
+
+    @Override
+    public String event() {
+        return null;
+    }
 }
