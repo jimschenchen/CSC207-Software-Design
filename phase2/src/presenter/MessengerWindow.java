@@ -3,6 +3,8 @@ package presenter;
 import presenter.language.Language;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -197,6 +199,15 @@ class MessengerWindow extends JFrame implements ActionListener, IMessage {
                 listModel.addElement(element);
             }
             JList list = new JList(listModel);
+            list.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int ind = list.getSelectedIndex();
+                    List message = listOfLists.get(ind);
+                    JOptionPane.showMessageDialog(null, message.get(2), language.messageTitle(),
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
             frame.add(list);
             frame.pack();
             frame.setSize(300, 300);
