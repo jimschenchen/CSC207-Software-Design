@@ -315,6 +315,11 @@ public interface Language {
      * @return the String meaning Sent Messages
      */
     String sentMessage();
+
+    /**
+     *
+     * @return the String meaning Received Message
+     */
     String receivedMessages();
     /**
      * @return the String meaning Close
