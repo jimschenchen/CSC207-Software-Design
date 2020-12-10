@@ -654,16 +654,16 @@ public class Japanese implements Language{
 
     @Override
     public String withCapacity() {
-        return null;
+        return "容量は";
     }
 
     @Override
     public String here() {
-        return null;
+        return "こちら";
     }
 
     @Override
     public String event() {
-        return null;
+        return "イベント";
     }
 }

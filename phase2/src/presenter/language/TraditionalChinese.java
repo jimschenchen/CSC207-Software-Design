@@ -650,16 +650,16 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String withCapacity() {
-        return null;
+        return "容量";
     }
 
     @Override
     public String here() {
-        return null;
+        return "這裡";
     }
 
     @Override
     public String event() {
-        return null;
+        return "活動";
     }
 }

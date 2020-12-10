@@ -9,7 +9,7 @@ Below I will list all the extension we did in phase2:
 
     1.3 event can be cancelled by one organizer and the Vip status of one event can be changed by organizer. (`Note` If you change the normal event to a vip event, it will kick users who are not vip)
 
-    1.4 organizer now can change the setting including capacity, Vip status and speaker of the event.
+    1.4 organizer now can change the setting including capacity, Vip status and speaker of the event. (`Note` When changing capacities, the new cap cannot be less than the number of signed up users, nor can it be larger than the room capacity)
 
 2. We add waitList feature for all events. 
    
