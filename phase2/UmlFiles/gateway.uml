@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>gateway</OriginalElement>
+  <nodes>
+    <node x="557.0" y="1041.0">gateway.serializationStrategy.EventSerializer</node>
+    <node x="854.0" y="915.0">gateway.GenericAdapter</node>
+    <node x="0.0" y="0.0">gateway.GatewayFacade</node>
+    <node x="749.0" y="623.0">gateway.ListGateway</node>
+    <node x="1043.0" y="546.0">gateway.HashGateway</node>
+    <node x="437.0" y="525.0">gateway.GatewayCli</node>
+    <node x="512.0" y="1212.0">gateway.Serializer</node>
+    <node x="756.0" y="0.0">gateway.Gateway</node>
+    <node x="0.0" y="915.0">gateway.Config</node>
+    <node x="0.0" y="1212.0">gateway.bean.EventBean</node>
+    <node x="421.0" y="915.0">gateway.serializationStrategy.SerializationStrategy</node>
+    <node x="285.0" y="1041.0">gateway.serializationStrategy.UserSerializer</node>
+    <node x="256.0" y="1212.0">gateway.bean.UserBean</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="gateway.GatewayCli" target="gateway.Gateway">
+      <point x="0.0" y="-159.5" />
+      <point x="583.0" y="500.0" />
+      <point x="799.3333333333334" y="500.0" />
+      <point x="-86.66666666666663" y="237.5" />
+    </edge>
+    <edge source="gateway.ListGateway" target="gateway.Gateway">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="237.5" />
+    </edge>
+    <edge source="gateway.HashGateway" target="gateway.Gateway">
+      <point x="0.0" y="-138.5" />
+      <point x="1207.0" y="500.0" />
+      <point x="972.6666666666667" y="500.0" />
+      <point x="86.66666666666674" y="237.5" />
+    </edge>
+    <edge source="gateway.serializationStrategy.UserSerializer" target="gateway.serializationStrategy.SerializationStrategy">
+      <point x="0.0" y="-38.0" />
+      <point x="411.0" y="1016.0" />
+      <point x="484.0" y="1016.0" />
+      <point x="-63.0" y="38.0" />
+    </edge>
+    <edge source="gateway.serializationStrategy.EventSerializer" target="gateway.serializationStrategy.SerializationStrategy">
+      <point x="0.0" y="-38.0" />
+      <point x="683.0" y="1016.0" />
+      <point x="610.0" y="1016.0" />
+      <point x="63.0" y="38.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.755388552064363" x="357.26336669921875" y="245.7415008544922" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

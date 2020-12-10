@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>entity</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1476.0">entity.eventFactory.OneSpeakerEventFactory</node>
+    <node x="0.0" y="458.0">entity.event.NonSpeakerEvent</node>
+    <node x="240.00000000000003" y="1183.0">entity.Organizer</node>
+    <node x="397.5" y="945.0">entity.Speaker</node>
+    <node x="548.5" y="630.0">entity.event.Talk</node>
+    <node x="1549.0" y="1372.0">entity.Room</node>
+    <node x="0.0" y="1575.0">entity.eventFactory.FactoryProducer</node>
+    <node x="508.0" y="1372.0">entity.eventFactory.AbstractEventFactory</node>
+    <node x="1016.0" y="1476.0">entity.eventFactory.NonSpeakerEventFactory</node>
+    <node x="702.5" y="729.0">entity.Message</node>
+    <node x="504.00000000000006" y="458.5">entity.event.OneSpeakerEvent</node>
+    <node x="284.0" y="729.0">entity.User</node>
+    <node x="1009.0" y="436.0">entity.event.MultiSpeakerEvent</node>
+    <node x="103.50000000000003" y="923.0">entity.Attendee</node>
+    <node x="1016.5" y="630.0">entity.event.PanelDiscussion</node>
+    <node x="0.0" y="1216.5">entity.VipUser</node>
+    <node x="543.0" y="0.0">entity.event.Event</node>
+    <node x="39.5" y="630.0">entity.event.Party</node>
+    <node x="508.0" y="1476.0">entity.eventFactory.MultiSpeakerEventFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="entity.Attendee" target="entity.User">
+      <point x="0.0" y="-105.0" />
+      <point x="240.50000000000003" y="898.0" />
+      <point x="334.0" y="898.0" />
+      <point x="-50.0" y="72.0" />
+    </edge>
+    <edge source="entity.event.PanelDiscussion" target="entity.event.MultiSpeakerEvent">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="entity.Organizer" target="entity.Attendee">
+      <point x="0.0" y="-72.0" />
+      <point x="371.0" y="1158.0" />
+      <point x="309.0" y="1158.0" />
+      <point x="68.5" y="105.0" />
+    </edge>
+    <edge source="entity.eventFactory.MultiSpeakerEventFactory" target="entity.eventFactory.AbstractEventFactory">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="entity.event.Party" target="entity.event.NonSpeakerEvent">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="entity.event.MultiSpeakerEvent" target="entity.event.Event">
+      <point x="0.0" y="-72.0" />
+      <point x="1254.0" y="411.0" />
+      <point x="882.1666666666667" y="411.0" />
+      <point x="135.66666666666663" y="193.0" />
+    </edge>
+    <edge source="entity.event.Talk" target="entity.event.OneSpeakerEvent">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="entity.VipUser" target="entity.Attendee">
+      <point x="0.0" y="-38.5" />
+      <point x="110.0" y="1158.0" />
+      <point x="172.00000000000003" y="1158.0" />
+      <point x="-68.5" y="105.0" />
+    </edge>
+    <edge source="entity.event.NonSpeakerEvent" target="entity.event.Event">
+      <point x="0.0" y="-50.0" />
+      <point x="242.0" y="411.0" />
+      <point x="610.8333333333335" y="411.0" />
+      <point x="-135.66666666666663" y="193.0" />
+    </edge>
+    <edge source="entity.event.OneSpeakerEvent" target="entity.event.Event">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="entity.eventFactory.NonSpeakerEventFactory" target="entity.eventFactory.AbstractEventFactory">
+      <point x="0.0" y="-27.0" />
+      <point x="1260.0" y="1451.0" />
+      <point x="914.6666666666666" y="1451.0" />
+      <point x="162.66666666666663" y="27.0" />
+    </edge>
+    <edge source="entity.eventFactory.OneSpeakerEventFactory" target="entity.eventFactory.AbstractEventFactory">
+      <point x="0.0" y="-27.0" />
+      <point x="244.0" y="1451.0" />
+      <point x="589.3333333333334" y="1451.0" />
+      <point x="-162.66666666666663" y="27.0" />
+    </edge>
+    <edge source="entity.Speaker" target="entity.User">
+      <point x="0.0" y="-83.0" />
+      <point x="527.5" y="898.0" />
+      <point x="434.0" y="898.0" />
+      <point x="50.0" y="72.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3387414842291426" x="433.14765886520877" y="849.4482671501394" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
