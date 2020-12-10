@@ -112,12 +112,12 @@ public class Japanese implements Language{
 
     @Override
     public String succeedWaitEvent() {
-        return "ウェイトリストの申し込みを受け付きました。";
+        return "順番待ちリストの申し込みを受け付きました。";
     }
 
     @Override
     public String failWaitEventMessage() {
-        return "ウェイトリストの申し込みを" + fail;
+        return "順番待ちリストの申し込みを" + fail;
     }
 
     @Override
@@ -162,12 +162,12 @@ public class Japanese implements Language{
 
     @Override
     public String succeedRemoveWaitMessage() {
-        return "ウェイトリストをキャンセルしました。";
+        return "順番待ちリスをキャンセルしました。";
     }
 
     @Override
     public String failRemoveWaitMessage() {
-        return "ウェイトリストをキャンセルする事を" + fail;
+        return "順番待ちリストをキャンセルする事を" + fail;
     }
 
     @Override
@@ -217,7 +217,7 @@ public class Japanese implements Language{
 
     @Override
     public String signUp() {
-        return "イベントにサインアップする";
+        return "イベント申し込み";
     }
 
     @Override
@@ -237,22 +237,22 @@ public class Japanese implements Language{
 
     @Override
     public String viewMyWait() {
-        return "順番待ちリストのイベント";
+        return "順番待ち中のイベント";
     }
 
     @Override
     public String viewMyNoWait() {
-        return "順番待ちリストにないイベント";
+        return "順番待ちませんのイベント";
     }
 
     @Override
     public String viewAllEvent() {
-        return "すべてのイベントを表示";
+        return "すべてのイベントを見る";
     }
 
     @Override
     public String messenger() {
-        return "メッセンジャー";
+        return "メール";
     }
 
     @Override
@@ -263,22 +263,22 @@ public class Japanese implements Language{
 
     @Override
     public String withID() {
-        return "ID付き";
+        return "IDは";
     }
 
     @Override
     public String startAt() {
-        return "で始まります";
+        return "始まるのは";
     }
 
     @Override
     public String endAt() {
-        return "で終わる";
+        return "終わるのは";
     }
 
     @Override
     public String takePlace() {
-        return "で行われます";
+        return "会場は";
     }
 
     @Override
@@ -288,7 +288,7 @@ public class Japanese implements Language{
 
     @Override
     public String title() {
-        return "題名：";
+        return "テーマ：";
     }
 
     @Override
@@ -308,7 +308,7 @@ public class Japanese implements Language{
 
     @Override
     public String vIPStatus() {
-        return "VIPステータス：";
+        return "VIPイベント？：";
     }
 
     @Override
@@ -318,7 +318,7 @@ public class Japanese implements Language{
 
     @Override
     public String signUpQuestion() {
-        return "サインアップ？";
+        return "サインアップする？";
     }
 
     @Override
@@ -328,12 +328,12 @@ public class Japanese implements Language{
 
     @Override
     public String enterRoomNum() {
-        return "追加する新しい部屋番号を入力します。";
+        return "追加したい新しい会場の名前を入力します。";
     }
 
     @Override
     public String enterRoomCapacity() {
-        return "この部屋の収容人数を入力してください。";
+        return "この会場の収容人数を入力してください。";
     }
 
     @Override
@@ -358,27 +358,27 @@ public class Japanese implements Language{
 
     @Override
     public String discussion() {
-        return "パネル・ディスカッション";
+        return "パネルディスカッション";
     }
 
     @Override
     public String topic() {
-        return "トピック：";
+        return "テーマ：";
     }
 
     @Override
     public String roomNum() {
-        return "部屋番号：";
+        return "会場：";
     }
 
     @Override
     public String capacity() {
-        return "容量：";
+        return "最大参加者数：";
     }
 
     @Override
     public String no() {
-        return "番号！";
+        return "いいえ";
     }
 
     @Override
@@ -388,7 +388,7 @@ public class Japanese implements Language{
 
     @Override
     public String empty() {
-        return "空の";
+        return "消します";
     }
 
     @Override
@@ -428,13 +428,13 @@ public class Japanese implements Language{
 
     @Override
     public String change() {
-        return "変化する：";
+        return "変更する：";
     }
 
 
     @Override
     public String viewTalks() {
-        return "私の講演を見る：";
+        return "私のイベントを見る：";
     }
 
     @Override
@@ -444,7 +444,7 @@ public class Japanese implements Language{
 
     @Override
     public String newRoom() {
-        return "新しい部屋";
+        return "新しい会場";
     }
 
     @Override
@@ -454,12 +454,12 @@ public class Japanese implements Language{
 
     @Override
     public String organizedEvent() {
-        return "主催イベント";
+        return "主催したイベント";
     }
 
     @Override
     public String changeEventSetting() {
-        return "イベント設定の変更";
+        return "イベント設定を変更する";
     }
 
     @Override
@@ -474,12 +474,12 @@ public class Japanese implements Language{
 
     @Override
     public String cancelled() {
-        return "キャンセル";
+        return "キャンセルしました";
     }
 
     @Override
     public String signedUp() {
-        return "サインアップ";
+        return "申し込みました";
     }
 
     @Override
@@ -489,7 +489,7 @@ public class Japanese implements Language{
 
     @Override
     public String newCapacity() {
-        return "容量を追加";
+        return "最大参加者数を変更";
     }
 
     @Override
@@ -499,17 +499,17 @@ public class Japanese implements Language{
 
     @Override
     public String send() {
-        return "送信";
+        return "送信される";
     }
 
     @Override
     public String receivedMessages() {
-        return "受信したメッセージ";
+        return "受信したメール";
     }
 
     @Override
     public String sentMessage(){
-        return "送信されたメッセージ";
+        return "送信されたメール";
     }
 
     @Override
@@ -524,22 +524,22 @@ public class Japanese implements Language{
 
     @Override
     public String viewMyMessages() {
-        return "私のメッセージを見る";
+        return "私のメールを見る";
     }
 
     @Override
     public String message() {
-        return "メッセージ";
+        return "メール";
     }
 
     @Override
     public String writeMessage() {
-        return "ここにメッセージを書いてください";
+        return "ここに内容を書いてください";
     }
 
     @Override
     public String writeTitle() {
-        return "メッセージのタイトルを入力してください";
+        return "メールのタイトルを入力してください";
     }
 
     @Override
@@ -554,12 +554,12 @@ public class Japanese implements Language{
 
     @Override
     public String sendTo() {
-        return "このメッセージを誰に送信しますか";
+        return "このメールを誰に送信しますか";
     }
 
     @Override
     public String messageInformation() {
-        return "メッセージ情報";
+        return "メール情報";
     }
 
     @Override
@@ -569,27 +569,27 @@ public class Japanese implements Language{
 
     @Override
     public String enterIdSpeaker() {
-        return "输入你想发送消息的演讲者";
+        return "スピーカーのIDを入力してください";
     }
 
     @Override
     public String enterNameAttendee() {
-        return "出席者のユーザー名を入力します";
+        return "出席者のユーザー名を入力してください";
     }
 
     @Override
     public String writeNewMes() {
-        return "新しいメッセージを書く";
+        return "新しいメールを書く";
     }
 
     @Override
     public String reply() {
-        return "応答";
+        return "返信";
     }
 
     @Override
     public String writeMesHere() {
-        return "ここにメッセージを書いてください";
+        return "ここにメールを書いてください";
     }
 
     @Override
@@ -599,32 +599,32 @@ public class Japanese implements Language{
 
     @Override
     public String succeedSendMes() {
-        return "メッセージは正常に送信されました";
+        return "メールを送信されました";
     }
 
     @Override
     public String enterTitleMes() {
-        return "メッセージのタイトルを入力してください";
+        return "メールのタイトルを入力してください";
     }
 
     @Override
     public String mesAllSpeakers() {
-        return "すべてのスピーカーにメッセージを送る";
+        return "すべてのスピーカーにメールを送る";
     }
 
     @Override
     public String mesOneSpeaker() {
-        return "1人のスピーカーにメッセージを送る";
+        return "1人のスピーカーにメールを送る";
     }
 
     @Override
     public String mesAllAttendees() {
-        return "すべての参加者にメッセージを送る";
+        return "すべての参加者にメールを送る";
     }
 
     @Override
     public String mesOneAttendees() {
-        return "1人の参加者にメッセージを送る";
+        return "1人の参加者にメールを送る";
     }
 
     @Override
@@ -634,12 +634,12 @@ public class Japanese implements Language{
 
     @Override
     public String mesAllAttendeesEvent() {
-        return "私のイベントのすべての参加者にメッセージを送る";
+        return "私のイベントのすべての参加者にメールを送る";
     }
 
     @Override
     public String mesOneAttendeeEvent() {
-        return "私のイベントの1人の参加者にメッセージを送る";
+        return "私のイベントの1人の参加者にメールを送る";
     }
 
     @Override
@@ -649,6 +649,6 @@ public class Japanese implements Language{
 
     @Override
     public String mesAllAttendeesInOneEvent() {
-        return "私のイベントの1つのすべての参加者にメッセージを送る";
+        return "私の一つのイベントをすべての参加者にメールを送る";
     }
 }

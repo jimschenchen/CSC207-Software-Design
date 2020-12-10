@@ -250,7 +250,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String messenger() {
-        return "消息系統";
+        return "通信系統";
     }
 
     @Override
@@ -310,12 +310,12 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String waitinglist() {
-        return "等待列表: ";
+        return "等候名單: ";
     }
 
     @Override
     public String signUpQuestion() {
-        return "报名?";
+        return "報名？";
     }
 
     @Override
@@ -325,7 +325,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String enterRoomNum() {
-        return "輸入你想新建的房間號碼: ";
+        return "輸入你想創建的活動場地名稱: ";
     }
 
     @Override
@@ -345,7 +345,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String party() {
-        return "聚會";
+        return "派對";
     }
 
     @Override
@@ -355,7 +355,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String discussion() {
-        return "論壇會";
+        return "論壇";
     }
 
     @Override
@@ -365,7 +365,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String roomNum() {
-        return "房間號: ";
+        return "會場: ";
     }
 
     @Override
@@ -400,7 +400,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String organizer() {
-        return "舉辦者";
+        return "主辦";
     }
 
     @Override
@@ -420,12 +420,12 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String reallyQuestion() {
-        return "真的確定麼??";
+        return "你肯定??";
     }
 
     @Override
     public String change() {
-        return "改動: ";
+        return "更改: ";
     }
 
     @Override
@@ -440,7 +440,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String newRoom() {
-        return "新的房間";
+        return "新的活動場地";
     }
 
     @Override
@@ -450,17 +450,17 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String organizedEvent() {
-        return "舉辦的活動";
+        return "主辦的活動";
     }
 
     @Override
     public String changeEventSetting() {
-        return "改變活動設定";
+        return "更改活動詳情";
     }
 
     @Override
     public String viewOrganizedEvent() {
-        return "查看舉辦的活動";
+        return "查看主辦的活動";
     }
 
     @Override
@@ -480,7 +480,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String addSpeaker() {
-        return "添加演讲者";
+        return "增加演講者";
     }
 
     @Override
@@ -500,22 +500,22 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String sentMessage() {
-        return "已寄訊息";
+        return "已發出訊息";
     }
 
     @Override
     public String receivedMessages() {
-        return "收到的消息";
+        return "收到的訊息";
     }
 
     @Override
     public String close() {
-        return "關";
+        return "關閉";
     }
 
     @Override
     public String messengerOptions() {
-        return "信使選項";
+        return "通訊系統選項";
     }
 
     @Override
@@ -525,17 +525,17 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String message() {
-        return "信息";
+        return "訊息";
     }
 
     @Override
     public String writeMessage() {
-        return "在這裡寫下您的訊息";
+        return "訊息內容";
     }
 
     @Override
     public String writeTitle() {
-        return "輸入消息標題";
+        return "訊息標題";
     }
 
     @Override
@@ -550,22 +550,22 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String sendTo() {
-        return "您想將此消息發送給誰";
+        return "您想將此訊息發送給誰";
     }
 
     @Override
     public String messageInformation() {
-        return "留言信息";
+        return "訊息詳情";
     }
 
     @Override
     public String enterIdEvent() {
-        return "輸入事件的ID";
+        return "輸入活動的ID";
     }
 
     @Override
     public String enterIdSpeaker() {
-        return "输入你想发送消息的演讲者";
+        return "输入你想發送訊息的講者";
     }
 
     @Override
@@ -575,17 +575,17 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String writeNewMes() {
-        return "撰写新讯息";
+        return "撰寫新訊息";
     }
 
     @Override
     public String reply() {
-        return "回复";
+        return "回覆";
     }
 
     @Override
     public String writeMesHere() {
-        return "在這裡寫下您的訊息";
+        return "訊息內容";
     }
 
     @Override
@@ -595,22 +595,22 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String succeedSendMes() {
-        return "您的信息已經成功發送";
+        return "您的訊息已經成功發送";
     }
 
     @Override
     public String enterTitleMes() {
-        return "輸入郵件標題";
+        return "輸入訊息標題";
     }
 
     @Override
     public String mesAllSpeakers() {
-        return "給所有發言人發信息";
+        return "給所有講者發訊息";
     }
 
     @Override
     public String mesOneSpeaker() {
-        return "給一位演講者留言";
+        return "給一位演講者加重訊息";
     }
 
     @Override
@@ -620,7 +620,7 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String mesOneAttendees() {
-        return "給一位與會者留言";
+        return "給一位與會者發送訊息";
     }
 
     @Override
@@ -645,6 +645,6 @@ public class TraditionalChinese implements Language {
 
     @Override
     public String mesAllAttendeesInOneEvent() {
-        return "向參與活動的所有參加者發送消息";
+        return "向參與活動的所有參加者發送訊息";
     }
 }
