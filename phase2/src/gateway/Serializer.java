@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  * @description: Serialization Strategy to determine which data bean should be used to ser/deser specific type of data
  * @create: 2020-12-03 23:38
  **/
-public class SerializationStrategy {
+public class Serializer {
 
     /**
     * @Description: deserialize the data with given gson and type

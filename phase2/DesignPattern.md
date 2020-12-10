@@ -26,4 +26,7 @@
     aaa
 
 ### Gateway
-    aaa
+  - Facade
+    - `GatewayFacade` is a simple interface which integrates all different types of gateway as one.
+  - Strategy
+    - `SerializationStrategy` is strategy which it will change the serialization algorithm on different data types.
