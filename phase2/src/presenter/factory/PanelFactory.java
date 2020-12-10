@@ -150,8 +150,8 @@ public class PanelFactory implements IUpdate {
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.waitEvent(event.get(2));
                     buttonChanged = buttonArray[finalI];
+                    presenter.waitEvent(event.get(2));
                 }
             });
             panel.add(buttonArray[i]);
@@ -186,8 +186,8 @@ public class PanelFactory implements IUpdate {
             buttonArray[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.signUpEvent(event.get(2));
                     buttonChanged = buttonArray[finalI];
+                    presenter.signUpEvent(event.get(2));
                 }
             });
             panel.add(buttonArray[i]);
@@ -412,8 +412,8 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.cancelEnrollment(event.get(2));
                     buttonChanged = cancelButtons[finalI];
+                    presenter.cancelEnrollment(event.get(2));
                 }
             });
             panel.add(cancelButtons[i]);
@@ -451,8 +451,8 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.removeWait(event.get(2));
                     buttonChanged = cancelButtons[finalI];
+                    presenter.removeWait(event.get(2));
                 }
             });
             panel.add(cancelButtons[i]);
@@ -492,8 +492,8 @@ public class PanelFactory implements IUpdate {
             cancelButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    presenter.cancelEvent(event.get(2));
                     buttonChanged = cancelButtons[finalI];
+                    presenter.cancelEvent(event.get(2));
                 }
             });
             panel.add(cancelButtons[i]);
