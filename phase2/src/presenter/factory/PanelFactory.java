@@ -22,6 +22,7 @@ public class PanelFactory implements IUpdate {
     private Language language;
     private JOptionPaneFactory optionPaneFactory;
     private PanelPresenter presenter;
+    private JButton buttonChanged;
 
     /**
      * @param language the language used in the panel
@@ -150,7 +151,7 @@ public class PanelFactory implements IUpdate {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.waitEvent(event.get(2));
-                    buttonArray[finalI].setText("Signed Up");
+                    buttonChanged = buttonArray[finalI];
                 }
             });
             panel.add(buttonArray[i]);
@@ -186,7 +187,7 @@ public class PanelFactory implements IUpdate {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.signUpEvent(event.get(2));
-                    buttonArray[finalI].setText("Signed Up");
+                    buttonChanged = buttonArray[finalI];
                 }
             });
             panel.add(buttonArray[i]);
@@ -412,7 +413,7 @@ public class PanelFactory implements IUpdate {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.cancelEnrollment(event.get(2));
-                    cancelButtons[finalI].setText("Cancelled");
+                    buttonChanged = cancelButtons[finalI];
                 }
             });
             panel.add(cancelButtons[i]);
@@ -451,7 +452,7 @@ public class PanelFactory implements IUpdate {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.removeWait(event.get(2));
-                    cancelButtons[finalI].setText("Cancelled");
+                    buttonChanged = cancelButtons[finalI];
                 }
             });
             panel.add(cancelButtons[i]);
@@ -492,7 +493,7 @@ public class PanelFactory implements IUpdate {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     presenter.cancelEvent(event.get(2));
-                    cancelButtons[finalI].setText("cancelled"); // Needed to be added to language later
+                    buttonChanged = cancelButtons[finalI];
                 }
             });
             panel.add(cancelButtons[i]);
@@ -581,6 +582,11 @@ public class PanelFactory implements IUpdate {
     }
 
     public void update(String action){
+        if(action == "succeedSignUpEvent" | action == "succeedWaitEvent"){
+            buttonChanged.setText(language.signedUp());
+        }else if (action == "succeedCancelEnrollment" | action == "succeedRemoveWait" | action == "succeedCancelEvent"){
+            buttonChanged.setText(language.cancelled());
+        }
         optionPaneFactory.get(action);
     }
 }
