@@ -548,7 +548,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String mesAllSpeakers() {
-        return "给所有章节发信息";
+        return "给所有演讲者发信息";
     }
 
     @Override
@@ -558,12 +558,12 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String mesAllAttendees() {
-        return "给所有同轴发消息";
+        return "给所有参加者发消息";
     }
 
     @Override
     public String mesOneAttendees() {
-        return "给一位与会者留言";
+        return "给一位参加者留言";
     }
 
     @Override
@@ -578,7 +578,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String mesOneAttendeeEvent() {
-        return "向我的活动的一位先前发送消息";
+        return "向我的活动的一位参与者发送消息";
     }
 
     @Override
