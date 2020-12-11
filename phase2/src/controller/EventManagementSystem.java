@@ -143,7 +143,6 @@ class EventManagementSystem extends subSystem{
             int cap = Integer.parseInt(capacity);
             if (!(speakerID.length() == 0)){
                 if (speakerID.contains(",")) { // have more than 1 speaker
-                    System.out.println("in the if branch");
                     ArrayList<Integer> sID = new ArrayList<>();
                     StringTokenizer token = new StringTokenizer(speakerID,",");
                     while (token.hasMoreElements()){
@@ -203,11 +202,6 @@ class EventManagementSystem extends subSystem{
      */
     private boolean canCreateEvent(int sID, int rID, LocalDateTime sTime, LocalDateTime eTime, int cap,
                                    GatewayFacade gw){
-        System.out.println("canCreateEvent:");
-        System.out.println(em.canCreateEvent(rID, sTime, eTime, cap, gw));
-        System.out.println("isSpeakerBusy:");
-        System.out.println(! um.isSpeakerBusy(sID, sTime, eTime, gw));
-        System.out.println("___________");
         return um.isExistingSpeaker(sID, gw) && em.canCreateEvent(rID, sTime, eTime, cap, gw) &&
                 ! um.isSpeakerBusy(sID, sTime, eTime, gw);
     }
@@ -235,7 +229,6 @@ class EventManagementSystem extends subSystem{
             int eventID = em.createEvent(type1, type2, sID, sTime, eTime, topic, rID, cap, vipStatus, gw);
             um.addEventToOrganizedList(eventID, user, gw);
             um.addEventToSpeaker(eventID, sID, gw);
-//            em.changeVipStatusOfEvent(eventID, vipStatus, gw);
             return true;
         }
         return false;
@@ -264,7 +257,6 @@ class EventManagementSystem extends subSystem{
             }
         }
         int eventID = em.createEvent(type1, type2, sID, sTime, eTIme, topic, rID, cap, vipStatus, gw);
-//        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
         um.addEventToOrganizedList(eventID, user, gw);
         for (int speakerID : sID){
             um.addEventToSpeaker(eventID, speakerID, gw);
@@ -290,7 +282,6 @@ class EventManagementSystem extends subSystem{
         }
         int eventID = em.createEvent(type1, type2, sTime, eTime, topic, rID, cap, vipStatus, gw);
         um.addEventToOrganizedList(eventID, user, gw);
-//        em.changeVipStatusOfEvent(eventID, vipStatus, gw);
         return true;
     }
 

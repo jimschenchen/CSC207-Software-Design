@@ -86,14 +86,12 @@ class ViewingSystem extends subSystem{
      */
     List<List<String>> viewCanSignUpEvents(GatewayFacade gw) {
         List<Integer> allEvents = em.getEventList(gw);
-        System.out.println(allEvents);
         List<List<String>> allEventsInfo = new ArrayList<>();
         for (Integer eventID : allEvents) {
             if (um.canSignUpForEvent(eventID, user, gw) && em.canAddUserToEvent(user, eventID, gw)) {
                 allEventsInfo.add(em.getInfoOfEvent(eventID, gw));
             }
         }
-        System.out.println(allEventsInfo);
         return allEventsInfo;
     }
 

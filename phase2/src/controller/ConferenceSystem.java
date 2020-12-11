@@ -148,15 +148,6 @@ public class ConferenceSystem {
         return false;
     }
 
-//    /**
-//     * Get current logged in user's name.
-//     *
-//     * @return Returns the user name.
-//     */
-//    public String getCurrentUserName(){
-//        return um.getUserName(user, db);
-//    }
-
     /**
      * Get user ID by user name.
      * Return -1 if the user doesn't exist

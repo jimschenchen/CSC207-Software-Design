@@ -113,8 +113,6 @@ public class UserManager {
             Attendee a = (Attendee) g.getUserById(userId);
 
             for (int i = 0; i < a.getSignedUpEventList().size(); i++) {
-                System.out.println(i + " " + a.getSignedUpEventList());
-                System.out.println(g.getEventById(a.getSignedUpEventList().get(i)).getStartTime().isBefore(e.getEndTime()));
                 if (g.getEventById(a.getSignedUpEventList().get(i)).getStartTime().isBefore(e.getEndTime())
                         & g.getEventById(a.getSignedUpEventList().get(i)).getEndTime().isAfter(e.getStartTime())) {
                     return false;
@@ -129,16 +127,6 @@ public class UserManager {
      * @Description: add an Event to Attendee or Organizer
      */
     public void addEventToUser(int eventId, int userId, GatewayFacade g){
-//        if (!isExistingAttendee(userId, g)){
-//            Organizer organizer = g.getOrganizerById(userId);
-//            organizer.signUpEvent(eventId);
-//            g.updateUser(organizer);
-//        }
-//        else{
-//            Attendee attendee = g.getAttendeeById(userId);
-//            attendee.signUpEvent(eventId);
-//            g.updateUser(attendee);
-//        }
         Attendee attendee = (Attendee) g.getUserById(userId);
         attendee.signUpEvent(eventId);
         g.updateUser(attendee);
@@ -405,10 +393,6 @@ public class UserManager {
         return g.getOrganizerById(userId) != null;
     }
 
-//    public boolean isExistingVipUser(int userId, GatewayFacade g) {
-//        return g.getVipUserById(userId) != null;
-//    }
-
     /**
      *
      * @Description check if an event can be canceled
@@ -422,8 +406,6 @@ public class UserManager {
         catch(NullPointerException npe){
             return false; // return false when userID is not pointing to organizer
         }
-        // any organizer can cancel an event
-        // return isExistingOrganizer(userID, gw);
     }
 
     /**
@@ -431,12 +413,6 @@ public class UserManager {
      * @Description cancel an event.
      */
     public void cancelEvent(int eventID, int organizerID, GatewayFacade gw) {
-//        Event event = gw.getEventById(eventID);
-//        List<Integer> userList = event.getSignedUpUserList();
-//        for (Integer userID : userList){
-//            Attendee user = (Attendee) gw.getUserById(userID);
-//            user.cancelEvent(eventID);
-//        }
         if (gw.getMultiSpeakerEventById(eventID) != null){
             MultiSpeakerEvent event = gw.getMultiSpeakerEventById(eventID);
             cancelEventFromSignedUsers(eventID, event, gw);

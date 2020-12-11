@@ -37,12 +37,6 @@ public class EventManager {
             if (roomId == event.getRoomId() &&
                     ((event.getStartTime().isBefore(end) & !(event.getEndTime().isBefore(start) |
                             event.getEndTime().equals(start))) | capacity > g.getRoomById(roomId).getCapacity())) {
-                System.out.println(roomId == event.getRoomId());
-                System.out.print(g.getRoomById(roomId));
-                System.out.println(roomId);
-                System.out.println(capacity > g.getRoomById(roomId).getCapacity());
-                System.out.println(capacity);
-                System.out.println(g.getRoomById(roomId).getCapacity());
                 return false;
             }
         }
@@ -472,12 +466,6 @@ public class EventManager {
      * @Description check if a user can be added to the waitlist
      */
     public boolean canAddUserToWaitList(int eventId, int userId, GatewayFacade g) {
-//        Event e = g.getEventById(eventId);
-//        if (e == null || e.getSignedUpUserList().size() < e.getCapacity()
-//                || (e.isVipEvent() & !(g.getUserById(userId) instanceof VipUser))) {
-//            return false;
-//        }
-//        return true;
         Event event = g.getEventById(eventId);
         if (event == null){
             return false;
@@ -514,14 +502,6 @@ public class EventManager {
                     break;
                 }
             }
-//            int i = 0;
-//            for (int user : waitingUsers){
-//                if (!(g.getUserById(user) instanceof VipUser)){
-//                    event.getWaitList().add(i, userId);
-//                    break;
-//                }
-//                i += 1;
-//            }
         }
         g.updateEvent(event);
     }
