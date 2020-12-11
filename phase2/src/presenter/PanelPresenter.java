@@ -65,7 +65,7 @@ public class PanelPresenter extends Presenter{
      * change the event
      * @param type the type of the user
      * @param eventID the event ID that the user wants to sign up
-     * @param newSetting speaker id
+     * @param newSetting new setting of the event
      */
     public void changeEvent(int type, String eventID, String newSetting) {
         Boolean success;
@@ -126,12 +126,14 @@ public class PanelPresenter extends Presenter{
 
     /**
      * create an event
-     * @param eventType ending time
-     * @param startTime starting time
-     * @param roomNum room id
+     * @param eventType type of the event
+     * @param startTime start time of the event
+     * @param endTime end time of the event
+     * @param speakers speakers of the event
+     * @param roomNum location of the event indicated by the room number
      * @param topic topic of the event
-     * @param capacity capacity
-     * @param vipStatus VIP status
+     * @param capacity capacity of the event
+     * @param vipStatus whether the event need a VIP or not
      */
     public void createEvent(int eventType, String startTime, String endTime, String speakers,
                             String roomNum, String topic, String capacity, int vipStatus) {
@@ -171,7 +173,7 @@ public class PanelPresenter extends Presenter{
 
     /**
      * add other rooms
-     * @param roomNumber room id
+     * @param roomNumber room number
      * @param capacity capacity
      */
     public void addRoom(String roomNumber, String capacity) {
@@ -191,14 +193,14 @@ public class PanelPresenter extends Presenter{
     }
 
     /**
-     * view all the events that can be canceled
+     * view all the events in the waiting list that the user can sign up
      */
     public List<List<String>> viewCanWaitlistEvents() {
         return cs.viewCanWaitlistEvents();
     }
 
     /**
-     * view all the events that can be signed up
+     * view all the events not in the waiting list that the user can sign up
      */
     public List<List<String>> viewCanSignUpEvents() {
         return cs.viewCanSignUpEvents();

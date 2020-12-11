@@ -513,7 +513,7 @@ public class SimplifiedChinese implements Language {
 
     @Override
     public String enterNameAttendee() {
-        return "输入与会者的用户名";
+        return "输入参加者的用户名";
     }
 
     @Override
