@@ -371,6 +371,11 @@ public interface Language {
      */
     String enterIdEvent();
 
+    /**
+     *
+     * @return the String meaning Enter the ID of the speaker
+     */
+
     String enterIdSpeaker();
 
     /**
@@ -456,8 +461,7 @@ public interface Language {
     String mesAllAttendeesInOneEvent();
 
     /**
-     *
-     * @return the String " with capacity " (with space!)
+     * @return the String " with capacity " (with space for language that use space in the grammar!!!)
      */
     String withCapacity();
 
