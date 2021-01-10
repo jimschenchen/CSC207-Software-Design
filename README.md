@@ -2,8 +2,8 @@
 
 ## Descroption
 
-Welcome to the 0173 Conference! \
-This is a java project from CSC207 course. \
+Welcome to the Group 0173 Conference System! \
+This is a java project from CSC207 course of University of Toronto. \
 Reuirement: [click here](https://github.com/jimschenchen/Conference-System/blob/main/ProjectRequirement.md)
 
 ## Group Member
