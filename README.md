@@ -7,6 +7,12 @@ This is a java project from CSC207 course of University of Toronto. \
 Reuirement: [click here](https://github.com/jimschenchen/Conference-System/blob/main/ProjectRequirement.md)
 
 ## Group Member
++ gr4ce
++ dengzey2
++ tangzhen
++ Jinxuan
++ shmanova
++ shenliha
 + [jimschenchen](https://github.com/jimschenchen)
 
 ## Startup
