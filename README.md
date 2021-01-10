@@ -1,16 +1,20 @@
 # Conference-System
-Welcome to the 0173 Conference!
+
+## Descroption
+
+Welcome to the 0173 Conference! \
 This is a java project from CSC207 course.
 
-
 ## Group Member
-+ ([jimschenchen](https://github.com/jimschenchen)）
++ [jimschenchen](https://github.com/jimschenchen)
 
+## Startup
 
+### Database config
 
-## Welcome to the 0173 Conference!
+`pharse2/src/gateway/Config`: Set `DATABASE_URL`, `DATABASE_PORT`, and `DATABASE_PASSWORD`
 
-#### Install Dependency
+### Install Dependency
 1. Right click the `"group_0173" folder` in the `Project Panel` on the left part of view.
 2. Click `Open Module Setting`
 3. Project `setting` -> `Modules` -> `Dependencies`
@@ -28,14 +32,14 @@ This is a java project from CSC207 course.
   - If you want to sign up as a `Speaker`, `Organizer` or `Vip User`, please contact an existing `Organizer` (Use the `Organizer` account we provided)
 
 #### Event
-
-  1.1 To create a new event or cancel an existing event, you have to be an `Organizer`. \
+    
+    1.1 To create a new event or cancel an existing event, you have to be an `Organizer`. \
       You have to assign the new event with capcity, roomId, start and end time \
       (`Note` the start time need be before end time and current time, the capacity of event needs to less than the capacity of room\
       Also, the `NonSpeakerEvent` can't be created with a speaker and the `MultiSpeakerEvent` can't be created with less than 2 speakers)
     
-  1.2 You can make changes to existing event. You can assign the event with new settings include the speaker, capacity and VIP status\
-      (`Note` You can change speaker for 'OneSpeakerEvent' but you can only add new speaker to `MultiSpeakerEvent`)
+    1.2 You can make changes to existing event. You can assign the event with new settings include the speaker, capacity and VIP status\
+        (`Note` You can change speaker for 'OneSpeakerEvent' but you can only add new speaker to `MultiSpeakerEvent`)
 
 #### Room
     Each room has a room number and capacity. For example, you can create a room with room number BA1020 with capacity 10.
