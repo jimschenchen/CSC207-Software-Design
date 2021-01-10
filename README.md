@@ -10,7 +10,7 @@ Requirement: [click here](https://github.com/jimschenchen/Conference-System/blob
 
 + gr4ce
 + dengzey2
-+ tangzhen
++ [tangzhen](tangzhen1027@gmail.com)
 + Jinxuan
 + shmanova
 + [shenliha](https://github.com/baqiaoabc)
