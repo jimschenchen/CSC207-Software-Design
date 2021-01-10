@@ -3,7 +3,8 @@
 ## Descroption
 
 Welcome to the 0173 Conference! \
-This is a java project from CSC207 course.
+This is a java project from CSC207 course. \
+Reuirement: 
 
 ## Group Member
 + [jimschenchen](https://github.com/jimschenchen)
