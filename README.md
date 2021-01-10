@@ -4,7 +4,7 @@
 
 Welcome to the 0173 Conference! \
 This is a java project from CSC207 course. \
-Reuirement: 
+Reuirement: [click here](https://github.com/jimschenchen/Conference-System/blob/main/ProjectRequirement.md)
 
 ## Group Member
 + [jimschenchen](https://github.com/jimschenchen)
