@@ -13,7 +13,7 @@ Requirement: [click here](https://github.com/jimschenchen/Conference-System/blob
 + tangzhen
 + Jinxuan
 + shmanova
-+ shenliha
++ [shenliha](https://github.com/baqiaoabc)
 + [jimschenchen](https://github.com/jimschenchen)
 
 ## Startup
