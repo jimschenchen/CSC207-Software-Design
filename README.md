@@ -11,7 +11,7 @@ Requirement: [click here](https://github.com/jimschenchen/Conference-System/blob
 + gr4ce
 + dengzey2
 + [tangzhen](https://github.com/TZ-zzz)
-+ [Jinxuan](jennawang0965@gmail.com)
++ [Jinxuan](https://github.com/Jenna-wang-0965)
 + shmanova
 + [shenliha](https://github.com/baqiaoabc)
 + [jimschenchen](https://github.com/jimschenchen)
