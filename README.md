@@ -8,7 +8,7 @@ Requirement: [click here](https://github.com/jimschenchen/Conference-System/blob
 
 ## Group Member
 
-+ gr4ce
++ [gr4ce](https://github.com/intezzz)
 + dengzey2
 + [tangzhen](https://github.com/TZ-zzz)
 + [Jinxuan](https://github.com/Jenna-wang-0965)
