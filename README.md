@@ -1,6 +1,10 @@
 # Conference-System
 
-## Descroption
+![GitHub Release Date](https://img.shields.io/github/release-date/jimschenchen/Conference-System)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jimschenchen/Conference-System)
+
+
+## Description
 
 Welcome to the Group 0173 Conference System! \
 This is a java project from CSC207 course of University of Toronto. \
