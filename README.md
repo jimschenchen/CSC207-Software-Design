@@ -1,8 +1,12 @@
-# Conference-System
+# CSC207-Software-Design Final Project
+
+# Course Description
+An introduction to software design and development concepts, methods, and tools using a statically-typed object-oriented programming language such as Java. Topics from: version control, unit testing, refactoring, object-oriented design and development, design patterns, advanced IDE usage, regular expressions, and reflection. Representation of floating-point numbers and introduction to numerical computation.
+
+# Final Project: Conference-System
 
 ![GitHub Release Date](https://img.shields.io/github/release-date/jimschenchen/Conference-System)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jimschenchen/Conference-System)
-
 
 ## Description
 
