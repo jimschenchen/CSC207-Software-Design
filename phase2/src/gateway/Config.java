@@ -6,9 +6,15 @@ package gateway;
  * @create: 2020-11-30 14:33
  **/
 public class Config {
+<<<<<<< HEAD
     static final String DATABASE_URL = "url";
     static final int DATABASE_PORT = 00;
     static final String DATABASE_PASSWORD = "password";
+=======
+    static final String DATABASE_URL = "207.246.94.177";
+    static final int DATABASE_PORT = 6379;
+    static final String DATABASE_PASSWORD = "207207";
+>>>>>>> master
 
     static final String NEXT_USER_ID = "next_user_id";
     static final String NEXT_EVENT_ID = "next_event_id";
