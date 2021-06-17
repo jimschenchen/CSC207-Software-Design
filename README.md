@@ -17,7 +17,7 @@ Requirement: [click here](https://github.com/jimschenchen/Conference-System/blob
 ## Group Member
 
 + [gr4ce](https://github.com/intezzz)
-+ dengzey2
++ [dengzey2](https://github.com/LyannaDZY)
 + [tangzhen](https://github.com/TZ-zzz)
 + [Jinxuan](https://github.com/Jenna-wang-0965)
 + shmanova
